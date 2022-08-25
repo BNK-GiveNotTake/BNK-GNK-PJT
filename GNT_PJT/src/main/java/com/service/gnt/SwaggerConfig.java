@@ -19,8 +19,8 @@ public class SwaggerConfig {
 	
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-			.title("Demo")
-			.description("API EXAMPLE")
+			.title("Give-Not-Take Swagger Doc")
+			.description("API 한눈에 보기")
 			.version("1.0")
 			.build();
 	}
