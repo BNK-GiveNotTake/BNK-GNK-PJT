@@ -20,7 +20,7 @@ public class SwaggerConfig {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 			.title("Give-Not-Take Swagger Doc")
-			.description("API 한눈에 보기")
+			.description("기브낫테이크 화이팅")
 			.version("1.0")
 			.build();
 	}
