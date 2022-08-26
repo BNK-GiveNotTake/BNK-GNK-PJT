@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 
 import com.service.gnt.model.service.AccountService;
 
-
 @Controller
 public class AccountController {
 	

@@ -25,6 +25,9 @@
 			</dataSource>
 		</environment>
 	</environments> 
+	<mappers>
+		<mapper resource="mapper/account.xml"/>
+	</mappers>
 </configuration>
  
  

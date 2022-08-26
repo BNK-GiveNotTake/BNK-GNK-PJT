@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiOperation;
 
-
 @RestController
 public class CommonController {
 	
