@@ -40,13 +40,13 @@
 		WHERE acc_id = #{accId}
 	</update>
 	
-	<update id="sendAcc" parameterType="accountTrans">
+<!-- 	<update id="sendAcc" parameterType="accountTrans">
 		UPDATE account a, account b
 		SET (a.acc_amount, b.acc_amount) = 
 		( SELECT acc_amount - #{accAmount} FROM account WHERE acc_id = #{senderAccId},
 			SELECT acc_amount + #{accAmount} FROM account WHERE acc_id = #{receiverAccId},
 		)
-	</update>
+	</update> -->
 	
 	<insert id="createMile" parameterType="mileageHistory">
 		<selectKey keyProperty="miId" resultType="int" order="BEFORE">
