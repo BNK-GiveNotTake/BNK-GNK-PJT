@@ -1,5 +1,7 @@
 package com.service.gnt.model.service;
 
-public interface CommonService {
+import com.service.gnt.domain.users.Users;
 
+public interface CommonService {
+	Users getUserById(int userId);
 }

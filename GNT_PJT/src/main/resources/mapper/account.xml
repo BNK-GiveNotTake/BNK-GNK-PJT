@@ -3,14 +3,14 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="ns.sql.AccountMapper">
-	<!-- 
 	<resultMap type="account" id="userSelectMap">
-		<result property="id" column="id" jdbcType="NUMERIC" />	
-		<result property="name" column="name" jdbcType="VARCHAR" />	
-		<result property="maker" column="maker" jdbcType="VARCHAR" />	
-		<result property="price" column="price" jdbcType="NUMERIC" />
+		<result property="accId" column="acc_id" jdbcType="VARCHAR" />	
+		<result property="cardId" column="card_id" jdbcType="VARCHAR" />	
+		<result property="accPassword" column="acc_password" jdbcType="NUMERIC" />	
+		<result property="price" column="create_time" jdbcType="DATE" />
+		<result property="accAmount" column="acc_password" jdbcType="NUMERIC" />	
+		<result property="mileage" column="mileage" jdbcType="NUMERIC" />	
 	</resultMap>
-	 -->
 	<insert id="createAcc" parameterType="account">
 		<selectKey keyProperty="id" resultType="int" order="BEFORE">
 			SELECT TRUNC(DBMS_RANDOM.VALUE(power(10,16)+1, power(10,17)-1)) RANDOM FROM DUAL;
@@ -32,21 +32,21 @@
 		UPDATE account
 		SET acc_amount = acc_amount 
 		<if test="#{account.accAmount} lt 0">
-		- ABS(#{account.accAmount})
+		- ABS(#{accAmount})
 		</if>
 		<if test="#{account.accAmount} ge 0">
-		+ ABS(#{account.accAmount})
+		+ ABS(#{accAmount})
 		</if>
-		WHERE acc_id = #{account.accId}
+		WHERE acc_id = #{accId}
 	</update>
 	
-	<update id="sendAcc" parameterType="accountTrans">
+<!-- 	<update id="sendAcc" parameterType="accountTrans">
 		UPDATE account a, account b
 		SET (a.acc_amount, b.acc_amount) = 
-		( SELECT acc_amount - #{accountTrans.accAmount} FROM account WHERE acc_id = #{accountTrans.senderAccId},
-			SELECT acc_amount + #{accountTrans.accAmount} FROM account WHERE acc_id = #{accountTrans.receiverAccId},
+		( SELECT acc_amount - #{accAmount} FROM account WHERE acc_id = #{senderAccId},
+			SELECT acc_amount + #{accAmount} FROM account WHERE acc_id = #{receiverAccId},
 		)
-	</update>
+	</update> -->
 	
 	<insert id="createMile" parameterType="mileageHistory">
 		<selectKey keyProperty="miId" resultType="int" order="BEFORE">
@@ -71,13 +71,25 @@
 	
 	<update id="addMile" parameterType="mileageHistory">
 		UPDATE mileage_history
-		SET mileage_amount = mileage_amount + #{mileageHistory.mileageAmount}
-		WHERE mileage_pk = #{mileageHistory.mileagePk}
+		SET mileage_amount = mileage_amount + #{mileageAmount}
+		WHERE mileage_pk = #{mileagePk}
 	</update>
+	
+	<select id="getMileageHistory" parameterType="string" resultType="mileageHistory">
+		SELECT *
+		FROM mileage_history
+		WHERE mileage_pk = #{VALUE}
+	</select>
+
+	<select id="getAccount" parameterType="string" resultType="account">
+		SELECT (acc_id, card_id, acc_password, create_time, acc_amount, mileage)
+		FROM account
+		WHERE acc_id = #{VALUE}
+	</select>
 	
 <!-- 	<update id="sendAcc" parameterType="accountTrans">
 		UPDATE account
-		SET acc_amount = acc_amount - #{accountTrans.accAmount}
-		WHERE acc_id = #{accountTrans.senderAccId}
+		SET acc_amount = acc_amount - #{accAmount}
+		WHERE acc_id = #{senderAccId}
 	</update> -->
 </mapper>

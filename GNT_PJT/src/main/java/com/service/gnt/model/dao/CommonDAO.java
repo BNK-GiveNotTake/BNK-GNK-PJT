@@ -1,5 +1,7 @@
 package com.service.gnt.model.dao;
 
-public interface CommonDAO {
+import com.service.gnt.domain.users.Users;
 
+public interface CommonDAO {
+	Users getUserById(int userId);
 }
