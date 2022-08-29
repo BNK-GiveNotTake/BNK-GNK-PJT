@@ -19,8 +19,8 @@ public class CommonController {
 	@ApiOperation(value="index page", notes="Start 페이지로 이동")
 	@GetMapping("/")
 	public void index(HttpServletResponse response) throws Exception {
-		//uri = "Main/Start.html";
-		uri = "swagger-ui.html"; //임시로 스웨거로 연결했음.
+		uri = "Main/Start.html";
+//		uri = "swagger-ui.html"; //임시로 스웨거로 연결했음.
 		response.sendRedirect(uri);
 	}
 	
