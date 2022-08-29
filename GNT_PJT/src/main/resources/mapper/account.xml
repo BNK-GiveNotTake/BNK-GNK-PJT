@@ -22,7 +22,7 @@
 		VALUES (#{id}, #{accPassword}, sysdate)
 	</insert>
 	
-	<select id="getAccBalance" parameterType="string" resultType="int">
+	<select id="getAccBalance" parameterType="string" resultType="int" >
 		SELECT acc_amount
 		FROM account
 		WHERE acc_id = #{VALUE}

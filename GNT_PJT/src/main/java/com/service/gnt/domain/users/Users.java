@@ -9,13 +9,13 @@ public class Users {
 	
 	private int userId;
 	private Account account;
+	private String accId;
 	private String userName;
-	private String userEngName;
+	private String userNameEng;
 	private String userEmail;
 	private String userPassword;
-	private Date birthday;
 	private String address;
-	private String userPhone;
+	private String Phone;
 	private int totalDonation;
 	private Quiz quiz;
 	private char isQuizParticipate; // BOOLEAN
@@ -29,30 +29,54 @@ public class Users {
 		this.userEmail = userEmail;
 		this.userPassword = userPassword;
 	}
-
-	public Users(int userId, Account account, String userName, String userEngName, String userEmail,
-			String userPassword, Date birthday, String address, String userPhone, int totalDonation, Quiz quiz,
+/*
+	public Users(int userId, Account account, String userName, String userNameEng, String userEmail,
+			String userPassword, Date birthday, String address, String Phone, int totalDonation, Quiz quiz,
 			char isQuizParticipate) {
 		super();
 		this.userId = userId;
 		this.account = account;
 		this.userName = userName;
-		this.userEngName = userEngName;
+		this.userNameEng = userNameEng;
 		this.userEmail = userEmail;
 		this.userPassword = userPassword;
-		this.birthday = birthday;
 		this.address = address;
-		this.userPhone = userPhone;
+		this.Phone = Phone;
 		this.totalDonation = totalDonation;
 		this.quiz = quiz;
 		this.isQuizParticipate = isQuizParticipate;
 	}
-	public String getUserPhone() {
-		return userPhone;
+	*/
+	public Users(int userId, String accId, String userName, String userNameEng, String userEmail, String userPassword,
+			String address, String Phone, int totalDonation, Quiz quiz, char isQuizParticipate) {
+		super();
+		this.userId = userId;
+		this.accId = accId;
+		this.userName = userName;
+		this.userNameEng = userNameEng;
+		this.userEmail = userEmail;
+		this.userPassword = userPassword;
+		this.address = address;
+		this.Phone = Phone;
+		this.totalDonation = totalDonation;
+		this.quiz = quiz;
+		this.isQuizParticipate = isQuizParticipate;
 	}
 
-	public void setUserPhone(String userPhone) {
-		this.userPhone = userPhone;
+	public String getAccId() {
+		return accId;
+	}
+
+	public void setAccId(String accId) {
+		this.accId = accId;
+	}
+
+	public String getUserPhone() {
+		return Phone;
+	}
+
+	public void setUserPhone(String Phone) {
+		this.Phone = Phone;
 	}
 
 	public int getUserId() {
@@ -127,26 +151,19 @@ public class Users {
 		this.isQuizParticipate = isQuizParticipate;
 	}
 	public String getUserEngName() {
-		return userEngName;
+		return userNameEng;
 	}
 
-	public void setUserEngName(String userEngName) {
-		this.userEngName = userEngName;
-	}
-
-	public Date getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
+	public void setUserEngName(String userNameEng) {
+		this.userNameEng = userNameEng;
 	}
 
 	@Override
 	public String toString() {
-		return "Users [userId=" + userId + ", account=" + account + ", userName=" + userName + ", userEngName="
-				+ userEngName + ", userEmail=" + userEmail + ", userPassword=" + userPassword + ", birthday=" + birthday
-				+ ", address=" + address + ", totalDonation=" + totalDonation + ", quiz=" + quiz
-				+ ", isQuizParticipate=" + isQuizParticipate + "]";
+		return "Users [userId=" + userId + ", accId=" + accId + ", userName=" + userName + ", userNameEng="
+				+ userNameEng + ", userEmail=" + userEmail + ", userPassword=" + userPassword + ", address=" + address
+				+ ", Phone=" + Phone + ", totalDonation=" + totalDonation + ", quiz=" + quiz + ", isQuizParticipate="
+				+ isQuizParticipate + "]";
 	}
+
 }

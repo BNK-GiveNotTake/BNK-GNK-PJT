@@ -17,9 +17,9 @@ public class AccountServiceImpl implements AccountService{
 	@Autowired
 	private AccountDAO accountDAO;
 
-	public void createAcc(int userId, int accPassword, String userEmail, String userEngName, Date birthday,
+	public void createAcc(int userId, int accPassword, String userEmail, String userEngName,
 			String address, String userPhone) {
-		accountDAO.createAcc(userId, accPassword, userEmail, userEngName, birthday, address, userPhone);
+		accountDAO.createAcc(userId, accPassword, userEmail, userEngName, address, userPhone);
 	}
 
 	public int getAccBalance(String accId) {

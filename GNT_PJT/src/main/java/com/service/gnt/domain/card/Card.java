@@ -8,6 +8,7 @@ public class Card {
 	private String endTime; // date
 	private String background;
 	private Emo emo; // fk
+	private int emoId;
 	private String emoInfo;
 	private String font;
 	private String cardContent;
@@ -28,6 +29,31 @@ public class Card {
 		this.emoInfo = emoInfo;
 		this.font = font;
 		this.cardContent = cardContent;
+	}
+
+
+	public Card(String cardId, int cvc, String createTime, String endTime, String background, int emoId, String emoInfo,
+			String font, String cardContent) {
+		super();
+		this.cardId = cardId;
+		this.cvc = cvc;
+		this.createTime = createTime;
+		this.endTime = endTime;
+		this.background = background;
+		this.emoId = emoId;
+		this.emoInfo = emoInfo;
+		this.font = font;
+		this.cardContent = cardContent;
+	}
+
+
+	public int getEmoId() {
+		return emoId;
+	}
+
+
+	public void setEmoId(int emoId) {
+		this.emoId = emoId;
 	}
 
 
