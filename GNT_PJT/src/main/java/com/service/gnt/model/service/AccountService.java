@@ -9,12 +9,14 @@ import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
 
 public interface AccountService {
-	void createAcc(int accPassword, String email, String name, String nameEnglish, Date birthday, String address, Number phone);
-	int getAccBalance(String accId);
-	void depositAcc(int amount);
-	void sendAcc(int amount, String accId);
-	MileageHistory createMile(MileageHistory vo);
-	int getMileBalance(int mileagePk);
-	List<MileageHistory> getMileHistory(Session session);
-	void addMile(int amount, String accId);
+	public void createAcc(int userId, int accPassword, String userEmail, String userEngName, Date birthday, String address,
+			String userPhone);
+	public int getAccBalance(String accId);
+	public void depositAcc(int userId, int amount);
+	public void sendAcc(int userId, int amount, String accId);
+	public void createMile(int userId);
+	public int getMileBalance(int mileagePk);
+	public List<MileageHistory> getMileHistory(int userId);
+	public void addMile(int amount, int userId);
+	public int getMilePk(int userId);
 }
