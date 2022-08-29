@@ -4,8 +4,8 @@
 	
 <mapper namespace="ns.sql.UserMapper">
 	<update id="addInfoUser" parameterType="users">
-	UPDATE users SET (user_eng_name, address, birthday)
-	VALUES (#{userEngName},#{address},#{birthday})
+	UPDATE users SET (user_eng_name, address)
+	VALUES (#{userEngName},#{address})
 	WHERE id = #{accId}
 	</update>
 	<select id="getUserById" parameterType="string" resultType="users">
