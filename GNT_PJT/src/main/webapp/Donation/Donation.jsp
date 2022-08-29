@@ -19,10 +19,59 @@
 			$('#donation').addClass('loaded');
 		});
 		$(function() {
-			$('.cards').on('click', 'screen__view_part', changeRecent())
+			/* $('.cards').on('click', '.card__img--hover', changeRecent()); */
+			$('.card__img').click(changeRecent());
+			
+			var delay = 500;
+			$('.top-btn').click(function() {
+				$('html, body').stop().animate({scrollTop: 0}, delay);
+			})
+			
+			$('#all').click(function() {
+				removeSelected();
+				$(this).addClass('selected')
+			})
+			$('#child').click(function() {
+				removeSelected();
+				$(this).addClass('selected')
+			})
+			$('#old').click(function() {
+				removeSelected();
+				$(this).addClass('selected')
+			})
+			$('#disabled').click(function() {
+				removeSelected();
+				$(this).addClass('selected')
+			})
+			$('#multiculture').click(function() {
+				removeSelected();
+				$(this).addClass('selected')
+			})
+			$('#global').click(function() {
+				removeSelected();
+				$(this).addClass('selected')
+			})
+			$('#family').click(function() {
+				removeSelected();
+				$(this).addClass('selected')
+			})
+			$('#animal').click(function() {
+				removeSelected();
+				$(this).addClass('selected')
+			})
+			$('#environ').click(function() {
+				removeSelected();
+				$(this).addClass('selected')
+			})
 		})
 		
-		function changeRecent() {
+		const removeSelected = function() {
+			var btnList = $('.donation-btn')
+			btnList.removeClass('selected')
+		}
+		
+		const changeRecent = function() {
+			console.log("실행되나????")
 			var recentList = localStorage.getItem("recentList")
 			if (recentList==null) {
 				recentList = ["https://happybean-phinf.pstatic.net/20220819_67/1660868531689IgY4X_JPEG/메인이미지01jpg?type=w720"]
@@ -30,7 +79,6 @@
 				localStorage.setItem("recentList", recentList)
 			} else {
 				recentList = JSON.parse(recentList)
-				console.log(recentList.length)
 				if (recentList.length == 3) {
 					recentList.shift();
 				}
@@ -40,9 +88,9 @@
 				localStorage.setItem("recentList", recentList)
 			}
 			recentList = JSON.parse(recentList)
-			$('.screen__view_part').empty()
+			$('.recent-items').empty()
 			$.each(recentList, function(index, item) {
-				$('.screen__view_part').append('<div class=recent-item><img src='+item+'></div>')
+				$('.recent-items').append('<div class=recent-item><img src='+item+'></div>')
 			})	
 		}
 		
@@ -59,14 +107,16 @@
 		<div class="row" style="width: 99vw;">
 			<div class="col-10 row" style="border-right: 1px solid #c4c5c4; padding-left: 3rem; padding-right: 0rem;">
 				<div class="donation-category">
-					<button class="donation-btn">아동•청소년</button>
-					<button class="donation-btn">어르신</button>
-					<button class="donation-btn">장애인</button>
-					<button class="donation-btn">다문화</button>
-					<button class="donation-btn">지구촌</button>
-					<button class="donation-btn">가족•여성</button>
-					<button class="donation-btn">동물</button>
-					<button class="donation-btn">환경</button>
+					<span>기부</span>
+					<button class="donation-btn selected" id="all">전체</button>
+					<button class="donation-btn" id="child">아동•청소년</button>
+					<button class="donation-btn" id="old">어르신</button>
+					<button class="donation-btn" id="disabled">장애인</button>
+					<button class="donation-btn" id="multiculture">다문화</button>
+					<button class="donation-btn" id="global">지구촌</button>
+					<button class="donation-btn" id="family">가족•여성</button>
+					<button class="donation-btn" id="animal">동물</button>
+					<button class="donation-btn" id="environ">환경</button>
 				</div>
 				
 				<c:forEach var="i" begin="0" end="5">
@@ -110,45 +160,14 @@
 					</section>
 				</c:forEach>
 				
-				<div class="mb-5 col-12">
-					<ul class="pagination justify-content-center">
-						<li><a href="#0">&lt;</a></li>
-						<li><a class="active" href="#0">1</a></li>
-						<li><a href="#0">2</a></li>
-						<li><a href="#0">3</a></li>
-						<li><a href="#0">4</a></li>
-						<li><a href="#0">&gt;</a></li>
-					</ul>
-				</div>
 			</div>
 			<div class="col-2">
 				<div class="recent">
-					<div class="iphonex">
-						<div class="front">
-							<div class="screen">
-								<div class="screen__view">
-									<div style="pt-5">최근에 본 목록</div>
-									<div class="screen__view_part">
-									
-									</div>
-									<div style="margin-top: 0.5rem;">TOP</div>
-								</div>
-								<div class="screen__front">
-									<div class="screen__front-speaker"></div>
-									<div class="screen__front-camera"></div>
-								</div>
-							</div>
-							<div class="front__line"></div>
-							<div class="front__line front__line-second"></div>
-						</div>
-						<div class="phoneButtons phoneButtons-right"></div>
-						<div class="phoneButtons phoneButtons-left"></div>
-						<div class="phoneButtons phoneButtons-left2"></div>
-						<div class="phoneButtons phoneButtons-left3"></div>
-						<div class="back"></div>
+					<h4 align="center">최근 본 목록</h4>
+					<div class="recent-items">
+					
 					</div>
-					<div align="center" class="recent-items">
-					</div>
+					<button class="top-btn">TOP</button>
 				</div>
 			</div>
 		</div>
