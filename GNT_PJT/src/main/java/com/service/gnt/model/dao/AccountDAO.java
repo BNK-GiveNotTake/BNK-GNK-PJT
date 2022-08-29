@@ -10,7 +10,7 @@ import com.service.gnt.domain.account.MileageHistory;
 import com.service.gnt.domain.users.Users;
 
 public interface AccountDAO {
-	public void createAcc(int userId, int accPassword, String userEmail, String userEngName, Date birthday, String address,
+	public void createAcc(int userId, int accPassword, String userEmail, String userEngName, String address,
 			String userPhone);
 	public int getAccBalance(String accId);
 	public void depositAcc(int userId, int amount);

@@ -6,6 +6,9 @@ public class Account {
 	
 	private String accId;
 	private Card card;
+	private String cardId;
+
+
 	private int accPassword;
 	private String createTime;
 	private int accAmount;
@@ -14,7 +17,7 @@ public class Account {
 	
 	public Account() {}
 
-
+/*
 	public Account(String accId, Card card, int accPassword, String createTime, int amount, int mileage) {
 		super();
 		this.accId = accId;
@@ -23,6 +26,26 @@ public class Account {
 		this.createTime = createTime;
 		this.accAmount = amount;
 		this.mileage = mileage;
+	}
+	*/
+	public Account(String accId, String cardId, int accPassword, String createTime, int accAmount, int mileage) {
+		super();
+		this.accId = accId;
+		this.cardId = cardId;
+		this.accPassword = accPassword;
+		this.createTime = createTime;
+		this.accAmount = accAmount;
+		this.mileage = mileage;
+	}
+
+
+	public String getCardId() {
+		return cardId;
+	}
+
+
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
 	}
 
 
