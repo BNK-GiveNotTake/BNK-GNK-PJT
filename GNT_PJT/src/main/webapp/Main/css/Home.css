@@ -146,14 +146,11 @@ body {
 .smooth #home {
   background-color: #ebc247;
 }
-.smooth #account {
-  background-color: #99eb47;
-}
 .smooth #donation {
   background-color: #47ebeb;
 }
 .smooth #card-issue {
-	background-color: #9947eb;
+	background-color: #99eb47;
 }
 .smooth #event {
 	background-color: #eb47c2;

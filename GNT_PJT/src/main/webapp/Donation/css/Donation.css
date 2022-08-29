@@ -14,24 +14,42 @@
     border-bottom: 1px solid #c4c5c4;
     padding-bottom: 1.5rem;
     display: flex;
-    justify-content: space-evenly;
-    padding-left: 1.5rem;
+    justify-content: space-evenly;\
+    align-center: center;
+    padding-left: 0.5rem;
     padding-right: 1.5rem;
+}
+
+.donation-category span {
+	font-size: 1.75rem;
+	margin-right: 2rem;
+	font-family: 'Happiness-Sans-Title';
+	font-weight: bold;
 }
 
 .donation-btn {
 	padding: 0.3rem 1rem;
 	margin-left: 0.5rem;
 	margin-right: 0.5rem;
-	border: 1px solid #c4c5c4;
+	font-weight: bold;
+	color: #47ebeb;
+	border: 1px solid #47ebeb;
 	border-radius: 20px;
 	background-color: white;
 }
 
 .donation-btn:hover{
 	font-weight: bold;
-	border: 1px solid #f5d7d7;
-	background-color: #fff7f7;
+	color: white;
+	border: 1px solid #47ebeb;
+	background-color: #47ebeb;
+}
+
+.donation-btn.selected{
+	font-weight: bold;
+	color: white;
+	border: 1px solid #47ebeb;
+	background-color: #47ebeb;
 }
 
 .cards {
@@ -205,209 +223,46 @@
 	height: 8px;
 }
 
-/* Pagination */
 
-.pagination {
-  position: relative;
-  padding: 10px;
-}
-.pagination li {
-  display: inline-block;
-  list-style: none;
-}
-.pagination li a {
-  display: block;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  background-color: #fff;
-  text-align: center;
-  text-decoration: none;
-  color: #252525;
-  border-radius: 4px;
-  margin: 5px;
-  box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease;
-}
-.pagination li a:hover, .pagination li a.active {
-  color: #fff;
-  background-color: #ff4242;
-}
-.pagination li:first-child a {
-  border-radius: 40px 0 0 40px;
-}
-.pagination li:last-child a {
-  border-radius: 0 40px 40px 0;
-}
-
-
-/* ranking */
-
+/* side */
 .recent {
+	border: 3px solid #47ebeb;
+    padding: 1rem;
+    border-radius: 30px;
+    margin-left: 2rem;
+    width: 15vw;
 	position: sticky;
-	top: 20%;
-	margin-left: 15px;
+	top: 13%;
 }
 
-.recent-item {
-	width: 75%;
-	margin-top: 1rem;
+.recent h4 {
+	color: #47ebeb;
+	font-weight: bold;
 }
 
 .recent-item img {
 	width: 100%;
-	border-radius: 15px;
+	margin: 1rem 0;
 }
 
-
-/* iphone */
-
-.iphonex {
-	width: 13em;
-    height: 26em;
-    display: flex;
-    position: relative;
-    transform: rotate(0deg);
-    transition: all cubic-bezier(0.36, 0.41, 0.38, 1) 0.4s;
-    z-index: 10;
-}
-.iphonex .back {
-	display: flex;
-    flex: 1;
-    margin: 0.2em;
-    border-radius: 3em;
-    position: absolute;
-    z-index: 1;
-    width: calc( 100% - 0.6em );
-    height: calc( 100% - 0.6em );
-    top: 0;
-    right: 0;
-    box-shadow: 0 0 10em rgb(70 70 70 / 10%);
-    transition: all 0.4s;
-}
-.iphonex .front {
-	display: flex;
-    flex: 1;
-    background-color: #292c2d;
-    border-radius: 1.8em;
-    margin: 0.2em;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 0.1em 0.4em rgb(255 255 255 / 10%) inset;
-    z-index: 10;
-}
-.iphonex .screen{
-	display: flex;
-    flex: 1;
-    background-color: #191b1c;
-    margin: 0.2em;
-    border-radius: 1.8em;
-    border: solid 0.2em #121415;
-    position: relative;
-    z-index: 10;
-}
-.iphonex .front__line{
-	background: linear-gradient(to right, #515455, #454748, #515455);
-    position: absolute;
-    z-index: 8;
-    width: 100%;
-    height: 0.5em;
-    top: 10%;
-}
-.iphonex .front__line-second{
-	top: 90%
-}
-.iphonex .screen .screen__view{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin: 0.3em;
-	border-radius: 1em;
-	overflow: hidden;
+.top-btn {
 	width: 100%;
-	position: relative;
-	align-items: center;
-	justify-content: center;
+	font-family: 'Happiness-Sans-Title';
+	padding: 1rem;
+    margin-top: 1.5rem;
+    font-weight: bold;
+	color: #47ebeb;
+	border: 1px solid #47ebeb;
+	border-radius: 30px;
 	background-color: white;
 }
-.iphonex .screen .screen__view .screen__view_part{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
 
-.iphonex .screen .screen__view:after,.iphonex .screen .screen__view:before{
-	content: "";
-	position: absolute;
-	z-index: 1;
-	width: 50em;
-	height: 50em;
-	border-radius: 50%;
-	background: white;
-	bottom: 0;
-	transform:  translateY(100%) scaleX(1.4);
+.top-btn:hover {
+	font-weight: bold;
+	color: white;
+	border: 3px solid #47ebeb;
+	background-color: #47ebeb;
 }
-
-.iphonex .screen .screen__front{
-	position: absolute;
-    width: 50%;
-    background-color: #191b1c;
-    height: 1.2em;
-    border-radius: 0 0 0.9em 0.9em;
-    right: 25%;
-    top: -2%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 0.3em;
-    box-sizing: border-box;
-    margin-top: 0.5em;
-    z-index: 999;
-}
-.iphonex .screen .screen__front-speaker{
-	background: #070808;
-    border-radius: 0.2em;
-    height: 0.35em;
-    width: 28%;
-}
-.iphonex .screen .screen__front-camera{
-    height: 0.35em;
-    width: 0.35em;
-    background: #272727;
-    margin-left: 0.5em;
-    border-radius: 50%;
-    margin-right: -0.8em;
-}
-.iphonex .phoneButtons{
-	width: 1em;
-	height: 6em;
-	position: absolute;
-	z-index: 2;
-	background: linear-gradient(to bottom, #212324, #2b2e31,#212324);
-	box-shadow: 0 0 0.4em rgba(255, 255, 255, 0.1) inset;
-	border-radius: 2px;
-}
-.iphonex .phoneButtons-right{
-	right: 0;
-    top: 20%;
-}
-.iphonex .phoneButtons-left{
-    left: 0;
-    top: 15%;
-    height: 2rem;
-}
-.iphonex .phoneButtons-left2{
-	left: 0;
-    top: 25%;
-    height: 2rem;
-}
-.iphonex .phoneButtons-left3{
-	left: 0;
-    top: calc( 25% + 4em);
-    height: 2rem;
-}
-
-
 
 /* loading 화면 */
 #loader-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; }
