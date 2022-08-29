@@ -31,10 +31,10 @@
 	<update id="depositAcc" parameterType="account">
 		UPDATE account
 		SET acc_amount = acc_amount 
-		<if test="#{account.accAmount} lt 0">
+		<if test="#{accAmount} lt 0">
 		- ABS(#{accAmount})
 		</if>
-		<if test="#{account.accAmount} ge 0">
+		<if test="#{accAmount} ge 0">
 		+ ABS(#{accAmount})
 		</if>
 		WHERE acc_id = #{accId}
