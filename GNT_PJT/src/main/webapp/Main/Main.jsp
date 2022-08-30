@@ -10,6 +10,8 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<style scoped>
 		@import url("css/Main.css?ver=1");
 	</style>
@@ -17,6 +19,54 @@
 		$(window).on('load', function() {
 			$('#main').addClass('loaded');
 		});
+		
+		$(function() {
+			$('.mileage-shopbtn').click(function() {
+				console.log($(this).prop('value'))
+				swal({
+					  title: "정말로 구매하시겠습니까?",
+					  text: "한 번 구매하시면, 청약철회 불가능합니다.",
+					  icon: "info",
+					  buttons: true,
+					  dangerMode: true,
+					})
+					.then((willDelete) => {
+					  if (willDelete) {
+					    swal("감사합니다! 성공적으로 구매하셨습니다!!", {
+					      icon: "success",
+					    });
+					  } else {
+					  	swal.close();
+					  }
+					});
+			})
+		})
+		
+		function mobile_keyup(obj){
+		    let mobile_len = obj.value.length;
+		    if(event.keyCode==8){
+		        obj.value=obj.value.slice(0,mobile_len); 
+		        return 0; 
+		    }else if (mobile_len==3 || mobile_len==8){
+		        obj.value += '-';
+		    }
+		}
+		
+		function openHomeSearch(){
+			new daum.Postcode({
+				oncomplete:function(data){
+					$('[name=postno]').val(data.zonecode);
+					$('[name=addr]').val(data.address);
+					$('[name=detAddr]').val(data.buildingName);
+					$('#exampleInputAddress').val(data.roadAddress)
+				}
+			}).open({
+		        left: window.screenLeft/2,
+		        right: window.screenTop/2,
+		        popupKey: 'popup1',
+		        autoClose: true,
+		      });
+		}
 		
 	</script>
 </head>
@@ -46,9 +96,53 @@
 	                    <p>I am highly energetic in user experience design, interfaces and web development.</p>
 	                    <br><br>
 	                    <div class="d-flex justify-content-around">
-	                      <button class="btn-slide-line" style="width: 90%;">계좌 관리</button>
-	                      <!-- <button class="btn-slide-line">마일리지 구매</button>
-	                      <button class="btn-slide-line">마일리지 내역</button> -->
+							<button class="btn-slide-line" style="width: 90%;" data-toggle="modal" data-target="#exampleModal">계좌 관리</button>
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content" style="border-radius: 4rem; width: 160%;">
+							      <div class="modal-body" style="padding: 0px;">
+							        <div class="column" id="main">
+							          <h1>계좌 생성</h1>
+							          <form>
+							            <div class="form-group">
+							              <label for="exampleInputKoreaName">한글 이름</label>
+							              <input type="name" class="form-control" id="exampleInputName" placeholder="정재호" disabled>
+							            </div>
+							            <div class="form-group">
+							              <label for="exampleInputEnglishName">영어 이름</label>
+							              <input type="name" class="form-control" id="exampleInputName" placeholder="Name">
+							            </div>
+							            <div class="form-group">
+							              <label for="exampleInputPhone">전화번호 </label>
+							              <input type="tel" onkeyup="mobile_keyup(this)" maxlength='13' class="form-control" id="exampleInputPhone" placeholder="010-0000-0000">
+							            </div>
+							            <div class="form-group">
+							              <label for="exampleInputAddress">주소</label>
+							              <input type="text" onclick="openHomeSearch()" class="form-control" id="exampleInputAddress" placeholder="주소를 입력하세요">
+							            </div>
+							            <button type="submit" class="btn btn-primary" style="background-color: #ffffff; border: 3px solid rgb(255 194 13); color: black;  border-radius: 15px;">계좌 생성하기</button>
+							          </form>
+							        </div>
+							        <div>
+							          <?xml version="1.0" encoding="UTF-8"?>
+							          <svg width="67px" height="578px" viewBox="0 0 67 578" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+							              <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+							              <title>Path</title>
+							              <desc>Created with Sketch.</desc>
+							              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+							                  <path d="M11.3847656,-5.68434189e-14 C-7.44726562,36.7213542 5.14322917,126.757812 49.15625,270.109375 C70.9827986,341.199016 54.8877465,443.829224 0.87109375,578 L67,578 L67,-5.68434189e-14 L11.3847656,-5.68434189e-14 Z" id="Path" fill="#ffee56"></path>
+							              </g>
+							          </svg>
+							        </div>
+							        <div class="column" id="secondary">
+							          <div class="sec-content">
+							          </div>
+							        </div>
+							      </div>
+							    </div>
+							  </div>
+							</div>
 	                    </div>
 	                </div>
 	            </div>
@@ -64,34 +158,31 @@
        		<h3 class="mileage-h3">마일리지 구매</h3>
        		<div class="d-flex justify-content-around">
        			<figure class="snip1390">
-					<button class="mileage-shopbtn">구매하기</button>
+					<button class="mileage-shopbtn" value="1">구매하기</button>
 					<figcaption>
 					    <h2>10,000원</h2>
-					    <blockquote>Dad buried in landslide! Jubilant throngs fill streets! Stunned father inconsolable - demands recount!</blockquote>
+					    <blockquote style="padding-bottom: 102px;">10,000MP</blockquote>
 				  	</figcaption>
 				</figure>
-				<figure class="snip1390 hover">
-					<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample5.jpg" alt="profile-sample5" class="profile" />
+				<figure class="snip1390">
+					<button class="mileage-shopbtn" value="2">구매하기</button>
 				  	<figcaption>
-					    <h2>Gordon Norman</h2>
-					    <h4>Accountant</h4>
-					    <blockquote>Wormwood : Calvin, how about you? Calvin : Hard to say ma'am. I think my cerebellum has just fused. </blockquote>
+					    <h2>30,000원</h2>
+					    <blockquote>30,000MP<br> + <br>3,000MP</blockquote>
 				  	</figcaption>
 				</figure>
 				<figure class="snip1390">
-					<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample6.jpg" alt="profile-sample6" class="profile" />
+					<button class="mileage-shopbtn" value="3">구매하기</button>
 					<figcaption>
-					    <h2>Sue Shei</h2>
-					    <h4>Public Relations</h4>
-					    <blockquote>The strength to change what I can, the inability to accept what I can't and the incapacity to tell the difference.</blockquote>
+					    <h2>50,000원</h2>
+					    <blockquote>50,000MP<br> + <br>5,000MP</blockquote>
 				  	</figcaption>
 				</figure>
 				<figure class="snip1390">
-					<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample6.jpg" alt="profile-sample6" class="profile" />
+					<button class="mileage-shopbtn" value="4">구매하기</button>
 					<figcaption>
-					    <h2>Sue Shei</h2>
-					    <h4>Public Relations</h4>
-					    <blockquote>The strength to change what I can, the inability to accept what I can't and the incapacity to tell the difference.</blockquote>
+					    <h2>100,000원</h2>
+					    <blockquote>100,000MP<br> + <br>10,000MP</blockquote>
 				  	</figcaption>
 				</figure>
        		</div>
