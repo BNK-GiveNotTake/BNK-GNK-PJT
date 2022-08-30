@@ -14,7 +14,7 @@ public interface AccountService {
 	int createMile(int userId);
 	int getMileBalance(int userId);
 	List<MileageHistory> getMileHistory(int userId);
-	void addMile(int amount, int userId);
+	MileageHistory addMile(int amount, int userId);
 	int getMilePk(int userId);
 	Account getAccount(String accId);
 	Account createAccTest(int accPassword);
