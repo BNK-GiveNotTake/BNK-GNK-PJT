@@ -7,8 +7,8 @@
 		<result property="accId" column="acc_id" jdbcType="VARCHAR" />	
 		<result property="cardId" column="card_id" jdbcType="VARCHAR" />	
 		<result property="accPassword" column="acc_password" jdbcType="NUMERIC" />	
-		<result property="price" column="create_time" jdbcType="DATE" />
-		<result property="accAmount" column="acc_password" jdbcType="NUMERIC" />	
+		<result property="createTime" column="create_time" jdbcType="DATE" />
+		<result property="accAmount" column="acc_amount" jdbcType="NUMERIC" />	
 		<result property="mileage" column="mileage" jdbcType="NUMERIC" />	
 	</resultMap>
 
@@ -21,9 +21,7 @@
 	</select>
 	<insert id="createAcc" parameterType="account">
 		INSERT	INTO account(acc_id, acc_password, create_time)
-		VALUES (
-		(SELECT TRUNC(DBMS_RANDOM.VALUE(power(10,12)+1, power(10,13)-1)) RANDOM FROM DUAL),
-		#{accPassword}, SYSDATE)
+		VALUES (#{accId}, #{accPassword}, SYSDATE)
 	</insert>
 	
 <!--

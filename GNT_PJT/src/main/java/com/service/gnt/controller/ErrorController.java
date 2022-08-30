@@ -12,9 +12,9 @@ import springfox.documentation.annotations.ApiIgnore;
 @Component
 @RequestMapping("my-error-controller")
 @ApiIgnore 
-public class TestErrorController extends BasicErrorController {
+public class ErrorController extends BasicErrorController {
 
-	public TestErrorController() {
+	public ErrorController() {
 		super(new DefaultErrorAttributes(), new ErrorProperties());
 	}
    // basic constructor
