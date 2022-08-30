@@ -15,7 +15,7 @@ public class Users {
 	private String address;
 	private String phone;
 	private int totalDonation;
-	private Quiz quiz;
+	private int quizId;
 	private char isQuizParticipate; // BOOLEAN
 	
 	public Users() {}
@@ -53,7 +53,7 @@ public class Users {
 	}
 
 	public Users(int userId, String accId, String userName, String userEmail, String userPassword, String address,
-			int totalDonation, Quiz quiz, char isQuizParticipate) {
+			int totalDonation, int quizId, char isQuizParticipate) {
 		super();
 		this.userId = userId;
 		this.accId = accId;
@@ -62,12 +62,12 @@ public class Users {
 		this.userPassword = userPassword;
 		this.address = address;
 		this.totalDonation = totalDonation;
-		this.quiz = quiz;
+		this.quizId = quizId;
 		this.isQuizParticipate = isQuizParticipate;
 	}
 	
 	public Users(int userId, String accId, String userName, String userNameEng, String userEmail, String userPassword,
-			String address, String phone, int totalDonation, Quiz quiz, char isQuizParticipate) {
+			String address, String phone, int totalDonation, int quizId, char isQuizParticipate) {
 		super();
 		this.userId = userId;
 		this.accId = accId;
@@ -78,7 +78,7 @@ public class Users {
 		this.address = address;
 		this.phone = phone;
 		this.totalDonation = totalDonation;
-		this.quiz = quiz;
+		this.quizId = quizId;
 		this.isQuizParticipate = isQuizParticipate;
 	}
 
@@ -146,12 +146,12 @@ public class Users {
 		this.totalDonation = totalDonation;
 	}
 
-	public Quiz getQuiz() {
-		return quiz;
+	public int getQuiz() {
+		return quizId;
 	}
 
-	public void setQuiz(Quiz quiz) {
-		this.quiz = quiz;
+	public void setQuiz(int quizId) {
+		this.quizId = quizId;
 	}
 
 	public char getIsQuizParticipate() {
@@ -173,7 +173,7 @@ public class Users {
 	public String toString() {
 		return "Users [userId=" + userId + ", accId=" + accId + ", userName=" + userName + ", userNameEng="
 				+ userNameEng + ", userEmail=" + userEmail + ", userPassword=" + userPassword + ", address=" + address
-				+ ", phone=" + phone + ", totalDonation=" + totalDonation + ", quiz=" + quiz + ", isQuizParticipate="
+				+ ", phone=" + phone + ", totalDonation=" + totalDonation + ", quizId=" + quizId + ", isQuizParticipate="
 				+ isQuizParticipate + "]";
 	}
 

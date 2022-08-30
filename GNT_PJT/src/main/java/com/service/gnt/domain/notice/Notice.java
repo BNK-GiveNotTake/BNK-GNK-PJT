@@ -5,7 +5,7 @@ import com.service.gnt.domain.users.Users;
 public class Notice {
 	
 	private int noticeId;
-	private Users users;
+	//private Users users;
 	private String userId;
 	private String noticeTitle;
 	private String noticeContent;
@@ -53,14 +53,6 @@ public class Notice {
 		this.noticeId = noticeId;
 	}
 
-	public Users getUsers() {
-		return users;
-	}
-
-	public void setUsers(Users users) {
-		this.users = users;
-	}
-
 	public String getNoticeTitle() {
 		return noticeTitle;
 	}
@@ -95,7 +87,7 @@ public class Notice {
 
 	@Override
 	public String toString() {
-		return "Notice [noticeId=" + noticeId + ", users=" + users + ", noticeTitle=" + noticeTitle + ", noticeContent="
+		return "Notice [noticeId=" + noticeId + ", noticeTitle=" + noticeTitle + ", noticeContent="
 				+ noticeContent + ", createTime=" + createTime + ", viewCnt=" + viewCnt + "]";
 	}
 	

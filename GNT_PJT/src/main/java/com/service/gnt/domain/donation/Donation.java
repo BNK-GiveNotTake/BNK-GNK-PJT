@@ -3,7 +3,7 @@ package com.service.gnt.domain.donation;
 
 public class Donation {
 	private int donationId; // PK
-	private DonationCategory donationCategory;
+	//private DonationCategory donationCategory;
 	private int categoryId;
 	private String title;
 	private String organization;
@@ -60,16 +60,6 @@ public class Donation {
 	public void setDonationId(int donationId) {
 		this.donationId = donationId;
 	}
-	
-	public DonationCategory getDonationCategory() {
-		return donationCategory;
-	}
-
-
-	public void setDonationCategory(DonationCategory donationCategory) {
-		this.donationCategory = donationCategory;
-	}
-
 
 	public int getCategoryId() {
 		return categoryId;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
 import com.service.gnt.model.dao.AccountDAO;
 import com.service.gnt.model.service.AccountService;
@@ -25,16 +26,17 @@ public class AccountController {
 
 	@ApiOperation(value="createAcc", notes="계좌 생성")
 	@PostMapping("/createAcc.do")
-	public String createAcc(@RequestParam int userId,@RequestParam int accPassword,@RequestParam String userEmail,@RequestParam String userNameEng,
+	public Account createAcc(@RequestParam int userId,@RequestParam int accPassword,@RequestParam String userEmail,@RequestParam String userNameEng,
 			@RequestParam String address, @RequestParam String Phone, Model model) {
 		try {
-		accountService.createAcc(userId, accPassword, userEmail, userNameEng, address, Phone);
-		return "";
+		return accountService.createAcc(userId, accPassword, userEmail, userNameEng, address, Phone);
 		} catch(Exception e) {
+			/*
 			model.addAttribute("title", "Error - Occured");
 			model.addAttribute("message", "Error Occured :"+e.getMessage());
 			System.out.println("Error :"+e.getMessage()+e.toString());
-			return "error";
+			*/
+			return null;
 		}
 	}
 	

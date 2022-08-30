@@ -5,7 +5,7 @@ import com.service.gnt.domain.card.Card;
 public class Account {
 	
 	private String accId;
-	private Card card;
+	//private Card card;
 	private String cardId;
 	private int accPassword;
 	private String createTime;
@@ -23,19 +23,6 @@ public class Account {
 		this.accPassword = accPassword;
 	}
 
-
-
-	/*
-	public Account(String accId, Card card, int accPassword, String createTime, int amount, int mileage) {
-		super();
-		this.accId = accId;
-		this.card = card;
-		this.accPassword = accPassword;
-		this.createTime = createTime;
-		this.accAmount = amount;
-		this.mileage = mileage;
-	}
-	*/
 	public Account(String accId, String cardId, int accPassword, String createTime, int accAmount, int mileage) {
 		super();
 		this.accId = accId;
@@ -64,16 +51,6 @@ public class Account {
 
 	public void setAccId(String accId) {
 		this.accId = accId;
-	}
-
-
-	public Card getCard() {
-		return card;
-	}
-
-
-	public void setCard(Card card) {
-		this.card = card;
 	}
 
 
@@ -119,7 +96,7 @@ public class Account {
 
 	@Override
 	public String toString() {
-		return "Account [accId=" + accId + ", card=" + card + ", accPassword=" + accPassword + ", createTime="
+		return "Account [accId=" + accId  + ", accPassword=" + accPassword + ", createTime="
 				+ createTime + ", accAmount=" + accAmount + ", mileage=" + mileage + "]";
 	}
 	
