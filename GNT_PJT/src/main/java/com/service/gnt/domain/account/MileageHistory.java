@@ -3,20 +3,13 @@ package com.service.gnt.domain.account;
 public class MileageHistory {
 
 	private int mileagePk;
-	private Account account;
 	private String accId;
 	private String createTime; // date
 	private int mileageAmount;
+	private String mileageContent;
 	
 	public MileageHistory() {}
 
-/*	public MileageHistory(int mileagePk, Account account, String createTime, int mileageAmount) {
-		super();
-		this.mileagePk = mileagePk;
-		this.account = account;
-		this.createTime = createTime;
-		this.mileageAmount = mileageAmount;
-	}*/
 	
 	public MileageHistory(int mileagePk, String accId, String createTime, int mileageAmount) {
 		super();
@@ -25,6 +18,26 @@ public class MileageHistory {
 		this.createTime = createTime;
 		this.mileageAmount = mileageAmount;
 	}
+
+	public MileageHistory(int mileagePk, String accId, String createTime, int mileageAmount, String mileageContent) {
+		super();
+		this.mileagePk = mileagePk;
+		this.accId = accId;
+		this.createTime = createTime;
+		this.mileageAmount = mileageAmount;
+		this.mileageContent = mileageContent;
+	}
+
+
+	public String getMileageContent() {
+		return mileageContent;
+	}
+
+
+	public void setMileageContent(String mileageContent) {
+		this.mileageContent = mileageContent;
+	}
+
 
 	public String getAccId() {
 		return accId;
@@ -42,13 +55,6 @@ public class MileageHistory {
 		this.mileagePk = mileagePk;
 	}
 
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}
 
 	public String getCreateTime() {
 		return createTime;
@@ -66,12 +72,13 @@ public class MileageHistory {
 		this.mileageAmount = mileageAmount;
 	}
 
+
 	@Override
 	public String toString() {
-		return "MileageHistory [mileagePk=" + mileagePk + ", account=" + account + ", createTime=" + createTime
-				+ ", mileageAmount=" + mileageAmount + "]";
+		return "MileageHistory [mileagePk=" + mileagePk + ", accId=" + accId + ", createTime=" + createTime
+				+ ", mileageAmount=" + mileageAmount + ", mileageContent=" + mileageContent + "]";
 	}
-	
-	
+
+
 	
 }

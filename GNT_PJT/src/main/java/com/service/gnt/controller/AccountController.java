@@ -116,11 +116,11 @@ public class AccountController {
 		}
 	}
 	
-	@ApiOperation(value="getMileBalance", notes="마일리지 잔액 확인") //WIP
+	@ApiOperation(value="getMileBalance", notes="마일리지 잔액 확인")
 	@PostMapping("/getMileBalance.do")
-	public int getMileBalance(int mileagePk) {
+	public int getMileBalance(int userId) {
 		try {
-			return accountService.getMileBalance(mileagePk);
+			return accountService.getMileBalance(userId);
 		} catch(Exception e) {
 //		model.addAttribute("title", "Error - Occured");
 //		model.addAttribute("message", "Error Occured :"+e.getMessage());
@@ -129,7 +129,7 @@ public class AccountController {
 		}
 	}
 	
-	@ApiOperation(value="getMileHistory", notes="마일리지 내역 확인") //WIP
+	@ApiOperation(value="getMileHistory", notes="마일리지 내역 확인")
 	@PostMapping("/getMileHistory.do")
 	public List<MileageHistory> getMileHistory(int userId) {
 		try {
@@ -144,13 +144,11 @@ public class AccountController {
 		}
 	}
 	
-	@ApiOperation(value="addMile", notes="마일리지 충전") //WIP
+	@ApiOperation(value="addMile", notes="마일리지 충전")
 	@GetMapping("/addMile.do")
-	public String addMile(int amount, int userId) {
+	public MileageHistory addMile(int amount, int userId) {
 		try {
-			String status = "";
-			accountService.addMile(amount, userId);
-			return status;
+			return accountService.addMile(amount, userId);
 		} catch(Exception e) {
 	//		model.addAttribute("title", "Error - Occured");
 	//		model.addAttribute("message", "Error Occured :"+e.getMessage());
