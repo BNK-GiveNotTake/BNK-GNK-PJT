@@ -23,14 +23,13 @@ public class CommonController {
 	
 	@Autowired
 	private CommonService commonService;
-	
-	
+  
 	@GetMapping("/")
 	public String index() {
 		return "redirect:index.jsp";
 		
 	}
-	
+		
 	@GetMapping("login.do")
 	public String getLoginForm() {
 		System.out.println("#######");
