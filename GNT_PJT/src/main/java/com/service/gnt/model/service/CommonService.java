@@ -8,6 +8,6 @@ public interface CommonService {
 	
 	int insert(Users user);
 	Users select(Users user);
-
+	
 
 }
