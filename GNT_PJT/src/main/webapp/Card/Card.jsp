@@ -58,6 +58,10 @@
 			$('#card__content').click(function() {
 				$('#card__content').focus();
 			})
+			
+			$('#backGroundColorList').on('click', '.item-gradient', function() {
+				console.log($(this).text())
+			})
 		});
 		
 		const gradients = [ 
@@ -110,7 +114,7 @@
 				idx -= 10
 			}
 			for(var i=idx; i<idx+5;i++){
-				$('#backGroundColorList').append("<li class=item-gradient><div class=gradient style='background-color: #"+gradients[i]+";'></div><p class=start style=color: #"+gradients[i]+";>#f9fd50</p></li>")
+				$('#backGroundColorList').append("<li class=item-gradient><div class=gradient style='background-color: #"+gradients[i]+";'></div><p class=start style=color: #"+gradients[i]+";>"+gradients[i]+"</p></li>")
 			}
 			return idx + 5
 		}
@@ -118,7 +122,7 @@
 		const showBackgroundAfter = function(idx) {
 			$('#backGroundColorList').empty()
 			for(var i=idx; i<idx+5;i++){
-				$('#backGroundColorList').append("<li class=item-gradient><div class=gradient style='background-color: #"+gradients[i]+";'></div><p class=start style=color: #"+gradients[i]+";>#f9fd50</p></li>")
+				$('#backGroundColorList').append("<li class=item-gradient><div class=gradient style='background-color: #"+gradients[i]+";'></div><p class=start style=color: #"+gradients[i]+";>"+gradients[i]+"</p></li>")
 			}
 			return idx+5
 		}
