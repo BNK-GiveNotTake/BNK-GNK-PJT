@@ -15,9 +15,9 @@ public class AccountServiceImpl implements AccountService{
 	@Autowired
 	private AccountDAO accountDAO;
 
-	public Account createAcc(int userId, int accPassword, String userEmail, String userEngName,
-			String address, String userPhone) {
-		return accountDAO.createAcc(userId, accPassword, userEmail, userEngName, address, userPhone);
+	public Account createAcc(int userId, int accPassword, String userNameEng,
+			String address, String phone) {
+		return accountDAO.createAcc(userId, accPassword, userNameEng, address, phone);
 	}
 
 	public int getAccBalance(String accId) {
@@ -32,12 +32,12 @@ public class AccountServiceImpl implements AccountService{
 		accountDAO.sendAcc(userId, amount, accId);
 	}
 
-	public void createMile(int userId) {
-		accountDAO.createMile(userId);
+	public int createMile(int userId) {
+		return accountDAO.createMile(userId);
 	}
 
-	public int getMileBalance(int mileagePk) {
-		return accountDAO.getMileBalance(mileagePk);
+	public int getMileBalance(int userId) {
+		return accountDAO.getMileBalance(userId);
 	}
 
 	public List<MileageHistory> getMileHistory(int userId) {
@@ -52,12 +52,18 @@ public class AccountServiceImpl implements AccountService{
 		return accountDAO.getMilePk(userId);
 	}
 
-	public void createAccTest(int accPassword) {
-		accountDAO.createAccTest(accPassword);
+	public Account createAccTest(int accPassword) {
+		return accountDAO.createAccTest(accPassword);
 	}
 
 	public Account getAccount(String accId) {
 		return accountDAO.getAccount(accId);
 	}
-
+	
+	public String checkUserAcc(int userId) {
+		return accountDAO.checkUserAcc(userId);
+	}
+	public Account getAccountByUserId(int userId) {
+		return accountDAO.getAccountByUserId(userId);
+	}
 }

@@ -3,17 +3,13 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="ns.sql.NoticeMapper">
-<!-- 
-	<select id="createAccKey" resultType="string">
-		SELECT TRUNC(DBMS_RANDOM.VALUE(power(10,12)+1, power(10,13)-1)) RANDOM FROM DUAL
+	<select id="getNoticeList" resultType="notice">
+		SELECT notice_id, user_id, notice_title, create_time, view_cnt
+		FROM notice
 	</select>
-	<select id="validateAccId" parameterType="string" resultType="string">
-		SELECT count(acc_id) FROM account
-		WHERE acc_id = #{VALUE}
+	<select id="getNoticeDetail" resultType="notice" parameterType="int">
+		SELECT notice_id, user_id, notice_title, notice_content, create_time, view_cnt
+		FROM notice
+		WHERE notice_id = #{VALUE}		
 	</select>
-	<insert id="createAcc" parameterType="account">
-		INSERT	INTO account(acc_id, acc_password, create_time)
-		VALUES (#{accId}, #{accPassword}, SYSDATE)
-	</insert>
- -->
 </mapper>
