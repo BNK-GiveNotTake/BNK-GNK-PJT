@@ -198,6 +198,117 @@ button:hover span {
   }
 }
 
+/* 모달 */
+
+.modal {
+	top: 50%!important;
+    left: 40%!important;
+    transform: translate(-50%, -50%);
+}
+
+.modal-dialog {
+	top: 5%;
+}
+
+.modal-body {
+	border-radius: 4rem;
+	display: flex;
+	font-family: 'Happiness-Sans-Title';
+}
+
+.modal-content {
+	-webkit-box-shadow: -1px -2px 42px -19px rgba(0,0,0,0.74);
+	-moz-box-shadow: -1px -2px 42px -19px rgba(0,0,0,0.74);
+	box-shadow: -1px -2px 42px -19px rgba(0,0,0,0.74);
+}
+.modal-content h1, .modal-content h2, .modal-content h3 {
+    text-align: center;
+}
+.modal-content h1 {
+	font-size: 1.3em;
+	text-transform: uppercase;
+}
+
+.modal-content h2 {
+    font-size: 1.1em;
+}
+.modal-content h3 {
+  font-size: .8em;
+  letter-spacing: 2px;
+}
+form {
+	margin-top: 1.5rem;
+    font-size: .9em;
+}
+.column {
+  flex: 30%;
+  padding: 10px;
+}
+
+.column#main {
+	flex: 75%;
+    padding: 32px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+#secondary {
+  background-color: #ffee56;
+  border-radius: 0 4rem 4rem 0;
+  text-align: center;
+}
+
+#main .form-control {
+  font-size: 1.2em;
+}
+
+.btn {
+  text-transform: uppercase;
+  width: 200px;
+  padding: .150rem .75rem;
+  margin: 30px auto 0px;
+  font-family: 'Happiness-Sans-Title';
+  letter-spacing: 2px;
+}
+
+.btn:hover {
+	background-color: #fff6a8;
+}
+
+/* .btn-primary {
+	background: #f1da36; Old browsers
+	background: -moz-linear-gradient(left, #f1da36 0%, #fca86c 99%); FF3.6-15
+	background: -webkit-linear-gradient(left, #f1da36 0%,#fca86c 99%); Chrome10-25,Safari5.1-6
+	background: linear-gradient(to right, #f1da36 0%,#fca86c 99%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1da36', endColorstr='#fca86c',GradientType=1 ); IE6-9
+	Color format:     Comments
+} */
+
+#main .btn-primary {
+  width: 100%;
+}
+#secondary .btn-primary {
+  background: #f8f9fa4f;
+  color: #000;
+}
+.modal-body label {
+  margin-bottom: 0;
+}
+
+.modal-body input {
+	border-radius: 5px;
+	margin-top: 1rem;
+}
+
+.sec-content {
+  margin-top: 85%;
+}
+
+#exampleInputPhone::-webkit-outer-spin-button,
+#exampleInputPhone::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
 
 /* 마일리지 구매 */
 
@@ -213,6 +324,7 @@ button:hover span {
 	width: 100%;
     border-radius: 10px;
     margin-bottom: 1.5rem;
+    font-size: large;
 }
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400);
@@ -229,11 +341,9 @@ figure.snip1390 {
   color: #000000;
   text-align: center;
   font-size: 16px;
-  background-color: rgb(255 194 13);
+  background-color: #ffee56;
   border-radius: 15px;
-  
   padding: 30px;
-  background-image: linear-gradient(-25deg, rgba(0, 0, 0, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -253,9 +363,8 @@ figure.snip1390 h4,
 figure.snip1390 blockquote {
   margin: 0;
 }
-figure.snip1390 h2,
-figure.snip1390 h4 {
-  font-weight: 300;
+figure.snip1390 h2 {
+  font-weight: bold;
 }
 figure.snip1390 h2 {
   color: #ffffff;
@@ -264,30 +373,22 @@ figure.snip1390 h4 {
   color: #a6a6a6;
 }
 figure.snip1390 blockquote {
-  font-size: 1em;
-  padding: 45px 20px 40px 50px;
+  font-size: 1.3em;
+  padding: 45px 30px 40px 30px;
   margin-top: 30px;
   background-color: #ffffff;
   border-radius: 5px;
-  text-align: left;
+  text-align: center;
   position: relative;
 }
 figure.snip1390 blockquote:before {
   font-family: 'FontAwesome';
-  content: "\201C";
   position: absolute;
   font-size: 70px;
   opacity: 0.25;
   font-style: normal;
   top: 0px;
   left: 20px;
-}
-figure.snip1390 .profile {
-  width: 100px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-bottom: 10px;
-  border: solid 5px #A6A57A;
 }
 
 

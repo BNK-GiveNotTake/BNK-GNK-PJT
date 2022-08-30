@@ -10,7 +10,7 @@
 	</settings>
 
 	<typeAliases>
-		<package name="com.service.gnt.domain"/>
+		<package name="com.service.gnt"/>
 	</typeAliases>
 	
 	<!-- JUnit 기반의 단위테스트용  -->
