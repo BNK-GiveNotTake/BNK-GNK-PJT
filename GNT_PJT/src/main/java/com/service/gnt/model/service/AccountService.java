@@ -2,10 +2,11 @@ package com.service.gnt.model.service;
 
 import java.util.List;
 
+import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
 
 public interface AccountService {
-	public void createAcc(int userId, int accPassword, String userEmail, String userEngName, String address,
+	public Account createAcc(int userId, int accPassword, String userEmail, String userEngName, String address,
 			String userPhone);
 	public int getAccBalance(String accId);
 	public void depositAcc(int userId, int amount);
@@ -15,5 +16,6 @@ public interface AccountService {
 	public List<MileageHistory> getMileHistory(int userId);
 	public void addMile(int amount, int userId);
 	public int getMilePk(int userId);
+	public Account getAccount(String accId);
 	public void createAccTest(int accPassword);
 }

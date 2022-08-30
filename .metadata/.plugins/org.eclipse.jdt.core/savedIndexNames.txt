@@ -1,3 +1,0 @@
-INDEX VERSION 1.131+C:\Users\BIFF2020\Desktop\Practice\BNK-GNK-PJT\.metadata\.plugins\org.eclipse.jdt.core
-2273604390.index
-1217877952.index

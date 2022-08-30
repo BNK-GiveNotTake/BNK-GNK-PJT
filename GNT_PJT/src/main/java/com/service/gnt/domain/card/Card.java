@@ -7,7 +7,7 @@ public class Card {
 	private String createTime; // date
 	private String endTime; // date
 	private String background;
-	private Emo emo; // fk
+	//private Emo emo; // fk
 	private int emoId;
 	private String emoInfo;
 	private String font;
@@ -15,22 +15,6 @@ public class Card {
 	
 	
 	public Card() {}
-
-
-	public Card(String cardId, int cvc, String createTime, String endTime, String background, Emo emo, String emoInfo,
-			String font, String cardContent) {
-		super();
-		this.cardId = cardId;
-		this.cvc = cvc;
-		this.createTime = createTime;
-		this.endTime = endTime;
-		this.background = background;
-		this.emo = emo;
-		this.emoInfo = emoInfo;
-		this.font = font;
-		this.cardContent = cardContent;
-	}
-
 
 	public Card(String cardId, int cvc, String createTime, String endTime, String background, int emoId, String emoInfo,
 			String font, String cardContent) {
@@ -106,17 +90,6 @@ public class Card {
 		this.background = background;
 	}
 
-
-	public Emo getEmo() {
-		return emo;
-	}
-
-
-	public void setEmo(Emo emo) {
-		this.emo = emo;
-	}
-
-
 	public String getEmoInfo() {
 		return emoInfo;
 	}
@@ -150,7 +123,7 @@ public class Card {
 	@Override
 	public String toString() {
 		return "Card [cardId=" + cardId + ", cvc=" + cvc + ", createTime=" + createTime + ", endTime=" + endTime
-				+ ", background=" + background + ", emo=" + emo + ", emoInfo=" + emoInfo + ", font=" + font
+				+ ", background=" + background  + ", emoInfo=" + emoInfo + ", font=" + font
 				+ ", cardContent=" + cardContent + "]";
 	}
 	
