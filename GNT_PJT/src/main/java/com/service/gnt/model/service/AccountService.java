@@ -1,11 +1,7 @@
 package com.service.gnt.model.service;
 
-import java.sql.Date;
 import java.util.List;
 
-import org.springframework.boot.web.servlet.server.Session;
-
-import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
 
 public interface AccountService {
@@ -19,4 +15,5 @@ public interface AccountService {
 	public List<MileageHistory> getMileHistory(int userId);
 	public void addMile(int amount, int userId);
 	public int getMilePk(int userId);
+	public void createAccTest(int accPassword);
 }

@@ -20,11 +20,30 @@ public class AccountDAOImpl implements AccountDAO{
 	private SqlSession sqlSession;
 	private CommonDAO commonDAO;
 
-	public void createAcc(int userId, int accPassword, String userEmail, String userEngName, String address,
-			String userPhone) {
+	public void createAcc(int userId, int accPassword, String userEmail, String userNameEng, String address,
+			String Phone) {
+		String key = "";
+		while(true) {
+			key = sqlSession.selectOne(NS+"createAccKey");
+			if(sqlSession.selectOne(NS+"validateAccId", key).equals("0")) {
+				break; //난수생성한 계좌가 겹치지 않을 경우 실행
+			};
+		}
 		sqlSession.insert(NS+"createAcc", accPassword);
-		Users vo = new Users(userId, null, null, userEngName, userEmail, null, address, userPhone, 0, null, '0');
+		Users vo = new Users(userId, null, null, userNameEng, userEmail, null, address, Phone, 0, null, '0');
 		sqlSession.update(NS+"addUserInfo", vo); //user 정보 추가부
+	}
+	
+	public void createAccTest(int accPassword) {
+		System.out.println("CreateAccTest 테스트중");
+		String key = "";
+		while(true) {
+			key = sqlSession.selectOne(NS+"createAccKey");
+			if(sqlSession.selectOne(NS+"validateAccId", key).equals("0")) {
+				break; //난수생성한 계좌가 겹치지 않을 경우 실행
+			};
+		}
+		sqlSession.insert(NS+"createAcc", accPassword);
 	}
 
 	public int getAccBalance(String accId) {
