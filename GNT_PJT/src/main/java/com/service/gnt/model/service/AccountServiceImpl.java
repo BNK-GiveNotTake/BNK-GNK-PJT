@@ -1,10 +1,8 @@
 package com.service.gnt.model.service;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Service;
 
 import com.service.gnt.domain.account.Account;
@@ -17,9 +15,9 @@ public class AccountServiceImpl implements AccountService{
 	@Autowired
 	private AccountDAO accountDAO;
 
-	public void createAcc(int userId, int accPassword, String userEmail, String userEngName,
+	public Account createAcc(int userId, int accPassword, String userEmail, String userEngName,
 			String address, String userPhone) {
-		accountDAO.createAcc(userId, accPassword, userEmail, userEngName, address, userPhone);
+		return accountDAO.createAcc(userId, accPassword, userEmail, userEngName, address, userPhone);
 	}
 
 	public int getAccBalance(String accId) {
@@ -56,6 +54,10 @@ public class AccountServiceImpl implements AccountService{
 
 	public void createAccTest(int accPassword) {
 		accountDAO.createAccTest(accPassword);
+	}
+
+	public Account getAccount(String accId) {
+		return accountDAO.getAccount(accId);
 	}
 
 }
