@@ -36,7 +36,6 @@ public class Users {
 		this.userEmail = userEmail;
 		this.userPassword = userPassword;
 		this.address = address;
-		this.Phone = Phone;
 		this.totalDonation = totalDonation;
 		this.quiz = quiz;
 		this.isQuizParticipate = isQuizParticipate;
@@ -58,6 +57,8 @@ public class Users {
 		this.isQuizParticipate = isQuizParticipate;
 	}
 
+	
+	
 	public String getAccId() {
 		return accId;
 	}
