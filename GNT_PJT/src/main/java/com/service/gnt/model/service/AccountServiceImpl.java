@@ -44,8 +44,8 @@ public class AccountServiceImpl implements AccountService{
 		return accountDAO.getMileHistory(userId);
 	}
 
-	public void addMile(int amount, int userId) {
-		accountDAO.addMile(amount, userId);
+	public MileageHistory addMile(int amount, int userId) {
+		return accountDAO.addMile(amount, userId);
 	}
 
 	public int getMilePk(int userId) {
