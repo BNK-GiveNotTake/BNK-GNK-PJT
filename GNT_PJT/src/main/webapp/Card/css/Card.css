@@ -133,6 +133,7 @@ a {
 	font-size: larger;
 	font-weight: bold;
 	line-height: 2.3;
+	box-shadow: 0 0 5px 0 #99eb47;
 }
 
 .back-card {
@@ -147,6 +148,49 @@ a {
 	font-weight: bold;
 	font-size: larger;
 	line-height: 2.3;
+	box-shadow: 0 0 5px 0 #99eb47;
+}
+
+.ic-chip {
+	position: relative;
+	left: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100px;
+	height: 80px;
+	border-radius: 5px;
+	background-image: linear-gradient(to bottom left, #ffecc7, #d0b978);
+	overflow: hidden;
+}
+
+.ic-chip .chip-line {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: #333;
+}
+.ic-chip .chip-line:nth-child(1) {
+  top: 14px;
+}
+.ic-chip .chip-line:nth-child(2) {
+  top: 40px;
+}
+.ic-chip .chip-line:nth-child(3) {
+  top: 65px;
+}
+.ic-chip .chip-line:nth-child(4) {
+  left: 50px;
+  width: 1px;
+  height: 50px;
+}
+.ic-chip .chip-main {
+  width: 20px;
+  height: 25px;
+  border: 1px solid #333;
+  border-radius: 3px;
+  background-image: linear-gradient(to bottom left, #efdbab, #e1cb94);
+  z-index: 1;
 }
 
 /* tabs */
@@ -508,6 +552,9 @@ svg:hover .arrow-fixed {
 	height: 130px;
 }
 
+.font__color-black, .font__color-white {
+	
+}
 
 
 /* loading 화면 */
