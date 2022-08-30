@@ -1,6 +1,5 @@
 package com.service.gnt.domain.users;
 
-import java.sql.Date;
 
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.event.Quiz;

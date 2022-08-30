@@ -54,4 +54,8 @@ public class AccountServiceImpl implements AccountService{
 		return accountDAO.getMilePk(userId);
 	}
 
+	public void createAccTest(int accPassword) {
+		accountDAO.createAccTest(accPassword);
+	}
+
 }
