@@ -207,6 +207,8 @@
 				  <div class="content" style="padding-bottom: 5rem;">
 				    <section>
 						<h2>Background</h2>
+						<button>앞면</button>
+						<button>뒷면</button>
 						<div class="d-flex">
 							<svg id="arrow-before" width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 							    <g id="prev" transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
