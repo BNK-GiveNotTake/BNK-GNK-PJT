@@ -391,7 +391,7 @@ svg polygon, svg path {
 }
 svg:hover polygon, svg:hover path {
   transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
-  fill: #FF4136;
+  fill: #99eb47;
 }
 svg:hover .arrow {
   animation: arrow-anim 2.5s cubic-bezier(0.2, 1, 0.3, 1) infinite;
@@ -457,13 +457,13 @@ svg:hover .arrow-fixed {
     max-width: 150px;
     padding: 20px;
     margin: 10px;
-    border: 2px solid #738598;
+    border: 2px solid #99eb47;
     border-radius: 10px;
-    box-shadow: 0 0 5px 0 #0a0b10;
+    box-shadow: 0 0 5px 0 #99eb47;
     cursor: pointer;
 }
 .item-gradient:hover {
-  border-color: #1cb3c8;
+  border-color: #99eb47;
 }
 
 .gradient {

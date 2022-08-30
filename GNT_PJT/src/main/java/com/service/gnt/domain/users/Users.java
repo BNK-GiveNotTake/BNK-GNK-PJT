@@ -13,12 +13,18 @@ public class Users {
 	private String address;
 	private int totalDonation;
 	private Quiz quiz;
-	private char isQuizParticipate; // BOOLEAN
+	private String isQuizParticipate; // BOOLEAN
 	
 	public Users() {}
+	
+	public Users(String userEmail, String userName, String userPassword) {
+		this.userEmail = userEmail;
+		this.userName = userName;
+		this.userPassword = userPassword;
+	}
 
 	public Users(int userId, Account account, String userName, String userEmail, String userPassword, String address,
-			int totalDonation, Quiz quiz, char isQuizParticipate) {
+			int totalDonation, Quiz quiz, String isQuizParticipate) {
 		super();
 		this.userId = userId;
 		this.account = account;
@@ -95,11 +101,11 @@ public class Users {
 		this.quiz = quiz;
 	}
 
-	public char getIsQuizParticipate() {
+	public String getIsQuizParticipate() {
 		return isQuizParticipate;
 	}
 
-	public void setIsQuizParticipate(char isQuizParticipate) {
+	public void setIsQuizParticipate(String isQuizParticipate) {
 		this.isQuizParticipate = isQuizParticipate;
 	}
 
