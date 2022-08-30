@@ -69,24 +69,23 @@ public class CommonController {
 		return "UserReg";
 	}
 	
+
 	@PostMapping("saveUser.do")
-	@ResponseBody
-	public String doRegUser(Users user,Model model) {
+	public Users doRegUser(Users user, Model model) {
 		System.out.println("$#%$%%%%%%%%");
 		try {
 			// 성공페이지
 			System.out.println("$#%$%%%%%%%%");
 			System.out.println(user.toString());
 			commonService.insert(user);
-			System.out.println("---------------------------user이후");
 			model.addAttribute("title", "회원 가입 성공");
 			model.addAttribute("user", user);
-			return "";
+			return user;
 		}catch(Exception e) {
 			// 에러페이지
 			model.addAttribute("title", "회원 가입 실패");
 			System.out.println("********************");
-			return "Error";
+			return new Users();
 		}
 		
 		

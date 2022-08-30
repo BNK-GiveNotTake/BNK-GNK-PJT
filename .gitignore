@@ -1,6 +1,5 @@
 # Created by https://www.toptal.com/developers/gitignore/api/serverless,maven,windows,java,git
 # Edit at https://www.toptal.com/developers/gitignore?templates=serverless,maven,windows,java,git
-
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse
 
@@ -70,7 +69,6 @@ local.properties
 # Spring Boot Tooling
 .sts4-cache/
 
-# End of https://www.toptal.com/developers/gitignore/api/eclipse
 ### Git ###
 # Created by git for backups. To disable backups in Git:
 # $ git config --global mergetool.keepBackup false
