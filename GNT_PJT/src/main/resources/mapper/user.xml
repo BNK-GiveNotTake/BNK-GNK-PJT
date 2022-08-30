@@ -8,6 +8,13 @@
 	 	<result property="userName" column="user_name" jdbcType="VARCHAR" />	
 	 	<result property="userPassword" column="user_password" jdbcType="VARCHAR" />
 	 	<result property="userEmail" column="user_email" jdbcType="VARCHAR" />
+	 	<result property="accId" column="ACC_ID" jdbcType="VARCHAR" />
+	 	<result property="userNameEng" column="USER_NAME_ENG" jdbcType="VARCHAR" />
+	 	<result property="address" column="ADDRESS" jdbcType="VARCHAR" />	
+	 	<result property="phone" column="PHONE" jdbcType="VARCHAR" />
+	 	<result property="totalDonation" column="TOTAL_DONATION" jdbcType="INTEGER"/>
+	 	<result property="quizId" column="QUIZ_ID" jdbcType="INTEGER" />
+	 	<result property="isQuizParticipate" column="IS_QUIZ_PARTICIPATE" jdbcType="VARCHAR"/>
 	 </resultMap>
 	 
 	<update id="addUserInfo" parameterType="users">
@@ -29,7 +36,7 @@
 	( SELECT acc_id FROM account WHERE acc_id=#{accId} ),
 	#{userNameEng}, #{address}, #{phone} from dual)
 	WHERE user_id = #{userId} -->
-	<select id="getUserById" parameterType="string" resultType="users">
+	<select id="getUserById" parameterType="users" resultType="users" resultMap="Userreg">
 	SELECT *
 	FROM users
 	WHERE user_id = #{userId}

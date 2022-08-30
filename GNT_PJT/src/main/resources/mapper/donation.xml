@@ -39,4 +39,15 @@
 		<!-- TITLE,CREATE_TIME,END_TIME -->
 	</select>
 	
+		<select id="DonationPage" parameterType="string" resultType="Donation">
+		
+		select * from (
+		select * from
+		donation
+		order by CREATE_TIME desc
+		)
+		where rownum <![CDATA[>=]]> 20*(1-#{btn_num}) and rownum <![CDATA[<=]]> 20*#{btn_num}
+		<!-- TITLE,CREATE_TIME,END_TIME -->
+	</select>
+	
 </mapper>

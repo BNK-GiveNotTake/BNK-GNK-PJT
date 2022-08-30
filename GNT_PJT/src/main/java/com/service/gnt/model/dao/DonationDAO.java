@@ -6,6 +6,7 @@ import com.service.gnt.domain.donation.Donation;
 
 public interface DonationDAO {
 	
-	List<Donation> select();
+	List<Donation> select1();
+	List<Donation> select2();
 
 }
