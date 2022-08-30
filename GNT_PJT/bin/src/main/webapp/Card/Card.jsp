@@ -24,64 +24,18 @@
 				console.log($("containment-wrapper"))
 			})
 		})
-				
+	
 		$(function() {
-		    $("#draggable3").draggable({ containment: "#containment-wrapper", scroll: false }, { stop: function () {
-		        const left_position = $(this).offsetLeft;
-		        const top_position = $(this).offsetTop;
-		    	}
-			});
+		    $("#draggable3").draggable({ containment: "#containment-wrapper", scroll: false });
 		});
 		
 		$(window).on('load', function() {
 			$('#card').addClass('loaded');
 		});
 		
-		$(function() {
-			var isFront = true;
-			var backgroundColor = "";
+		$(function() {	
 			
-			$('.front-card').click(function() {
-				$('#front').removeClass('card--front_small');
-				$('#front').addClass('card--front');
-				$('#back').removeClass('card--back_big');
-				$('#back').addClass('card--back');
-				$('.card-change-margin').css('margin-top', '0px');
-				$('#change-front').removeClass('front-card').removeClass('back-card')
-				$('#change-front').addClass('front-card')
-				$('#change-back').removeClass('front-card').removeClass('back-card')
-				$('#change-back').addClass('back-card')
-				console.log($('#draggable3').css('top'))			
-				if (isFront == false) {
-					$('.emo').css('width', '150px').css('height', '185px')
-					left_position = parseInt($('#draggable3').css('left')) * 1.18
-					top_position = parseInt($('#draggable3').css('top')) * 1.21
-					$('#draggable3').css('left', left_position + 'px').css('top', top_position + 'px');	
-				}
-				isFront = true;
-			})
-			
-			$('.back-card').click(function() {
-				$('#front').removeClass('card--front');
-				$('#front').addClass('card--front_small');
-				$('#back').removeClass('card--back');
-				$('#back').addClass('card--back_big');
-				$('.card-change-margin').css('margin-top', '1.2rem');
-				$('#change-front').removeClass('front-card').removeClass('back-card')
-				$('#change-front').addClass('back-card')
-				$('#change-back').removeClass('front-card').removeClass('back-card')
-				$('#change-back').addClass('front-card')
-				console.log($('#draggable3').css('top'))
-				if (isFront == true) {
-					$('.emo').css('width', '130px').css('height', '157px')
-					left_position = parseInt($('#draggable3').css('left')) * 0.82
-					top_position = parseInt($('#draggable3').css('top')) * 0.68
-					$('#draggable3').css('left', left_position + 'px').css('top', top_position + 'px');	
-				}
-				isFront = false;
-			})
-			
-			/* $('.font__color-black').click(function() {
+			$('.font__color-black').click(function() {
 				$('.back .card__ccv').css("color", "black");
 				$('.back .card__owner').css("color", "black");
 				$('.back .card__expiry-date').css("color", "black");
@@ -95,7 +49,7 @@
 				$('.back .card__expiry-date').css("color", "white");
 				$('.back .card__number').css("color", "white");
 				$('.front .card__content').css("color", "white");
-			}); */
+			});
 			
 			$('#tab3').click(function() {
 				$('#card__content').focus();
@@ -106,42 +60,8 @@
 			})
 			
 			$('#backGroundColorList').on('click', '.item-gradient', function() {
-				if (isFront == true) {
-					$('#front').css('background-color', '#' + $(this).text())
-					$('.emo').css('background-color', '#' + $(this).text())
-					backgroundColor = $(this).text();
-				} else {
-					$('#back').css('background-color', '#' + $(this).text())
-				}
+				console.log($(this).text())
 			})
-			
-			$('#emoList').on('click', '.item-gradient', function() {
-				if (isFront == true) {
-					if ($(this).text() == '미스터 비') {
-						$('#draggable3').empty();
-						$('#draggable3').append('<img src="img/1.png" class="emo" style="width: 150px; height: 157px;">')
-					} else if ($(this).text() == '엔젤 케이') {
-						$('#draggable3').empty();
-						$('#draggable3').append('<img src="img/2.png" class="emo" style="width: 150px; height: 157px;">')
-					} else if ($(this).text() == '바우 와우') {
-						$('#draggable3').empty();
-						$('#draggable3').append('<img src="img/3.png" class="emo" style="width: 150px; height: 157px;">')
-					} else if ($(this).text() == '엔젤 엔') {
-						$('#draggable3').empty();
-						$('#draggable3').append('<img src="img/4.png" class="emo" style="width: 150px; height: 157px;">')
-					} else if ($(this).text() == 'G방울') {
-						$('#draggable3').empty();
-						$('#draggable3').append('<img src="img/5.png" class="emo" style="width: 150px; height: 157px;">')
-					} else {
-						$('#draggable3').empty();
-						$('#draggable3').append('<img src="img/6.png" class="emo" style="width: 150px; height: 157px;">')
-					}
-				} else {
-					alert('뒷면에서는 이모티콘을 변경할 수 없다.')
-				}
-				$('.emo').css('background-color', '#'+backgroundColor);
-			})
-			
 		});
 		
 		const gradients = [ 
@@ -167,34 +87,20 @@
 			idx = showBackgroundAfter(idx);
 			
 			$('#arrow-before').click(function() {
+				console.log(idx)
 				idx = showBackgroundBefore(idx)
+				console.log(idx)
 				
 			})
 			
 			$('#arrow-after').click(function() {
+				console.log(idx)
 				idx = showBackgroundAfter(idx)
+				console.log(idx)
 				if (idx==30) {
 					idx = 0
 				}
 			})
-			
-			$('li[title=Emoticon]').click(function() {
-				const emos = [ 
-				    '../Card/img/1.png',
-				    '../Card/img/2.png',
-				    '../Card/img/3.png',
-				    '../Card/img/4.png',
-				    '../Card/img/5.png',
-				    '../Card/img/6.png'
-				];
-				const emos_name = ['미스터 비', '엔젤 케이', '바우 와우', '엔젤 엔', 'G방울', '토리']
-				$('#emoList').empty();
-				for(var i=0; i<emos.length ;i++){
-					$('#emoList').append("<li class=item-gradient><img class=tabs-emo src="+emos[i]+"><p>"+emos_name[i]+"</p></li>")
-				}
-				
-			})
-			
 			
 		})
 		
@@ -239,17 +145,17 @@
 				<div class="d-flex justify-content-between align-items-end" style="border-bottom: 1px solid beige; margin-bottom: 2rem;">
 					<h2 class="title">카드 발급</h2>
 					<div class="d-flex">
-						<div id="change-front" class="front-card">
-							앞면
+						<div class="font__color-black">
+							Black
 						</div>
-						<div id="change-back"  class="back-card" style="margin-left: 2rem;">
-							뒷면
+						<div class="font__color-white" style="margin-left: 2rem;">
+							White
 						</div>
 					</div>
 				</div>
 				<div class="d-flex justify-content-around">
 					<div class="front">
-						<div id="front" class="card card--front">
+						<div class="card card--front">
 							<div class="row" style="height: 100vh;">
 								<div class="col-4 d-flex flex-column justify-content-between">
 									<img class="card__logo--front" src="img/bnk_logo.png">
@@ -260,7 +166,7 @@
 								<div class="col-8">
 									<div id="containment-wrapper" style="border: none; height: 100%; padding-right: 30px;">
 									  <div id="draggable3" class="draggable ui-widget-content" style="border: none; width: 40%;">
-									    <!-- <img src="img/MrB.png" class="emo" style="width: 140%;"> -->
+									    <img src="img/MrB.png" class="emo" style="width: 140%;">
 									  </div>
 									</div>
 								</div>
@@ -269,9 +175,9 @@
 						<h5 class="front__hover" style="color: #898989;"><b>앞면</b></h5>
 					</div>
 					<div class="back">
-						<div id="back" class="card card--back">
+						<div class="card card--back">
 							<div class="card__strip"></div>
-							<div class="card-change-margin">
+							<div>
 								<div class="card__signature"></div>
 								<div class="card__ccv">303</div>							
 							</div>
@@ -301,6 +207,8 @@
 				  <div class="content" style="padding-bottom: 5rem;">
 				    <section>
 						<h2>Background</h2>
+						<button>앞면</button>
+						<button>뒷면</button>
 						<div class="d-flex">
 							<svg id="arrow-before" width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 							    <g id="prev" transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
@@ -323,8 +231,7 @@
 			      	</section>
 			        <section>
 						<h2>Emoticon</h2>
-						<div id="emoList" class="d-flex">
-						</div>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem quas adipisci a accusantium eius ut voluptatibus ad impedit nulla, ipsa qui. Quasi temporibus eos commodi aliquid impedit amet, similique nulla.
 		          	</section>
 			        <section>
 						<h2>Font</h2>
