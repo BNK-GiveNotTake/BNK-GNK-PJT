@@ -4,17 +4,34 @@ public class MileageHistory {
 
 	private int mileagePk;
 	private Account account;
+	private String accId;
 	private String createTime; // date
 	private int mileageAmount;
 	
 	public MileageHistory() {}
 
-	public MileageHistory(int mileagePk, Account account, String createTime, int mileageAmount) {
+/*	public MileageHistory(int mileagePk, Account account, String createTime, int mileageAmount) {
 		super();
 		this.mileagePk = mileagePk;
 		this.account = account;
 		this.createTime = createTime;
 		this.mileageAmount = mileageAmount;
+	}*/
+	
+	public MileageHistory(int mileagePk, String accId, String createTime, int mileageAmount) {
+		super();
+		this.mileagePk = mileagePk;
+		this.accId = accId;
+		this.createTime = createTime;
+		this.mileageAmount = mileageAmount;
+	}
+
+	public String getAccId() {
+		return accId;
+	}
+
+	public void setAccId(String accId) {
+		this.accId = accId;
 	}
 
 	public int getMileagePk() {

@@ -8,7 +8,7 @@ import com.service.gnt.domain.users.Users;
 
 
 @Repository
-public class CommonDAOImpl implements CommonDAO{
+public class CommonDAOImpl implements CommonDAOimplements CommonDAO{
 	
 private final String NS = "ns.sql.AccountMapper.";
 	
@@ -28,4 +28,10 @@ private final String NS = "ns.sql.AccountMapper.";
 		return sqlSession.selectOne(NS+"selectUser",user);
 	}
 
+	public final static String NS = "ns.sql.UserMapper.";
+	@Autowired
+	private SqlSession sqlSession;
+	public Users getUserById(int userId) {
+		return sqlSession.selectOne(NS+"getUserById",userId);
+	}
 }
