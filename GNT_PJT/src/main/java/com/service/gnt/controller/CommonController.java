@@ -6,20 +6,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
-=======
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
->>>>>>> dev
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-<<<<<<< HEAD
-=======
 import com.service.gnt.domain.users.Users;
->>>>>>> dev
 import com.service.gnt.model.service.CommonService;
 
 import io.swagger.annotations.ApiOperation;
@@ -28,18 +22,12 @@ import io.swagger.annotations.ApiParam;
 @RestController
 public class CommonController {
 	
-<<<<<<< HEAD
-	
-	@Autowired private CommonService commonService;
-	
-=======
 	@Autowired
 	private CommonService commonService;
 	
 	/*
 	 * @Autowired private GntService gntService;
 	 
->>>>>>> dev
 	String uri ="";
 	@ApiOperation(value="index page", notes="Start 페이지로 이동")
 	@GetMapping("/")
