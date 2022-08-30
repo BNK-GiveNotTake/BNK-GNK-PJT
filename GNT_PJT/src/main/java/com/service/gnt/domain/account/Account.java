@@ -7,8 +7,6 @@ public class Account {
 	private String accId;
 	private Card card;
 	private String cardId;
-
-
 	private int accPassword;
 	private String createTime;
 	private int accAmount;
@@ -16,8 +14,18 @@ public class Account {
 	
 	
 	public Account() {}
+	
+	
 
-/*
+	public Account(String accId, int accPassword) {
+		super();
+		this.accId = accId;
+		this.accPassword = accPassword;
+	}
+
+
+
+	/*
 	public Account(String accId, Card card, int accPassword, String createTime, int amount, int mileage) {
 		super();
 		this.accId = accId;
