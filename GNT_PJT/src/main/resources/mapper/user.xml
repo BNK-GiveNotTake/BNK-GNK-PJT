@@ -36,12 +36,14 @@
 	( SELECT acc_id FROM account WHERE acc_id=#{accId} ),
 	#{userNameEng}, #{address}, #{phone} from dual)
 	WHERE user_id = #{userId} -->
-	<select id="getUserById" parameterType="users" resultType="users" resultMap="Userreg">
-	SELECT *
+  
+	<select id="getUserById" parameterType="integer" resultType="users" resultMap="Userreg">
+	SELECT user_id, acc_id, user_name, user_name_eng, user_email,
+	address, phone, total_donation, quiz_id, is_quiz_participate
 	FROM users
 	WHERE user_id = #{userId}
 	</select>
-	<select id="getUserId" parameterType="users" resultType="string">
+	<select id="getUserId" parameterType="users" resultType="integer">
 		SELECT user_id
 		FROM users
 		WHERE user_password = ${userPassword} AND user_name = #{userName} AND user_email = #{userEmail}	

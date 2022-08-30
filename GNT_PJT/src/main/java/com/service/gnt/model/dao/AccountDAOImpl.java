@@ -19,8 +19,8 @@ public class AccountDAOImpl implements AccountDAO {
 	private SqlSession sqlSession;
 	private CommonDAO commonDAO;
 
-	public Account createAcc(int userId, int accPassword, String userEmail, String userNameEng, String address,
-			String Phone) {
+	public Account createAcc(int userId, int accPassword, String userNameEng, String address,
+			String phone) {
 		String key = "";
 		while (true) {
 			key = sqlSession.selectOne(AM + "createAccKey");
@@ -29,12 +29,12 @@ public class AccountDAOImpl implements AccountDAO {
 			}
 		}
 		sqlSession.insert(AM + "createAcc", new Account(key, accPassword));
-		Users vo = new Users(userId, key, userNameEng, address, Phone);
+		Users vo = new Users(userId, key, userNameEng, address, phone);
 		sqlSession.update(UM + "addUserInfo", vo); // user 정보 추가부
-		return null;//getAccount(key);
+		return getAccount(key);
 	}
 
-	public void createAccTest(int accPassword) {
+	public Account createAccTest(int accPassword) {
 		System.out.println("CreateAccTest 테스트중");
 		String key = "";
 		while (true) {
@@ -45,6 +45,7 @@ public class AccountDAOImpl implements AccountDAO {
 			;
 		}
 		sqlSession.insert(AM + "createAcc", new Account(key, accPassword));
+		return getAccount(key);
 	}
 
 	public int getAccBalance(String accId) {
@@ -68,39 +69,83 @@ public class AccountDAOImpl implements AccountDAO {
 		}
 	}
 
-	public void createMile(int userId) {
-		Users user = commonDAO.getUserById(userId);
-		sqlSession.insert(AM + "createMile", new MileageHistory(0, user.getAccId(), null, 0));
+	public int createMile(int userId) {
+		return sqlSession.insert(AM + "createMile", commonDAO.getUserById(userId).getAccId());
 	}
 
-	public int getMileBalance(int mileagePk) {
-		return sqlSession.selectOne(AM + "getMileBalance", mileagePk);
+	public int getMileBalance(int userId) {
+		String accId = commonDAO.getUserById(userId).getAccId();
+		return sqlSession.selectOne(AM + "getMileBalance", accId);
 	}
 	
 	public Account getAccount(String accId) {
 		return sqlSession.selectOne(AM+"getAccount",accId);
 	}
+	
+	public Account getAccountByUserId(int userId) {
+		String accId = commonDAO.getUserById(userId).getAccId();
+		return sqlSession.selectOne(AM+"getAccount",accId);
+	}
 
-	public int getMilePk(int userId) {
+	public int getMilePk(int userId) { // 없애도 되는 메소드...
 		 Users user = commonDAO.getUserById(userId);
-		 return 0;//getAccount(user.getAccId()).getMileage();
+		 return getAccount(user.getAccId()).getMileage();
 	}
 
 	public List<MileageHistory> getMileHistory(int userId) {
 		Users user = commonDAO.getUserById(userId);
-		return sqlSession.selectList(AM + "getMileHistory", getMilePk(userId));
+		return sqlSession.selectList(AM + "getMileHistory", user.getAccId());
 	}
 
-	public void addMile(int amount, int userId) {
+	public MileageHistory addMile(int type, int userId) {
+		int amount = 0;
+		int bonus = 0;
 		Users user = commonDAO.getUserById(userId);
 		String accId = user.getAccId();
+		switch(type) {
+		case 1:
+			amount = 10000;
+			break;
+		case 2:
+			amount = 30000;
+			bonus = 3000;
+			break;
+		case 3:
+			amount = 50000;
+			bonus = 5000;
+			break;
+		case 4:
+			amount = 100000;
+			bonus = 10000;
+			break;
+		default:
+			break;
+		}
 		if (getAccBalance(accId) >= amount) {
 			int out = amount * -1;
+			int total = amount + bonus;
 			sqlSession.update(AM + "manageAcc", new Account(accId, null, 0, null, out, 0));
-			sqlSession.update(AM + "addMile", new MileageHistory(getMilePk(userId), user.getAccId(), null, amount));
+			sqlSession.update(AM + "addMile", new Account(accId, null, 0, null, 0, total));
+			sqlSession.insert(AM+"addMileHistory", new MileageHistory(0,accId,"",total,total+" 충전"));
+			return sqlSession.selectOne(AM+"getLastMileHistory", accId);
 		} else {
 			System.out.println("잔액이 부족합니다.");
+			return null;
 		}
+	}
+	
+	public String checkUserAcc(int userId) {
+		String str = "no";
+		/*
+		System.out.println("err 어딜까");
+		Users user = commonDAO.getUserById(userId);
+		System.out.println("err 여긴가");
+		user.getAccId().equals(null) || user.getAccId() == null
+		*/
+		
+		if(sqlSession.selectOne(AM+"checkUserAcc",userId).equals("0")) str = "no";
+		else str = "yes";
+		return str;
 	}
 
 }

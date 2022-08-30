@@ -19,17 +19,34 @@ import org.springframework.web.bind.annotation.RestController;
 import com.service.gnt.domain.users.Users;
 import com.service.gnt.model.service.CommonService;
 
+import io.swagger.annotations.ApiOperation;
+
 
 @RestController
 public class CommonController {
 	
 	@Autowired
 	private CommonService commonService;
-  
+	String uri ="";
+	/*
 	@GetMapping("/")
 	public String index() {
 		return "redirect:index.jsp";
 		
+	}*/
+	
+	@ApiOperation(value="index page", notes="Start 페이지로 이동")
+	@GetMapping("/")
+	public void index(HttpServletResponse response) throws Exception {
+		uri = "Main/Start.html";
+		response.sendRedirect(uri);
+	}
+	
+	@ApiOperation(value="Swagger", notes="Swagger-ui page로 이동")
+	@GetMapping("/swagger")
+	public void swagger(HttpServletResponse response) throws Exception {
+		uri = "swagger-ui.html";
+		response.sendRedirect(uri);
 	}
 	
 	@GetMapping("login.do")
@@ -71,7 +88,6 @@ public class CommonController {
 		return "UserReg";
 	}
 	
-
 //	@PostMapping("saveUser.do")
 //	public Users doRegUser(Users user, Model model) {
 //		try {
@@ -148,7 +164,6 @@ public class CommonController {
 				return maps;
 			}		
 		}
-	
 	
 	
 	
