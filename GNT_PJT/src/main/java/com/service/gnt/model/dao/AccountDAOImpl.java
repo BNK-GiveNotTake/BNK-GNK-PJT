@@ -19,8 +19,8 @@ public class AccountDAOImpl implements AccountDAO {
 	private SqlSession sqlSession;
 	private CommonDAO commonDAO;
 
-	public Account createAcc(int userId, int accPassword, String userEmail, String userNameEng, String address,
-			String Phone) {
+	public Account createAcc(int userId, int accPassword, String userNameEng, String address,
+			String phone) {
 		String key = "";
 		while (true) {
 			key = sqlSession.selectOne(AM + "createAccKey");
@@ -29,12 +29,12 @@ public class AccountDAOImpl implements AccountDAO {
 			}
 		}
 		sqlSession.insert(AM + "createAcc", new Account(key, accPassword));
-		Users vo = new Users(userId, key, userNameEng, address, Phone);
+		Users vo = new Users(userId, key, userNameEng, address, phone);
 		sqlSession.update(UM + "addUserInfo", vo); // user 정보 추가부
-		return null;//getAccount(key);
+		return getAccount(key);
 	}
 
-	public void createAccTest(int accPassword) {
+	public Account createAccTest(int accPassword) {
 		System.out.println("CreateAccTest 테스트중");
 		String key = "";
 		while (true) {
@@ -45,6 +45,7 @@ public class AccountDAOImpl implements AccountDAO {
 			;
 		}
 		sqlSession.insert(AM + "createAcc", new Account(key, accPassword));
+		return getAccount(key);
 	}
 
 	public int getAccBalance(String accId) {
@@ -68,22 +69,27 @@ public class AccountDAOImpl implements AccountDAO {
 		}
 	}
 
-	public void createMile(int userId) {
-		Users user = commonDAO.getUserById(userId);
-		sqlSession.insert(AM + "createMile", new MileageHistory(0, user.getAccId(), null, 0));
+	public int createMile(int userId) {
+		return sqlSession.insert(AM + "createMile", commonDAO.getUserById(userId).getAccId());
 	}
 
-	public int getMileBalance(int mileagePk) {
-		return sqlSession.selectOne(AM + "getMileBalance", mileagePk);
+	public int getMileBalance(int userId) {
+		String accId = commonDAO.getUserById(userId).getAccId();
+		return sqlSession.selectOne(AM + "getMileBalance", accId);
 	}
 	
 	public Account getAccount(String accId) {
 		return sqlSession.selectOne(AM+"getAccount",accId);
 	}
+	
+	public Account getAccountByUserId(int userId) {
+		String accId = commonDAO.getUserById(userId).getAccId();
+		return sqlSession.selectOne(AM+"getAccount",accId);
+	}
 
 	public int getMilePk(int userId) {
 		 Users user = commonDAO.getUserById(userId);
-		 return 0;//getAccount(user.getAccId()).getMileage();
+		 return getAccount(user.getAccId()).getMileage();
 	}
 
 	public List<MileageHistory> getMileHistory(int userId) {
@@ -101,6 +107,20 @@ public class AccountDAOImpl implements AccountDAO {
 		} else {
 			System.out.println("잔액이 부족합니다.");
 		}
+	}
+	
+	public String checkUserAcc(int userId) {
+		String str = "no";
+		/*
+		System.out.println("err 어딜까");
+		Users user = commonDAO.getUserById(userId);
+		System.out.println("err 여긴가");
+		user.getAccId().equals(null) || user.getAccId() == null
+		*/
+		
+		if(sqlSession.selectOne(AM+"checkUserAcc",userId).equals("0")) str = "no";
+		else str = "yes";
+		return str;
 	}
 
 }

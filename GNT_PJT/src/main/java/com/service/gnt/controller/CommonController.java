@@ -17,19 +17,42 @@ import org.springframework.web.bind.annotation.RestController;
 import com.service.gnt.domain.users.Users;
 import com.service.gnt.model.service.CommonService;
 
+import io.swagger.annotations.ApiOperation;
+
 
 @RestController
 public class CommonController {
 	
 	@Autowired
 	private CommonService commonService;
-  
+	String uri ="";
+	/*
 	@GetMapping("/")
 	public String index() {
 		return "redirect:index.jsp";
 		
+	}*/
+	
+	@ApiOperation(value="index page", notes="Start 페이지로 이동")
+	@GetMapping("/")
+	public void index(HttpServletResponse response) throws Exception {
+		uri = "Main/Start.html";
+		response.sendRedirect(uri);
 	}
 		
+	
+	
+	
+	
+	
+	@ApiOperation(value="Swagger", notes="Swagger-ui page로 이동")
+	@GetMapping("/swagger")
+	public void swagger(HttpServletResponse response) throws Exception {
+		uri = "swagger-ui.html";
+		response.sendRedirect(uri);
+	}
+	
+	
 	@GetMapping("login.do")
 	public String getLoginForm() {
 		System.out.println("#######");
@@ -69,27 +92,24 @@ public class CommonController {
 		return "UserReg";
 	}
 	
+
 	@PostMapping("saveUser.do")
-	@ResponseBody
-	public String doRegUser(Users user,Model model) {
+	public Users doRegUser(Users user, Model model) {
 		System.out.println("$#%$%%%%%%%%");
 		try {
 			// 성공페이지
 			System.out.println("$#%$%%%%%%%%");
 			System.out.println(user.toString());
 			commonService.insert(user);
-			System.out.println("---------------------------user이후");
 			model.addAttribute("title", "회원 가입 성공");
 			model.addAttribute("user", user);
-			return "";
+			return user;
 		}catch(Exception e) {
 			// 에러페이지
 			model.addAttribute("title", "회원 가입 실패");
-			System.out.println("********************");
-			return "Error";
+			System.out.println("********************"+e.getMessage());
+			return new Users();
 		}
-		
-		
 	}
 	
 	
