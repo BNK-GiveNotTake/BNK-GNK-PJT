@@ -25,8 +25,6 @@ public class MyBatisTest {
 		System.out.println(user.toString());
 		int returnInsert = session.insert(um+"newUser", user);
 //		session.commit();
-		
-		
 		System.out.println(returnInsert);
 		System.out.println("createAcc Method Unit Test");
 		int userId = Integer.parseInt(session.selectOne(um+"getUserId",user));

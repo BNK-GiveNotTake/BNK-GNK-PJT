@@ -82,6 +82,8 @@ public class Users {
 		this.isQuizParticipate = isQuizParticipate;
 	}
 
+	
+	
 	public String getAccId() {
 		return accId;
 	}
