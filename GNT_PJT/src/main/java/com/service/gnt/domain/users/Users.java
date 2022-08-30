@@ -17,7 +17,7 @@ public class Users {
 	private String Phone;
 	private int totalDonation;
 	private Quiz quiz;
-	private String isQuizParticipate; // BOOLEAN
+	private char isQuizParticipate; // BOOLEAN
 	
 	public Users() {}
 	
@@ -28,7 +28,7 @@ public class Users {
 	}
 
 	public Users(int userId, Account account, String userName, String userEmail, String userPassword, String address,
-			int totalDonation, Quiz quiz, String isQuizParticipate) {
+			int totalDonation, Quiz quiz, char isQuizParticipate) {
 		super();
 		this.userId = userId;
 		this.account = account;
@@ -41,7 +41,7 @@ public class Users {
 		this.quiz = quiz;
 		this.isQuizParticipate = isQuizParticipate;
 	}
-	*/
+	
 	public Users(int userId, String accId, String userName, String userNameEng, String userEmail, String userPassword,
 			String address, String Phone, int totalDonation, Quiz quiz, char isQuizParticipate) {
 		super();
@@ -138,11 +138,11 @@ public class Users {
 		this.quiz = quiz;
 	}
 
-	public String getIsQuizParticipate() {
+	public char getIsQuizParticipate() {
 		return isQuizParticipate;
 	}
 
-	public void setIsQuizParticipate(String isQuizParticipate) {
+	public void setIsQuizParticipate(char isQuizParticipate) {
 		this.isQuizParticipate = isQuizParticipate;
 	}
 	public String getUserEngName() {
