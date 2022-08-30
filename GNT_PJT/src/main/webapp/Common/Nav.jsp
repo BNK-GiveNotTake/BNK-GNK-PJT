@@ -86,6 +86,7 @@
 			$('.modalout').css('position', 'fixed');
 			$('body').css("overflow", "initial");
 		};
+		
 	</script>
 </head>
 
@@ -120,7 +121,7 @@
 	                <br><br>
 	                <div class="modalin-buttons">
 	                    <a href="" class="">비밀번호 찾기</a>
-	                    <button class="input-buttonin">로그인</button>
+	                    <button class="input-buttonin" id="login">로그인</button>
 	                </div>
 	                <p class="sign-up">아직 계정이 없으신가요? <a href="#" class="goToSignup">&nbsp;회원가입하기</a></p>
 	            </div>
@@ -141,22 +142,22 @@
 	                <p class="modalout-desc">기부를 하기 위해 회원가입을 진행해주세요.</p>
 	                <div class="input-block">
 	                    <label for="email" class="input-label">이메일</label>
-	                    <input type="email" name="email" id="email" placeholder="Email">
+	                    <input type="email" name="email" id="signUp_email" placeholder="Email">
 	                </div>
 	                <div class="input-block">
-	                    <label for="nickname" class="input-label">닉네임</label>
-	                    <input type="text" name="nickname" id="nickname" placeholder="Nickname">
+	                    <label for="nickname" class="input-label">이름</label>
+	                    <input type="text" name="nickname" id="signUp_nickname" placeholder="Nickname">
 	                </div>
 	                <div class="input-block">
 	                    <label for="password" class="input-label">비밀번호</label>
-	                    <input type="password" name="password" id="password" placeholder="Password">
+	                    <input type="password" name="password" id="signUp_password" placeholder="Password">
 	                </div>
 	                <div class="input-block">
 	                    <label for="passwordConfirm" class="input-label">비밀번호 확인</label>
-	                    <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="passwordConfirm">
+	                    <input type="password" name="passwordConfirm" id="signUp_passwordConfirm" placeholder="passwordConfirm">
 	                </div>
 	                <div class="modalout-buttons">
-	                    <button class="input-buttonout">회원가입</button>
+	                    <button class="input-buttonout" id="signUp">회원가입</button>
 	                </div>
 	                <p class="sign-in">이미 계정이 있으신가요? <a href="#" class="goToLogin">&nbsp;로그인하기</a></p>
 	            </div>
