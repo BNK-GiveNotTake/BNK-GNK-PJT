@@ -1,0 +1,8 @@
+INDEX VERSION 1.4+C:\Users\BIFF2020\Desktop\Practice\BNK-GNK-PJT\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1798431498.index
+3488648509.index
+2273604390.index
+3106278603.index
+1829953138.index
+3818643060.index
+1679411275.index
