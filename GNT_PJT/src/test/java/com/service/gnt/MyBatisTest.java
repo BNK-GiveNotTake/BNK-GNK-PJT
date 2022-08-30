@@ -21,7 +21,7 @@ public class MyBatisTest {
 		
 		Users user = new Users("aa@naver.com", "AAA", "12355");
 		System.out.println(user.toString());
-		int returnInsert = session.insert("ns.sql.AccountMapper.newUser", user);
+		int returnInsert = session.insert("ns.sql.UserMapper.newUser", user);
 		System.out.println(returnInsert);
 		session.commit();
 	}

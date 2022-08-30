@@ -22,7 +22,10 @@ public class CommonServiceImpl implements CommonService{
 		return commonDAO.select(user);
 	}
 	
-	
+	@Override
+	public Users getUserById(int userId) {
+		return commonDAO.getUserById(userId);
+	}
 	
 	
 }
