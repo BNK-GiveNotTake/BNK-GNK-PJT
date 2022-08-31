@@ -11,7 +11,7 @@ import org.junit.Test;
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.users.Users;
 
-public class MyBatisTest {
+public class CommonMyBatisTest {
 	@Test
 	public void unit() throws Exception {
 		String um = "ns.sql.UserMapper.";

@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import com.service.gnt.domain.donation.Donation;
 
-public class MyBatisTest2 {
+public class DonationMyBatisTest2 {
 	
 	@Test
 	public void unit() throws Exception {
