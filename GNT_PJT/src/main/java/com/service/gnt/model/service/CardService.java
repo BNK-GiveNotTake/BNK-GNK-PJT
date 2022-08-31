@@ -10,7 +10,8 @@ public interface CardService {
 	void insertCard(Card card, String userId) throws Exception;
 	
 	void deleteCard(String userId) throws Exception;
-	boolean isExist(String cardId) throws Exception;
+	
+	boolean isExistCardId(String cardId) throws Exception;
 	
 	boolean isReIssued(String userId) throws Exception;
 
