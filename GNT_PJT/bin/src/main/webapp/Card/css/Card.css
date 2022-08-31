@@ -93,6 +93,14 @@ a {
 	height: 317px;
 }
 
+.card--front_small {
+	font-size: 14px;
+	font-family: "Source Code Pro";
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+	width: 425px;
+	height: 270px;
+}
+
 .card--back {
 	padding-left: 0;
 	padding-right: 0;
@@ -103,30 +111,86 @@ a {
 	height: 270px;
 }
 
-.font__color-black {
+.card--back_big {
+	padding-left: 0;
+	padding-right: 0;
+	text-align: left;
+	font-family: "Source Code Pro";
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+	width: 500px;
+	height: 317px;
+}
+
+.front-card {
 	color: white;
-	background-color: black;
+	background-color: #99eb47;
 	height: 50px;
 	width: 100px;
-	border: 1px solid beige;
+	border: 1px solid #74cf19;
 	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
 	text-align: center;
+	font-size: larger;
 	font-weight: bold;
-	line-height: 3;
+	line-height: 2.3;
+	box-shadow: 0 0 5px 0 #99eb47;
 }
 
-.font__color-white {
-	color: black;
+.back-card {
+	color: #cfcfcf;
 	background-color: white;
 	height: 50px;
 	width: 100px;
-	border: 1px solid beige;
+	border: 1px solid #74cf19;
 	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
 	text-align: center;
 	font-weight: bold;
-	line-height: 3;
+	font-size: larger;
+	line-height: 2.3;
+	box-shadow: 0 0 5px 0 #99eb47;
+}
+
+.ic-chip {
+	position: relative;
+	left: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 80px;
+	height: 65px;
+	border-radius: 5px;
+	background-image: linear-gradient(to bottom left, #ffecc7, #d0b978);
+	overflow: hidden;
+}
+
+.ic-chip .chip-line {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: #333;
+}
+.ic-chip .chip-line:nth-child(1) {
+  top: 13px;
+}
+.ic-chip .chip-line:nth-child(2) {
+  top: 31px;
+}
+.ic-chip .chip-line:nth-child(3) {
+  top: 52px;
+}
+.ic-chip .chip-line:nth-child(4) {
+	left: 41px;
+    width: 1px;
+    height: 60px;
+}
+.ic-chip .chip-main {
+  width: 20px;
+  height: 25px;
+  border: 1px solid #333;
+  border-radius: 3px;
+  background-image: linear-gradient(to bottom left, #efdbab, #e1cb94);
+  z-index: 1;
 }
 
 /* tabs */
@@ -480,47 +544,56 @@ svg:hover .arrow-fixed {
   font-size: 1.35em;
   letter-spacing: 0.1em;
   margin-top: 10px;
+  margin-bottom: 0px;
 }
 
-
-/* button */
-@import url("https://fonts.googleapis.com/css?family=Lora:400,400i,700");
-
-.btn, .myButton::before, .myButton {
-  border: 2px solid #e2d0a8;
-  border-radius: 8px;
-  cursor: pointer;
-  min-width: 120px;
-  min-height: 3rem;
+.tabs-emo {
+	width: 105px;
+	height: 130px;
 }
 
-.myButton {
-  background: #efe5ce;
-  color: #7b6229;
-  font-family: "Lora", serif;
-  font-size: 1.3rem;
-  letter-spacing: 0.5px;
-  position: relative;
-  transform: skewX(20deg);
+.font__color-black, .font__color-white {
+	width: 40%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: large;
+    font-weight: bold;
+    border: 1px solid #99eb47;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 0 5px 0 #99eb47;
 }
-.myButton::before {
-  content: attr(data-label);
-  background: #F5EFE1;
-  display: grid;
-  place-items: center;
-  position: absolute;
-  top: -0.5rem;
-  left: 0.5rem;
-  z-index: -1;
-  transition: all 0.5s ease;
+
+.font__color-black:hover, .font__color-white:hover {
+	color: white;
+	background-color: #99eb47;
 }
-.myButton:hover::before {
-  top: -2px;
-  left: -2px;
+
+.font__color-selected {
+	color: white;
+	background-color: #99eb47;
+	box-shadow: 0 0 5px 0 #99eb47;
 }
-.myButton:focus {
-  outline: none;
+
+.content-input {
+	border: 1px solid #99eb47;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	box-shadow: 0 0 5px 0 #99eb47;
+	border-radius: 10px;
 }
+
+.change-content {
+	border: none;
+    background: none;
+    font-size: large;
+    font-weight: bold;
+}
+
+.change-content:hover {
+	color: #99eb47
+}
+
 
 /* loading 화면 */
 #loader-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; }

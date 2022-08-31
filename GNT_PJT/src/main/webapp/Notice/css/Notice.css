@@ -7,11 +7,67 @@
     font-style: normal;
 }
 
+.container h2 {
+	font-family: 'Happiness-Sans-Title';
+	margin-top: 2rem;
+    margin-left: 2.3rem;
+    margin-bottom: 2rem;
+}
 
+.responsive-table li {
+  border-radius: 3px;
+  padding: 25px 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
 
+.responsive-table .table-header {
+  background-color: #ebc247;
+  color: white;
+  font-size: large;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
 
+.responsive-table .table-row {
+  background-color: #ffffff;
+  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
 
+@media all and (max-width: 767px) {
+  .responsive-table .table-header {
+    display: none;
+  }
+  .responsive-table li {
+    display: block;
+  }
+  .responsive-table .col {
+    flex-basis: 100%;
+  }
+  .responsive-table .col {
+    display: flex;
+    padding: 10px 0;
+  }
+  .responsive-table .col:before {
+    color: #6C7A89;
+    padding-right: 10px;
+    content: attr(data-label);
+    flex-basis: 50%;
+    text-align: right;
+  }
+}
 
+#notice-content {
+	width: 80%;
+    margin: 0 auto 3rem;
+}
+
+div[data-label=createTime], div[data-label=viewCnt] {
+	text-align: end;
+}
 
 
 /* loading 화면 */
