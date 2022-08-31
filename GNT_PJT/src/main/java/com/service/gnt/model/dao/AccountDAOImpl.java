@@ -42,7 +42,6 @@ public class AccountDAOImpl implements AccountDAO {
 			if (sqlSession.selectOne(AM + "validateAccId", key).equals("0")) {
 				break; // 난수생성한 계좌가 겹치지 않을 경우 실행
 			}
-			;
 		}
 		sqlSession.insert(AM + "createAcc", new Account(key, accPassword));
 		return getAccount(key);
@@ -83,8 +82,9 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 	
 	public Account getAccountByUserId(int userId) {
-		String accId = commonDAO.getUserById(userId).getAccId();
-		return sqlSession.selectOne(AM+"getAccount",accId);
+		//String accId = ;
+		//System.out.println(accId);
+		return getAccount(sqlSession.selectOne(UM+"getAccIdByUserId",userId));
 	}
 
 	public int getMilePk(int userId) { // 없애도 되는 메소드...
