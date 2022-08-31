@@ -12,4 +12,8 @@
 		FROM notice
 		WHERE notice_id = #{VALUE}		
 	</select>
+	<select id="getNoticeAMT" resultType="integer">
+		SELECT count(*)
+		FROM notice
+	</select>
 </mapper>
