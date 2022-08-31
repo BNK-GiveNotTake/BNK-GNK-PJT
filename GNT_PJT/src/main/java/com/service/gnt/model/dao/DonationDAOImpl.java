@@ -18,11 +18,22 @@ public class DonationDAOImpl implements DonationDAO{
 	
 
 	@Override
-	public List<Donation> select() {
+	public List<Donation> select1() {
 		System.out.println("dao select()...");
 		
 		return sqlSession.selectList(NS+"DonationAsk", null);
 		
 	}
+
+
+	@Override
+	public List<Donation> select2() {
+		System.out.println("dao select()...");
+		
+		return sqlSession.selectList(NS+"DonationAsk", null);
+	}
+	
+	
+	
 
 }

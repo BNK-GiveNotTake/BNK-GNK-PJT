@@ -16,11 +16,19 @@ public class DonationServiceImpl implements DonationService{
 	
 	
 	@Override
-	public List<Donation> select() {
+	public List<Donation> select1() {
 		System.out.println("service select()...");
 		
-		return donationDAO.select();
+		return donationDAO.select1();
 		
+	}
+
+
+	@Override
+	public List<Donation> select2() {
+		System.out.println("service select()...");
+		
+		return donationDAO.select2();
 	}
 	
 

@@ -1,7 +1,5 @@
 package com.service.gnt.domain.account;
 
-import com.service.gnt.domain.card.Card;
-
 public class Account {
 	
 	private String accId;
@@ -11,6 +9,7 @@ public class Account {
 	private String createTime;
 	private int accAmount;
 	private int mileage;
+	private char isMileage;
 	
 	
 	public Account() {}
@@ -32,6 +31,32 @@ public class Account {
 		this.accAmount = accAmount;
 		this.mileage = mileage;
 	}
+
+
+	public Account(String accId, String cardId, int accPassword, String createTime, int accAmount, int mileage,
+			char isMileage) {
+		super();
+		this.accId = accId;
+		this.cardId = cardId;
+		this.accPassword = accPassword;
+		this.createTime = createTime;
+		this.accAmount = accAmount;
+		this.mileage = mileage;
+		this.isMileage = isMileage;
+	}
+
+
+
+	public char getIsMileage() {
+		return isMileage;
+	}
+
+
+
+	public void setIsMileage(char isMileage) {
+		this.isMileage = isMileage;
+	}
+
 
 
 	public String getCardId() {
@@ -94,13 +119,14 @@ public class Account {
 	}
 
 
+
 	@Override
 	public String toString() {
-		return "Account [accId=" + accId  + ", accPassword=" + accPassword + ", createTime="
-				+ createTime + ", accAmount=" + accAmount + ", mileage=" + mileage + "]";
+		return "Account [accId=" + accId + ", cardId=" + cardId + ", accPassword=" + accPassword + ", createTime="
+				+ createTime + ", accAmount=" + accAmount + ", mileage=" + mileage + ", isMileage=" + isMileage + "]";
 	}
-	
-	
+
+
 
 	
 }
