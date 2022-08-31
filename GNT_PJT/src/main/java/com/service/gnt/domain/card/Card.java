@@ -105,17 +105,6 @@ public class Card {
 		this.bgBack = bgBack;
 	}
 
-
-	public int getEmoId() {
-		return emoId;
-	}
-
-
-	public void setEmoId(int emoId) {
-		this.emoId = emoId;
-	}
-
-
 	public int getEmoInfoTop() {
 		return emoInfoTop;
 	}
