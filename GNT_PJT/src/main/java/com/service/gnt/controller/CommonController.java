@@ -51,115 +51,101 @@ public class CommonController {
 	
 	@GetMapping("login.do")
 	public String getLoginForm() {
-		System.out.println("#######");
 		return "login_success";
-		
 	}
 	
 	@PostMapping("login.do")
-	public String doLogin(Users user, Model model, HttpSession session) {
+	public Map<String,Object> doLogin(Users user, Model model, HttpSession session) {
+		Map<String,Object> maps = new HashMap<String,Object>();
+		String message = "Login Error";
 		try {
 			System.out.println("로그인을 시도중...");
 			
 			Users selected = commonService.select(user);
 			if(selected!=null) {
-				session.setAttribute("loginUser", selected);
-				return "index.jsp";
+				maps.put("userinfo", selected);
+				message = "Login Success";
+				maps.put("message", message);
+				return maps;
 				
 			}else {
-				return "login";
+				maps.put("message", message);
+				return maps;
 			}
 		}catch (Exception e){
 			model.addAttribute("title", "로그인 에러");
-			model.addAttribute("message", "로그인 중 에러 발생");
-			
-			return "Error";
-			
+//			model.addAttribute("message", "로그인 중 에러 발생");
+			maps.put("message", message);
+			return maps;
 			
 		}
-		
 	}
 	
-	@GetMapping("regUser.do")
-	public String getRegUser(Model model) {
-		
-		model.addAttribute("title", "회원 가입");
-		
-		return "UserReg";
-	}
-	
-//	@PostMapping("saveUser.do")
-//	public Users doRegUser(Users user, Model model) {
-//		try {
-//			// 성공페이지
-//			System.out.println(user.toString());
-//			commonService.insert(user);
-//			model.addAttribute("title", "회원 가입 성공");
-//			model.addAttribute("user", user);
-//			return user;
-//		}catch(Exception e) {
-//			// 에러페이지
-//			model.addAttribute("title", "회원 가입 실패");
-//			System.out.println("********************");
-//			return new Users();
-//		}
+//	@GetMapping("regUser.do")
+//	public String getRegUser(Model model) {
+//		
+//		model.addAttribute("title", "회원 가입");
+//		
+//		return "UserReg";
 //	}
-		
-		
-		
-		@PostMapping("saveUser.do")
-		public Map<String,Users> doRegUser(Users user, Model model) {
-			try {
-				// 성공페이지
-				Map<String,Users> maps = new HashMap<String,Users>();
-				Users user1 = new Users();
-				commonService.insert(user);
-				model.addAttribute("title", "회원 가입 성공");
-				model.addAttribute("user", user);
-				user1.setUserEmail(user.getUserEmail());
-				user1.setUserName(user.getUserName());
-				user1.setUserPassword(user.getUserPassword());
-				
-				maps.put("1",user1);
-				
-				
-				return maps ;
-				
-			}catch(Exception e) {
-				// 에러페이지
-				Map<String,Users> maps = new HashMap<String,Users>();
-				model.addAttribute("title", "회원 가입 실패");
-				Users user1 = new Users();
-				user1.setUserEmail("로그인실패");
-				user1.setUserName("로그인실패");
-				user1.setUserPassword("로그인실패");
-				maps.put("1",user1);
-				
-				return maps;
-			}
+	
+
+	@PostMapping("saveUser.do")
+	public Map<String,Object> doRegUser(Users user, Model model) {
+		String message = "Register Error";
+		try {
+			// 성공페이지
+			Map<String,Object> maps = new HashMap<String,Object>();
+			Users user1 = new Users();
+			commonService.insert(user);
+			model.addAttribute("title", "회원 가입 성공");
+			model.addAttribute("user", user);
+			user1.setUserEmail(user.getUserEmail());
+			user1.setUserName(user.getUserName());
+			user1.setUserPassword(user.getUserPassword());
+			message = "User Register Success";
+			maps.put("userinfo", user1);
+			maps.put("message", message);
+			
+			return maps ;
+			
+		}catch(Exception e) {
+			// 에러페이지
+			Map<String,Object> maps = new HashMap<String,Object>();
+			model.addAttribute("title", "회원 가입 실패");
+			Users user1 = new Users();
+			user1.setUserEmail("로그인실패");
+			user1.setUserName("로그인실패");
+			user1.setUserPassword("로그인실패");
+			maps.put("1",user1);
+			maps.put("message", message);
+			
+			return maps;
 		}
+	}
 		
 		@PostMapping("userinfo.do")
-		public Map<String,Users> userinfo(int userId, Model model){
+		public Map<String,Object> userinfo(int userId, Model model){
+			String message="Inquiry Error";
 			try {
-				Map<String,Users> maps = new HashMap<String,Users>();
-				System.out.println("1111111^&*^&*!@@%$#&*");
+				Map<String,Object> maps = new HashMap<String,Object>();
 				Users user1 = commonService.getUserById(userId);
 				System.out.println(user1);
 				model.addAttribute("title", "고객 정보 조회");
-				maps.put("1",user1);
-				
-				System.out.println("#$%^$%^%");
+				message="Inquiry Success";
+				maps.put("getUserbyId",user1);
+				maps.put("message", message);
 				return maps;
 			}catch(Exception e){
 				
-				Map<String,Users> maps = new HashMap<String,Users>();
+				Map<String,Object> maps = new HashMap<String,Object>();
 				model.addAttribute("title", "고객 정보 조회 실패");
 				Users user1 = new Users();
 				user1.setUserEmail("로그인실패");
 				user1.setUserName("로그인실패");
 				user1.setUserPassword("로그인실패");
 				maps.put("1",user1);
+				maps.put("message", message);
 				
 				return maps;
 			}		

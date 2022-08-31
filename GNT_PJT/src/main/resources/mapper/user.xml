@@ -38,7 +38,7 @@
 	WHERE user_id = #{userId} -->
   
 	<select id="getUserById" parameterType="integer" resultType="users" resultMap="Userreg">
-	SELECT user_id, acc_id, user_name, user_name_eng, user_email,
+	SELECT user_id, acc_id, user_name, user_name_eng, user_email, USER_PASSWORD,
 	address, phone, total_donation, quiz_id, is_quiz_participate
 	FROM users
 	WHERE user_id = #{userId}
@@ -58,13 +58,11 @@
 	</insert>
 	
 	<select id="selectUser" parameterType="users" resultMap="Userreg">
-		SELECT
-		USER_EMAIL, USER_PASSWORD
+		SELECT user_id, acc_id, user_name, user_name_eng, user_email, USER_PASSWORD,
+		address, phone, total_donation, quiz_id, is_quiz_participate
 		FROM USERS
 		WHERE USER_EMAIL=#{userEmail}
-		<if test="USER_PASSWORD!=null">
-			AND USER_PASSWORD=#{userPassword}
-		</if>
+		AND USER_PASSWORD=#{userPassword}
 	</select>
 	
 </mapper>
