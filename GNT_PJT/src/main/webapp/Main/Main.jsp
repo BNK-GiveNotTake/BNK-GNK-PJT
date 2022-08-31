@@ -130,12 +130,13 @@
 			
 			$('.create-account').click(function() {
 				var userInfo = JSON.parse(localStorage.getItem('user'))
+				var phone = $('#exampleInputPhone').val().slice(0,3) + $('#exampleInputPhone').val().slice(4,8) + $('#exampleInputPhone').val().slice(9, 13)
 				accData = {
 					'userId': userInfo.userId,
 					'accPassword': passNum,
 					'userNameEng': $('#exampleInputEnglishName').val(),
 					'address': $('#exampleInputAddress').val(),
-					'phone': $('#exampleInputPhone').val()
+					'phone': phone
 				};
 				$.ajax({
 					type: 'post',

@@ -187,7 +187,7 @@
   position: absolute;
   right: 10px;
   top: 12px;
-  width: 32px;
+  width: 4%;
   height: 32px;
   border: 0;
   background: 0;
@@ -356,4 +356,10 @@
     width: 80%;
     height: 80%;
   }
+}
+
+.checkDuplicateEmail {
+	font-weight: bold;
+    cursor: pointer;
+    color: #927468;
 }
