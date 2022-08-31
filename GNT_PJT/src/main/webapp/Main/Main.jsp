@@ -22,7 +22,6 @@
 		
 		$(function() {
 			$('.mileage-shopbtn').click(function() {
-				console.log($(this).prop('value'))
 				swal({
 					  title: "정말로 구매하시겠습니까?",
 					  text: "한 번 구매하시면, 청약철회 불가능합니다.",
@@ -31,16 +30,173 @@
 					  dangerMode: true,
 					})
 					.then((willDelete) => {
-					  if (willDelete) {
-					    swal("감사합니다! 성공적으로 구매하셨습니다!!", {
-					      icon: "success",
-					    });
-					  } else {
-					  	swal.close();
-					  }
+						if (willDelete) {
+							var userInfo = JSON.parse(localStorage.getItem('user'))
+							
+							$.ajax({
+								type: 'post',
+								url: '../addMile.do',
+								data: {
+									'userId': userInfo.userId,
+									'amount': $(this).val()
+								},
+								success: function(res) {
+									if(res.message=='yes') {
+										console.log(res)
+										var accountInfo = new Object();
+										$.each(res.account, function(index, item) {
+											if (item===null) {
+												
+											} else {
+												accountInfo[index] = item;
+											}
+										})
+										localStorage.setItem('account', JSON.stringify(accountInfo));
+										swal({
+											title: "Good job!",
+											text: "성공적으로 마일리지를 구매했습니다.",
+											icon: "success",
+											button: "확인!",
+										})
+										.then((value) => {
+											location.href="../Main/Main.jsp"
+										})
+									}
+								},
+								error: function(err) {
+									console.log(err)
+								}
+							})
+							
+						} else {
+							swal.close();
+						}
 					});
 			})
 		})
+		
+		$(function() {
+			if (localStorage.getItem('user')) {
+				var userInfo = JSON.parse(localStorage.getItem('user'))
+				checkAccount(userInfo.userId);
+			}
+			
+			$(document).keydown(function(event) {
+			    if ( event.keyCode == 27 || event.which == 27 ) {
+			    	$('.modal').removeClass('show')
+			    	$('.modal').css('display', 'none')
+			    	$('.modal-backdrop').remove()
+			    }
+			});
+			
+			$('#mileage-btn').click(function() {
+				swal({
+					title: "마일리지 생성",
+					text: "마일리지를 정말로 생성하시겠습니까?",
+					buttons: ["취소", "생성"],
+				})
+				.then((value) => {
+					var userInfo = JSON.parse(localStorage.getItem('user'))
+					if (value==true) {
+						$.ajax({
+							type: 'post',
+							url: '../createMile.do',
+							data: {
+								'userId': userInfo.userId
+							},
+							success: function(res) {
+								if(res.message=='yes') {
+									swal({
+									  title: "Good job!",
+									  text: "성공적으로 마일리지를 생성했습니다.",
+									  icon: "success",
+									  button: "확인!",
+									})
+									.then((value) => {
+										location.href="../Main/Main.jsp"
+									})
+								}
+							},
+							error: function(err) {
+								console.log(err)
+							}
+						})
+					}
+				})
+			})
+			
+			
+		})
+		
+		function checkAccount(userId) {
+			console.log()
+			$.ajax({
+				type: 'post',
+				url: '../checkUserAcc.do',
+				data: {
+					'userId': userId
+				},
+				// 응답 부분
+				success: function(res) {
+					if(res.message== 'no') {
+						swal({
+							title: "계좌 조회",
+							text: "계좌가 존재하지 않습니다. 생성하시겠습니까?",
+							buttons: ["취소", "생성"],
+						})
+						.then((value) => {
+							if (value==true) {
+								$('.modal').addClass('show');
+								$('.modal').css('display', 'block');
+								$('body').append('<div class="modal-backdrop fade show"></div>');
+							}
+						})
+					} else {
+						$.ajax({
+							type: 'post',
+							url: '../getAccount.do',
+							data: {
+								'userId': userId
+							},
+							// 응답 부분
+							success: function(res) {
+								if(res.message == 'yes') {
+									var accountInfo = new Object();
+									$.each(res.account, function(index, item) {
+										if (item===null) {
+											
+										} else {
+											accountInfo[index] = item;
+										}
+									})
+									localStorage.setItem('account', JSON.stringify(accountInfo));
+									var accAmount = accountInfo.accAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+									 $('.account-amount').text(accAmount)
+									 
+									if (res.account.isMileage=="0") {
+										$('#mileage-btn').css('display', 'block')
+										$('#account-btn').css('width', '40%')
+									} else {
+										var mileage = accountInfo.mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+										 $('.mileage-amount').text(mileage)
+										$('#mileage-btn').css('display', 'none')
+										$('#account-btn').css('width', '90%')
+									}
+								}
+							},
+							error: function(err) {
+								console.log(err)
+							}
+						})
+					
+					}
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		};
+		
 		
 		function mobile_keyup(obj){
 		    let mobile_len = obj.value.length;
@@ -68,34 +224,7 @@
 		      });
 		}
 		
-		$(function() {
-			$('#signUp').click(function() {
-				console.log({
-					'userEmail': $('#signUp_email').val(),
-					'userName': $('#signUp_nickname').val(),
-					'userPassword': $('#signUp_password').val()
-				})
-				$.ajax({
-					type: 'post',
-					url: '../saveUser.do',
-					data: {
-						'userEmail': $('#signUp_email').val(),
-						'userName': $('#signUp_nickname').val(),
-						'userPassword': $('#signUp_password').val()
-					},
-					// 응답 부분
-					success: function(res) {
-						$.each(res, function(index, item) {
-							console.log(item)
-						})
-					},
-					error: function(err) {
-						console.log(err)
-					}
-				})
-			})
-			
-		})
+		
 		
 	</script>
 </head>
@@ -116,8 +245,8 @@
 	                    <h1 class="animated animated-text">
 	                        <span class="mr-2">잔액 조회</span>
 	                            <div class="animated-info">
-	                                <span class="animated-item">연동 계좌 : 6,400,000원</span>
-	                                <span class="animated-item">마일리지 : 500,000원</span>
+	                                <span class="animated-item">연동 계좌 : <span class="account-amount">0</span>원</span>
+	                                <span class="animated-item">마일리지 : <span class="mileage-amount">0</span>원</span>
 	                            </div>
 	                    </h1>
 						<br>
@@ -125,7 +254,8 @@
 	                    <p>I am highly energetic in user experience design, interfaces and web development.</p>
 	                    <br><br>
 	                    <div class="d-flex justify-content-around">
-							<button class="btn-slide-line" style="width: 90%;" data-toggle="modal" data-target="#exampleModal">계좌 관리</button>
+							<button class="btn-slide-line" id="account-btn" style="width: 40%;" data-toggle="modal" data-target="#exampleModal">계좌 관리</button>
+							<button class="btn-slide-line" id="mileage-btn" style="width: 40%;">마일리지 생성</button>
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							  <div class="modal-dialog" role="document">
