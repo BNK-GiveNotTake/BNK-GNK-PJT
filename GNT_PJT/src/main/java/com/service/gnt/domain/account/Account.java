@@ -9,7 +9,7 @@ public class Account {
 	private String createTime;
 	private int accAmount;
 	private int mileage;
-	private char isMileage;
+	private String isMileage;
 	
 	
 	public Account() {}
@@ -20,6 +20,13 @@ public class Account {
 		super();
 		this.accId = accId;
 		this.accPassword = accPassword;
+	}
+
+	public Account(String accId, int accAmount, int mileage) {
+		super();
+		this.accId = accId;
+		this.accAmount = accAmount;
+		this.mileage = mileage;
 	}
 
 	public Account(String accId, String cardId, int accPassword, String createTime, int accAmount, int mileage) {
@@ -34,7 +41,7 @@ public class Account {
 
 
 	public Account(String accId, String cardId, int accPassword, String createTime, int accAmount, int mileage,
-			char isMileage) {
+			String isMileage) {
 		super();
 		this.accId = accId;
 		this.cardId = cardId;
@@ -47,13 +54,13 @@ public class Account {
 
 
 
-	public char getIsMileage() {
+	public String getIsMileage() {
 		return isMileage;
 	}
 
 
 
-	public void setIsMileage(char isMileage) {
+	public void setIsMileage(String isMileage) {
 		this.isMileage = isMileage;
 	}
 

@@ -9,8 +9,8 @@ public interface AccountDAO {
 	Account createAcc(int userId, int accPassword, String userNameEng, String address,
 			String phone);
 	int getAccBalance(String accId);
-	void depositAcc(int userId, int amount);
-	void sendAcc(int userId, int amount, String accId);
+	int depositAcc(int userId, int amount);
+	String sendAcc(int userId, int amount, String accId);
 	int createMile(int userId);
 	int getMileBalance(int userId);
 	List<MileageHistory> getMileHistory(int userId);
@@ -20,4 +20,6 @@ public interface AccountDAO {
 	Account createAccTest(int accPassword); //테스트용 지울거임
 	String checkUserAcc(int userId);
 	Account getAccountByUserId(int userId);
+	int getMileHistoryAMT(int userId);
+	String getAccIdByUserId(int userId);
 }

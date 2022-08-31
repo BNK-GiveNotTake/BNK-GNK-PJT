@@ -9,8 +9,8 @@ public interface AccountService {
 	Account createAcc(int userId, int accPassword, String userNameEng, String address,
 			String phone);
 	int getAccBalance(String accId);
-	void depositAcc(int userId, int amount);
-	void sendAcc(int userId, int amount, String accId);
+	int depositAcc(int userId, int amount);
+	String sendAcc(int userId, int amount, String accId);
 	int createMile(int userId);
 	int getMileBalance(int userId);
 	List<MileageHistory> getMileHistory(int userId);
@@ -20,4 +20,6 @@ public interface AccountService {
 	Account createAccTest(int accPassword);
 	String checkUserAcc(int userId);
 	Account getAccountByUserId(int userId);
+	int getMileHistoryAMT(int userId);
+	String getAccIdByUserId(int userId);
 }

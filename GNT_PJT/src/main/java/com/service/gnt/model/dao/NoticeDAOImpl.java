@@ -16,6 +16,9 @@ public class NoticeDAOImpl implements NoticeDAO{
 	public List<Notice> getNoticeList(){
 		return sqlSession.selectList("ns.sql.NoticeMapper.getNoticeList");
 	}
+	public int getNoticeAMT() {
+		return sqlSession.selectOne("ns.sql.NoticeMapper.getNoticeAMT");
+	}
 	public Notice getNoticeDetail(int noticeId) {
 		return sqlSession.selectOne("ns.sql.NoticeMapper.getNoticeDetail", noticeId);
 	}
