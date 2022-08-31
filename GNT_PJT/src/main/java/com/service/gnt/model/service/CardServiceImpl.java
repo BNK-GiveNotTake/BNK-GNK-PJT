@@ -23,7 +23,7 @@ public class CardServiceImpl implements CardService{
 		
 		cardDAO.insertCard(card); // 카드 생성
 		
-		String accId = cardDAO.selectAccId(userId); // 고객의 계좌번호
+		String accId = cardDAO.selectCardAccId(Integer.parseInt(userId)); // 고객의 계좌번호
 		
 		account.setAccId(accId); // 계좌번호
 		account.setCardId(card.getCardId()); // 카드번호
@@ -36,13 +36,15 @@ public class CardServiceImpl implements CardService{
 	// 카드 삭제 :: 신규 발급자가 아닌 경우, 카드 생성 전 실행
 	@Override
 	public void deleteCard(String userId) throws Exception {
-		cardDAO.deleteCard(userId);
+		String accId = cardDAO.selectCardAccId(Integer.parseInt(userId));
+		String cardId = cardDAO.selectCardDelete(accId);
+		cardDAO.deleteCard(cardId);
 	}
 	
 	
 	// 카드 번호 생성 :: 카드 번호가 존재하는 번호인지 확인
 	@Override
-	public boolean isExist(String cardId) throws Exception {
+	public boolean isExistCardId(String cardId) throws Exception {
 		List<String> list = cardDAO.selectAccIds(); // 모든 고객의 계좌번호
 		for (String accId : list) {
 			if (cardId.equals(cardDAO.selectCardId(accId))) // 각 계좌번호의 카드번호와 현재 카드번호가 같으면
@@ -54,7 +56,7 @@ public class CardServiceImpl implements CardService{
 
 	@Override
 	public boolean isReIssued(String userId) throws Exception {
-		String accId = cardDAO.selectAccId(userId); // 고객의 계좌번호
+		String accId = cardDAO.selectCardAccId(Integer.parseInt(userId)); // 고객의 계좌번호
 		String cardId = cardDAO.selectCardDelete(accId); // 고객의 카드번호
 		if (cardId != null && cardId.length() != 0) // null이 아니거나 길이가 0이 아닐 때 - 값이 있을 때
 			return true;
