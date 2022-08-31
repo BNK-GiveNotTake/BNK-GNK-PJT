@@ -68,34 +68,7 @@
 		      });
 		}
 		
-		$(function() {
-			$('#signUp').click(function() {
-				console.log({
-					'userEmail': $('#signUp_email').val(),
-					'userName': $('#signUp_nickname').val(),
-					'userPassword': $('#signUp_password').val()
-				})
-				$.ajax({
-					type: 'post',
-					url: '../saveUser.do',
-					data: {
-						'userEmail': $('#signUp_email').val(),
-						'userName': $('#signUp_nickname').val(),
-						'userPassword': $('#signUp_password').val()
-					},
-					// 응답 부분
-					success: function(res) {
-						$.each(res, function(index, item) {
-							console.log(item)
-						})
-					},
-					error: function(err) {
-						console.log(err)
-					}
-				})
-			})
-			
-		})
+		
 		
 	</script>
 </head>
