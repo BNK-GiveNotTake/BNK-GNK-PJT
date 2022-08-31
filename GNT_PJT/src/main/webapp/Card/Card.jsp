@@ -40,6 +40,8 @@
 		
 		$(function() {
 			var isFront = true;
+			var frontFont = 'white';
+			var backFont = 'white';
 			var backgroundColor = "";
 			
 			$('.front-card').click(function() {
@@ -60,6 +62,13 @@
 					$('#draggable3').css('left', left_position + 'px').css('top', top_position + 'px');	
 				}
 				isFront = true;
+				if(frontFont=='black') {
+					$('.font__color-white').removeClass('font__color-selected')
+					$('.font__color-black').addClass('font__color-selected')
+				} else {
+					$('.font__color-black').removeClass('font__color-selected')
+					$('.font__color-white').addClass('font__color-selected')
+				}
 			})
 			
 			$('.back-card').click(function() {
@@ -80,28 +89,43 @@
 					$('#draggable3').css('left', left_position + 'px').css('top', top_position + 'px');	
 				}
 				isFront = false;
+				if(backFont=='black') {
+					$('.font__color-white').removeClass('font__color-selected')
+					$('.font__color-black').addClass('font__color-selected')
+				} else {
+					$('.font__color-black').removeClass('font__color-selected')
+					$('.font__color-white').addClass('font__color-selected')
+				}
 			})
 			
 			$('.font__color-black').click(function() {
 				if (isFront == true) {
 					$('.front .card__content').css("color", "black");
+					frontFont = 'black'
 				} else {
 					$('.back .card__ccv').css("color", "black");
 					$('.back .card__owner').css("color", "black");
 					$('.back .card__expiry-date').css("color", "black");
 					$('.back .card__number').css("color", "black");
+					backFont = 'black'
 				}
+				$('.font__color-white').removeClass('font__color-selected')
+				$('.font__color-black').addClass('font__color-selected')
 			});
 			
 			$('.font__color-white').click(function() {
 				if (isFront == true) {
 					$('.front .card__content').css("color", "white");
+					frontFont = 'white'
 				} else {
 					$('.back .card__ccv').css("color", "white");
 					$('.back .card__owner').css("color", "white");
 					$('.back .card__expiry-date').css("color", "white");
 					$('.back .card__number').css("color", "white");
+					backFont = 'white'
 				}
+				$('.font__color-black').removeClass('font__color-selected')
+				$('.font__color-white').addClass('font__color-selected')
 			});
 			
 			$('#tab3').click(function() {
@@ -404,7 +428,7 @@
 				    <section>
 						<h2>Background</h2>
 						<div class="d-flex">
-							<svg id="arrow-before" width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+							<svg id="arrow-before" width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill: #99eb47;">
 							    <g id="prev" transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
 							        <polygon class="arrow" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
 							        <polygon class="arrow-fixed" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
@@ -414,7 +438,7 @@
 							
 							<div id="backGroundColorList" class="d-flex">
 							</div>
-							<svg id="arrow-after" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+							<svg id="arrow-after" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill: #99eb47;">
 							    <g>
 							        <polygon class="arrow" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
 							        <polygon class="arrow-fixed" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
@@ -434,17 +458,19 @@
 							<div class="col-3 d-flex justify-content-around" style="flex-direction: column">
 								<div>
 									<h5><b>8글자 내로 작성하시오.</b></h5>
-									<input type="text" class="content-input" style="border: 1px solid black;" maxlength='8'>
+									<input type="text" class="content-input" maxlength='8'>
 									<button class="change-content">작성</button>
 								</div>
 								<div>
 									<h5><b>글자색을 정하시오.</b></h5>
-									<button class="font__color-black">검은색</button>
-									<button class="font__color-white">흰색</button>
+									<div class="d-flex">
+										<button class="font__color-black" style="margin-right: 2rem;">검은색</button>
+										<button class="font__color-white font__color-selected">흰색</button>
+									</div>
 								</div>
 							</div>
 							<div class="col-9 d-flex">
-								<svg id="arrow-before-font" width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: visible;">
+								<svg id="arrow-before-font" width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: visible; fill: #99eb47;">
 								    <g id="prev" transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
 								        <polygon class="arrow" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
 								        <polygon class="arrow-fixed" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
@@ -454,7 +480,7 @@
 								
 								<div id="FontList" class="d-flex">
 								</div>
-								<svg id="arrow-after-font" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: visible;">
+								<svg id="arrow-after-font" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: visible; fill: #99eb47;">
 								    <g>
 								        <polygon class="arrow" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
 								        <polygon class="arrow-fixed" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>

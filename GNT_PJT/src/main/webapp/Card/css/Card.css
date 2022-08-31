@@ -157,8 +157,8 @@ a {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 100px;
-	height: 80px;
+	width: 80px;
+	height: 65px;
 	border-radius: 5px;
 	background-image: linear-gradient(to bottom left, #ffecc7, #d0b978);
 	overflow: hidden;
@@ -171,18 +171,18 @@ a {
   background-color: #333;
 }
 .ic-chip .chip-line:nth-child(1) {
-  top: 14px;
+  top: 13px;
 }
 .ic-chip .chip-line:nth-child(2) {
-  top: 40px;
+  top: 31px;
 }
 .ic-chip .chip-line:nth-child(3) {
-  top: 65px;
+  top: 52px;
 }
 .ic-chip .chip-line:nth-child(4) {
-  left: 50px;
-  width: 1px;
-  height: 50px;
+	left: 41px;
+    width: 1px;
+    height: 60px;
 }
 .ic-chip .chip-main {
   width: 20px;
@@ -553,7 +553,45 @@ svg:hover .arrow-fixed {
 }
 
 .font__color-black, .font__color-white {
-	
+	width: 40%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: large;
+    font-weight: bold;
+    border: 1px solid #99eb47;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 0 5px 0 #99eb47;
+}
+
+.font__color-black:hover, .font__color-white:hover {
+	color: white;
+	background-color: #99eb47;
+}
+
+.font__color-selected {
+	color: white;
+	background-color: #99eb47;
+	box-shadow: 0 0 5px 0 #99eb47;
+}
+
+.content-input {
+	border: 1px solid #99eb47;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	box-shadow: 0 0 5px 0 #99eb47;
+	border-radius: 10px;
+}
+
+.change-content {
+	border: none;
+    background: none;
+    font-size: large;
+    font-weight: bold;
+}
+
+.change-content:hover {
+	color: #99eb47
 }
 
 
