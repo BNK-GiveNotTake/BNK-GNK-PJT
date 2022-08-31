@@ -22,8 +22,8 @@ public class CardDAOImpl implements CardDAO{
 	}
 
 	@Override
-	public String selectAccId(String userId) throws Exception {
-		return sqlSession.selectOne(NS+"selectAccId", userId);
+	public String selectCardAccId(int userId) throws Exception {
+		return sqlSession.selectOne(NS+"selectCardAccId", userId);
 	}
 
 	@Override
@@ -32,8 +32,8 @@ public class CardDAOImpl implements CardDAO{
 	}
 
 	@Override
-	public int deleteCard(String userId) throws Exception {
-		return sqlSession.delete(NS+"deleteCard", userId);
+	public int deleteCard(String cardId) throws Exception {
+		return sqlSession.delete(NS+"deleteCard", cardId);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class CardDAOImpl implements CardDAO{
 
 	@Override
 	public String selectCardDelete(String accId) throws Exception {
-		return sqlSession.selectOne(NS+"updateCardIssued", accId);
+		return sqlSession.selectOne(NS+"selectCardDelete", accId);
 
 	}
 

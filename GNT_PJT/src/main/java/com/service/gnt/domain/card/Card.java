@@ -17,7 +17,22 @@ public class Card {
 	
 	
 	public Card() {}
-
+//new Card(tempCard, tempCvc, bg_front, bg_back, Integer.parseInt(emoId), Integer.parseInt(emoInfoTop),
+	//Integer.parseInt(emoInfoLeft), font, cardContent)
+	public Card(String cardId, int cvc, String bgFront, String bgBack, int emoId, int emoInfoTop, int emoInfoLeft,
+			String font, String cardContent) {
+		super();
+		this.cardId = cardId;
+		this.cvc = cvc;
+		this.bgFront = bgFront;
+		this.bgBack = bgBack;
+		this.emoId = emoId;
+		this.emoInfoTop = emoInfoTop;
+		this.emoInfoLeft = emoInfoLeft;
+		this.font = font;
+		this.cardContent = cardContent;
+	}
+	
 	public Card(String cardId, int cvc, String createTime, String endTime, String bgFront, String bgBack, int emoId,
 			int emoInfoTop, int emoInfoLeft, String font, String cardContent, String isIssued) {
 		super();
@@ -34,7 +49,6 @@ public class Card {
 		this.cardContent = cardContent;
 		this.isIssued = isIssued;
 	}
-
 
 	public int getEmoId() {
 		return emoId;
