@@ -15,7 +15,7 @@ public class AccountServiceImpl implements AccountService{
 	@Autowired
 	private AccountDAO accountDAO;
 
-	public Account createAcc(int userId, int accPassword, String userNameEng,
+	public Account createAcc(int userId, String accPassword, String userNameEng,
 			String address, String phone) {
 		return accountDAO.createAcc(userId, accPassword, userNameEng, address, phone);
 	}
@@ -52,7 +52,7 @@ public class AccountServiceImpl implements AccountService{
 		return accountDAO.getMilePk(userId);
 	}
 
-	public Account createAccTest(int accPassword) {
+	public Account createAccTest(String accPassword) {
 		return accountDAO.createAccTest(accPassword);
 	}
 
