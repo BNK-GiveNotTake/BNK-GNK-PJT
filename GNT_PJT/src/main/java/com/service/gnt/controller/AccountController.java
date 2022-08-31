@@ -25,7 +25,7 @@ public class AccountController {
 	
 	@ApiOperation(value="createAcc", notes="계좌 생성")
 	@PostMapping("/createAcc.do")
-	public Map<String,Object> createAcc(@RequestParam int userId,@RequestParam int accPassword,@RequestParam String userNameEng,
+	public Map<String,Object> createAcc(@RequestParam int userId,@RequestParam String accPassword,@RequestParam String userNameEng,
 			@RequestParam String address, @RequestParam String phone, Model model) {
 		try {
 			Map<String,Object> maps = new HashMap<>();
@@ -47,7 +47,7 @@ public class AccountController {
 	
 	@ApiOperation(value="createAccTest", notes="계좌 생성")
 	@PostMapping("/createAccTest.do")
-	public Map<String,Object> createAcc(@RequestParam int accPassword, Model model) {
+	public Map<String,Object> createAcc(@RequestParam String accPassword, Model model) {
 		try {
 			Map<String,Object> maps = new HashMap<>();
 			String status = "no";
