@@ -111,7 +111,7 @@
 	</select>
 
 	<select id="getAccount" parameterType="string" resultType="account">
-		SELECT (acc_id, card_id, create_time, acc_amount, mileage)
+		SELECT acc_id, card_id, create_time, acc_amount, mileage
 		FROM account
 		WHERE acc_id = #{VALUE}
 	</select>
