@@ -29,7 +29,7 @@ class CardMyBatisTest {
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
 		SqlSession session = factory.openSession();
 		
-		Card card = new Card(); // card 생성자 입력
+		Card card = new Card("1234567890123456", 456, "", "", 0, 0, 0, "", ""); // card 생성자 입력
 		
 		int result = session.insert("ns.sql.CardMapper.insertCard",card);
 		
@@ -76,7 +76,7 @@ class CardMyBatisTest {
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
 		SqlSession session = factory.openSession();
 		
-		String cardId = ""; // 카드번호 입력
+		String cardId = "1234567890123456"; // 카드번호 입력
 		int result = session.delete("ns.sql.CardMapper.deleteCard", cardId);
 		
 		System.out.println("Card Test :: deleteCard? ----------> "+result);

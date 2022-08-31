@@ -28,7 +28,9 @@ public class AccountDAOImpl implements AccountDAO {
 				break; // 난수생성한 계좌가 겹치지 않을 경우 실행
 			}
 		}
+		System.out.println(accPassword);
 		sqlSession.insert(AM + "createAcc", new Account(key, accPassword));
+		
 		Users vo = new Users(userId, key, userNameEng, address, phone);
 		sqlSession.update(UM + "addUserInfo", vo); // user 정보 추가부
 		return getAccount(key);
@@ -157,4 +159,6 @@ public class AccountDAOImpl implements AccountDAO {
 		String accId = sqlSession.selectOne(UM+"getAccIdByUserId",userId);
 		return sqlSession.selectOne(AM+"getMileHistoryAMT",accId);
 	}
+
+
 }

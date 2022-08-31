@@ -11,15 +11,23 @@ import com.service.gnt.domain.notice.Notice;
 
 @Repository
 public class NoticeDAOImpl implements NoticeDAO{
+	private static final String NM = "ns.sql.NoticeMapper.";
 	@Autowired
 	private SqlSession sqlSession;
+	
 	public List<Notice> getNoticeList(){
-		return sqlSession.selectList("ns.sql.NoticeMapper.getNoticeList");
+		return sqlSession.selectList(NM+"getNoticeList");
 	}
 	public int getNoticeAMT() {
-		return sqlSession.selectOne("ns.sql.NoticeMapper.getNoticeAMT");
+		return sqlSession.selectOne(NM+"getNoticeAMT");
 	}
 	public Notice getNoticeDetail(int noticeId) {
-		return sqlSession.selectOne("ns.sql.NoticeMapper.getNoticeDetail", noticeId);
+		sqlSession.update(NM+"addNoticeCNT", noticeId);
+		return sqlSession.selectOne(NM+"getNoticeDetail", noticeId);
+	}
+	
+	@Override
+	public int addNoticeCNT(int noticeId) {
+		return sqlSession.update(NM+"addNoticeCNT", noticeId);
 	}
 }
