@@ -8,9 +8,9 @@ import com.service.gnt.domain.card.Card;
 public interface CardDAO {
 	
 	int insertCard(Card card) throws Exception;
-	String selectAccId(String userId) throws Exception;
+	String selectCardAccId(int userId) throws Exception;
 	int updateCardToAcc(Account account) throws Exception;
-	int deleteCard(String userId) throws Exception;
+	int deleteCard(String cardId) throws Exception;
 	
 	List<String> selectAccIds() throws Exception;
 	String selectCardId(String accId) throws Exception;

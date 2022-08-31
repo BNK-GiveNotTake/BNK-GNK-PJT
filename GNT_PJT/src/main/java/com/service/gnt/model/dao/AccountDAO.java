@@ -6,7 +6,7 @@ import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
 
 public interface AccountDAO {
-	Account createAcc(int userId, int accPassword, String userNameEng, String address,
+	Account createAcc(int userId, String accPassword, String userNameEng, String address,
 			String phone);
 	int getAccBalance(String accId);
 	int depositAcc(int userId, int amount);
@@ -17,7 +17,7 @@ public interface AccountDAO {
 	MileageHistory addMile(int amount, int userId);
 	int getMilePk(int userId);
 	Account getAccount(String accId);
-	Account createAccTest(int accPassword); //테스트용 지울거임
+	Account createAccTest(String accPassword); //테스트용 지울거임
 	String checkUserAcc(int userId);
 	Account getAccountByUserId(int userId);
 	int getMileHistoryAMT(int userId);

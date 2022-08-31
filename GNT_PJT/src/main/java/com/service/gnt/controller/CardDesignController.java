@@ -26,32 +26,33 @@ public class CardDesignController {
 		// 카드 번호 랜덤 생성 (4번 만들어서 4번 붙이자!)
 		// 카드 랜덤 확인 (false 뜰 때까지 반복)
 		String tempCard = "";
-		while (tempCard=="" || cardService.isExist(tempCard)) {  // -------------------------------------------------------------- error check
+		while (tempCard=="" || cardService.isExistCardId(tempCard)) {  // -------------------------------------------------------------- error check
 			tempCard = "";
 			for (int i=0;i<4;i++) {
-				int ranNum = (int)(Math.random() * (9999-1000+1))+1000;
+				int ranNum = (int)(Math.random() * (9999-1000))+1000;
 				tempCard += Integer.toString(ranNum);
 			}
+			System.out.println("cardDesignController :: temp card id? -> "+tempCard);
 		}
 		
 		// cvc 랜덤 생성 (중복 체크 안 해도 됨)
-		int tempCvc = (int)(Math.random() * (999-100+1))+100;
+		int tempCvc = (int)(Math.random() * (999-100))+100;
 		
 		// 카드 객체 생성해서 담기
-//		Card card = new Card(tempCard, tempCvc, bg_front, bg_back, Integer.parseInt(emoId), emoInfoTop, emoInfoLeft, font, cardContent); // emo_id int값
+		Card card = new Card(tempCard, tempCvc, bg_front, bg_back, Integer.parseInt(emoId), Integer.parseInt(emoInfoTop), Integer.parseInt(emoInfoLeft), font, cardContent); // emo_id int값
 		
 		try {
-			// 3-1. 카드 재발급 유무 확인 + 카드 재발급이 맞다면 delete 호출
+			// 카드 재발급 유무 확인 + 카드 재발급이 맞다면 delete 호출
 			if (cardService.isReIssued(userId))
 				cardService.deleteCard(userId);
 			
-			// 4. 카드 생성
-//			cardService.insertCard(card, userId);
+			// 카드 생성
+			cardService.insertCard(card, userId);
 			
-			result.put("check", "yes");
+			result.put("message", "yes");
 		
 		} catch (Exception e) {
-			result.put("check", "no");
+			result.put("message", "no");
 		}
 		
 		return result;
