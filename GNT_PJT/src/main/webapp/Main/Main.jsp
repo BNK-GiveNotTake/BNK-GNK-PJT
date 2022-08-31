@@ -22,25 +22,31 @@
 		
 		$(function() {
 			$('.mileage-shopbtn').click(function() {
+				var amount = Number($(this).val());
 				swal({
 					  title: "정말로 구매하시겠습니까?",
 					  text: "한 번 구매하시면, 청약철회 불가능합니다.",
 					  icon: "info",
 					  buttons: true,
-					  dangerMode: true,
 					})
-					.then((willDelete) => {
-						if (willDelete) {
-							var userInfo = JSON.parse(localStorage.getItem('user'))
-							
+					.then(function(willDelete) {
+						if (willDelete==true) {
+							var userInfo = JSON.parse(localStorage.getItem('user'));
+							console.log({
+								'amount': amount,
+								'userId': userInfo.userId
+							})
 							$.ajax({
 								type: 'post',
 								url: '../addMile.do',
 								data: {
-									'userId': userInfo.userId,
-									'amount': $(this).val()
+									'amount': amount,
+									'userId': userInfo.userId
 								},
+								// 응답 부분
 								success: function(res) {
+									console.log('=========')
+									console.log(res)
 									if(res.message=='yes') {
 										console.log(res)
 										var accountInfo = new Object();
@@ -73,6 +79,8 @@
 						}
 					});
 			})
+			
+			
 		})
 		
 		$(function() {
@@ -129,7 +137,6 @@
 		})
 		
 		function checkAccount(userId) {
-			console.log()
 			$.ajax({
 				type: 'post',
 				url: '../checkUserAcc.do',
@@ -138,6 +145,7 @@
 				},
 				// 응답 부분
 				success: function(res) {
+					console.log(res)
 					if(res.message== 'no') {
 						swal({
 							title: "계좌 조회",
@@ -244,10 +252,10 @@
 	                    <h5 class="small-text">환영합니다 정재호 고객님</h5>
 	                    <h1 class="animated animated-text">
 	                        <span class="mr-2">잔액 조회</span>
-	                            <div class="animated-info">
-	                                <span class="animated-item">연동 계좌 : <span class="account-amount">0</span>원</span>
-	                                <span class="animated-item">마일리지 : <span class="mileage-amount">0</span>원</span>
-	                            </div>
+                            <div class="animated-info">
+                                <span class="animated-item">연동 계좌 : <span class="account-amount">0</span>원</span>
+                                <span class="animated-item">마일리지 : <span class="mileage-amount">0</span>원</span>
+                            </div>
 	                    </h1>
 						<br>
 	                    <p>Building a successful product is a challenge.</p>
@@ -259,11 +267,11 @@
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							  <div class="modal-dialog" role="document">
-							    <div class="modal-content" style="border-radius: 4rem; width: 160%;">
+							    <div class="modal-content" style="border-radius: 4rem; width: 190%; left: -10%;">
 							      <div class="modal-body" style="padding: 0px;">
 							        <div class="column" id="main">
 							          <h1>계좌 생성</h1>
-							          <form>
+							          <div class="modal-form">
 							            <div class="form-group">
 							              <label for="exampleInputKoreaName">한글 이름</label>
 							              <input type="name" class="form-control" id="exampleInputName" placeholder="정재호" disabled>
@@ -280,8 +288,8 @@
 							              <label for="exampleInputAddress">주소</label>
 							              <input type="text" onclick="openHomeSearch()" class="form-control" id="exampleInputAddress" placeholder="주소를 입력하세요">
 							            </div>
-							            <button type="submit" class="btn btn-primary" style="background-color: #ffffff; border: 3px solid rgb(255 194 13); color: black;  border-radius: 15px;">계좌 생성하기</button>
-							          </form>
+							            <button type="submit" class="btn btn-primary create-account" style="background-color: #ffffff; border: 3px solid rgb(255 194 13); color: black;  border-radius: 15px;">계좌 생성하기</button>
+							          </div>
 							        </div>
 							        <div>
 							          <?xml version="1.0" encoding="UTF-8"?>
@@ -296,6 +304,13 @@
 							        </div>
 							        <div class="column" id="secondary">
 							          <div class="sec-content">
+							          	<h1>계좌 비밀번호</h1>
+							          	<div class="d-flex justify-content-center">
+							          		<div class="pass-box"></div>
+							          		<div class="pass-box"></div>
+							          		<div class="pass-box"></div>
+							          		<div class="pass-box"></div>
+							          	</div>
 							          </div>
 							        </div>
 							      </div>
