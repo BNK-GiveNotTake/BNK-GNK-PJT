@@ -19,7 +19,7 @@ public class AccountDAOImpl implements AccountDAO {
 	private SqlSession sqlSession;
 	private CommonDAO commonDAO;
 
-	public Account createAcc(int userId, int accPassword, String userNameEng, String address,
+	public Account createAcc(int userId, String accPassword, String userNameEng, String address,
 			String phone) {
 		String key = "";
 		while (true) {
@@ -34,7 +34,7 @@ public class AccountDAOImpl implements AccountDAO {
 		return getAccount(key);
 	}
 
-	public Account createAccTest(int accPassword) {
+	public Account createAccTest(String accPassword) {
 		System.out.println("CreateAccTest 테스트중");
 		String key = "";
 		while (true) {
