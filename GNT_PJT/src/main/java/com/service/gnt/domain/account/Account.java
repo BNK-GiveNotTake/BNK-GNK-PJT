@@ -125,8 +125,4 @@ public class Account {
 		return "Account [accId=" + accId + ", cardId=" + cardId + ", accPassword=" + accPassword + ", createTime="
 				+ createTime + ", accAmount=" + accAmount + ", mileage=" + mileage + ", isMileage=" + isMileage + "]";
 	}
-
-
-
-	
 }

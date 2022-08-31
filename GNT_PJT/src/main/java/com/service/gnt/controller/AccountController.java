@@ -1,6 +1,8 @@
 package com.service.gnt.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
+import com.service.gnt.domain.users.Users;
 import com.service.gnt.model.service.AccountService;
 
 import io.swagger.annotations.ApiOperation;
@@ -20,7 +23,46 @@ public class AccountController {
 	
 	@Autowired
 	private AccountService accountService;
-
+	/*
+	@ApiOperation(value="createAcc", notes="계좌 생성")
+	@PostMapping("/createAcc.do")
+	public Map<String,Account> createAcc(@RequestParam int userId,@RequestParam int accPassword,@RequestParam String userNameEng,
+			@RequestParam String address, @RequestParam String phone, Model model) {
+		try {
+			Map<String,Account> maps = new HashMap<String,Account>();
+			Account account = accountService.createAcc(userId, accPassword, userNameEng, address, phone);
+			maps.put("account", account);
+			return maps;
+		} catch(Exception e) {
+			model.addAttribute("title", "Error - Occured");
+			model.addAttribute("message", "Error Occured :"+e.getMessage());
+			System.out.println("Error :"+e.getMessage()+e.toString());
+			return null;
+		}
+	}
+	*/
+	
+	@ApiOperation(value="createAcc", notes="계좌 생성")
+	@PostMapping("/createAcc.do")
+	public Map<String,Object> createAcc(@RequestParam int userId,@RequestParam int accPassword,@RequestParam String userNameEng,
+			@RequestParam String address, @RequestParam String phone, Model model) {
+		try {
+			Map<String,Object> maps = new HashMap<>();
+			String status = "no";
+			Account account = accountService.createAcc(userId, accPassword, userNameEng, address, phone);
+			if(account!=null) status = "yes";
+			maps.put("account", account);
+			maps.put("message", status);
+			return maps;
+		} catch(Exception e) {
+			model.addAttribute("title", "Error - Occured");
+			model.addAttribute("message", "Error Occured :"+e.getMessage());
+			System.out.println("Error :"+e.getMessage()+e.toString());
+			return null;
+		}
+	}
+	
+	/*
 	@ApiOperation(value="createAcc", notes="계좌 생성")
 	@PostMapping("/createAcc.do")
 	public Account createAcc(@RequestParam int userId,@RequestParam int accPassword,@RequestParam String userNameEng,
@@ -34,13 +76,19 @@ public class AccountController {
 			return null;
 		}
 	}
-	
+	*/
 	@ApiOperation(value="createAccTest", notes="계좌 생성")
 	@PostMapping("/createAccTest.do")
-	public Account createAcc(@RequestParam int accPassword, Model model) {
+	public Map<String,Object> createAcc(@RequestParam int accPassword, Model model) {
 		try {
+			Map<String,Object> maps = new HashMap<>();
+			String status = "no";
 			System.out.println("createAcc Contr");
-		return accountService.createAccTest(accPassword);
+			Account account = accountService.createAccTest(accPassword);
+			if(account!=null) status = "yes";
+			maps.put("account", account);
+			maps.put("message", status);
+			return maps;
 		} catch(Exception e) {
 			model.addAttribute("title", "Error - Occured");
 			model.addAttribute("message", "Error Occured :"+e.getMessage());
@@ -51,9 +99,11 @@ public class AccountController {
 
 	@ApiOperation(value="checkUserAcc", notes="계좌 존재유무 확인")
 	@PostMapping("/checkUserAcc.do")
-	public String checkUserAcc(int userId) {
+	public Map<String,Object> checkUserAcc(int userId) {
 		try {
-			return accountService.checkUserAcc(userId);
+			Map<String,Object> maps = new HashMap<>();
+			maps.put("message", accountService.checkUserAcc(userId));
+			return maps;
 		} catch(Exception e) {
 	//		model.addAttribute("title", "Error - Occured");
 	//		model.addAttribute("message", "Error Occured :"+e.getMessage());
@@ -64,15 +114,25 @@ public class AccountController {
 	
 	@ApiOperation(value="getAccount", notes="계좌 정보 확인")
 	@PostMapping("/getAccount.do")
-	public Account getAccount(int userId) {
-		try {
-			return accountService.getAccountByUserId(userId);
-		} catch(Exception e) {
+	public Map<String,Object> getAccount(int userId) {
+		//try {
+			Map<String,Object> maps = new HashMap<>();
+			String status = "no";
+			Account data = accountService.getAccountByUserId(userId);
+			if(data!=null) status = "yes";
+			maps.put("account", data);
+			maps.put("message", status);
+			return maps;
+		//} 
+		
+		/*
+		catch(Exception e) {
 	//		model.addAttribute("title", "Error - Occured");
 	//		model.addAttribute("message", "Error Occured :"+e.getMessage());
+			System.out.println(userId);
 			System.out.println("Error :"+e.getMessage()+e.toString());
 			return null;
-		}
+		}*/
 	}
 	
 	@ApiOperation(value="depositAcc", notes="계좌 입금") //WIP
