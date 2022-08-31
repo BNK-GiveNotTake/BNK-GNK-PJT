@@ -11,16 +11,25 @@
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 	<style scoped>
-		@import url("css/Main.css?ver=1");
+		@import url("css/Notice.css?ver=1");
 	</style>
 	
 	<script>
-	
+		$(window).on('load', function() {
+			$('#notice').addClass('loaded');
+		});
 	</script>
 	</head>
 	
 	
 	<body>
-	
+		<div id="notice">
+			<div id="loader-wrapper">            
+				<div id="loader"></div>
+				<div class="loader-section section-left"></div>
+				<div class="loader-section section-right"></div>
+			</div>
+		    <%@ include file="../Common/Nav.jsp" %>
+		</div>
 	</body>
 </html>
