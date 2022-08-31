@@ -10,12 +10,11 @@ import com.service.gnt.domain.users.Users;
 @Repository
 public class CommonDAOImpl implements CommonDAO{
 	
-private final String NS = "ns.sql.AccountMapper.";
+private final static String NS = "ns.sql.UserMapper.";
 	
 	@Autowired
 	private SqlSession sqlSession;
 	
-	@Override
 	public int insert(Users user) {
 		System.out.println("DAO 진입");
 		int returnInt = sqlSession.insert(NS+"newUser", user);
@@ -23,9 +22,12 @@ private final String NS = "ns.sql.AccountMapper.";
 		return returnInt;
 	}
 
-	@Override
 	public Users select(Users user) {
 		return sqlSession.selectOne(NS+"selectUser",user);
 	}
 
+	public Users getUserById(int userId) {
+		return sqlSession.selectOne(NS+"getUserById",userId);
+	}
+	
 }

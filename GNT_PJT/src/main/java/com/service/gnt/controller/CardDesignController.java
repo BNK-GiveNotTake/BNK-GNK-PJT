@@ -1,17 +1,18 @@
 package com.service.gnt.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.service.gnt.domain.card.Card;
 import com.service.gnt.model.service.CardService;
 
-@Controller
+@RestController
 public class CardDesignController {
 
-<<<<<<< Updated upstream
-//	@Autowired
-//	private CardService cardService;
-=======
 	@Autowired
 	private CardService cardService;
 	
@@ -56,5 +57,4 @@ public class CardDesignController {
 		
 		return result;
 	}
->>>>>>> Stashed changes
 }

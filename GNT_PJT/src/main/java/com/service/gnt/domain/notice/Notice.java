@@ -5,7 +5,8 @@ import com.service.gnt.domain.users.Users;
 public class Notice {
 	
 	private int noticeId;
-	private Users users;
+	//private Users users;
+	private String userId;
 	private String noticeTitle;
 	private String noticeContent;
 	private String createTime; // date
@@ -13,6 +14,7 @@ public class Notice {
 	
 	public Notice() {}
 
+	/*
 	public Notice(int noticeId, Users users, String noticeTitle, String noticeContent, String createTime, int viewCnt) {
 		super();
 		this.noticeId = noticeId;
@@ -21,22 +23,34 @@ public class Notice {
 		this.noticeContent = noticeContent;
 		this.createTime = createTime;
 		this.viewCnt = viewCnt;
+	}*/
+	public Notice(int noticeId, String userId, String noticeTitle, String noticeContent, String createTime,
+			int viewCnt) {
+		super();
+		this.noticeId = noticeId;
+		this.userId = userId;
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+		this.createTime = createTime;
+		this.viewCnt = viewCnt;
 	}
-
+	
 	public int getNoticeId() {
 		return noticeId;
 	}
 
+
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	public void setNoticeId(int noticeId) {
 		this.noticeId = noticeId;
-	}
-
-	public Users getUsers() {
-		return users;
-	}
-
-	public void setUsers(Users users) {
-		this.users = users;
 	}
 
 	public String getNoticeTitle() {
@@ -73,7 +87,7 @@ public class Notice {
 
 	@Override
 	public String toString() {
-		return "Notice [noticeId=" + noticeId + ", users=" + users + ", noticeTitle=" + noticeTitle + ", noticeContent="
+		return "Notice [noticeId=" + noticeId + ", noticeTitle=" + noticeTitle + ", noticeContent="
 				+ noticeContent + ", createTime=" + createTime + ", viewCnt=" + viewCnt + "]";
 	}
 	

@@ -3,6 +3,7 @@ package com.service.gnt.domain.donation;
 public class DonationCategory {
 	private int categoryId;
 	private String categoryTitle;
+	
 	public DonationCategory() {}
 	
 	public DonationCategory(int categoryId, String categoryTitle) {

@@ -2,8 +2,8 @@ package com.service.gnt.domain.donation;
 
 
 public class Donation {
-	private int donationId; // PK
-	private DonationCategory categoryId;
+	private String donationId; // PK
+	private int categoryId;
 	private String title;
 	private String organization;
 	private String organizationDescript;
@@ -16,6 +16,8 @@ public class Donation {
 	private String section3;
 	private String section4Title;
 	private String section4;
+	private String section5Title;
+	private String section5;
 	private String createTime; // 기부 시작일
 	private String endTime; // 기부 종료일
 	private int donationAmount;
@@ -25,9 +27,9 @@ public class Donation {
 	public Donation() {}
 
 
-	public Donation(int donationId, DonationCategory categoryId, String title, String organization,
+	public Donation(String donationId, int categoryId, String title, String organization,
 			String organizationDescript, String imageUri, String section1Title, String section1, String section2Title,
-			String section2, String section3Title, String section3, String section4Title, String section4,
+			String section2, String section3Title, String section3, String section4Title, String section4, String section5Title, String section5,
 			String createTime, String endTime, int donationAmount, int donationLimit) {
 		super();
 		this.donationId = donationId;
@@ -44,6 +46,8 @@ public class Donation {
 		this.section3 = section3;
 		this.section4Title = section4Title;
 		this.section4 = section4;
+		this.section5Title = section5Title;
+		this.section5 = section5;
 		this.createTime = createTime;
 		this.endTime = endTime;
 		this.donationAmount = donationAmount;
@@ -51,26 +55,25 @@ public class Donation {
 	}
 
 
-	public int getDonationId() {
+	public String getDonationId() {
 		return donationId;
 	}
 
 
-	public void setDonationId(int donationId) {
+	public void setDonationId(String donationId) {
 		this.donationId = donationId;
 	}
-
-
-	public DonationCategory getCategoryId() {
+	
+	public int getCategoryId() {
 		return categoryId;
 	}
-
-
-	public void setCategoryId(DonationCategory categoryId) {
+	
+	
+	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
-
-
+	
+	
 	public String getTitle() {
 		return title;
 	}
@@ -189,6 +192,28 @@ public class Donation {
 	public void setSection4(String section4) {
 		this.section4 = section4;
 	}
+	
+	
+
+
+	public String getSection5Title() {
+		return section5Title;
+	}
+
+
+	public void setSection5Title(String section5Title) {
+		this.section5Title = section5Title;
+	}
+
+
+	public String getSection5() {
+		return section5;
+	}
+
+
+	public void setSection5(String section5) {
+		this.section5 = section5;
+	}
 
 
 	public String getCreateTime() {
@@ -233,15 +258,17 @@ public class Donation {
 
 	@Override
 	public String toString() {
-		return "donation [donationId=" + donationId + ", categoryId=" + categoryId + ", title=" + title
-				+ ", organization=" + organization + ", organizationDescript=" + organizationDescript + ", imageUri="
-				+ imageUri + ", section1Title=" + section1Title + ", section1=" + section1 + ", section2Title="
-				+ section2Title + ", section2=" + section2 + ", section3Title=" + section3Title + ", section3="
-				+ section3 + ", section4Title=" + section4Title + ", section4=" + section4 + ", createTime="
+		return "Donation [donationId=" + donationId + ", categoryId="
+				+ categoryId + ", title=" + title + ", organization=" + organization + ", organizationDescript="
+				+ organizationDescript + ", imageUri=" + imageUri + ", section1Title=" + section1Title + ", section1="
+				+ section1 + ", section2Title=" + section2Title + ", section2=" + section2 + ", section3Title="
+				+ section3Title + ", section3=" + section3 + ", section4Title=" + section4Title + ", section4="
+				+ section4 + ", section5Title=" + section5Title + ", section5=" + section5 + ", createTime="
 				+ createTime + ", endTime=" + endTime + ", donationAmount=" + donationAmount + ", donationLimit="
-				+ donationLimit + "]";
+				+ donationLimit + "]\n";
 	}
-	
+
+
 	
 	
 

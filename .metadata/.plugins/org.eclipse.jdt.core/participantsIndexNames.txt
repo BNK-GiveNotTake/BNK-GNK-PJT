@@ -1,9 +1,0 @@
-INDEX VERSION 1.131
-C:\Users\BIFF2020\Desktop\Practice\BNK-GNK-PJT\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3291384773.index
-\GNT_PJT\src\main\java
-C:\Users\BIFF2020\Desktop\Practice\BNK-GNK-PJT\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\564658560.index
-\GNT_PJT\src\main\java
-C:\Users\BIFF2020\Desktop\Practice\BNK-GNK-PJT\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1829953138.index
-\GNT_PJT\src\main\java
-C:\Users\BIFF2020\Desktop\Practice\BNK-GNK-PJT\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3444531802.index
-\GNT_PJT\src\main\java

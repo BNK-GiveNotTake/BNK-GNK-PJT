@@ -1,6 +1,8 @@
 package com.service.gnt.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,104 +13,143 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.service.gnt.domain.users.Users;
 import com.service.gnt.model.service.CommonService;
 
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+
 
 @RestController
 public class CommonController {
 	
 	@Autowired
 	private CommonService commonService;
-	
-	/*
-	 * @Autowired private GntService gntService;
-	 
 	String uri ="";
+	/*
+	@GetMapping("/")
+	public String index() {
+		return "redirect:index.jsp";
+		
+	}*/
+	
 	@ApiOperation(value="index page", notes="Start 페이지로 이동")
 	@GetMapping("/")
 	public void index(HttpServletResponse response) throws Exception {
-		//uri = "Main/Start.html";
-		uri = "swagger-ui.html"; //임시로 스웨거로 연결했음.
+		uri = "Main/Start.html";
 		response.sendRedirect(uri);
 	}
 	
 	@ApiOperation(value="Swagger", notes="Swagger-ui page로 이동")
-	
 	@GetMapping("/swagger")
 	public void swagger(HttpServletResponse response) throws Exception {
 		uri = "swagger-ui.html";
 		response.sendRedirect(uri);
 	}
-	*/
-	@GetMapping("/")
-	public String index() {
-		return "redirect:index.jsp";
-		
-	}
 	
 	@GetMapping("login.do")
 	public String getLoginForm() {
-		System.out.println("#######");
 		return "login_success";
-		
 	}
 	
-	
 	@PostMapping("login.do")
-	public String doLogin(Users user, Model model, HttpSession session) {
+	public Map<String,Object> doLogin(Users user, Model model, HttpSession session) {
+		Map<String,Object> maps = new HashMap<String,Object>();
+		String message = "Login Error";
 		try {
+			System.out.println("로그인을 시도중...");
 			
 			Users selected = commonService.select(user);
 			if(selected!=null) {
-				session.setAttribute("loginUser", selected);
-				return "index.jsp";
+				maps.put("userinfo", selected);
+				message = "Login Success";
+				maps.put("message", message);
+				return maps;
+				
 			}else {
-				return "login";
+				maps.put("message", message);
+				return maps;
 			}
 		}catch (Exception e){
 			model.addAttribute("title", "로그인 에러");
-			model.addAttribute("message", "로그인 중 에러 발생");
-			
-			return "Error";
-			
+//			model.addAttribute("message", "로그인 중 에러 발생");
+			maps.put("message", message);
+			return maps;
 			
 		}
-		
 	}
 	
-	@GetMapping("regUser.do")
-	public String getRegUser(Model model) {
-		
-		model.addAttribute("title", "회원 가입");
-		
-		return "UserReg";
-	}
+//	@GetMapping("regUser.do")
+//	public String getRegUser(Model model) {
+//		
+//		model.addAttribute("title", "회원 가입");
+//		
+//		return "UserReg";
+//	}
 	
+
 	@PostMapping("saveUser.do")
-	public String doRegUser(@RequestBody Users user, Model model) {
+	public Map<String,Object> doRegUser(Users user, Model model) {
+		String message = "Register Error";
 		try {
 			// 성공페이지
-			System.out.println(user.toString());
+			Map<String,Object> maps = new HashMap<String,Object>();
+			Users user1 = new Users();
 			commonService.insert(user);
-			System.out.println("---------------------------user이후");
 			model.addAttribute("title", "회원 가입 성공");
+			model.addAttribute("user", user);
+			user1.setUserEmail(user.getUserEmail());
+			user1.setUserName(user.getUserName());
+			user1.setUserPassword(user.getUserPassword());
+			message = "User Register Success";
+			maps.put("userinfo", user1);
+			maps.put("message", message);
 			
-			return "Result";
+			return maps ;
+			
 		}catch(Exception e) {
 			// 에러페이지
+			Map<String,Object> maps = new HashMap<String,Object>();
 			model.addAttribute("title", "회원 가입 실패");
-			System.out.println("********************");
-			return "Error";
+			Users user1 = new Users();
+			user1.setUserEmail("로그인실패");
+			user1.setUserName("로그인실패");
+			user1.setUserPassword("로그인실패");
+			maps.put("1",user1);
+			maps.put("message", message);
+			
+			return maps;
 		}
-		
-		
 	}
-	
+		
+		@PostMapping("userinfo.do")
+		public Map<String,Object> userinfo(int userId, Model model){
+			String message="Inquiry Error";
+			try {
+				Map<String,Object> maps = new HashMap<String,Object>();
+				Users user1 = commonService.getUserById(userId);
+				System.out.println(user1);
+				model.addAttribute("title", "고객 정보 조회");
+				message="Inquiry Success";
+				maps.put("getUserbyId",user1);
+				maps.put("message", message);
+				return maps;
+			}catch(Exception e){
+				
+				Map<String,Object> maps = new HashMap<String,Object>();
+				model.addAttribute("title", "고객 정보 조회 실패");
+				Users user1 = new Users();
+				user1.setUserEmail("로그인실패");
+				user1.setUserName("로그인실패");
+				user1.setUserPassword("로그인실패");
+				maps.put("1",user1);
+				maps.put("message", message);
+				
+				return maps;
+			}		
+		}
 	
 	
 	

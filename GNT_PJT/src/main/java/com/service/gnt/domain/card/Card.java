@@ -6,13 +6,6 @@ public class Card {
 	private int cvc;
 	private String createTime; // date
 	private String endTime; // date
-<<<<<<< Updated upstream
-	private String background;
-	private Emo emo; // fk
-	private String emoInfo;
-	private String font;
-	private String cardContent;
-=======
 	private String bgFront; // 배경색
 	private String bgBack;
 	private int emoId;
@@ -21,31 +14,17 @@ public class Card {
 	private String font; // 글꼴
 	private String cardContent; // 카드 내 사용자 입력 내용
 	private String isIssued;
->>>>>>> Stashed changes
 	
 	
 	public Card() {}
 
-
-<<<<<<< Updated upstream
-	public Card(String cardId, int cvc, String createTime, String endTime, String background, Emo emo, String emoInfo,
-			String font, String cardContent) {
-=======
 	public Card(String cardId, int cvc, String createTime, String endTime, String bgFront, String bgBack, int emoId,
 			int emoInfoTop, int emoInfoLeft, String font, String cardContent, String isIssued) {
->>>>>>> Stashed changes
 		super();
 		this.cardId = cardId;
 		this.cvc = cvc;
 		this.createTime = createTime;
 		this.endTime = endTime;
-<<<<<<< Updated upstream
-		this.background = background;
-		this.emo = emo;
-		this.emoInfo = emoInfo;
-		this.font = font;
-		this.cardContent = cardContent;
-=======
 		this.bgFront = bgFront;
 		this.bgBack = bgBack;
 		this.emoId = emoId;
@@ -54,7 +33,16 @@ public class Card {
 		this.font = font;
 		this.cardContent = cardContent;
 		this.isIssued = isIssued;
->>>>>>> Stashed changes
+	}
+
+
+	public int getEmoId() {
+		return emoId;
+	}
+
+
+	public void setEmoId(int emoId) {
+		this.emoId = emoId;
 	}
 
 
@@ -137,24 +125,8 @@ public class Card {
 		this.emoInfoTop = emoInfoTop;
 	}
 
-
-<<<<<<< Updated upstream
-	public Emo getEmo() {
-		return emo;
-	}
-
-
-	public void setEmo(Emo emo) {
-		this.emo = emo;
-	}
-
-
-	public String getEmoInfo() {
-		return emoInfo;
-=======
 	public int getEmoInfoLeft() {
 		return emoInfoLeft;
->>>>>>> Stashed changes
 	}
 
 
@@ -196,14 +168,9 @@ public class Card {
 	@Override
 	public String toString() {
 		return "Card [cardId=" + cardId + ", cvc=" + cvc + ", createTime=" + createTime + ", endTime=" + endTime
-<<<<<<< Updated upstream
-				+ ", background=" + background + ", emo=" + emo + ", emoInfo=" + emoInfo + ", font=" + font
-				+ ", cardContent=" + cardContent + "]";
-=======
 				+ ", bgFront=" + bgFront + ", bgBack=" + bgBack + ", emoId=" + emoId + ", emoInfoTop=" + emoInfoTop
 				+ ", emoInfoLeft=" + emoInfoLeft + ", font=" + font + ", cardContent=" + cardContent + ", isIssued="
 				+ isIssued + "]";
->>>>>>> Stashed changes
 	}
 
 	
