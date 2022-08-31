@@ -51,29 +51,32 @@ public class AccountDAOImpl implements AccountDAO {
 		return sqlSession.selectOne(AM + "getAccBalance", accId);
 	}
 
-	public void depositAcc(int userId, int amount) {
-		Users user = commonDAO.getUserById(userId);
-		sqlSession.update(AM + "depositAcc", new Account(user.getAccId(), null, 0, null, amount, 0));
+	public int depositAcc(int userId, int amount) {
+		return sqlSession.update(AM + "manageAcc", new Account(getAccIdByUserId(userId), amount, 0));
 	}
 
-	public void sendAcc(int userId, int amount, String accId) {
-		Users user = commonDAO.getUserById(userId);
-		String mainId = user.getAccId();
+	public String sendAcc(int userId, int amount, String accId) {
+		String mainId = getAccIdByUserId(userId);
+		String data = "no";
 		int out = amount * -1;
 		if (getAccBalance(mainId) >= amount) {
-			sqlSession.update(AM + "manageAcc", new Account(mainId, null, 0, null, out, 0));
-			sqlSession.update(AM + "manageAcc", new Account(accId, null, 0, null, amount, 0));
+			sqlSession.update(AM + "manageAcc", new Account(mainId, out, 0));
+			sqlSession.update(AM + "manageAcc", new Account(accId, amount, 0));
+			data = "yes";
 		} else {
 			System.out.println("계좌에 잔고가 부족합니다.");
 		}
+		return data;
 	}
 
 	public int createMile(int userId) {
-		return sqlSession.insert(AM + "createMile", commonDAO.getUserById(userId).getAccId());
+		String accId = sqlSession.selectOne(UM+"getAccIdByUserId",userId);
+		System.out.println(accId);
+		return sqlSession.insert(AM + "createMile", accId);
 	}
 
 	public int getMileBalance(int userId) {
-		String accId = commonDAO.getUserById(userId).getAccId();
+		String accId = getAccIdByUserId(userId);
 		return sqlSession.selectOne(AM + "getMileBalance", accId);
 	}
 	
@@ -82,9 +85,11 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 	
 	public Account getAccountByUserId(int userId) {
-		//String accId = ;
-		//System.out.println(accId);
-		return getAccount(sqlSession.selectOne(UM+"getAccIdByUserId",userId));
+		return getAccount(getAccIdByUserId(userId));
+	}
+	
+	public String getAccIdByUserId(int userId) {
+		return sqlSession.selectOne(UM+"getAccIdByUserId",userId);
 	}
 
 	public int getMilePk(int userId) { // 없애도 되는 메소드...
@@ -93,15 +98,13 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	public List<MileageHistory> getMileHistory(int userId) {
-		Users user = commonDAO.getUserById(userId);
-		return sqlSession.selectList(AM + "getMileHistory", user.getAccId());
+		return sqlSession.selectList(AM + "getMileageHistory", getAccIdByUserId(userId));
 	}
 
 	public MileageHistory addMile(int type, int userId) {
 		int amount = 0;
 		int bonus = 0;
-		Users user = commonDAO.getUserById(userId);
-		String accId = user.getAccId();
+		String accId = sqlSession.selectOne(UM+"getAccIdByUserId",userId);
 		switch(type) {
 		case 1:
 			amount = 10000;
@@ -118,15 +121,17 @@ public class AccountDAOImpl implements AccountDAO {
 			amount = 100000;
 			bonus = 10000;
 			break;
-		default:
+		default :
 			break;
 		}
 		if (getAccBalance(accId) >= amount) {
 			int out = amount * -1;
 			int total = amount + bonus;
-			sqlSession.update(AM + "manageAcc", new Account(accId, null, 0, null, out, 0));
-			sqlSession.update(AM + "addMile", new Account(accId, null, 0, null, 0, total));
-			sqlSession.insert(AM+"addMileHistory", new MileageHistory(0,accId,"",total,total+" 충전"));
+			String message = "";
+			if(total>0) message=" 충전";
+			sqlSession.update(AM + "manageAcc", new Account(accId, out, 0));
+			sqlSession.update(AM + "addMile", new Account(accId, 0, total));
+			sqlSession.insert(AM+"addMileHistory", new MileageHistory(0,accId,"",total,total+message));
 			return sqlSession.selectOne(AM+"getLastMileHistory", accId);
 		} else {
 			System.out.println("잔액이 부족합니다.");
@@ -148,4 +153,8 @@ public class AccountDAOImpl implements AccountDAO {
 		return str;
 	}
 
+	public int getMileHistoryAMT(int userId) {
+		String accId = sqlSession.selectOne(UM+"getAccIdByUserId",userId);
+		return sqlSession.selectOne(AM+"getMileHistoryAMT",accId);
+	}
 }

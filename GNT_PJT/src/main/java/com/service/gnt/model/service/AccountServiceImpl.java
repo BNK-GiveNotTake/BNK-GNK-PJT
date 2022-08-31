@@ -24,12 +24,12 @@ public class AccountServiceImpl implements AccountService{
 		return accountDAO.getAccBalance(accId);
 	}
 
-	public void depositAcc(int userId, int amount) {
-		accountDAO.depositAcc(userId, amount);
+	public int depositAcc(int userId, int amount) {
+		return accountDAO.depositAcc(userId, amount);
 	}
 
-	public void sendAcc(int userId, int amount, String accId) {
-		accountDAO.sendAcc(userId, amount, accId);
+	public String sendAcc(int userId, int amount, String accId) {
+		return accountDAO.sendAcc(userId, amount, accId);
 	}
 
 	public int createMile(int userId) {
@@ -65,5 +65,11 @@ public class AccountServiceImpl implements AccountService{
 	}
 	public Account getAccountByUserId(int userId) {
 		return accountDAO.getAccountByUserId(userId);
+	}
+	public int getMileHistoryAMT(int userId) {
+		return accountDAO.getMileHistoryAMT(userId);
+	}
+	public String getAccIdByUserId(int userId) {
+		return accountDAO.getAccIdByUserId(userId);
 	}
 }
