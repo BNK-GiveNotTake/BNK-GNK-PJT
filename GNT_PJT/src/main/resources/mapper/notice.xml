@@ -4,12 +4,21 @@
 	
 <mapper namespace="ns.sql.NoticeMapper">
 	<select id="getNoticeList" resultType="notice">
-		SELECT notice_id, user_id, notice_title, create_time, view_cnt
+		SELECT notice_id, user_id, notice_title, notice_content, create_time, view_cnt
 		FROM notice
 	</select>
 	<select id="getNoticeDetail" resultType="notice" parameterType="int">
 		SELECT notice_id, user_id, notice_title, notice_content, create_time, view_cnt
 		FROM notice
-		WHERE notice_id = #{VALUE}		
+		WHERE notice_id = #{VALUE}
+	</select>
+	<update id="addNoticeCNT" parameterType="int">
+		UPDATE notice SET
+		view_cnt = view_cnt + 1
+		WHERE notice_id = #{VALUE}
+	</update>
+	<select id="getNoticeAMT" resultType="integer">
+		SELECT count(*)
+		FROM notice
 	</select>
 </mapper>

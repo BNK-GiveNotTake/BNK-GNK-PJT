@@ -27,6 +27,11 @@
 	</environments> 
 	<mappers>
 		<mapper resource="mapper/account.xml"/>
+		<mapper resource="mapper/user.xml"/>
+		<mapper resource="mapper/notice.xml"/>
+		<mapper resource="mapper/donation.xml"/>
+		<mapper resource="mapper/card.xml"/>
+		<mapper resource="mapper/event.xml"/>
 	</mappers>
 </configuration>
  

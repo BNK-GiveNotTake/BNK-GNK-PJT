@@ -5,24 +5,31 @@ public class Account {
 	private String accId;
 	//private Card card;
 	private String cardId;
-	private int accPassword;
+	private String accPassword;
 	private String createTime;
 	private int accAmount;
 	private int mileage;
-	private char isMileage;
+	private String isMileage;
 	
 	
 	public Account() {}
 	
 	
 
-	public Account(String accId, int accPassword) {
+	public Account(String accId, String accPassword) {
 		super();
 		this.accId = accId;
 		this.accPassword = accPassword;
 	}
 
-	public Account(String accId, String cardId, int accPassword, String createTime, int accAmount, int mileage) {
+	public Account(String accId, int accAmount, int mileage) {
+		super();
+		this.accId = accId;
+		this.accAmount = accAmount;
+		this.mileage = mileage;
+	}
+
+	public Account(String accId, String cardId, String accPassword, String createTime, int accAmount, int mileage) {
 		super();
 		this.accId = accId;
 		this.cardId = cardId;
@@ -33,8 +40,8 @@ public class Account {
 	}
 
 
-	public Account(String accId, String cardId, int accPassword, String createTime, int accAmount, int mileage,
-			char isMileage) {
+	public Account(String accId, String cardId, String accPassword, String createTime, int accAmount, int mileage,
+			String isMileage) {
 		super();
 		this.accId = accId;
 		this.cardId = cardId;
@@ -47,13 +54,13 @@ public class Account {
 
 
 
-	public char getIsMileage() {
+	public String getIsMileage() {
 		return isMileage;
 	}
 
 
 
-	public void setIsMileage(char isMileage) {
+	public void setIsMileage(String isMileage) {
 		this.isMileage = isMileage;
 	}
 
@@ -79,12 +86,12 @@ public class Account {
 	}
 
 
-	public int getAccPassword() {
+	public String getAccPassword() {
 		return accPassword;
 	}
 
 
-	public void setAccPassword(int accPassword) {
+	public void setAccPassword(String accPassword) {
 		this.accPassword = accPassword;
 	}
 

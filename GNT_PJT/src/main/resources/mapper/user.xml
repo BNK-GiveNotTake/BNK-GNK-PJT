@@ -8,13 +8,13 @@
 	 	<result property="userName" column="user_name" jdbcType="VARCHAR" />	
 	 	<result property="userPassword" column="user_password" jdbcType="VARCHAR" />
 	 	<result property="userEmail" column="user_email" jdbcType="VARCHAR" />
-	 	<result property="accId" column="ACC_ID" jdbcType="CHAR" />
-	 	<result property="userNameEng" column="USER_NAME_ENG" jdbcType="VARCHAR" />
-	 	<result property="address" column="ADDRESS" jdbcType="VARCHAR" />	
-	 	<result property="phone" column="PHONE" jdbcType="VARCHAR" />
-	 	<result property="totalDonation" column="TOTAL_DONATION" jdbcType="INTEGER"/>
-	 	<result property="quizId" column="QUIZ_ID" jdbcType="INTEGER" />
-	 	<result property="isQuizParticipate" column="IS_QUIZ_PARTICIPATE" jdbcType="CHAR"/>
+	 	<result property="accId" column="acc_id" jdbcType="VARCHAR" />
+	 	<result property="userNameEng" column="user_name_eng" jdbcType="VARCHAR" />
+	 	<result property="address" column="address" jdbcType="VARCHAR" />	
+	 	<result property="phone" column="phone" jdbcType="VARCHAR" />
+	 	<result property="totalDonation" column="total_donation" jdbcType="INTEGER"/>
+	 	<result property="quizId" column="quiz_id" jdbcType="INTEGER" />
+	 	<result property="isQuizParticipate" column="is_quiz_participate" jdbcType="VARCHAR"/>
 	 </resultMap>
 	 
 	<update id="addUserInfo" parameterType="users">
@@ -38,16 +38,16 @@
 	WHERE user_id = #{userId} -->
 	
 	<select id="getAccIdByUserId" parameterType="integer" resultType="string">
-	SELECT acc_id
-	FROM users
-	WHERE user_id = #{VALUE}
+		SELECT acc_id
+		FROM users
+		WHERE user_id = #{VALUE}
 	</select>
 
 	<select id="getUserById" parameterType="integer" resultType="users" resultMap="Userreg">
-	SELECT user_id, acc_id, user_name, user_name_eng, user_email, USER_PASSWORD,
-	address, phone, total_donation, quiz_id, is_quiz_participate
-	FROM users
-	WHERE user_id = #{VALUE}
+		SELECT user_id, acc_id, user_name, user_name_eng, user_email,
+		address, phone, total_donation, quiz_id, is_quiz_participate
+		FROM users
+		WHERE user_id = #{VALUE}
 	</select>
 	
 	<select id="getUserId" parameterType="users" resultType="integer">

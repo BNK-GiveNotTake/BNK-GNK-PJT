@@ -22,25 +22,219 @@
 		
 		$(function() {
 			$('.mileage-shopbtn').click(function() {
-				console.log($(this).prop('value'))
+				var amount = $(this).val();
 				swal({
-					  title: "정말로 구매하시겠습니까?",
-					  text: "한 번 구매하시면, 청약철회 불가능합니다.",
-					  icon: "info",
-					  buttons: true,
-					  dangerMode: true,
-					})
-					.then((willDelete) => {
-					  if (willDelete) {
-					    swal("감사합니다! 성공적으로 구매하셨습니다!!", {
-					      icon: "success",
-					    });
-					  } else {
-					  	swal.close();
-					  }
-					});
+					title: "정말로 구매하시겠습니까?",
+					text: "한 번 구매하시면, 청약철회 불가능합니다.",
+					icon: "info",
+					buttons: true,
+				})
+				.then((value) => {
+					if (value==true) {
+						var userInfo = JSON.parse(localStorage.getItem('user'));
+						console.log(userInfo);
+						$.ajax({
+							type: 'post',
+							url: '../addMile.do',
+							data: {
+								'amount': amount,
+								'userId': userInfo.userId,
+							},
+							success: function(res) {
+								console.log(res);
+								if(res.message=='yes') {
+									console.log(res);
+									var accountInfo = new Object();
+									$.each(res.account, function(index, item) {
+										if (item===null) {
+											
+										} else {
+											accountInfo[index] = item;
+										}
+									})
+									localStorage.setItem('account', JSON.stringify(accountInfo));
+									swal({
+										title: "Good job!",
+										text: "성공적으로 마일리지를 구매했습니다.",
+										icon: "success",
+										button: "확인!",
+									})
+									.then((value) => {
+										location.href="../Main/Main.jsp";
+									})
+								}
+							},
+							error: function(err) {
+								console.log(err);
+							}
+						})
+						
+					} else {
+						
+					}
+				})
 			})
+			
+			
 		})
+		
+		$(function() {
+			if (localStorage.getItem('user')) {
+				var userInfo = JSON.parse(localStorage.getItem('user'));
+				checkAccount(userInfo.userId);
+			}
+			
+			$(document).keydown(function(event) {
+			    if ( event.keyCode == 27 || event.which == 27 ) {
+			    	$('.modal').removeClass('show')
+			    	$('.modal').css('display', 'none')
+			    	$('.modal-backdrop').remove()
+			    };
+			});
+			
+			$('#mileage-btn').click(function() {
+				swal({
+					title: "마일리지 생성",
+					text: "마일리지를 정말로 생성하시겠습니까?",
+					buttons: ["취소", "생성"],
+				})
+				.then((value) => {
+					var userInfo = JSON.parse(localStorage.getItem('user'))
+					if (value==true) {
+						$.ajax({
+							type: 'post',
+							url: '../createMile.do',
+							data: {
+								'userId': userInfo.userId
+							},
+							success: function(res) {
+								if(res.message=='yes') {
+									swal({
+									  title: "Good job!",
+									  text: "성공적으로 마일리지를 생성했습니다.",
+									  icon: "success",
+									  button: "확인!",
+									})
+									.then((value) => {
+										location.href="../Main/Main.jsp";
+									})
+								}
+							},
+							error: function(err) {
+								console.log(err);
+							}
+						})
+					}
+				})
+			})
+			
+			$('.create-account').click(function() {
+				var userInfo = JSON.parse(localStorage.getItem('user'))
+				var phone = $('#exampleInputPhone').val().slice(0,3) + $('#exampleInputPhone').val().slice(4,8) + $('#exampleInputPhone').val().slice(9, 13)
+				accData = {
+					'userId': userInfo.userId,
+					'accPassword': passNum,
+					'userNameEng': $('#exampleInputEnglishName').val(),
+					'address': $('#exampleInputAddress').val(),
+					'phone': phone
+				};
+				$.ajax({
+					type: 'post',
+					url: '../createAcc.do',
+					data: accData,
+					success: function(res) {
+						console.log(res)
+						if(res.message=="yes") {
+							swal({
+								title: "계좌 생성",
+								text: "계좌를 성공적으로 생성했습니다.",
+								icons: "success",
+								buttons: "확인",
+							})
+							.then((value) => {
+								if(value==true) {
+									location.reload();
+								}
+								
+							})
+						}
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				})
+			})
+			
+		})
+		
+		function checkAccount(userId) {
+			$.ajax({
+				type: 'post',
+				url: '../checkUserAcc.do',
+				data: {
+					'userId': userId
+				},
+				// 응답 부분
+				success: function(res) {
+					if(res.message== 'no') {
+						swal({
+							title: "계좌 조회",
+							text: "계좌가 존재하지 않습니다. 생성하시겠습니까?",
+							buttons: ["취소", "생성"],
+						})
+						.then((value) => {
+							if (value==true) {
+								$('.modal').addClass('show');
+								$('.modal').css('display', 'block');
+								$('body').append('<div class="modal-backdrop fade show"></div>');
+							}
+						})
+					} else {
+						$.ajax({
+							type: 'post',
+							url: '../getAccount.do',
+							data: {
+								'userId': userId
+							},
+							// 응답 부분
+							success: function(res) {
+								if(res.message == 'yes') {
+									var accountInfo = new Object();
+									$.each(res.account, function(index, item) {
+										if (item===null) {
+											
+										} else {
+											accountInfo[index] = item;
+										}
+									})
+									localStorage.setItem('account', JSON.stringify(accountInfo));
+									var accAmount = accountInfo.accAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+									$('.account-amount').text(accAmount);
+									 
+									if (res.account.isMileage=="0") {
+										$('#mileage-btn').css('display', 'block');
+										$('#account-btn').css('width', '40%');
+									} else {
+										var mileage = accountInfo.mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+										$('.mileage-amount').text(mileage);
+										$('#mileage-btn').css('display', 'none');
+										$('#account-btn').css('width', '90%');
+									}
+								}
+							},
+							error: function(err) {
+								console.log(err);
+							}
+						})
+					
+					}
+				},
+				error: function(err) {
+					console.log(err);
+				}
+			})
+		};
+		
 		
 		function mobile_keyup(obj){
 		    let mobile_len = obj.value.length;
@@ -58,7 +252,7 @@
 					$('[name=postno]').val(data.zonecode);
 					$('[name=addr]').val(data.address);
 					$('[name=detAddr]').val(data.buildingName);
-					$('#exampleInputAddress').val(data.roadAddress)
+					$('#exampleInputAddress').val(data.roadAddress);
 				}
 			}).open({
 		        left: window.screenLeft/2,
@@ -68,33 +262,37 @@
 		      });
 		}
 		
+		var passNum = "";
+		var passIdx = 0;
+		
 		$(function() {
-			$('#signUp').click(function() {
-				console.log({
-					'userEmail': $('#signUp_email').val(),
-					'userName': $('#signUp_nickname').val(),
-					'userPassword': $('#signUp_password').val()
-				})
-				$.ajax({
-					type: 'post',
-					url: '../saveUser.do',
-					data: {
-						'userEmail': $('#signUp_email').val(),
-						'userName': $('#signUp_nickname').val(),
-						'userPassword': $('#signUp_password').val()
-					},
-					// 응답 부분
-					success: function(res) {
-						$.each(res, function(index, item) {
-							console.log(item)
-						})
-					},
-					error: function(err) {
-						console.log(err)
-					}
-				})
-			})
 			
+			$('.pass-num').click(function() {
+				var txt = $(this).text();
+				if (txt=='확인') {
+					alert('비밀번호 지정되었습니다.');
+				} else if (txt=='초기화') {
+					$('.pass-box').eq(0).text("");
+					$('.pass-box').eq(1).text("");
+					$('.pass-box').eq(2).text("");
+					$('.pass-box').eq(3).text("");
+					passIdx = 0;
+					passNum = "";
+				} else {
+					if (passIdx == 0) {
+						$('.pass-box').eq(0).text(txt);
+					} else if (passIdx == 1) {
+						$('.pass-box').eq(1).text(txt);
+					} else if (passIdx == 2) {
+						$('.pass-box').eq(2).text("*");
+					} else if (passIdx == 3) {
+						$('.pass-box').eq(3).text("*");
+					}
+					passNum += txt;
+					passIdx += 1;
+				}
+				
+			})
 		})
 		
 	</script>
@@ -115,32 +313,33 @@
 	                    <h5 class="small-text">환영합니다 정재호 고객님</h5>
 	                    <h1 class="animated animated-text">
 	                        <span class="mr-2">잔액 조회</span>
-	                            <div class="animated-info">
-	                                <span class="animated-item">연동 계좌 : 6,400,000원</span>
-	                                <span class="animated-item">마일리지 : 500,000원</span>
-	                            </div>
+                            <div class="animated-info">
+                                <span class="animated-item">연동 계좌 : <span class="account-amount">0</span>원</span>
+                                <span class="animated-item">마일리지 : <span class="mileage-amount">0</span>원</span>
+                            </div>
 	                    </h1>
 						<br>
 	                    <p>Building a successful product is a challenge.</p>
 	                    <p>I am highly energetic in user experience design, interfaces and web development.</p>
 	                    <br><br>
 	                    <div class="d-flex justify-content-around">
-							<button class="btn-slide-line" style="width: 90%;" data-toggle="modal" data-target="#exampleModal">계좌 관리</button>
+							<button class="btn-slide-line" id="account-btn" style="width: 40%;" data-toggle="modal" data-target="#exampleModal">계좌 관리</button>
+							<button class="btn-slide-line" id="mileage-btn" style="width: 40%;">마일리지 생성</button>
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							  <div class="modal-dialog" role="document">
-							    <div class="modal-content" style="border-radius: 4rem; width: 160%;">
+							    <div class="modal-content" style="border-radius: 4rem; width: 190%; left: -10%;">
 							      <div class="modal-body" style="padding: 0px;">
 							        <div class="column" id="main">
 							          <h1>계좌 생성</h1>
-							          <form>
+							          <div class="modal-form">
 							            <div class="form-group">
 							              <label for="exampleInputKoreaName">한글 이름</label>
-							              <input type="name" class="form-control" id="exampleInputName" placeholder="정재호" disabled>
+							              <input type="name" class="form-control" id="exampleInputKoreaName" placeholder="정재호" disabled>
 							            </div>
 							            <div class="form-group">
 							              <label for="exampleInputEnglishName">영어 이름</label>
-							              <input type="name" class="form-control" id="exampleInputName" placeholder="Name">
+							              <input type="name" class="form-control" id="exampleInputEnglishName" placeholder="Name">
 							            </div>
 							            <div class="form-group">
 							              <label for="exampleInputPhone">전화번호 </label>
@@ -150,8 +349,8 @@
 							              <label for="exampleInputAddress">주소</label>
 							              <input type="text" onclick="openHomeSearch()" class="form-control" id="exampleInputAddress" placeholder="주소를 입력하세요">
 							            </div>
-							            <button type="submit" class="btn btn-primary" style="background-color: #ffffff; border: 3px solid rgb(255 194 13); color: black;  border-radius: 15px;">계좌 생성하기</button>
-							          </form>
+							            <button type="submit" class="btn btn-primary create-account" style="background-color: #ffffff; border: 3px solid rgb(255 194 13); color: black;  border-radius: 15px;">계좌 생성하기</button>
+							          </div>
 							        </div>
 							        <div>
 							          <?xml version="1.0" encoding="UTF-8"?>
@@ -166,6 +365,20 @@
 							        </div>
 							        <div class="column" id="secondary">
 							          <div class="sec-content">
+							          	<h1>계좌 비밀번호</h1>
+							          	<div class="d-flex justify-content-center">
+							          		<div class="pass-box"></div>
+							          		<div class="pass-box"></div>
+							          		<div class="pass-box"></div>
+							          		<div class="pass-box"></div>
+							          	</div>
+							          	<div class="row justify-content-center" style="margin-top: 2rem; padding: 2rem;">
+							          		<c:forEach var="i" begin="0" end="9">
+							          			<div class="col-3 pass-num">${i}</div>
+							          		</c:forEach>
+							          		<div class="col-3 pass-num">초기화</div>
+							          		<div class="col-3 pass-num">확인</div>
+							          	</div>
 							          </div>
 							        </div>
 							      </div>
