@@ -18,7 +18,16 @@
 		$(window).on('load', function() {
 			$('#donation').addClass('loaded');
 		});
+		
+		var page = 1
+		
 		$(function() {
+			getDonationBasic()
+			
+			$('.next-page').click(function() {
+				getDonationPage()
+			})
+			
 			/* $('.cards').on('click', '.card__img--hover', changeRecent()); */
 			$('.card__img').click(changeRecent());
 			
@@ -30,38 +39,56 @@
 			$('#all').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'block')
+				getDonationBasic()
 			})
 			$('#child').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(1)
 			})
 			$('#old').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(2)
 			})
 			$('#disabled').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(3)
 			})
 			$('#multiculture').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(4)
 			})
 			$('#global').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(5)
 			})
 			$('#family').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(6)
 			})
 			$('#animal').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(7)
 			})
 			$('#environ').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(8)
 			})
 		})
 		
@@ -94,6 +121,55 @@
 			})	
 		}
 		
+		function getDonationBasic() {
+			$.ajax({
+				type: 'get',
+				url: '../ask.do',
+				data: {},
+				success: function(res) {
+					console.log(res[1])
+					$('.donation-check').html(res[1].categoryId + res[1].section1 + res[1].serction2)
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		}
+		
+		function getDonationPage() {
+			page += 1
+			$.ajax({
+				type: 'get',
+				url: '../pageAsk.do',
+				data: {
+					'k': page,
+				},
+				success: function(res) {
+					console.log(res)
+					$('.donation-check').append(res[1].categoryId + res[1].section1 + res[1].serction2)
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		} 
+		
+		function getDonationCategory(categoryId) {
+			$.ajax({
+				type: 'get',
+				url: '../category.do',
+				data: {
+					'categoryId': categoryId,
+				},
+				success: function(res) {
+					console.log(res)
+					$('.donation-check').html(res[1].categoryId + res[1].section1 + res[1].serction2)
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		}
 	</script>
 </head>
 <body>
@@ -118,7 +194,7 @@
 					<button class="donation-btn" id="animal">동물</button>
 					<button class="donation-btn" id="environ">환경</button>
 				</div>
-				
+				<div class="col-10 donation-check"></div><br><br>
 				<c:forEach var="i" begin="0" end="5">
 					<section class="cards col-3 mb-5">
 						<article class="card card--1">
@@ -159,7 +235,7 @@
 						 
 					</section>
 				</c:forEach>
-				
+				<button class="next-page">더보기</button>
 			</div>
 			<div class="col-2">
 				<div class="recent">
