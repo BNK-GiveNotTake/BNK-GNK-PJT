@@ -24,13 +24,17 @@
 		
 		$(function() {
 			getDonationBasic()
+			getRecent()
 			
 			$('.next-page').click(function() {
 				getDonationPage()
 			})
 			
-			/* $('.cards').on('click', '.card__img--hover', changeRecent()); */
-			$('.card__img').click(changeRecent());
+			$('.donation-list').on('click', '.card ', function() {
+				localStorage.setItem('DonationDetailId', $(this).attr('id'))
+				console.log($(this))
+				location.href="DonationDetail.jsp"
+			});
 			
 			var delay = 500;
 			$('.top-btn').click(function() {
@@ -93,31 +97,17 @@
 			})
 		})
 		
-		const removeSelected = function() {
+		function removeSelected() {
 			var btnList = $('.donation-btn')
 			btnList.removeClass('selected')
 		}
 		
-		const changeRecent = function() {
+		function getRecent() {
 			var recentList = localStorage.getItem("recentList")
-			if (recentList==null) {
-				recentList = ["https://happybean-phinf.pstatic.net/20220819_67/1660868531689IgY4X_JPEG/메인이미지01jpg?type=w720"]
-				recentList = JSON.stringify(recentList)
-				localStorage.setItem("recentList", recentList)
-			} else {
-				recentList = JSON.parse(recentList)
-				if (recentList.length == 3) {
-					recentList.shift();
-				}
-				recentList.push("https://happybean-phinf.pstatic.net/20220819_67/1660868531689IgY4X_JPEG/메인이미지01jpg?type=w720");
-				recentList = JSON.stringify(recentList)
-				localStorage.removeItem("recentList")
-				localStorage.setItem("recentList", recentList)
-			}
 			recentList = JSON.parse(recentList)
 			$('.recent-items').empty()
 			$.each(recentList, function(index, item) {
-				$('.recent-items').append('<div class=recent-item><img src='+item+'></div>')
+				$('.recent-items').append('<div class=recent-item><img src='+item.imageUri+'></div>')
 			})	
 		}
 		
@@ -128,13 +118,14 @@
 				data: {},
 				success: function(res) {
 					Donation = res.Donation
+					console.log(Donation)
 					$('.donation-list').empty();
 					$.each(Donation, function(index, item) {
 						donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
 						backgroundColor = checkBackgroundColor(donationPercent)
 						$('.donation-list').append(
 							'<section class="cards col-3 mb-5">' +
-								'<article class="card card--1">' +
+								'<article class="card card--1" id='+item.donationId+'>' +
 								'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
 								'<a href="#" class="card_link">' +
 									'<div class="card__img--hover" style=background-image:url('+item.imageUri+')></div>' +
@@ -170,12 +161,13 @@
 				},
 				success: function(res) {
 					Donation = res.Donation
+					console.log(Donation)
 					$.each(Donation, function(index, item) {
 						donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
 						backgroundColor = checkBackgroundColor(donationPercent)
 						$('.donation-list').append(
 							'<section class="cards col-3 mb-5">' +
-								'<article class="card card--1">' +
+								'<article class="card card--1" id='+item.donationId+'>' +
 								'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
 								'<a href="#" class="card_link">' +
 									'<div class="card__img--hover" style=background-image:url('+item.imageUri+')></div>' +
@@ -216,7 +208,7 @@
 						backgroundColor = checkBackgroundColor(donationPercent)
 						$('.donation-list').append(
 							'<section class="cards col-3 mb-5">' +
-								'<article class="card card--1">' +
+								'<article class="card card--1" id='+item.donationId+'>' +
 								'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
 								'<a href="#" class="card_link">' +
 									'<div class="card__img--hover" style=background-image:url('+item.imageUri+')></div>' +
@@ -293,7 +285,7 @@
 					<button class="donation-btn" id="environ">환경</button>
 				</div>
 				<div class="donation-list row" style="margin-left: 1rem;">
-				
+					
 				</div>
 				
 				<button class="next-page">더보기</button>
