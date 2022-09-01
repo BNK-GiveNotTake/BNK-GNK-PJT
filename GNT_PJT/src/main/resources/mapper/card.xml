@@ -8,8 +8,8 @@
 	<!-- 카드 생성 :: 발급 -->
  	<insert id="insertCard" parameterType="card">
 		INSERT
-		INTO card(card_id, cvc, background, emo_id, emo_info, font, card_content)
-		VALUES (#{cardId}, #{cvc}, #{background}, #{emoId}, #{emoInfo}, #{font}, #{cardContent})
+		INTO card(card_id, cvc, bg_front, bg_back, emo_id, emo_info_top, emo_info_left, font, card_content)
+		VALUES ( #{cardId}, #{cvc}, #{bgFront}, #{bgBack}, #{emoId}, #{emoInfoTop}, #{emoInfoLeft}, #{font}, #{cardContent})
 	</insert>
 	
 	<!-- 카드 연결 :: user id를 알아내서? account 뽑아오기 -->

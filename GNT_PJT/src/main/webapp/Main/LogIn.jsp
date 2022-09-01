@@ -60,7 +60,7 @@
 					// 응답 부분
 					success: function(res) {
 						console.log(res)
-						if(res.message== 'Login Success') {
+						if(res.message== 'Yes') {
 							var userInfo = new Object();
 							$.each(res.userinfo, function(index, item) {
 								if (item===null) {

@@ -22,4 +22,5 @@ public interface AccountDAO {
 	Account getAccountByUserId(int userId);
 	int getMileHistoryAMT(int userId);
 	String getAccIdByUserId(int userId);
+
 }
