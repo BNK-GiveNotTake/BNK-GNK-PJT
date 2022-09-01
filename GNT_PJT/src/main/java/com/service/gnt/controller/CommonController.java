@@ -57,14 +57,14 @@ public class CommonController {
 	@PostMapping("login.do")
 	public Map<String,Object> doLogin(Users user, Model model, HttpSession session) {
 		Map<String,Object> maps = new HashMap<String,Object>();
-		String message = "Login Error";
+		String message = "No";
 		try {
 			System.out.println("로그인을 시도중...");
 			
 			Users selected = commonService.select(user);
 			if(selected!=null) {
 				maps.put("userinfo", selected);
-				message = "Login Success";
+				message = "Yes";
 				maps.put("message", message);
 				return maps;
 				
@@ -81,6 +81,27 @@ public class CommonController {
 		}
 	}
 	
+	@PostMapping("overlapCheck.do")
+	public Map<String,Object> Check(Users user, Model model) {
+		String message = "No";
+		Users find = commonService.select01(user);
+		Map<String,Object> maps = new HashMap<String,Object>();
+		if(find!=null) {
+//			maps.put("1", find);
+			maps.put("message", message);
+			return maps;
+			
+		}else {
+			if(user.getUserEmail()=="") {
+				maps.put("message", message);
+				return maps;
+				
+			}
+				message = "Yes";
+				maps.put("message", message);
+				return maps;
+		}
+	}
 //	@GetMapping("regUser.do")
 //	public String getRegUser(Model model) {
 //		
@@ -92,31 +113,41 @@ public class CommonController {
 
 	@PostMapping("saveUser.do")
 	public Map<String,Object> doRegUser(Users user, Model model) {
-		String message = "Register Error";
+		String message = "No";
 		try {
 			// 성공페이지
 			Map<String,Object> maps = new HashMap<String,Object>();
 			Users user1 = new Users();
+			Users find = commonService.select01(user);
+			if(find!=null) {
+				maps.put("1", find);
+				message = "No";
+				maps.put("message", message);
+				return maps;
+				
+			}
+			
+			else {
 			commonService.insert(user);
-			model.addAttribute("title", "회원 가입 성공");
-			model.addAttribute("user", user);
+			
 			user1.setUserEmail(user.getUserEmail());
 			user1.setUserName(user.getUserName());
 			user1.setUserPassword(user.getUserPassword());
-			message = "User Register Success";
+			message = "Yes";
 			maps.put("userinfo", user1);
 			maps.put("message", message);
-			
+			System.out.println(user1);
 			return maps ;
+			}
 			
 		}catch(Exception e) {
 			// 에러페이지
 			Map<String,Object> maps = new HashMap<String,Object>();
 			model.addAttribute("title", "회원 가입 실패");
 			Users user1 = new Users();
-			user1.setUserEmail("로그인실패");
-			user1.setUserName("로그인실패");
-			user1.setUserPassword("로그인실패");
+			user1.setUserEmail("회원 가입 실패");
+			user1.setUserName("회원 가입 실패");
+			user1.setUserPassword("회원 가입 실패");
 			maps.put("1",user1);
 			maps.put("message", message);
 			
@@ -126,13 +157,13 @@ public class CommonController {
 		
 		@PostMapping("userinfo.do")
 		public Map<String,Object> userinfo(int userId, Model model){
-			String message="Inquiry Error";
+			String message="No";
 			try {
 				Map<String,Object> maps = new HashMap<String,Object>();
 				Users user1 = commonService.getUserById(userId);
 				System.out.println(user1);
 				model.addAttribute("title", "고객 정보 조회");
-				message="Inquiry Success";
+				message="Yes";
 				maps.put("getUserbyId",user1);
 				maps.put("message", message);
 				return maps;
@@ -141,9 +172,9 @@ public class CommonController {
 				Map<String,Object> maps = new HashMap<String,Object>();
 				model.addAttribute("title", "고객 정보 조회 실패");
 				Users user1 = new Users();
-				user1.setUserEmail("로그인실패");
-				user1.setUserName("로그인실패");
-				user1.setUserPassword("로그인실패");
+				user1.setUserEmail("조회 실패");
+				user1.setUserName("조회 실패");
+				user1.setUserPassword("조회 실패");
 				maps.put("1",user1);
 				maps.put("message", message);
 				
