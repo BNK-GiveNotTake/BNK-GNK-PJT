@@ -7,12 +7,14 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.users.Users;
 
+@SpringBootTest
 public class AccountMyBatisTest {
-	/*
+	
 	@Test
 	public void createAcc() throws Exception {
 		String um = "ns.sql.UserMapper.";
@@ -34,12 +36,12 @@ public class AccountMyBatisTest {
 			};
 		}
 		System.out.println("생성된 계좌번호 : "+accId);
-		session.insert(am+"createAcc", new Account(accId, 151515));
+		session.insert(am+"createAcc", new Account(accId, "1515"));
 		Users vo = new Users(userId, accId, "EngName", "산포시", "01012341234");
 		session.update(um+"addUserInfo", vo);
 		System.out.println("유저 추가정보 [계좌번호, 영문명, 주소, 전화번호] 기입 완료");
 		session.commit();
-	}*/
+	}
 	
 	@Test
 	public void depositAcc() throws Exception {
