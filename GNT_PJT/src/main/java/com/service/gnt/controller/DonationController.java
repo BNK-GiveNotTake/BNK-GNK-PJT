@@ -22,11 +22,13 @@ public class DonationController {
 	private DonationService donationService;
 	
 	
-	@GetMapping("ask.do") //기부 페이지 조회 최신 20개
-	public Map<String,Object> donationindex(Model model) {
+	@GetMapping("DonationAsk.do") //기부 페이지 조회 최신 20개
+	public Map<String,Map<String,Object>> donationindex(Model model) {
 		
 		String message = "No";
-		Map<String,Object> maps = new HashMap<String,Object>();
+		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
+		Map<String,Object> maps1 = new HashMap<String,Object>();
+		Map<String,Object> maps2 = new HashMap<String,Object>();
 		
 		try {
 			List<Donation> list = donationService.select1();
@@ -36,48 +38,89 @@ public class DonationController {
 			System.out.println(list.get(0));
 			for(int i = 0 ; i<list.size() ; i++) {
 				
-				maps.put(Integer.toString(i+1),list.get(i));
+				maps1.put(Integer.toString(i+1),list.get(i));
 
 			}
+				maps.put("Donation",maps1);
 				message = "Yes";
-				maps.put("message",message);
+				maps2.put("message",message);
+				maps.put("message",maps2);
 				
 			return maps;
 			
 		}catch(Exception e) {
+			maps2.put("message", message);
 			
-			maps.put("message",message);
+			maps.put("message",maps1);
 			return maps;
 		}
 	}
 	
 	
-	@GetMapping("pageAsk.do") //페이지별 기부 내역 조회
-	public Map<String,Object> pagination(int k , Model model) {
-		
-		String message = "No";
-		Map<String,Object> maps = new HashMap<String,Object>();
-		
-		try {
-			List<Donation> list = donationService.select2_1(k);
+//	@GetMapping("pageAsk.do") //페이지별 기부 내역 조회
+//	public Map<String,Object> pagination(int pagenum , Model model) {
+//		
+//		String message = "No";
+//		Map<String,Object> maps = new HashMap<String,Object>();
+//		
+//		try {
+//			List<Donation> list = donationService.select2_1(pagenum);
 //			model.addAttribute("title", "기부 목록 조회");
 //			model.addAttribute("donations", list);
+//			System.out.println(list);
+//			System.out.println(list.get(0));
+//			for(int i = 0 ; i<list.size() ; i++) {
+//				
+//				maps.put(Integer.toString(i+1),list.get(i));
+//
+//			}
+//				message = "Yes";
+//			
+//			maps.put("message",message);
+//			return maps;
+//			
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			
+//			maps.put("message",message);
+//			return maps;
+//		}
+//		
+//	}
+	
+	
+	@GetMapping("pageAsk.do") //페이지별 기부 내역 조회
+	public Map<String,Map<String,Object>> pagination(int pagenum , Model model) {
+		
+		String message = "No";
+		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
+		Map<String,Object> maps1 = new HashMap<String,Object>();
+		Map<String,Object> maps2 = new HashMap<String,Object>();
+		try {
+			List<Donation> list = donationService.select2_1(pagenum);
+			model.addAttribute("title", "기부 목록 조회");
+			model.addAttribute("donations", list);
 			System.out.println(list);
 			System.out.println(list.get(0));
+			message = "Yes";
+			maps2.put("message", message);
+			maps.put("message",maps2);
 			for(int i = 0 ; i<list.size() ; i++) {
+				maps1.put(Integer.toString(i+1),list.get(i));
 				
-				maps.put(Integer.toString(i+1),list.get(i));
-
 			}
-				message = "Yes";
 			
-			maps.put("message",message);
+			maps.put("Donation",maps1);
+			
+
+			
+				
 			return maps;
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			maps1.put("message", message);
 			
-			maps.put("message",message);
+			maps.put("message",maps1);
 			return maps;
 		}
 		
@@ -85,49 +128,69 @@ public class DonationController {
 	
 	
 	@GetMapping("category.do")//카테고리별 모든 기부 목록 조회
-	public Map<String,Object> Category(Donation donation, Model model) {
+	public Map<String,Map<String,Object>> Category(int categoryId, Model model) {
+		
 		String message = "No";
-		Map<String,Object> maps = new HashMap<String,Object>();
+		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
+		Map<String,Object> maps1 = new HashMap<String,Object>();
+		Map<String,Object> maps2 = new HashMap<String,Object>();
 		
 		try {
-			List<Donation> list = donationService.select2(donation.getCategoryId());
+			List<Donation> list = donationService.select2(categoryId);
 			System.out.println(list);
 			System.out.println(list.get(0));
 			for(int i = 0 ; i<list.size() ; i++) {
 				
-				maps.put(Integer.toString(i+1),list.get(i));
+				maps1.put(Integer.toString(i+1),list.get(i));
 
 				}
 				message = "Yes";
-				maps.put("message",message);
+			
+				maps2.put("message",message);
+				maps.put("Donation",maps1);
+				maps.put("message",maps2);
 				
 			return maps;
 			
 		} catch (Exception e) {
+			maps2.put("message", message);
 			
-			maps.put("message", message);
+			maps.put("message",maps1);
 			return maps;
 		}
 	}
 	
 	
+//	@GetMapping("detailDonation.do") //상세 기부 페이지
+//	public String detailPage(String donationId, Model model) {
+//		String message = "No";
+//		Map<String,Object> maps = new HashMap<String,Object>();
+//		
+//		try {
+//			Donation detail = donationService.select3(donationId);
+//			System.out.println(detail);
+//			maps.put("donation", detail);
+//			message = "Yes";
+//			maps.put("message", message);
+//			return "Content";
+//			
+//		} catch (Exception e) {
+//			
+//			maps.put("message", message);
+//			return "Error";
+//		}
+//	}
+	
 	@GetMapping("detailDonation.do") //상세 기부 페이지
-	public Map<String,Object> detailPage(Donation donation, Model model) {
-		String message = "No";
-		Map<String,Object> maps = new HashMap<String,Object>();
+	public String detailPage(String donationId, Model model) {
 		
 		try {
-			Donation detail = donationService.select3(donation.getDonationId());
+			Donation detail = donationService.select3(donationId);		
 			System.out.println(detail);
-			maps.put("donation", detail);
-			message = "Yes";
-			maps.put("message", message);
-			return maps;
+			return donationId+"Content";
 			
 		} catch (Exception e) {
-			
-			maps.put("message", message);
-			return maps;
+			return "Error";
 		}
 	}
 	
