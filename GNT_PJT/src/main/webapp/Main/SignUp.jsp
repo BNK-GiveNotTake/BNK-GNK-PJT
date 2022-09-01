@@ -43,22 +43,6 @@
 			$('body').css("overflow", "initial");
 		};
 		
-		function checkEmail(email) {
-			$.ajax({
-				type: 'post',
-				url: '../overlapCheck.do',
-				data: {
-					'userEmail': email,
-				},
-				success: function(res) {
-					console.log(res)
-				},
-				error: function(err) {
-					console.log(err)
-				}
-			})
-		}
-		
 		$(function() {
 			
 			var email_valid = false;
@@ -70,7 +54,7 @@
 			$('#signUp_email').keyup(function() {
 				var emailValid = $(this).val()
 				var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-				
+				$('.checkDuplicateEmail').css("display", "block");
 				if(emailValid.match(regExp) != null) {
 					$('label[for=email2]').html('이메일')
 					email_valid = true;
@@ -125,14 +109,25 @@
 			})
 			
 			$('.checkDuplicateEmail').click(function() {
+				var userEmail = $('#signUp_email').val() 
 				$.ajax({
 					type: 'post',
-					url: '../saveUser.do',
+					url: '../overlapCheck.do',
 					data: {
-						
+						'userEmail': userEmail
 					},
 					success: function(res) {
-						console.log(res)
+						if (email_valid==true) {
+							if(res.message=='no') {
+								alert("이미 존재하는 이메일입니다.")
+							} else {
+								alert("사용 가능한 이메일입니다.")
+								$('.checkDuplicateEmail').css("display", "none");
+							}
+						} else {
+							alert('이메일 양식을 올바르게 기입하시오.')
+						}
+						
 					},
 					error: function(err) {
 						console.log(err)
@@ -161,7 +156,7 @@
 						},
 						// 응답 부분
 						success: function(res) {
-							if(res.message== 'Yes') {
+							if(res.message== 'yes') {
 								var userInfo = new Object();
 								$.each(res.userinfo, function(index, item) {
 									if (item===null) {
