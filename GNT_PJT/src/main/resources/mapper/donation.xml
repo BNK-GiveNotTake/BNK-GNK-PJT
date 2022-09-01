@@ -31,7 +31,7 @@
 	<select id="DonationAsk" parameterType="string" resultType="Donation">
 		<![CDATA[
 		select * from (
-		select * from
+		select DONATION_ID,CATEGORY_ID,DONATION_LIMIT,DONATION_AMOUNT,TITLE,IMAGE_URI,ORGANIZATION from
 		donation
 		order by CREATE_TIME desc
 		)
