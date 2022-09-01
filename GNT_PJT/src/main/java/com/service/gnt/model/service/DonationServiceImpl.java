@@ -18,7 +18,6 @@ public class DonationServiceImpl implements DonationService{
 	
 	@Override
 	public List<Donation> select1() {
-		System.out.println("service select()...");
 		
 		return donationDAO.select1();
 	}
@@ -26,20 +25,17 @@ public class DonationServiceImpl implements DonationService{
 
 	@Override
 	public List<Donation> select2(int categoryId) {
-		System.out.println("service select()...");
 		
 		return donationDAO.select2(categoryId);
 	}
 	
 	@Override
 	public List<Donation> select2_1(int k) {
-		System.out.println("service select()...");
 		return donationDAO.select2_1(k);
 	}
 
 	@Override
 	public Donation select3(String donationId) {
-		System.out.println("service select()...");
 		
 		return donationDAO.select3(donationId);
 	}
@@ -47,7 +43,6 @@ public class DonationServiceImpl implements DonationService{
 
 	@Override
 	public int update1(Donation donation) {
-		System.out.println("service select()...");
 		
 		return donationDAO.update1(donation);
 	}
@@ -55,29 +50,27 @@ public class DonationServiceImpl implements DonationService{
 
 	@Override
 	public int update2(Account account) {
-		System.out.println("service select()...");
 		return donationDAO.update2(account);
 	}
 
 
 	@Override
 	public Account getAccountByUserId(int userId) {
-		System.out.println("service select()...");
-		System.out.println("service select()...");
+		
 		return donationDAO.getAccountByUserId(userId);
 	}
 
 
 	@Override
 	public String getAccIdByUserId(int userId) {
-		System.out.println("service select()...");
+
 		return donationDAO.getAccIdByUserId(userId);
 	}
 
 
 	@Override
 	public Account getAccount(String accId) {
-		System.out.println("service select()...");
+
 		return donationDAO.getAccount(accId);
 	}
 
@@ -87,5 +80,18 @@ public class DonationServiceImpl implements DonationService{
 		return donationDAO.setAccountToUpdate(userId, donationAmount);
 	}
 
+
+	@Override
+	public int addMilege(int donationAmount, int userId) {
+	
+		return donationDAO.addMilege(donationAmount, userId);
+	}
+
+
+	@Override
+	public int addDonaHistory(String donationId, int donationAmount, int userId) {
+		return donationDAO.addDonaHistory(donationId,donationAmount,userId);
+	}
+	
 
 }
