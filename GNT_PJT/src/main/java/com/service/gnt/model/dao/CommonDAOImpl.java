@@ -31,8 +31,6 @@ private final static String NS = "ns.sql.UserMapper.";
 	}
 	
 	
-	
-	
 	public Users getUserById(int userId) {
 		return sqlSession.selectOne(NS+"getUserById",userId);
 	}

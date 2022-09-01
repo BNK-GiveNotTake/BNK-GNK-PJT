@@ -86,13 +86,11 @@
 		WHERE DONATION_ID = #{donationId}
 	</update>
 	
-	<update id="UpdateMileage" parameterType="Donation">
+	<update id="UpdateMileage" parameterType="ACCOUNT">
 		UPDATE
 		ACCOUNT
-		SET MILEAGE = MILEAGE - #{donationAmount}
-		WHERE ACC_ID = 
-		(select ACC_ID from users
-		WHERE USER_ID = #{userId})
+		SET MILEAGE = #{mileage}
+		WHERE ACC_ID = #{accId}
 	</update>
 	
 	

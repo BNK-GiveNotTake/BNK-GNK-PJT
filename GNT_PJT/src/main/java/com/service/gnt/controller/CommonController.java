@@ -57,14 +57,14 @@ public class CommonController {
 	@PostMapping("login.do")
 	public Map<String,Object> doLogin(Users user, Model model, HttpSession session) {
 		Map<String,Object> maps = new HashMap<String,Object>();
-		String message = "No";
+		String message = "no";
 		try {
 			System.out.println("로그인을 시도중...");
 			
 			Users selected = commonService.select(user);
 			if(selected!=null) {
 				maps.put("userinfo", selected);
-				message = "Yes";
+				message = "yes";
 				maps.put("message", message);
 				return maps;
 				
@@ -83,7 +83,7 @@ public class CommonController {
 	
 	@PostMapping("overlapCheck.do")
 	public Map<String,Object> Check(Users user, Model model) {
-		String message = "No";
+		String message = "no";
 		Users find = commonService.select01(user);
 		Map<String,Object> maps = new HashMap<String,Object>();
 		if(find!=null) {
@@ -97,7 +97,7 @@ public class CommonController {
 				return maps;
 				
 			}
-				message = "Yes";
+				message = "yes";
 				maps.put("message", message);
 				return maps;
 		}
@@ -113,7 +113,7 @@ public class CommonController {
 
 	@PostMapping("saveUser.do")
 	public Map<String,Object> doRegUser(Users user, Model model) {
-		String message = "No";
+		String message = "no";
 		try {
 			// 성공페이지
 			Map<String,Object> maps = new HashMap<String,Object>();
@@ -121,7 +121,7 @@ public class CommonController {
 			Users find = commonService.select01(user);
 			if(find!=null) {
 				maps.put("1", find);
-				message = "No";
+				message = "no";
 				maps.put("message", message);
 				return maps;
 				
@@ -133,7 +133,7 @@ public class CommonController {
 			user1.setUserEmail(user.getUserEmail());
 			user1.setUserName(user.getUserName());
 			user1.setUserPassword(user.getUserPassword());
-			message = "Yes";
+			message = "yes";
 			maps.put("userinfo", user1);
 			maps.put("message", message);
 			System.out.println(user1);
@@ -157,13 +157,13 @@ public class CommonController {
 		
 		@PostMapping("userinfo.do")
 		public Map<String,Object> userinfo(int userId, Model model){
-			String message="No";
+			String message="no";
 			try {
 				Map<String,Object> maps = new HashMap<String,Object>();
 				Users user1 = commonService.getUserById(userId);
 				System.out.println(user1);
 				model.addAttribute("title", "고객 정보 조회");
-				message="Yes";
+				message="yes";
 				maps.put("getUserbyId",user1);
 				maps.put("message", message);
 				return maps;
