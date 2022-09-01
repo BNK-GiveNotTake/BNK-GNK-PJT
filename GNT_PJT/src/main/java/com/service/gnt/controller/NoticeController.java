@@ -1,13 +1,89 @@
 package com.service.gnt.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.service.gnt.domain.notice.Notice;
 import com.service.gnt.model.service.NoticeService;
 
-@Controller
+import io.swagger.annotations.ApiOperation;
+
+@RestController
 public class NoticeController {
 
-//	@Autowired
-//	private NoticeService noticeService;
+	@Autowired
+	private NoticeService noticeService;
+	
+	@ApiOperation(value="getNoticeList", notes="공지사항 목록")
+	@GetMapping("/getNoticeList.do")
+	public Map<String,Object> getNoticeList() {
+		Map<String,Object> maps = new HashMap<>();
+		Map<String,Object> innermap = new HashMap<>();
+		String status = "no";
+		try {
+			List<Notice> data = noticeService.getNoticeList();
+			if(noticeService.getNoticeAMT()>0) {
+				status = "yes";
+				for(Notice vo : data) {
+					innermap.put(Integer.toString(vo.getNoticeId()), (Object) vo);
+				}
+				maps.put("notice", innermap);
+			}			
+			maps.put("message", status);
+			return maps;
+		} catch(Exception e) {
+			System.out.println("Error :"+e.getMessage()+e.toString());
+			e.printStackTrace();
+			maps.put("message", status);
+			return maps;
+		}
+	}
+	
+	@ApiOperation(value="getNoticeDetail", notes="공지사항 상세")
+	@GetMapping("/getNoticeDetail.do")
+	public Map<String,Object> getNoticeDetail(int noticeId) {
+		Map<String,Object> maps = new HashMap<>();
+		String status = "no";
+		try {
+			Object data = noticeService.getNoticeDetail(noticeId);
+			if(data!=null) {
+				status = "yes";
+				maps.put("notice", data);
+			}			
+			maps.put("message", status);
+			return maps;
+		} catch(Exception e) {
+			System.out.println("Error :"+e.getMessage()+e.toString());
+			e.printStackTrace();
+			maps.put("message", status);
+			return maps;
+		}
+	}
+	
+	@ApiOperation(value="addNoticeCNT", notes="공지사항 조회수 증가")
+	@GetMapping("/addNoticeCNT.do")
+	public Map<String,Object> addNoticeCNT(int noticeId) {
+		Map<String,Object> maps = new HashMap<>();
+		String status = "no";
+		try {
+			Object data = noticeService.getNoticeDetail(noticeId);
+			if(data!=null) {
+				noticeService.addNoticeCNT(noticeId);
+				status = "yes";
+				maps.put("cnt", noticeService.getNoticeDetail(noticeId).getViewCnt());
+			}			
+			maps.put("message", status);
+			return maps;
+		} catch(Exception e) {
+			System.out.println("Error :"+e.getMessage()+e.toString());
+			e.printStackTrace();
+			maps.put("message", status);
+			return maps;
+		}
+	}
 }

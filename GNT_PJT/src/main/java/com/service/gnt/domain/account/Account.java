@@ -1,28 +1,89 @@
 package com.service.gnt.domain.account;
 
-import com.service.gnt.domain.card.Card;
-
 public class Account {
 	
 	private String accId;
-	private Card card;
-	private int accPassword;
+	//private Card card;
+	private String cardId;
+	private String accPassword;
 	private String createTime;
-	private String accAmount;
-	private String mileage;
+	private int accAmount;
+	private int mileage;
+	private String isMileage;
 	
 	
 	public Account() {}
+	
+	
 
-
-	public Account(String accId, Card card, int accPassword, String createTime, String accAmount, String mileage) {
+	public Account(String accId, String accPassword) {
 		super();
 		this.accId = accId;
-		this.card = card;
+		this.accPassword = accPassword;
+	}
+
+	public Account(String accId, int accAmount, int mileage) {
+		super();
+		this.accId = accId;
+		this.accAmount = accAmount;
+		this.mileage = mileage;
+	}
+	
+	
+
+	public Account(String accId, String cardId, String accPassword) {
+		super();
+		this.accId = accId;
+		this.cardId = cardId;
+		this.accPassword = accPassword;
+	}
+
+
+
+	public Account(String accId, String cardId, String accPassword, String createTime, int accAmount, int mileage) {
+		super();
+		this.accId = accId;
+		this.cardId = cardId;
 		this.accPassword = accPassword;
 		this.createTime = createTime;
 		this.accAmount = accAmount;
 		this.mileage = mileage;
+	}
+
+
+	public Account(String accId, String cardId, String accPassword, String createTime, int accAmount, int mileage,
+			String isMileage) {
+		super();
+		this.accId = accId;
+		this.cardId = cardId;
+		this.accPassword = accPassword;
+		this.createTime = createTime;
+		this.accAmount = accAmount;
+		this.mileage = mileage;
+		this.isMileage = isMileage;
+	}
+
+
+
+	public String getIsMileage() {
+		return isMileage;
+	}
+
+
+
+	public void setIsMileage(String isMileage) {
+		this.isMileage = isMileage;
+	}
+
+
+
+	public String getCardId() {
+		return cardId;
+	}
+
+
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
 	}
 
 
@@ -36,22 +97,12 @@ public class Account {
 	}
 
 
-	public Card getCard() {
-		return card;
-	}
-
-
-	public void setCard(Card card) {
-		this.card = card;
-	}
-
-
-	public int getAccPassword() {
+	public String getAccPassword() {
 		return accPassword;
 	}
 
 
-	public void setAccPassword(int accPassword) {
+	public void setAccPassword(String accPassword) {
 		this.accPassword = accPassword;
 	}
 
@@ -66,33 +117,30 @@ public class Account {
 	}
 
 
-	public String getAccAmount() {
+	public int getAccAmount() {
 		return accAmount;
 	}
 
 
-	public void setAccAmount(String accAmount) {
+	public void setAccAmount(int accAmount) {
 		this.accAmount = accAmount;
 	}
 
 
-	public String getMileage() {
+	public int getMileage() {
 		return mileage;
 	}
 
 
-	public void setMileage(String mileage) {
+	public void setMileage(int mileage) {
 		this.mileage = mileage;
 	}
 
 
+
 	@Override
 	public String toString() {
-		return "Account [accId=" + accId + ", card=" + card + ", accPassword=" + accPassword + ", createTime="
-				+ createTime + ", accAmount=" + accAmount + ", mileage=" + mileage + "]";
+		return "Account [accId=" + accId + ", cardId=" + cardId + ", accPassword=" + accPassword + ", createTime="
+				+ createTime + ", accAmount=" + accAmount + ", mileage=" + mileage + ", isMileage=" + isMileage + "]";
 	}
-	
-	
-
-	
 }

@@ -1,10 +1,8 @@
 package com.service.gnt.model.service;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Service;
 
 import com.service.gnt.domain.account.Account;
@@ -17,37 +15,61 @@ public class AccountServiceImpl implements AccountService{
 	@Autowired
 	private AccountDAO accountDAO;
 
-	public void createAcc(int accPassword, String email, String name, String nameEnglish, Date birthday, String address,
-			Number phone) {
-		accountDAO.createAcc(accPassword, email, name, nameEnglish, birthday, address, phone);
+	public Account createAcc(int userId, String accPassword, String userNameEng,
+			String address, String phone) {
+		return accountDAO.createAcc(userId, accPassword, userNameEng, address, phone);
 	}
 
 	public int getAccBalance(String accId) {
 		return accountDAO.getAccBalance(accId);
 	}
 
-	public void depositAcc(int amount) {
-		accountDAO.depositAcc(amount);
+	public int depositAcc(int userId, int amount) {
+		return accountDAO.depositAcc(userId, amount);
 	}
 
-	public void sendAcc(int amount, String accId) {
-		accountDAO.sendAcc(amount, accId);
+	public String sendAcc(int userId, int amount, String accId) {
+		return accountDAO.sendAcc(userId, amount, accId);
 	}
 
-	public MileageHistory createMile(MileageHistory vo) {
-		return accountDAO.createMile(vo);
+	public int createMile(int userId) {
+		return accountDAO.createMile(userId);
 	}
 
-	public int getMileBalance(int mileagePk) {
-		return accountDAO.getMileBalance(mileagePk);
+	public int getMileBalance(int userId) {
+		return accountDAO.getMileBalance(userId);
 	}
 
-	public List<MileageHistory> getMileHistory(Session session) {
-		return accountDAO.getMileHistory(session);
+	public List<MileageHistory> getMileHistory(int userId) {
+		return accountDAO.getMileHistory(userId);
 	}
 
-	public void addMile(int amount, String accId) {
-		accountDAO.addMile(amount, accId);
+	public MileageHistory addMile(int amount, int userId) {
+		return accountDAO.addMile(amount, userId);
+	}
+
+	public int getMilePk(int userId) {
+		return accountDAO.getMilePk(userId);
+	}
+
+	public Account createAccTest(String accPassword) {
+		return accountDAO.createAccTest(accPassword);
+	}
+
+	public Account getAccount(String accId) {
+		return accountDAO.getAccount(accId);
 	}
 	
+	public String checkUserAcc(int userId) {
+		return accountDAO.checkUserAcc(userId);
+	}
+	public Account getAccountByUserId(int userId) {
+		return accountDAO.getAccountByUserId(userId);
+	}
+	public int getMileHistoryAMT(int userId) {
+		return accountDAO.getMileHistoryAMT(userId);
+	}
+	public String getAccIdByUserId(int userId) {
+		return accountDAO.getAccIdByUserId(userId);
+	}
 }

@@ -1,34 +1,103 @@
 package com.service.gnt.domain.users;
 
+
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.event.Quiz;
 
 public class Users {
 	
 	private int userId;
-	private Account account;
+	private String accId;
 	private String userName;
+	private String userNameEng;
 	private String userEmail;
 	private String userPassword;
 	private String address;
+	private String phone;
 	private int totalDonation;
-	private Quiz quiz;
-	private char isQuizParticipate; // BOOLEAN
+	private int quizId;
+	private String isQuizParticipate; // BOOLEAN
 	
 	public Users() {}
+	
+	public Users(String userEmail, String userName, String userPassword) {
+		this.userEmail = userEmail;
+		this.userName = userName;
+		this.userPassword = userPassword;
+	}
 
-	public Users(int userId, Account account, String userName, String userEmail, String userPassword, String address,
-			int totalDonation, Quiz quiz, char isQuizParticipate) {
+	
+	
+	public Users(int userId, String accId, String userNameEng, String address, String phone) {
 		super();
 		this.userId = userId;
-		this.account = account;
+		this.accId = accId;
+		this.userNameEng = userNameEng;
+		this.address = address;
+		this.phone = phone;
+	}
+	
+	
+
+	public Users(int userId, String accId, String userName, String userNameEng, String userEmail, String userPassword,
+			String address, String phone) {
+		super();
+		this.userId = userId;
+		this.accId = accId;
+		this.userName = userName;
+		this.userNameEng = userNameEng;
+		this.userEmail = userEmail;
+		this.userPassword = userPassword;
+		this.address = address;
+		this.phone = phone;
+	}
+
+	public Users(int userId, String accId, String userName, String userEmail, String userPassword, String address,
+			int totalDonation, int quizId, String isQuizParticipate) {
+		super();
+		this.userId = userId;
+		this.accId = accId;
 		this.userName = userName;
 		this.userEmail = userEmail;
 		this.userPassword = userPassword;
 		this.address = address;
 		this.totalDonation = totalDonation;
-		this.quiz = quiz;
+		this.quizId = quizId;
 		this.isQuizParticipate = isQuizParticipate;
+	}
+	
+	public Users(int userId, String accId, String userName, String userNameEng, String userEmail, String userPassword,
+			String address, String phone, int totalDonation, int quizId, String isQuizParticipate) {
+		super();
+		this.userId = userId;
+		this.accId = accId;
+		this.userName = userName;
+		this.userNameEng = userNameEng;
+		this.userEmail = userEmail;
+		this.userPassword = userPassword;
+		this.address = address;
+		this.phone = phone;
+		this.totalDonation = totalDonation;
+		this.quizId = quizId;
+		this.isQuizParticipate = isQuizParticipate;
+	}
+
+	
+	
+	public String getAccId() {
+		return accId;
+	}
+
+	public void setAccId(String accId) {
+		this.accId = accId;
+	}
+
+	public String getUserphone() {
+		return phone;
+	}
+
+	public void setUserphone(String phone) {
+		this.phone = phone;
 	}
 
 	public int getUserId() {
@@ -37,14 +106,6 @@ public class Users {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
-	}
-
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
 	}
 
 	public String getUserName() {
@@ -87,29 +148,35 @@ public class Users {
 		this.totalDonation = totalDonation;
 	}
 
-	public Quiz getQuiz() {
-		return quiz;
+	public int getQuiz() {
+		return quizId;
 	}
 
-	public void setQuiz(Quiz quiz) {
-		this.quiz = quiz;
+	public void setQuiz(int quizId) {
+		this.quizId = quizId;
 	}
 
-	public char getIsQuizParticipate() {
+	public String getIsQuizParticipate() {
 		return isQuizParticipate;
 	}
 
-	public void setIsQuizParticipate(char isQuizParticipate) {
+	public void setIsQuizParticipate(String isQuizParticipate) {
 		this.isQuizParticipate = isQuizParticipate;
+	}
+	public String getUserEngName() {
+		return userNameEng;
+	}
+
+	public void setUserEngName(String userNameEng) {
+		this.userNameEng = userNameEng;
 	}
 
 	@Override
 	public String toString() {
-		return "Users [userId=" + userId + ", account=" + account + ", userName=" + userName + ", userEmail="
-				+ userEmail + ", userPassword=" + userPassword + ", address=" + address + ", totalDonation="
-				+ totalDonation + ", quiz=" + quiz + ", isQuizParticipate=" + isQuizParticipate + "]";
+		return "Users [userId=" + userId + ", accId=" + accId + ", userName=" + userName + ", userNameEng="
+				+ userNameEng + ", userEmail=" + userEmail + ", userPassword=" + userPassword + ", address=" + address
+				+ ", phone=" + phone + ", totalDonation=" + totalDonation + ", quizId=" + quizId + ", isQuizParticipate="
+				+ isQuizParticipate + "]";
 	}
-	
-	
 
 }
