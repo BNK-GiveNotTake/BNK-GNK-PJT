@@ -17,5 +17,7 @@ public interface DonationService {
 	String getAccIdByUserId(int userId);
 	Account getAccount(String accId);
 	Account setAccountToUpdate(int userId, int donationAmount);
-
+	int addMilege(int donationAmount, int userId);
+	int addDonaHistory(String donationId, int donationAmount, int userId);
+	
 }

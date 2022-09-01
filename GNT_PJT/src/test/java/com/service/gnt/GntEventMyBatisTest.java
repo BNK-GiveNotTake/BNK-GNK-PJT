@@ -7,7 +7,7 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -19,13 +19,13 @@ import com.service.gnt.domain.event.Quiz;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class GntEventMyBatisTest {
+class EventMyBatisTest {
 	
 	
 	// Event test (myBatis) ----------------------------------------------------------------------
 	
 	@Test
-	void selectQuizCKTest() throws Exception {
+	public void selectQuizCKTest() throws Exception {
 		
 		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 		
@@ -40,7 +40,7 @@ class GntEventMyBatisTest {
 	}
 	
 	@Test
-	void selectQuizIdTest() throws Exception {
+	public void selectQuizIdTest() throws Exception {
 		
 		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 		
@@ -55,7 +55,7 @@ class GntEventMyBatisTest {
 	}
 	
 	@Test
-	void selectQuizTest() throws Exception {
+	public void selectQuizTest() throws Exception {
 		
 		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 		
@@ -70,7 +70,7 @@ class GntEventMyBatisTest {
 	}
 	
 	@Test
-	void selectQuizAnswerTest() throws Exception {
+	public void selectQuizAnswerTest() throws Exception {
 		
 		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 		
@@ -85,7 +85,7 @@ class GntEventMyBatisTest {
 	}
 	
 	@Test
-	void updateQuizUserTest() throws Exception {
+	public void updateQuizUserTest() throws Exception {
 		
 		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 		
