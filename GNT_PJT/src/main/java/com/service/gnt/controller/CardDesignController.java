@@ -53,6 +53,8 @@ public class CardDesignController {
 		
 		} catch (Exception e) {
 			result.put("message", "no");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 		
 		return result;
