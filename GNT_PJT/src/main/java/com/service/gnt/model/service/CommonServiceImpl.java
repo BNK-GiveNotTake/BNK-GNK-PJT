@@ -23,6 +23,12 @@ public class CommonServiceImpl implements CommonService{
 	}
 	
 	@Override
+	public Users select01(Users user) {
+		return commonDAO.select01(user);
+	}
+	
+	
+	@Override
 	public Users getUserById(int userId) {
 		return commonDAO.getUserById(userId);
 	}

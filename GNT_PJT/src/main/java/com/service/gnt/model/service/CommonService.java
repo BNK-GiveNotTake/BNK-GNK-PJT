@@ -9,5 +9,6 @@ public interface CommonService {
 	int insert(Users user);
 	Users select(Users user);
 	Users getUserById(int userId);
+	Users select01(Users user);
 
 }
