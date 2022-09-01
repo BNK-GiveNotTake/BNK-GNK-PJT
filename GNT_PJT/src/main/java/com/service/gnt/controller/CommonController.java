@@ -87,12 +87,10 @@ public class CommonController {
 		Users find = commonService.select01(user);
 		Map<String,Object> maps = new HashMap<String,Object>();
 		if(find!=null) {
-//			maps.put("1", find);
 			maps.put("message", message);
 			return maps;
-			
-		}else {
-			if(user.getUserEmail()=="") {
+		} else {
+			if(user.getUserEmail().equals("")) {
 				maps.put("message", message);
 				return maps;
 				
