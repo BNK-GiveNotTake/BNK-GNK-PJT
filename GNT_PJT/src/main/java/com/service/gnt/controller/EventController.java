@@ -33,58 +33,77 @@ public class EventController {
 		String check = eventService.selectQuizCK(userId);
 		
 		if (check.equals("1")) {
-			result.put("check", "no");
+			result.put("message", "no");
 		}
 		else {
-			result.put("check", "yes");
+			result.put("message", "yes");
 		}
 		
 		return result;
 	}
 	
 	@GetMapping("getQuiz.do")
-	public Map<String, String> getQuiz (String userId) throws Exception {
+	public Map<String, Object> getQuiz (String userId) throws Exception {
 	
-		Map<String, String> result = new HashMap<String, String>();
+		Map<String, Object> result = new HashMap<String, Object>();
 		
 		Quiz quiz = eventService.selectQuiz(userId);
 		
-		// 물어보기. string으로 보내는 게 편한가 아니면 quiz 객체 자체로 보내는 게 편한가?
-		result.put("content", quiz.getQuizContent());
-		result.put("select1", quiz.getSelect1());
-		result.put("select2", quiz.getSelect2());
-		result.put("select3", quiz.getSelect3());
-		result.put("select4", quiz.getSelect4());
+																												
+		result.put("notices", quiz);
+		result.put("message", "yes"); // 이거 왜 넣는거지
+										   
+										   
+										   
 		
 		return result;
 	
 	}
 	
 	@GetMapping("submitAnswer.do")
-	public Map<String, Integer> submitAnswer (String userId) throws Exception {
+	public Map<String, Object> submitAnswer (String userId, String userAnswer) throws Exception {
 	
-		Map<String, Integer> result = new HashMap<String, Integer>();
+		Map<String, Object> result = new HashMap<String, Object>();
 		
 		int answer = eventService.selectQuizAnswer(userId);
 		
-		result.put("answer", answer);
+		if (answer == Integer.parseInt(userAnswer)) {
+			
+			int cash = (int)(Math.random() * (500-10))+10; // 10원 ~ 500원으로 하자 매일이자나 
+			eventService.eventQuizWinner(userId, cash);
+
+			result.put("mileage", cash);
+			result.put("message", "yes");
+		}
+		else {
+			result.put("message", "no");
+		}
 		
 		return result;
 	
 	}
+	
 	
 	@GetMapping("getRouletteWinner.do")
 	public Map<String, String> getRouletteWinner (String userId) throws Exception {
 	
 		Map<String, String> result = new HashMap<String, String>();
 		
-		int winUser = (int)servletContext.getAttribute("winUser");
+															
+  
+		int winner = (int)servletContext.getAttribute("winner");
+							  
+	  
+							   
 		
-		if (userId.equals(winUser))
-			result.put("winner", "no");
-		else
-			result.put("winner", "yes");
-		
+		if (userId.equals(winner)) {
+			// int cash = (int)(Math.random() * (999-100+1))+100;
+			// 어떻게 이벤트 상품 줄래!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			result.put("message", "yes");
+		}
+		else {
+			result.put("message", "no");
+		}
 		return result;
 	
 	}
@@ -104,7 +123,7 @@ public class EventController {
 		Collections.shuffle(user);
 		winner = user.get(0);
 		
-		servletContext.setAttribute("winUser", winner); // error ----------------- 매일 값 바꿀 수 있는 건가?
+		servletContext.setAttribute("winner", winner); // error ----------------- 매일 값 바꿀 수 있는 건가?
 		
 	}
 	
