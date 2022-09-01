@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.donation.Donation;
 import com.service.gnt.domain.users.Users;
 import com.service.gnt.model.service.DonationService;
@@ -25,7 +26,7 @@ public class DonationController {
 	@GetMapping("DonationAsk.do") //기부 페이지 조회 최신 20개
 	public Map<String,Map<String,Object>> donationindex(Model model) {
 		
-		String message = "No";
+		String message = "no";
 		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
 		Map<String,Object> maps1 = new HashMap<String,Object>();
 		Map<String,Object> maps2 = new HashMap<String,Object>();
@@ -42,7 +43,7 @@ public class DonationController {
 
 			}
 				maps.put("Donation",maps1);
-				message = "Yes";
+				message = "yes";
 				maps2.put("message",message);
 				maps.put("message",maps2);
 				
@@ -74,7 +75,7 @@ public class DonationController {
 //				maps.put(Integer.toString(i+1),list.get(i));
 //
 //			}
-//				message = "Yes";
+//				message = "yes";
 //			
 //			maps.put("message",message);
 //			return maps;
@@ -92,7 +93,7 @@ public class DonationController {
 	@GetMapping("pageAsk.do") //페이지별 기부 내역 조회
 	public Map<String,Map<String,Object>> pagination(int pagenum , Model model) {
 		
-		String message = "No";
+		String message = "no";
 		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
 		Map<String,Object> maps1 = new HashMap<String,Object>();
 		Map<String,Object> maps2 = new HashMap<String,Object>();
@@ -102,7 +103,7 @@ public class DonationController {
 			model.addAttribute("donations", list);
 			System.out.println(list);
 			System.out.println(list.get(0));
-			message = "Yes";
+			message = "yes";
 			maps2.put("message", message);
 			maps.put("message",maps2);
 			for(int i = 0 ; i<list.size() ; i++) {
@@ -130,7 +131,7 @@ public class DonationController {
 	@GetMapping("category.do")//카테고리별 모든 기부 목록 조회
 	public Map<String,Map<String,Object>> Category(int categoryId, Model model) {
 		
-		String message = "No";
+		String message = "no";
 		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
 		Map<String,Object> maps1 = new HashMap<String,Object>();
 		Map<String,Object> maps2 = new HashMap<String,Object>();
@@ -144,7 +145,7 @@ public class DonationController {
 				maps1.put(Integer.toString(i+1),list.get(i));
 
 				}
-				message = "Yes";
+				message = "yes";
 			
 				maps2.put("message",message);
 				maps.put("Donation",maps1);
@@ -170,7 +171,7 @@ public class DonationController {
 //			Donation detail = donationService.select3(donationId);
 //			System.out.println(detail);
 //			maps.put("donation", detail);
-//			message = "Yes";
+//			message = "yes";
 //			maps.put("message", message);
 //			return "Content";
 //			
@@ -196,35 +197,33 @@ public class DonationController {
 	
 	
 	
-	// [Donation history테이블]에서 해당하는 donation_id insert, [donation 테이블]에서 donation_amount 필드 업데이트, 
+	// [Donation history테이블]에서 해당하는 donation_id insert, [donation 테이블]에서 donation_amount 필드 업데이트(Clear), 
 	// user_id에 해당하는 User의 마일리지 차감 --> [Account 테이블]의 마일리지 필드 차감...
-/*	@PostMapping("donate.do") //기부하기
-	public Map<String,Object> donate(Donation donation, Users user, Model model) {
-		String message = "No";
-		Map<String,Object> maps = new HashMap<String,Object>();
-		Donation donation1 = new Donation();
-		Donate donate1 = new Donate();
+	@PostMapping("donate.do") //기부하기
+	public Map<String,Map<String,Object>> donate(Donation donation, Users user, Model model) {
+		
+		String message = "no";
+		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
+		Map<String,Object> maps1 = new HashMap<String,Object>();
 		
 		try {
-			donation1.setDonationId(donation.getDonationId());
-			donation1.setDonationAmount(donation.getDonationAmount());
-			donate1.setDonationId(donation.getDonationId());
-			donate1.setDonationAmount(donation.getDonationAmount());
-			donate1.setUserId(user.getUserId());
-			
 			donationService.update1(donation);
-			donationService.update2(donate1);
-			donationService.insert1(donate1);
-			message = "Yes";
-			maps.put("message", message);
 			
+			Account acc2 = donationService.setAccountToUpdate(user.getUserId(), donation.getDonationAmount());
+			donationService.update2(acc2);
+			message = "yes";
+			maps1.put("message", message);
+			maps.put("message",maps1);
 			return maps;
+					
 		} catch (Exception e) {
 			
 			
-			maps.put("message", message);
+			maps1.put("message", message);
+			maps.put("message",maps1);
+			
 			return maps;
 		}
-	}		*/
+	}		
 }
 
