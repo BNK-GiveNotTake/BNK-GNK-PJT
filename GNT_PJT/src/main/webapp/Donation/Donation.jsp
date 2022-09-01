@@ -99,7 +99,6 @@
 		}
 		
 		const changeRecent = function() {
-			console.log("실행되나????")
 			var recentList = localStorage.getItem("recentList")
 			if (recentList==null) {
 				recentList = ["https://happybean-phinf.pstatic.net/20220819_67/1660868531689IgY4X_JPEG/메인이미지01jpg?type=w720"]
@@ -129,31 +128,10 @@
 				data: {},
 				success: function(res) {
 					Donation = res.Donation
-					console.log(Donation)
+					$('.donation-list').empty();
 					$.each(Donation, function(index, item) {
 						donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
-						backgroundColor = ""
-						if (donationPercent < 10) {
-							backgroundColor = "rgb(0,238,238,0.1)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.2)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.3)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.4)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.5)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.6)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.7)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.8)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.9)";
-						} else {
-							backgroundColor = "rgb(0,238,238,1)";
-						}
+						backgroundColor = checkBackgroundColor(donationPercent)
 						$('.donation-list').append(
 							'<section class="cards col-3 mb-5">' +
 								'<article class="card card--1">' +
@@ -175,7 +153,6 @@
 							'</div></div></article></section>'
 						);
 					})
-					
 				},
 				error: function(err) {
 					console.log(err)
@@ -189,11 +166,34 @@
 				type: 'get',
 				url: '../pageAsk.do',
 				data: {
-					'k': page,
+					'pagenum': page,
 				},
 				success: function(res) {
-					console.log(res)
-					$('.donation-check').append(res[1].categoryId + res[1].section1 + res[1].serction2)
+					Donation = res.Donation
+					$.each(Donation, function(index, item) {
+						donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
+						backgroundColor = checkBackgroundColor(donationPercent)
+						$('.donation-list').append(
+							'<section class="cards col-3 mb-5">' +
+								'<article class="card card--1">' +
+								'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
+								'<a href="#" class="card_link">' +
+									'<div class="card__img--hover" style=background-image:url('+item.imageUri+')></div>' +
+								'</a>' +
+								'<div class="card__info">' +
+									'<h3 class="card__title">'+item.title+'</h3>' +
+									'<span class="card__by">' +
+										'<img class="card__logo" src=https://happybean-phinf.pstatic.net/20200116_34/1579150184219Bj6oe_JPEG/%C6%C4%BA%F1%C4%DC.jpg?type=w180>' +
+										'<a href="#" class="card__author" title="author">'+item.organization+'</a>' +
+									'</span>' +
+									'<div class="container-fluid">' +
+										'<div class="Loading">' +
+											'<div class="Loading-after" style=width:'+donationPercent+'%;background-color:'+backgroundColor+';></div>' +
+										'</div>' +
+										'<span class="progress-span">'+donationPercent+'%</span>' +
+							'</div></div></article></section>'
+						);
+					})
 				},
 				error: function(err) {
 					console.log(err)
@@ -209,14 +209,65 @@
 					'categoryId': categoryId,
 				},
 				success: function(res) {
-					console.log(res)
-					$('.donation-check').html(res[1].categoryId + res[1].section1 + res[1].serction2)
+					Donation = res.Donation
+					$('.donation-list').empty();
+					$.each(Donation, function(index, item) {
+						donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
+						backgroundColor = checkBackgroundColor(donationPercent)
+						$('.donation-list').append(
+							'<section class="cards col-3 mb-5">' +
+								'<article class="card card--1">' +
+								'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
+								'<a href="#" class="card_link">' +
+									'<div class="card__img--hover" style=background-image:url('+item.imageUri+')></div>' +
+								'</a>' +
+								'<div class="card__info">' +
+									'<h3 class="card__title">'+item.title+'</h3>' +
+									'<span class="card__by">' +
+										'<img class="card__logo" src=https://happybean-phinf.pstatic.net/20200116_34/1579150184219Bj6oe_JPEG/%C6%C4%BA%F1%C4%DC.jpg?type=w180>' +
+										'<a href="#" class="card__author" title="author">'+item.organization+'</a>' +
+									'</span>' +
+									'<div class="container-fluid">' +
+										'<div class="Loading">' +
+											'<div class="Loading-after" style=width:'+donationPercent+'%;background-color:'+backgroundColor+';></div>' +
+										'</div>' +
+										'<span class="progress-span">'+donationPercent+'%</span>' +
+							'</div></div></article></section>'
+						);
+					})
 				},
 				error: function(err) {
 					console.log(err)
 				}
 			})
 		}
+		
+		function checkBackgroundColor(donationPercent) {
+			backgroundColor = ""
+			if (donationPercent < 10) {
+				backgroundColor = "rgb(0,110,110,0.1)";
+			} else if (donationPercent>=10 && donationPercent<20) {
+				backgroundColor = "rgb(0,125,125,0.2)";
+			} else if (donationPercent>=20 && donationPercent<30) {
+				backgroundColor = "rgb(0,140,140,0.3)";
+			} else if (donationPercent>=30 && donationPercent<40) {
+				backgroundColor = "rgb(0,155,155,0.4)";
+			} else if (donationPercent>=40 && donationPercent<50) {
+				backgroundColor = "rgb(0,170,170,0.5)";
+			} else if (donationPercent>=50 && donationPercent<60) {
+				backgroundColor = "rgb(0,185,185,0.6)";
+			} else if (donationPercent>=60 && donationPercent<70) {
+				backgroundColor = "rgb(0,200,200,0.7)";
+			} else if (donationPercent>=70 && donationPercent<80) {
+				backgroundColor = "rgb(0,215,215,0.8)";
+			} else if (donationPercent>=80 && donationPercent<90) {
+				backgroundColor = "rgb(0,240,240,0.9)";
+			} else {
+				backgroundColor = "rgb(0,255,255,1)";
+			}
+			return backgroundColor
+		}
+		
 	</script>
 </head>
 <body>
