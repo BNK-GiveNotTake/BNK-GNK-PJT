@@ -33,10 +33,7 @@ public class DonationController {
 		
 		try {
 			List<Donation> list = donationService.select1();
-//			model.addAttribute("title", "기부 목록 조회");
-//			model.addAttribute("donations", list);
-			System.out.println(list);
-			System.out.println(list.get(0));
+
 			for(int i = 0 ; i<list.size() ; i++) {
 				
 				maps1.put(Integer.toString(i+1),list.get(i));
@@ -101,8 +98,6 @@ public class DonationController {
 			List<Donation> list = donationService.select2_1(pagenum);
 			model.addAttribute("title", "기부 목록 조회");
 			model.addAttribute("donations", list);
-			System.out.println(list);
-			System.out.println(list.get(0));
 			message = "yes";
 			maps2.put("message", message);
 			maps.put("message",maps2);
@@ -138,8 +133,6 @@ public class DonationController {
 		
 		try {
 			List<Donation> list = donationService.select2(categoryId);
-			System.out.println(list);
-			System.out.println(list.get(0));
 			for(int i = 0 ; i<list.size() ; i++) {
 				
 				maps1.put(Integer.toString(i+1),list.get(i));
@@ -192,7 +185,6 @@ public class DonationController {
 		
 		try {
 			Donation detail = donationService.select3(donationId);		
-			System.out.println(detail);
 			maps1.put("1", detail);
 			maps.put("Donation",maps1);
 			message = "yes";
@@ -213,31 +205,34 @@ public class DonationController {
 	
 	
 	// [Donation history테이블]에서 해당하는 donation_id insert, [donation 테이블]에서 donation_amount 필드 업데이트(Clear), 
-	// user_id에 해당하는 User의 마일리지 차감 --> [Account 테이블]의 마일리지 필드 차감...
-//	@PostMapping("donate.do") //기부하기
-//	public Map<String,Map<String,Object>> donate(Donation donation, Users user, Model model) {
-//		
-//		String message = "no";
-//		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
-//		Map<String,Object> maps1 = new HashMap<String,Object>();
-//		
-//		try {
-//			donationService.update1(donation);
-//			Account acc2 = donationService.setAccountToUpdate(user.getUserId(), donation.getDonationAmount());
-//			donationService.update2(acc2);
-//			message = "yes";
-//			maps1.put("message", message);
-//			maps.put("message",maps1);
-//			return maps;
-//					
-//		} catch (Exception e) {
-//			
-//			
-//			maps1.put("message", message);
-//			maps.put("message",maps1);
-//			
-//			return maps;
-//		}
-//	}		
+	// user_id에 해당하는 User의 마일리지 차감 --> [Account 테이블]의 마일리지 필드 차감(Clear)...
+	// [Milege History 새로운 행 삽입](Clear)
+	@PostMapping("donate.do") //기부하기
+	public Map<String,Map<String,Object>> donate(Donation donation, Users user, Model model) {
+		
+		String message = "no";
+		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
+		Map<String,Object> maps1 = new HashMap<String,Object>();
+		
+		try {
+			donationService.update1(donation);
+			Account acc2 = donationService.setAccountToUpdate(user.getUserId(), donation.getDonationAmount());
+			donationService.update2(acc2);
+			donationService.addMilege(donation.getDonationAmount(), user.getUserId());
+			donationService.addDonaHistory(donation.getDonationId(), donation.getDonationAmount(), user.getUserId());
+			message = "yes";
+			maps1.put("message", message);
+			maps.put("message",maps1);
+			return maps;
+					
+		} catch (Exception e) {
+			
+			
+			maps1.put("message", message);
+			maps.put("message",maps1);
+			
+			return maps;
+		}
+	}		
 }
 

@@ -16,9 +16,7 @@ private final static String NS = "ns.sql.UserMapper.";
 	private SqlSession sqlSession;
 	
 	public int insert(Users user) {
-		System.out.println("DAO 진입");
 		int returnInt = sqlSession.insert(NS+"newUser", user);
-		System.out.println(returnInt);
 		return returnInt;
 	}
 
