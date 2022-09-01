@@ -93,6 +93,11 @@
 		WHERE ACC_ID = #{accId}
 	</update>
 	
+	<insert id="InsertMileageHistory" parameterType="ACCOUNT">
+		INSERT INTO 
+		MILEAGE_HISTORY (MILEAGE_PK, ACC_ID, CREATE_TIME, MILEAGE_AMOUNT, MILEAGE_CONTENT)
+		VALUES (MILEAGE_HISTORY_SEQ.NextVal, #{accId}, SYSDATE, -#{mileage}, #{mileage} 기부)
+	</insert>
 	
 	<insert id="DonationHistory" parameterType="Donation">
 

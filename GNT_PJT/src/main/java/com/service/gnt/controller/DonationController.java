@@ -156,7 +156,7 @@ public class DonationController {
 		} catch (Exception e) {
 			maps2.put("message", message);
 			
-			maps.put("message",maps1);
+			maps.put("message",maps2);
 			return maps;
 		}
 	}
@@ -183,15 +183,30 @@ public class DonationController {
 //	}
 	
 	@GetMapping("detailDonation.do") //상세 기부 페이지
-	public String detailPage(String donationId, Model model) {
+	public Map<String,Map<String,Object>> detailPage(String donationId, Model model) {
+		
+		String message = "no";
+		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
+		Map<String,Object> maps1 = new HashMap<String,Object>();
+		Map<String,Object> maps2 = new HashMap<String,Object>();
 		
 		try {
 			Donation detail = donationService.select3(donationId);		
 			System.out.println(detail);
-			return donationId+"Content";
+			maps1.put("1", detail);
+			maps.put("Donation",maps1);
+			message = "yes";
+			maps2.put("message",message);
+			maps.put("message",maps2);
+			
+			return maps;
+			
 			
 		} catch (Exception e) {
-			return "Error";
+			maps2.put("message", message);
+			maps.put("message",maps2);
+			
+			return maps;
 		}
 	}
 	
@@ -199,31 +214,30 @@ public class DonationController {
 	
 	// [Donation history테이블]에서 해당하는 donation_id insert, [donation 테이블]에서 donation_amount 필드 업데이트(Clear), 
 	// user_id에 해당하는 User의 마일리지 차감 --> [Account 테이블]의 마일리지 필드 차감...
-	@PostMapping("donate.do") //기부하기
-	public Map<String,Map<String,Object>> donate(Donation donation, Users user, Model model) {
-		
-		String message = "no";
-		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
-		Map<String,Object> maps1 = new HashMap<String,Object>();
-		
-		try {
-			donationService.update1(donation);
-			
-			Account acc2 = donationService.setAccountToUpdate(user.getUserId(), donation.getDonationAmount());
-			donationService.update2(acc2);
-			message = "yes";
-			maps1.put("message", message);
-			maps.put("message",maps1);
-			return maps;
-					
-		} catch (Exception e) {
-			
-			
-			maps1.put("message", message);
-			maps.put("message",maps1);
-			
-			return maps;
-		}
-	}		
+//	@PostMapping("donate.do") //기부하기
+//	public Map<String,Map<String,Object>> donate(Donation donation, Users user, Model model) {
+//		
+//		String message = "no";
+//		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
+//		Map<String,Object> maps1 = new HashMap<String,Object>();
+//		
+//		try {
+//			donationService.update1(donation);
+//			Account acc2 = donationService.setAccountToUpdate(user.getUserId(), donation.getDonationAmount());
+//			donationService.update2(acc2);
+//			message = "yes";
+//			maps1.put("message", message);
+//			maps.put("message",maps1);
+//			return maps;
+//					
+//		} catch (Exception e) {
+//			
+//			
+//			maps1.put("message", message);
+//			maps.put("message",maps1);
+//			
+//			return maps;
+//		}
+//	}		
 }
 
