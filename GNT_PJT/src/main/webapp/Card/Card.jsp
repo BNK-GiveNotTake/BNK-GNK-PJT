@@ -401,7 +401,7 @@
 								<div class="card__signature"></div>
 								<div class="card__ccv">303</div>							
 							</div>
-							<div class="card__number">4111 1111 1111 1111</div>
+							<div class="card__number">1234 5678 9012 3456</div>
 							<div class="card__expiry-date">10/17</div>
 							<div>
 								<div class="card__owner">

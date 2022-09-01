@@ -124,6 +124,22 @@
 				}
 			})
 			
+			$('.checkDuplicateEmail').click(function() {
+				$.ajax({
+					type: 'post',
+					url: '../saveUser.do',
+					data: {
+						
+					},
+					success: function(res) {
+						console.log(res)
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				})
+			})
+			
 			/* 회원가입 */
 			$('#signUp').click(function() {
 				if(!email_valid) {
