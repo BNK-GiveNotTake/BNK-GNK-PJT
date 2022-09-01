@@ -23,7 +23,7 @@
 		var Donation = {}
 		
 		$(function() {
-			getDonationBasic()
+			
 			
 			$('.next-page').click(function() {
 				getDonationPage()
@@ -130,52 +130,33 @@
 				success: function(res) {
 					Donation = res.Donation
 					console.log(Donation)
-					$.each(Donation, function(index, item) {
-						donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
-						backgroundColor = ""
-						if (donationPercent < 10) {
-							backgroundColor = "rgb(0,238,238,0.1)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.2)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.3)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.4)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.5)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.6)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.7)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.8)";
-						} else if (donationPercent>=10 && donationPercent<20) {
-							backgroundColor = "rgb(0,238,238,0.9)";
-						} else {
-							backgroundColor = "rgb(0,238,238,1)";
-						}
-						$('.donation-list').append(
-							'<section class="cards col-3 mb-5">' +
-								'<article class="card card--1">' +
-								'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
-								'<a href="#" class="card_link">' +
-									'<div class="card__img--hover" style=background-image:url('+item.imageUri+')></div>' +
-								'</a>' +
-								'<div class="card__info">' +
-									'<h3 class="card__title">'+item.title+'</h3>' +
-									'<span class="card__by">' +
-										'<img class="card__logo" src=https://happybean-phinf.pstatic.net/20200116_34/1579150184219Bj6oe_JPEG/%C6%C4%BA%F1%C4%DC.jpg?type=w180>' +
-										'<a href="#" class="card__author" title="author">'+item.organization+'</a>' +
-									'</span>' +
-									'<div class="container-fluid">' +
-										'<div class="Loading">' +
-											'<div class="Loading-after" style=width:'+donationPercent+'%;background-color:'+backgroundColor+';></div>' +
-										'</div>' +
-										'<span class="progress-span">'+donationPercent+'%</span>' +
-							'</div></div></article></section>'
-						);
-					})
-					
+					/* $('.donation-list').append(
+						'<section class="cards col-3 mb-5">' +
+							'<article class="card card--1">' +
+								'<div class="card__img" style="background-image: url("<c:out value=https://happybean-phinf.pstatic.net/20220819_67/1660868531689IgY4X_JPEG/메인이미지01jpg?type=w720 />")"></div>' +
+						 		'<a href="#" class="card_link">' +
+						     		'<div class="card__img--hover" style="background-image: url("<c:out value=https://happybean-phinf.pstatic.net/20220819_67/1660868531689IgY4X_JPEG/메인이미지01jpg?type=w720 />")"></div>' +
+						   		'</a>' +
+						  		'<div class="card__info">' +
+						    	'<h3 class="card__title">밥 한끼조차 챙기기 어려운 연아</h3>' +
+						    	'<span class="card__by">' +
+							    	'<img class="card__logo" src="https://happybean-phinf.pstatic.net/20200116_34/1579150184219Bj6oe_JPEG/%C6%C4%BA%F1%C4%DC.jpg?type=w180">' +
+							    	'<a href="#" class="card__author" title="author">세이브더칠드런</a>' +
+						    	'</span>' +
+						    	'<div class="container-fluid">' +
+								    '<div class="Loading">' +
+							    		'<div class=Loading-after>' +
+							    	'</div>' +
+							    '</div>' +
+							    '<span class="progress-span">70%</span>' +
+							    '<span>' +
+							    	'<c:if test="${i} = 0">aaaa</c:if>' +
+							    '</span>' +
+							'</div>' +
+						  '</div>' +
+						'</article>' +
+					'</section>' +
+					); */
 				},
 				error: function(err) {
 					console.log(err)
@@ -241,10 +222,49 @@
 					<button class="donation-btn" id="animal">동물</button>
 					<button class="donation-btn" id="environ">환경</button>
 				</div>
-				<div class="donation-list row" style="margin-left: 1rem;">
+				<div class="donation-list">
 				
 				</div>
-				
+				<%-- <c:forEach var="i" begin="0" end="5">
+					<section class="cards col-3 mb-5">
+						<article class="card card--1">
+						  <div class="card__img" style="background-image: url('<c:out value="https://happybean-phinf.pstatic.net/20220819_67/1660868531689IgY4X_JPEG/메인이미지01jpg?type=w720" />')"></div>
+						  <a href="#" class="card_link">
+						     <div class="card__img--hover" style="background-image: url('<c:out value="https://happybean-phinf.pstatic.net/20220819_67/1660868531689IgY4X_JPEG/메인이미지01jpg?type=w720" />')"></div>
+						   </a>
+						  <div class="card__info">
+						    <h3 class="card__title">밥 한끼조차 챙기기 어려운 연아</h3>
+						    <span class="card__by">
+						    	<img class="card__logo" src="https://happybean-phinf.pstatic.net/20200116_34/1579150184219Bj6oe_JPEG/%C6%C4%BA%F1%C4%DC.jpg?type=w180">
+						    	<a href="#" class="card__author" title="author">세이브더칠드런</a>
+						    </span>
+						    <div class="container-fluid">
+							    <div class="Loading">
+							    	<div
+							    		class="Loading-after"
+							    		style="width: <c:out value='70%' />;
+							    		background-color:
+							    			<c:if test="${i==0}"><c:out value="black" /></c:if>
+							    			<c:if test="${i==1}"><c:out value="yellow" /></c:if>
+							    			<c:if test="${i==2}"><c:out value="blue" /></c:if>
+							    			<c:if test="${i==3}"><c:out value="crimson" /></c:if>
+							    			<c:if test="${i==4}"><c:out value="pink" /></c:if>
+							    			<c:if test="${i==5}"><c:out value="red" /></c:if>
+							    		;"
+							    	>
+							    	</div>
+							    </div>
+							    
+							    <span class="progress-span">70%</span>
+							    <span>
+							    	<c:if test="${i} = 0">aaaa</c:if>
+							    </span>
+							</div>
+						  </div>
+						</article>
+						 
+					</section>
+				</c:forEach> --%>
 				<button class="next-page">더보기</button>
 			</div>
 			<div class="col-2">
