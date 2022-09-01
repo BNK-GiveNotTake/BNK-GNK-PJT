@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.service.gnt.domain.account.Account;
+import com.service.gnt.domain.account.MileageHistory;
 import com.service.gnt.domain.event.Quiz;
 
 @Repository
@@ -40,6 +42,26 @@ public class EventDAOImpl implements EventDAO{
 	public int updateQuizUser(String userId) throws Exception {
 		return sqlSession.update(NS+"updateQuizUser",userId);
 	}
+	
+	@Override
+	public String selectQuizAccId(String userId) throws Exception {
+		return sqlSession.selectOne(NS+"selectQuizAccId",userId);
+	}
+
+	@Override
+	public int updateQuizMileage(Account account) throws Exception {
+		return sqlSession.update(NS+"updateQuizMileage",account);
+	}
+
+	@Override
+	public int selectMilieageHistorySeq() throws Exception {
+		return sqlSession.selectOne(NS+"selectMilieageHistorySeq");
+	}
+
+	@Override
+	public int insertMilieage(MileageHistory mh) throws Exception {
+		return sqlSession.insert(NS+"insertMilieage",mh);
+	}
 
 	@Override
 	public int updateQuizReset() throws Exception {
@@ -51,5 +73,7 @@ public class EventDAOImpl implements EventDAO{
 		List<Integer> list = sqlSession.selectList(NS+"selectAllUserId");
 		return list;
 	}
+
+
 
 }
