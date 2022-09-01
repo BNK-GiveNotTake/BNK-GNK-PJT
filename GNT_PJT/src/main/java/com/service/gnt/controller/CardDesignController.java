@@ -40,13 +40,10 @@ public class CardDesignController {
 		
 		// 카드 객체 생성해서 담기
 		Card card = new Card(tempCard, tempCvc, bg_front, bg_back, Integer.parseInt(emoId), Integer.parseInt(emoInfoTop), Integer.parseInt(emoInfoLeft), font, cardContent); // emo_id int값
-		System.out.println("here?");
 		try {
 			// 카드 재발급 유무 확인 + 카드 재발급이 맞다면 delete 호출
 			if (cardService.isReIssued(userId))
-				System.out.println("here222?");
 				cardService.deleteCard(userId);
-				System.out.println("here333?");
 			// 카드 생성
 			cardService.insertCard(card, userId);
 			
