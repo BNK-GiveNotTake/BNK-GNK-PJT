@@ -9,9 +9,16 @@ public class DonationHistory {
 	private Users users;
 	private String createTime; // date
 	private int amount;
+	private String donationId;
+	private int donationAmount;
+	private int userId;
 	
-	public DonationHistory() {
+	public DonationHistory(String donationId, int donationAmount, int userId) {
 		super();
+		this.donationId = donationId;
+		this.donationAmount = donationAmount;
+		this.userId = userId;
+		
 	}
 
 	public DonationHistory(int donationHistoryId, Donation donation, Users users, String createTime, int amount) {

@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.service.gnt.domain.account.Account;
+import com.service.gnt.domain.account.MileageHistory;
 import com.service.gnt.domain.donation.Donation;
+import com.service.gnt.domain.donation.DonationHistory;
 
 @Repository
 public class DonationDAOImpl implements DonationDAO{
@@ -24,7 +26,7 @@ public class DonationDAOImpl implements DonationDAO{
 
 	@Override
 	public List<Donation> select1() {
-		System.out.println("dao select()...");
+
 		
 		return sqlSession.selectList(NS+"DonationAsk", null);
 		
@@ -32,34 +34,34 @@ public class DonationDAOImpl implements DonationDAO{
 
 	@Override
 	public List<Donation> select2(int categoryId) {
-		System.out.println("dao select().....");
+		
 		
 		return sqlSession.selectList(NS+"CategoryPage",categoryId);
 	}
 	
 	@Override
 	public List<Donation> select2_1(int k) {
-		System.out.println("dao select().....");
+	
 		
 		return sqlSession.selectList(NS+"DonationPage",k);
 	}
 
 	@Override
 	public Donation select3(String donationId) {
-		System.out.println("dao select().....");
+		
 		
 		return sqlSession.selectOne(NS+"detailDonation",donationId);
 	}
 
 	@Override
 	public int update1(Donation donation) {
-		System.out.println("dao select().....");
+		
 		return sqlSession.update(NS+"UpdateDonaAmount",donation);
 	}
 	
 	@Override
 	public int update2(Account account) {
-		System.out.println("dao select().....");
+		
 		return sqlSession.update(NS+"UpdateMileage",account);
 	}
 	
@@ -85,5 +87,19 @@ public class DonationDAOImpl implements DonationDAO{
 		acc1.setMileage(acc1.getMileage()-donationAmount);
 		return acc1;
 	}
+	
+	@Override
+	public int addMilege(int donationAmount, int userId) {
+		String accId1 = getAccIdByUserId(userId);
+		
+	return sqlSession.insert(AM+"addMileHistory", new MileageHistory(accId1,(-1)*donationAmount,"기부"));
+	}
+	
+	@Override
+	public int addDonaHistory(String donationId, int donationAmount, int userId) {
+	
+		return sqlSession.insert(NS+"DonationHistory", new DonationHistory(donationId, donationAmount,userId));
+	}
+	
 	
 }
