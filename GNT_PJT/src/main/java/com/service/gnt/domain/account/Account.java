@@ -28,6 +28,17 @@ public class Account {
 		this.accAmount = accAmount;
 		this.mileage = mileage;
 	}
+	
+	
+
+	public Account(String accId, String cardId, String accPassword) {
+		super();
+		this.accId = accId;
+		this.cardId = cardId;
+		this.accPassword = accPassword;
+	}
+
+
 
 	public Account(String accId, String cardId, String accPassword, String createTime, int accAmount, int mileage) {
 		super();
