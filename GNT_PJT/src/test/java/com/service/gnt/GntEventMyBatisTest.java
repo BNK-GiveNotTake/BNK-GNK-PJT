@@ -13,12 +13,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.service.gnt.domain.account.Account;
+import com.service.gnt.domain.account.MileageHistory;
 import com.service.gnt.domain.card.Card;
 import com.service.gnt.domain.event.Quiz;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class EventMyBatisTest {
+class EventMyBatisTest {
 	
 	
 	// Event test (myBatis) ----------------------------------------------------------------------
@@ -31,7 +32,7 @@ public class EventMyBatisTest {
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
 		SqlSession session = factory.openSession();
 		
-		String userId = ""; // userId 입력
+		String userId = "57"; // userId 입력
 		String check = session.selectOne("ns.sql.EventMapper.selectQuizCK", userId);
 		
 		System.out.println("Event Test :: selectQuizCK? ----------> "+check);
@@ -46,7 +47,7 @@ public class EventMyBatisTest {
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
 		SqlSession session = factory.openSession();
 		
-		String userId = ""; // userId 입력
+		String userId = "57"; // userId 입력
 		String quizId = session.selectOne("ns.sql.EventMapper.selectQuizId", userId);
 		
 		System.out.println("Event Test :: selectQuizId? ----------> "+quizId);
@@ -61,7 +62,7 @@ public class EventMyBatisTest {
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
 		SqlSession session = factory.openSession();
 		
-		String quizId = ""; // quizId 입력
+		String quizId = "1"; // quizId 입력
 		Quiz quiz = session.selectOne("ns.sql.EventMapper.selectQuiz", quizId);
 		
 		System.out.println("Event Test :: selectQuiz? ----------> "+quiz);
@@ -76,7 +77,7 @@ public class EventMyBatisTest {
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
 		SqlSession session = factory.openSession();
 		
-		String quizId = ""; // quizId 입력
+		String quizId = "1"; // quizId 입력
 		int answer = session.selectOne("ns.sql.EventMapper.selectQuizAnswer", quizId);
 		
 		System.out.println("Event Test :: selectQuizAnswer? ----------> "+answer);
@@ -91,7 +92,7 @@ public class EventMyBatisTest {
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
 		SqlSession session = factory.openSession();
 		
-		String userId = ""; // userId 입력
+		String userId = "57"; // userId 입력
 		int result = session.update("ns.sql.EventMapper.updateQuizUser", userId);
 		
 		System.out.println("Event Test :: updateQuizUser? ----------> "+result);
@@ -99,7 +100,77 @@ public class EventMyBatisTest {
 	}
 	
 	@Test
-	public void updateQuizResetTest() throws Exception {
+	void selectQuizAccIdTest() throws Exception {
+		
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+		SqlSession session = factory.openSession();
+		
+		String userId = "57"; // userId 입력
+		String accId = session.selectOne("ns.sql.EventMapper.selectQuizAccId", userId);
+		
+		System.out.println("Event Test :: selectQuizAccId? ----------> "+accId);
+		
+	}
+	
+	
+	@Test
+	void updateQuizMileageTest() throws Exception {
+		
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+		SqlSession session = factory.openSession();
+		
+		Account account = new Account(); // account 입력
+		account.setAccId("1");
+		account.setMileage(100);
+		int result = session.update("ns.sql.EventMapper.updateQuizMileage", account);
+		
+		System.out.println("Event Test :: updateQuizMileage? ----------> "+result);
+		
+	}
+	
+	@Test
+	void selectMilieageHistorySeqTest() throws Exception {
+		
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+		SqlSession session = factory.openSession();
+		
+		int seq = session.selectOne("ns.sql.EventMapper.selectMilieageHistorySeq");
+		
+		System.out.println("Event Test :: selectMilieageHistorySeq? ----------> "+seq);
+		
+	}
+	
+	@Test
+	void insertMilieageTest() throws Exception {
+		
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+		SqlSession session = factory.openSession();
+		
+		MileageHistory mileageHistory = new MileageHistory(); // MileageHistory 생성
+		mileageHistory.setMileagePk(101);
+		mileageHistory.setAccId("1");
+		mileageHistory.setMileageAmount(100);
+		mileageHistory.setMileageContent("적립");
+		
+		int result = session.insert("ns.sql.EventMapper.insertMilieage", mileageHistory);
+		
+		System.out.println("Event Test :: insertMilieage? ----------> "+result);
+		
+	}
+	
+	
+	
+	
+	@Test
+	void updateQuizResetTest() throws Exception {
 		
 		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 		
@@ -113,7 +184,7 @@ public class EventMyBatisTest {
 	}
 	
 	@Test
-	public void selectAllUserIdTest() throws Exception {
+	void selectAllUserIdTest() throws Exception {
 		
 		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 		
@@ -126,14 +197,5 @@ public class EventMyBatisTest {
 		for (int userId: list) {
 			System.out.println("Event Test :: selectAllUserId? ----------> "+userId+" (List)");
 		}
-		
-		
 	}
-	
-	
-	
-	
-	
-	
-
 }

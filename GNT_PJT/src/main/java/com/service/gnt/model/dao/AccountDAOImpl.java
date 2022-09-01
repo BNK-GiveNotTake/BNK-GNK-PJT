@@ -160,5 +160,4 @@ public class AccountDAOImpl implements AccountDAO {
 		return sqlSession.selectOne(AM+"getMileHistoryAMT",accId);
 	}
 
-
 }
