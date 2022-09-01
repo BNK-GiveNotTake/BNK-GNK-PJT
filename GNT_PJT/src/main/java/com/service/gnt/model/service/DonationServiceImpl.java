@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.donation.Donation;
 import com.service.gnt.model.dao.DonationDAO;
 
@@ -52,19 +53,39 @@ public class DonationServiceImpl implements DonationService{
 	}
 
 
-//	@Override
-//	public 	int update2(Donate donate) {
-//		System.out.println("service select()...");
-//		return donationDAO.update2(donate);
-//	}
-//
-//
-//	@Override
-//	public int insert1(Donate donate) {
-//		System.out.println("service select()...");
-//		return donationDAO.insert1(donate);
-//	}
+	@Override
+	public int update2(Account account) {
+		System.out.println("service select()...");
+		return donationDAO.update2(account);
+	}
 
+
+	@Override
+	public Account getAccountByUserId(int userId) {
+		System.out.println("service select()...");
+		System.out.println("service select()...");
+		return donationDAO.getAccountByUserId(userId);
+	}
+
+
+	@Override
+	public String getAccIdByUserId(int userId) {
+		System.out.println("service select()...");
+		return donationDAO.getAccIdByUserId(userId);
+	}
+
+
+	@Override
+	public Account getAccount(String accId) {
+		System.out.println("service select()...");
+		return donationDAO.getAccount(accId);
+	}
+
+
+	@Override
+	public Account setAccountToUpdate(int userId, int donationAmount) {
+		return donationDAO.setAccountToUpdate(userId, donationAmount);
+	}
 
 
 }

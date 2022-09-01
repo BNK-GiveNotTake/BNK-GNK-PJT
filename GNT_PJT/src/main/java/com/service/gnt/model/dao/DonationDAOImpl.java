@@ -8,12 +8,15 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.donation.Donation;
 
 @Repository
 public class DonationDAOImpl implements DonationDAO{
 	
 	private final String NS = "ns.sql.DonationMapper.";
+	public final String UM = "ns.sql.UserMapper.";
+	public final String AM = "ns.sql.AccountMapper.";
 	
 	@Autowired
 	private SqlSession sqlSession;
@@ -53,22 +56,34 @@ public class DonationDAOImpl implements DonationDAO{
 		System.out.println("dao select().....");
 		return sqlSession.update(NS+"UpdateDonaAmount",donation);
 	}
-
-//	@Override
-//	public int update2(Donate donate) {
-//		System.out.println("dao select().....");
-//		return sqlSession.update(NS+"UpdateMileage",donate);
-//	}
-//	
-//
-//	@Override
-//	public int insert1(Donate donate) {
-//		System.out.println("dao select().....");
-//		return sqlSession.insert(NS+"DonationHistory",donate);
-//		
-//	}
+	
+	@Override
+	public int update2(Account account) {
+		System.out.println("dao select().....");
+		return sqlSession.update(NS+"UpdateMileage",account);
+	}
 	
 	
+	@Override
+	public Account getAccountByUserId(int userId) {
+		return getAccount(getAccIdByUserId(userId));
+	}
 	
-
+	@Override
+	public String getAccIdByUserId(int userId) {
+		return sqlSession.selectOne(UM+"getAccIdByUserId",userId);
+	}
+	
+	@Override
+	public Account getAccount(String accId) {
+		return sqlSession.selectOne(AM+"getAccount",accId);
+	}
+	
+	@Override
+	public Account setAccountToUpdate(int userId, int donationAmount) {
+		Account acc1 = getAccountByUserId(userId);
+		acc1.setMileage(acc1.getMileage()-donationAmount);
+		return acc1;
+	}
+	
 }
