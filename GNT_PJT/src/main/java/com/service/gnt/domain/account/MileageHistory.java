@@ -10,7 +10,13 @@ public class MileageHistory {
 	
 	public MileageHistory() {}
 
-	
+	public MileageHistory(String accId, int mileageAmount, String mileageContent) {
+		super();
+		this.accId = accId;
+		this.mileageAmount = mileageAmount;
+		this.mileageContent = mileageContent;
+	}
+
 	public MileageHistory(int mileagePk, String accId, String createTime, int mileageAmount) {
 		super();
 		this.mileagePk = mileagePk;
