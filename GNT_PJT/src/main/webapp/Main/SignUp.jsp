@@ -43,6 +43,22 @@
 			$('body').css("overflow", "initial");
 		};
 		
+		function checkEmail(email) {
+			$.ajax({
+				type: 'post',
+				url: '../overlapCheck.do',
+				data: {
+					'userEmail': email,
+				},
+				success: function(res) {
+					console.log(res)
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		}
+		
 		$(function() {
 			
 			var email_valid = false;
@@ -129,7 +145,7 @@
 						},
 						// 응답 부분
 						success: function(res) {
-							if(res.message== 'User Register Success') {
+							if(res.message== 'Yes') {
 								var userInfo = new Object();
 								$.each(res.userinfo, function(index, item) {
 									if (item===null) {
