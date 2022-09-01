@@ -22,7 +22,7 @@ public class NoticeDAOImpl implements NoticeDAO{
 		return sqlSession.selectOne(NM+"getNoticeAMT");
 	}
 	public Notice getNoticeDetail(int noticeId) {
-		sqlSession.update(NM+"addNoticeCNT", noticeId);
+		// sqlSession.update(NM+"addNoticeCNT", noticeId);
 		return sqlSession.selectOne(NM+"getNoticeDetail", noticeId);
 	}
 	
