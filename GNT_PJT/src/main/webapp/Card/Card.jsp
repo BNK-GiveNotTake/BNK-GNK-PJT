@@ -34,15 +34,25 @@
 			});
 		});
 		
+		$(function() {
+			console.log('안뇽?')
+		})
+		
 		$(window).on('load', function() {
 			$('#card').addClass('loaded');
 		});
 		
+			
 		$(function() {
 			var isFront = true;
-			var frontFont = 'white';
-			var backFont = 'white';
-			var backgroundColor = "";
+			var frontFontColor = 'white';
+			var backFontColor = 'white';
+			var frontBackgroundColor = "ffffff";
+			var backBackgroundColor = "ffffff";
+			var emo = "";
+			var frontFont = "";
+			var backFont = "";		
+			var card_content = "";
 			
 			$('.front-card').click(function() {
 				$('#front').removeClass('card--front_small');
@@ -62,7 +72,7 @@
 					$('#draggable3').css('left', left_position + 'px').css('top', top_position + 'px');	
 				}
 				isFront = true;
-				if(frontFont=='black') {
+				if(frontFontColor=='black') {
 					$('.font__color-white').removeClass('font__color-selected')
 					$('.font__color-black').addClass('font__color-selected')
 				} else {
@@ -81,7 +91,6 @@
 				$('#change-front').addClass('back-card')
 				$('#change-back').removeClass('front-card').removeClass('back-card')
 				$('#change-back').addClass('front-card')
-				console.log($('#draggable3').css('top'))
 				if (isFront == true) {
 					$('.emo').css('width', '130px').css('height', '157px')
 					left_position = parseInt($('#draggable3').css('left')) * 0.82
@@ -89,7 +98,7 @@
 					$('#draggable3').css('left', left_position + 'px').css('top', top_position + 'px');	
 				}
 				isFront = false;
-				if(backFont=='black') {
+				if(backFontColor=='black') {
 					$('.font__color-white').removeClass('font__color-selected')
 					$('.font__color-black').addClass('font__color-selected')
 				} else {
@@ -101,13 +110,13 @@
 			$('.font__color-black').click(function() {
 				if (isFront == true) {
 					$('.front .card__content').css("color", "black");
-					frontFont = 'black'
+					frontFontColor = 'black'
 				} else {
 					$('.back .card__ccv').css("color", "black");
 					$('.back .card__owner').css("color", "black");
 					$('.back .card__expiry-date').css("color", "black");
 					$('.back .card__number').css("color", "black");
-					backFont = 'black'
+					backFontColor = 'black'
 				}
 				$('.font__color-white').removeClass('font__color-selected')
 				$('.font__color-black').addClass('font__color-selected')
@@ -116,13 +125,13 @@
 			$('.font__color-white').click(function() {
 				if (isFront == true) {
 					$('.front .card__content').css("color", "white");
-					frontFont = 'white'
+					frontFontColor = 'white'
 				} else {
 					$('.back .card__ccv').css("color", "white");
 					$('.back .card__owner').css("color", "white");
 					$('.back .card__expiry-date').css("color", "white");
 					$('.back .card__number').css("color", "white");
-					backFont = 'white'
+					backFontColor = 'white'
 				}
 				$('.font__color-black').removeClass('font__color-selected')
 				$('.font__color-white').addClass('font__color-selected')
@@ -140,9 +149,10 @@
 				if (isFront == true) {
 					$('#front').css('background-color', '#' + $(this).text())
 					$('.emo').css('background-color', '#' + $(this).text())
-					backgroundColor = $(this).text();
+					frontBackgroundColor = $(this).text();
 				} else {
 					$('#back').css('background-color', '#' + $(this).text())
+					backBackgroundColor = $(this).text();
 				}
 			})
 			
@@ -151,42 +161,101 @@
 					if ($(this).text() == '미스터 비') {
 						$('#draggable3').empty();
 						$('#draggable3').append('<img src="img/1.png" class="emo" style="width: 150px; height: 157px;">')
+						emo = "1"
 					} else if ($(this).text() == '엔젤 케이') {
 						$('#draggable3').empty();
 						$('#draggable3').append('<img src="img/2.png" class="emo" style="width: 150px; height: 157px;">')
+						emo = "2"
 					} else if ($(this).text() == '바우 와우') {
 						$('#draggable3').empty();
 						$('#draggable3').append('<img src="img/3.png" class="emo" style="width: 150px; height: 157px;">')
+						emo = "3"
 					} else if ($(this).text() == '엔젤 엔') {
 						$('#draggable3').empty();
 						$('#draggable3').append('<img src="img/4.png" class="emo" style="width: 150px; height: 157px;">')
+						emo = "4"
 					} else if ($(this).text() == 'G방울') {
 						$('#draggable3').empty();
 						$('#draggable3').append('<img src="img/5.png" class="emo" style="width: 150px; height: 157px;">')
+						emo = "5"
 					} else {
 						$('#draggable3').empty();
 						$('#draggable3').append('<img src="img/6.png" class="emo" style="width: 150px; height: 157px;">')
+						emo = "6"
 					}
 				} else {
 					alert('뒷면에서는 이모티콘을 변경할 수 없다.')
 				}
-				$('.emo').css('background-color', '#'+backgroundColor);
+				$('.emo').css('background-color', '#'+frontBackgroundColor);
 			})
 			
 			$('#FontList').on('click', '.item-gradient', function() {
 				if (isFront == true) {
 					$('.front .card__content').css("font-family", $(this).attr('name'));
+					frontFont = $(this).attr('name')
 				} else {
 					$('.back .card__ccv').css("font-family", $(this).attr('name'));
 					$('.back .card__owner').css("font-family", $(this).attr('name'));
 					$('.back .card__expiry-date').css("font-family", $(this).attr('name'));
 					$('.back .card__number').css("font-family", $(this).attr('name'));
+					backFont = $(this).attr('name')
 				}
 			})
 			
 			$('.change-content').click(function() {
 				$('.card__content').text($('.content-input').val())
+				card_content = $('.content-input').val()
 				$('.content-input').val("")
+			})
+			
+			$('.card_save_btn').click(function() {
+				var userInfo = JSON.parse(localStorage.getItem('user'));
+				var emoInfoTop = ""
+				var emoInfoLeft = ""
+				if (isFront == true) {
+					emoInfoTop = parseInt($('#draggable3').css('top'))
+					emoInfoLeft = parseInt($('#draggable3').css('left'))
+				} else {
+					emoInfoTop = parseInt($('#draggable3').css('top')) * 0.68
+					emoInfoLeft = parseInt($('#draggable3').css('left')) * 0.82
+				}
+				console.log({
+					'userId': userInfo.userId,
+					'bgFront': frontBackgroundColor,
+					'bgBack': backBackgroundColor,
+					'emoId': emo,
+					'emoInfoTop': emoInfoTop.toFixed(2),
+					'emoInfoLeft': emoInfoLeft.toFixed(2),
+					'fontFront': frontFont,
+					'fontBack': backFont,
+					'fontColorFront': frontFontColor,
+					'fontColorBack': backFontColor,
+					'cardContent': card_content,
+				})
+				$.ajax({
+					type: 'post',
+					url: '../saveCard.do',
+					data: {
+						'userId': userInfo.userId,
+						'bgFront': frontBackgroundColor,
+						'bgBack': backBackgroundColor,
+						'emoId': emo,
+						'emoInfoTop': emoInfoTop,
+						'emoInfoLeft': emoInfoLeft,
+						'fontFront': frontFont,
+						'fontBack': backFont,
+						'fontColorFront': frontFontColor,
+						'fontColorBack': backFontColor,
+						'cardContent': card_content,
+					},
+					success: function(res) {
+						console.log(res)
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				
+				})
 			})
 			
 		});
@@ -414,17 +483,18 @@
 					</div>
 				</div>
 				<div class="tabs">
-				  <input type="radio" id="tab1" name="tab-control" checked>
-				  <input type="radio" id="tab2" name="tab-control">
-				  <input type="radio" id="tab3" name="tab-control">  
-				  <ul>
-				    <li title="Background"><label for="tab1" role="button"><br><span>배경색</span></label></li>
-				    <li title="Emoticon"><label for="tab2" role="button"><br><span>이모티콘</span></label></li>
-				    <li title="Font"><label for="tab3" role="button"><br><span>폰트 적용</span></label></li>
-				  </ul>
+					<input type="radio" id="tab1" name="tab-control" checked>
+					<input type="radio" id="tab2" name="tab-control">
+					<input type="radio" id="tab3" name="tab-control">  
+					<ul>
+					    <li title="Background"><label for="tab1" role="button"><br><span>배경색</span></label></li>
+					    <li title="Emoticon"><label for="tab2" role="button"><br><span>이모티콘</span></label></li>
+					    <li title="Font"><label for="tab3" role="button"><br><span>폰트 적용</span></label></li>
+					</ul>
 				  
-				  <div class="slider"><div class="indicator"></div></div>
-				  <div class="content" style="padding-bottom: 5rem;">
+					<div class="slider"><div class="indicator"></div>
+				</div>
+				<div class="content">
 				    <section>
 						<h2>Background</h2>
 						<div class="d-flex">
@@ -492,6 +562,12 @@
 		          	</section>
 					</div>
 				</div>
+			
+			</div>
+			<div class="btn-list">
+				<button class="card_reset_btn">초기화</button>
+				<button class="card_save_btn">저장</button>
+				<button class="card_issue_btn">발급</button>
 			</div>
 		</div>
 	</div>

@@ -7,27 +7,27 @@ import com.service.gnt.domain.card.Card;
 
 public interface CardService {
 	
-	void insertCard(Card card, String userId) throws Exception;
+	void insertCard(Card card, int userId) throws Exception;
 	
-	void deleteCard(String userId) throws Exception;
+	void deleteCard(int userId) throws Exception;
 	
 	boolean isExistCardId(String cardId) throws Exception;
 	
-	boolean isReIssued(String userId) throws Exception;
+	boolean isReIssued(int userId) throws Exception;
 	
 	
 	
 	
 	// new
-	boolean selectIsIssued(String userId) throws Exception;
+	boolean selectIsIssued(int userId) throws Exception;
 	
-	String selectEndtime(String userId) throws Exception;
+	String selectEndtime(int userId) throws Exception;
 	
-	Card selectCard(String userId) throws Exception;
+	Card selectCard(int userId) throws Exception;
 	
-	void updateCard(String userId, Card card) throws Exception;
+	void updateCard(int userId, Card card) throws Exception;
 	
-	void updateCardIssued(String userId) throws Exception;
+	void updateCardIssued(int userId) throws Exception;
 	
 	
 	
