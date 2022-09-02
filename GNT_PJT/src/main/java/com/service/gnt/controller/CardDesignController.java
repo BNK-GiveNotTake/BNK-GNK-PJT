@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.service.gnt.domain.card.Card;
+import com.service.gnt.domain.users.Users;
 import com.service.gnt.model.service.CardService;
 
 @RestController
@@ -75,10 +76,9 @@ public class CardDesignController {
 	
 	// 저장 버튼
 	@PostMapping("saveCard.do")
-	public Map<String, String> saveCard(String userId, String bg_front, String bg_back, String emoId, String emoInfoTop, String emoInfoLeft, String font, String cardContent) throws Exception{
+	public Map<String, String> saveCard(String userId, Card card) throws Exception{
 		
 		Map<String, String> result = new HashMap<String, String>();
-		Card card;
 		
 		
 		if (cardService.selectCard(userId)==null) { // 처음 저장? -- insert
@@ -100,12 +100,12 @@ public class CardDesignController {
 			System.out.println("cardDesignController :: temp cvc id? -> "+tempCvc);
 			
 			// 카드 객체 생성해서 담기
-			card = new Card(tempCard, tempCvc, bg_front, bg_back, Integer.parseInt(emoId), Integer.parseInt(emoInfoTop), Integer.parseInt(emoInfoLeft), font, cardContent); // emo_id int값
+			card.setCardId(tempCard);
+			card.setCvc(tempCvc);
 			try {
 
 				// 카드 생성
 				cardService.insertCard(card, userId);
-				
 				result.put("message", "yes");
 			
 			} catch (Exception e) {
@@ -116,7 +116,6 @@ public class CardDesignController {
 		}
 		else { // 처음 아닌 저장? -- update
 			
-			card = new Card(bg_front, bg_back, Integer.parseInt(emoId), Integer.parseInt(emoInfoTop), Integer.parseInt(emoInfoLeft), font, cardContent); // emo_id int값
 			try {
 				cardService.updateCard(userId, card);
 				result.put("message", "yes");
