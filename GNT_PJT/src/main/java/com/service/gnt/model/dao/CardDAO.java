@@ -17,5 +17,12 @@ public interface CardDAO {
 	
 	int updateCardIssued(String cardId) throws Exception;
 	String selectCardDelete(String accId) throws Exception;
+	
+	String selectIsIssued(String cardId) throws Exception;
+	String selectEndtime(String cardId) throws Exception;
+	Card selectCard(String cardId) throws Exception;
+	
+	int updateCard(Card card) throws Exception;
+	
 
 }

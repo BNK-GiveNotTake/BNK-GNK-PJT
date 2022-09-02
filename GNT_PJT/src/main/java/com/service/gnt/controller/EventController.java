@@ -33,10 +33,10 @@ public class EventController {
 		String check = eventService.selectQuizCK(userId);
 		
 		if (check.equals("1")) {
-			result.put("message", "no");
+			result.put("message", "no"); // 이미 풀었어
 		}
 		else {
-			result.put("message", "yes");
+			result.put("message", "yes"); // 안 풀었어
 		}
 		
 		return result;
@@ -46,13 +46,17 @@ public class EventController {
 	public Map<String, Object> getQuiz (String userId) throws Exception {
 	
 		Map<String, Object> result = new HashMap<String, Object>();
+		Quiz quiz;
 		
-		Quiz quiz = eventService.selectQuiz(userId);
-		
-																												
-		result.put("notices", quiz);
-		result.put("message", "yes"); // 이거 왜 넣는거지
-										   
+									
+		try {
+			quiz = eventService.selectQuiz(userId);
+			result.put("notices", quiz);
+			result.put("message", "yes"); // 이거 왜 넣는거지
+		}
+		catch (Exception e) {
+			result.put("message", "no");
+		}
 										   
 										   
 		
@@ -88,16 +92,12 @@ public class EventController {
 	public Map<String, String> getRouletteWinner (String userId) throws Exception {
 	
 		Map<String, String> result = new HashMap<String, String>();
-		
-															
+												
   
 		int winner = (int)servletContext.getAttribute("winner");
 							  
-	  
-							   
-		
+
 		if (userId.equals(winner)) {
-			// int cash = (int)(Math.random() * (999-100+1))+100;
 			// 어떻게 이벤트 상품 줄래!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			result.put("message", "yes");
 		}
@@ -107,6 +107,7 @@ public class EventController {
 		return result;
 	
 	}
+
 	
 	
 	// 확인해봐야함. 여기 들어가도 돌아가려나? -- application 앞에 @EnableScheduling 붙여야 함 + class 앞에 @component 붙여야 함

@@ -26,7 +26,7 @@
 		WHERE acc_id=#{accId}
 	</update>
 
-	<!-- 카드 삭제 :: 재발급을 위한 delete  -->
+	<!-- 카드 삭제 :: 재발급을 위한 delete For Card -->
 	<delete id="deleteCard" parameterType="string">
 		DELETE
 		FROM card
@@ -60,17 +60,56 @@
 	<!-- 발급 완료 -->
 	<update id="updateCardIssued" parameterType="string">
 		UPDATE card
-		SET is_issued = '1'
+		SET is_issued = '1' , create_time = sysdate , end_time = sysdate+182
 		WHERE card_id=#{value}
 	</update>
 
-	<!-- 카드 발급 유무 -->
+	<!-- 카드 존재 유무 -->
 	<select id="selectCardDelete" parameterType="string" resultType="string">
 		SELECT card_id
 		FROM account
 		WHERE acc_id = #{value}
 	
 	</select>
+	
+	
+	
+	
+	
+	
+	<!-- 카드 조회 :: 카드 발급 유무 -->
+	<select id="selectIsIssued" parameterType="string" resultType="string">
+		SELECT is_issued
+		FROM card
+		WHERE card_id = #{value}
+	</select>
+	
+	<!-- 카드 조회 :: 카드 날짜 확인 -->
+	<select id="selectEndtime" parameterType="string" resultType="string">
+		SELECT end_time
+		FROM card
+		WHERE card_id = #{value}
+	</select>
+	
+	<!-- 카드 조회 :: 카드 값 반환 -->
+	<select id="selectCard" parameterType="string" resultType="card">
+		SELECT card_id, cvc, bg_front, bg_back, emo_id, emo_info_top, emo_info_left, font, card_content
+		FROM card
+		WHERE card_id = #{value}
+	</select>
+	
+	
+	
+	
+	
+	<!-- 카드 저장 :: 있는데 다시 저장(값만 바꾸기) -->
+	<update id="updateCard" parameterType="card">
+		UPDATE card
+		SET bg_front=#{bgFront}, bg_back=#{bgBack}, emo_id=#{emoId}, emo_info_top=#{emoInfoTop}, emo_info_left=#{emoInfoLeft}, font=#{font}, card_content=#{cardContent}
+		WHERE card_id=#{cardId}
+	</update>
+
+	
 	
 	
 </mapper>

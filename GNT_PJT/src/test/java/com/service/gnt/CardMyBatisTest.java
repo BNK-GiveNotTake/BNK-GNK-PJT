@@ -1,13 +1,13 @@
 package com.service.gnt;
 
 import java.io.Reader;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.card.Card;
-import com.service.gnt.domain.event.Quiz;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -39,7 +38,7 @@ class CardMyBatisTest {
 	}
 	
 	@Test
-	void selectAccIdTest() throws Exception {
+	void selectCardAccIdTest() throws Exception {
 		
 		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 		
@@ -48,9 +47,9 @@ class CardMyBatisTest {
 		
 		String userId = "57"; // userId 입력
 		
-		String accId = session.selectOne("ns.sql.CardMapper.selectAccId", userId);
+		String accId = session.selectOne("ns.sql.CardMapper.selectCardAccId", userId);
 		
-		System.out.println("Card Test :: selectAccId? ----------> "+accId);
+		System.out.println("Card Test :: selectCardAccId? ----------> "+accId);
 		session.commit();
 	}
 	
@@ -124,7 +123,7 @@ class CardMyBatisTest {
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
 		SqlSession session = factory.openSession();
 		
-		String cardId = "1234567890123456"; // 카드번호
+		String cardId = "1111111111111111"; // 카드번호
 		int result = session.update("ns.sql.CardMapper.updateCardIssued", cardId);
 		
 		System.out.println("Card Test :: updateCardIssued? ----------> "+result);
@@ -143,6 +142,82 @@ class CardMyBatisTest {
 		String cardId = session.selectOne("ns.sql.CardMapper.selectCardDelete", accId);
 		
 		System.out.println("Card Test :: selectCardDelete? ----------> "+cardId);
+		session.commit();
+	}
+	
+	@Test
+	void selectIsIssuedTest() throws Exception {
+		
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+		SqlSession session = factory.openSession();
+		
+		String cardId = "1111111111111111"; // 카드번호
+		String isIssued = session.selectOne("ns.sql.CardMapper.selectIsIssued", cardId);
+		
+		System.out.println("Card Test :: selectIsIssued? ----------> "+isIssued);
+		session.commit();
+	}
+	
+	@Test
+	void selectEndtimeTest() throws Exception {
+		
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+		SqlSession session = factory.openSession();
+		
+		String cardId = "1111111111111111"; // 카드번호
+		String endTime = session.selectOne("ns.sql.CardMapper.selectEndtime", cardId);
+		
+		System.out.println("Card Test :: selectEndtime? ----------> "+endTime);
+		
+		LocalDate now = LocalDate.now();
+		
+		System.out.println("check :: "+now);
+		session.commit();
+	}
+	
+	@Test
+	void selectCardTest() throws Exception {
+		
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+		SqlSession session = factory.openSession();
+		
+		String cardId = "1111111111111111"; // 카드번호
+		Card card = session.selectOne("ns.sql.CardMapper.selectCard", cardId);
+		
+		System.out.println("Card Test :: selectCard? ----------> "+card);
+		
+		session.commit();
+	}
+	
+	@Test
+	void updateCardTest() throws Exception {
+		
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+		SqlSession session = factory.openSession();
+		
+		Card card = new Card();
+		card.setCardId("1111111111111111");
+		card.setCvc(111);
+		card.setBgFront("000000");
+		card.setBgBack("111111");
+		card.setEmoId(5);
+		card.setEmoInfoTop(15);
+		card.setEmoInfoLeft(15);
+		card.setFont("변경 후");
+		card.setCardContent("변경후시다");
+		card.setIsIssued("0");
+		int result = session.update("ns.sql.CardMapper.updateCard", card);
+		
+		System.out.println("Card Test :: updateCard? ----------> "+result);
+		
 		session.commit();
 	}
 	
