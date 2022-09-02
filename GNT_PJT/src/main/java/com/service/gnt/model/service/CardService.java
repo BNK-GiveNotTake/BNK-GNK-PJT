@@ -14,5 +14,24 @@ public interface CardService {
 	boolean isExistCardId(String cardId) throws Exception;
 	
 	boolean isReIssued(String userId) throws Exception;
+	
+	
+	
+	
+	// new
+	boolean selectIsIssued(String userId) throws Exception;
+	
+	String selectEndtime(String userId) throws Exception;
+	
+	Card selectCard(String userId) throws Exception;
+	
+	void updateCard(String userId, Card card) throws Exception;
+	
+	void updateCardIssued(String userId) throws Exception;
+	
+	
+	
+	
+	
 
 }

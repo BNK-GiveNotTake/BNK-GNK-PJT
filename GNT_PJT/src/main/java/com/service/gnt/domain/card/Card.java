@@ -49,7 +49,20 @@ public class Card {
 		this.cardContent = cardContent;
 		this.isIssued = isIssued;
 	}
+	
+	
 
+	public Card(String bgFront, String bgBack, int emoId, int emoInfoTop, int emoInfoLeft, String font,
+			String cardContent) {
+		super();
+		this.bgFront = bgFront;
+		this.bgBack = bgBack;
+		this.emoId = emoId;
+		this.emoInfoTop = emoInfoTop;
+		this.emoInfoLeft = emoInfoLeft;
+		this.font = font;
+		this.cardContent = cardContent;
+	}
 	public int getEmoId() {
 		return emoId;
 	}

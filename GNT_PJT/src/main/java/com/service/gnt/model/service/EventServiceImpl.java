@@ -59,7 +59,7 @@ public class EventServiceImpl implements EventService{
 		mh.setMileagePk(mhSeq);
 		mh.setAccId(accId);
 		mh.setMileageAmount(random);
-		mh.setMileageContent("add "+random);
+		mh.setMileageContent("적립");
 		
 		eventDAO.insertMilieage(mh); // 마일리지 내역 생성
 	}
