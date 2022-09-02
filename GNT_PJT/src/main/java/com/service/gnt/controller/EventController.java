@@ -95,8 +95,7 @@ public class EventController {
 												
   
 		int winner = (int)servletContext.getAttribute("winner");
-							  
-
+		System.out.println("EventController :: "+winner);
 		if (userId.equals(winner)) {
 			// 어떻게 이벤트 상품 줄래!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			result.put("message", "yes");

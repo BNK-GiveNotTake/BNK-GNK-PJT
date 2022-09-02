@@ -8,8 +8,8 @@
 	<!-- 카드 생성 :: 발급 -->
  	<insert id="insertCard" parameterType="card">
 		INSERT
-		INTO card(card_id, cvc, bg_front, bg_back, emo_id, emo_info_top, emo_info_left, font, card_content)
-		VALUES ( #{cardId}, #{cvc}, #{bgFront}, #{bgBack}, #{emoId}, #{emoInfoTop}, #{emoInfoLeft}, #{font}, #{cardContent})
+		INTO card(card_id, cvc, bg_front, bg_back, emo_id, emo_info_top, emo_info_left, font_front, font_back, font_color_front, font_color_back, card_content)
+		VALUES ( #{cardId}, #{cvc}, #{bgFront}, #{bgBack}, #{emoId}, #{emoInfoTop}, #{emoInfoLeft}, #{fontFront}, #{fontBack}, #{fontColorFront}, #{fontColorBack}, #{cardContent})
 	</insert>
 	
 	<!-- 카드 연결 :: user id를 알아내서? account 뽑아오기 -->
@@ -93,7 +93,7 @@
 	
 	<!-- 카드 조회 :: 카드 값 반환 -->
 	<select id="selectCard" parameterType="string" resultType="card">
-		SELECT card_id, cvc, bg_front, bg_back, emo_id, emo_info_top, emo_info_left, font, card_content
+		SELECT card_id, cvc, bg_front, bg_back, emo_id, emo_info_top, emo_info_left, font_front, font_Back, font_color_front, font_color_back, card_content
 		FROM card
 		WHERE card_id = #{value}
 	</select>
@@ -105,7 +105,7 @@
 	<!-- 카드 저장 :: 있는데 다시 저장(값만 바꾸기) -->
 	<update id="updateCard" parameterType="card">
 		UPDATE card
-		SET bg_front=#{bgFront}, bg_back=#{bgBack}, emo_id=#{emoId}, emo_info_top=#{emoInfoTop}, emo_info_left=#{emoInfoLeft}, font=#{font}, card_content=#{cardContent}
+		SET bg_front=#{bgFront}, bg_back=#{bgBack}, emo_id=#{emoId}, emo_info_top=#{emoInfoTop}, emo_info_left=#{emoInfoLeft}, font_front=#{fontFront}, font_back=#{fontBack}, font_color_front=#{fontColorFront}, font_color_back=#{fontColorBack}, card_content=#{cardContent}
 		WHERE card_id=#{cardId}
 	</update>
 
