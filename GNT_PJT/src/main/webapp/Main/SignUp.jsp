@@ -49,12 +49,14 @@
 			var name_valid = false;
 			var password_valid = false;
 			var passwordConfirm_valid = false;
+			var is_duplicate = false;
 			
 			
 			$('#signUp_email').keyup(function() {
 				var emailValid = $(this).val()
 				var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 				$('.checkDuplicateEmail').css("display", "block");
+				is_duplicate = false;
 				if(emailValid.match(regExp) != null) {
 					$('label[for=email2]').html('이메일')
 					email_valid = true;
@@ -88,11 +90,14 @@
 					$('label[for=password2]').html('비밀번호<span style=float:right;color:red;>문자, 숫자, 특수문자를 하나 이상 사용하시오.</span>')
 					password_valid = false;
 				} else {
-					if ($(this).val().length > 8) {
+					if ($(this).val().length >= 8 && $(this).val().length <= 14) {
 						$('label[for=password2]').html('비밀번호')
 						password_valid = true;
-					} else {
+					} else if ($(this).val().length < 8) {
 						$('label[for=password2]').html('비밀번호<span style=float:right;color:red;>8글자 이상 작성하십시오.</span>')
+						password_valid = false;
+					} else {
+						$('label[for=password2]').html('비밀번호<span style=float:right;color:red;>14글자 이하 작성하십시오.</span>')
 						password_valid = false;
 					}
 				}
@@ -122,6 +127,7 @@
 								alert("이미 존재하는 이메일입니다.")
 							} else {
 								alert("사용 가능한 이메일입니다.")
+								is_duplicate = true;
 								$('.checkDuplicateEmail').css("display", "none");
 							}
 						} else {
@@ -145,6 +151,8 @@
 					console.log('비밀번호가 올바르지 않습니다.')
 				} else if (!passwordConfirm_valid) {
 					console.log('비밀번호가 일치하지 않습니다.')
+				} else if (!is_duplicate) {
+					console.log('중복검사가 완료되지 않았습니다.')
 				} else {
 					$.ajax({
 						type: 'post',
