@@ -25,7 +25,7 @@
 		FROM quiz
 		WHERE quiz_id=#{value}
 	</select>
-	
+
 
 
 
@@ -41,15 +41,46 @@
 	<!-- 퀴즈 풀이 이후 :: 퀴즈 여부 변경+퀴즈 번호 증가-->
 	<update id="updateQuizUser" parameterType="string">
 		UPDATE users
-		SET is_quiz_participate='1' AND quiz_id = quiz_id+1
+		SET is_quiz_participate='1' , quiz_id = quiz_id+1
 		WHERE user_id=#{value}
 	</update>
-		
-	<!-- <update id="updateQuidId" parameterType="string">
-		UPDATE users
-		SET quiz_id = quiz_id + 1
+	
+	
+	
+	
+	
+	
+	
+	<!-- 퀴즈 정답 :: accId 찾아오기(마일리지 back을 위한) -->
+	<select id="selectQuizAccId" parameterType="string" resultType="string">
+		SELECT acc_id
+		FROM users
 		WHERE user_id = #{value}
-	</update> -->
+	</select>
+	
+	<!-- 퀴즈 정답 :: 마일리지 back -->
+	<update id="updateQuizMileage" parameterType="account">
+		UPDATE account
+		SET mileage = mileage + #{mileage}
+		WHERE acc_id = #{accId}
+	</update>
+	
+	<!-- 퀴즈 정답 :: 마일리지 히스토리 PK값 올리기(selectKey 대체) -->
+	<select id="selectMilieageHistorySeq" resultType="_int">
+		SELECT mileage_history_seq.NEXTVAL
+		FROM dual
+	</select>
+	
+	<!-- 퀴즈 정답 :: 마일리지 히스토리 추가 -->
+	<insert id="insertMilieage" parameterType="mileageHistory">
+		INSERT
+		INTO mileage_history(mileage_pk, acc_id, mileage_amount, mileage_content)
+		VALUES (#{mileagePk}, #{accId}, #{mileageAmount}, #{mileageContent})
+	</insert>
+	
+	
+	
+	
 	
 	
 	

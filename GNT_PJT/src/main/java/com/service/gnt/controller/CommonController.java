@@ -59,7 +59,6 @@ public class CommonController {
 		Map<String,Object> maps = new HashMap<String,Object>();
 		String message = "no";
 		try {
-			System.out.println("로그인을 시도중...");
 			
 			Users selected = commonService.select(user);
 			if(selected!=null) {
@@ -87,12 +86,10 @@ public class CommonController {
 		Users find = commonService.select01(user);
 		Map<String,Object> maps = new HashMap<String,Object>();
 		if(find!=null) {
-//			maps.put("1", find);
 			maps.put("message", message);
 			return maps;
-			
-		}else {
-			if(user.getUserEmail()=="") {
+		} else {
+			if(user.getUserEmail().equals("")) {
 				maps.put("message", message);
 				return maps;
 				
@@ -136,7 +133,6 @@ public class CommonController {
 			message = "yes";
 			maps.put("userinfo", user1);
 			maps.put("message", message);
-			System.out.println(user1);
 			return maps ;
 			}
 			
@@ -161,7 +157,6 @@ public class CommonController {
 			try {
 				Map<String,Object> maps = new HashMap<String,Object>();
 				Users user1 = commonService.getUserById(userId);
-				System.out.println(user1);
 				model.addAttribute("title", "고객 정보 조회");
 				message="yes";
 				maps.put("getUserbyId",user1);

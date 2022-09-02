@@ -13,7 +13,7 @@
 	</insert>
 	
 	<!-- 카드 연결 :: user id를 알아내서? account 뽑아오기 -->
-	<select id="selectAccId" parameterType="string" resultType="string">
+	<select id="selectCardAccId" parameterType="int" resultType="string">
 		SELECT acc_id
 		FROM users
 		WHERE user_id=#{value}

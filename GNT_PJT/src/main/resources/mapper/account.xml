@@ -73,6 +73,7 @@
 		INSERT INTO mileage_history (mileage_pk, acc_id, create_time, mileage_amount, mileage_content)
 		VALUES (#{mileagePk}, #{accId}, SYSDATE, #{mileageAmount}, #{mileageContent})
 	</insert>
+	
 	<update id="addMile" parameterType="account">
 		UPDATE account
 		SET mileage = mileage + #{mileage}

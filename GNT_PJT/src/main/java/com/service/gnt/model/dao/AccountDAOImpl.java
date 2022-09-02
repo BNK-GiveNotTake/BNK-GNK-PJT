@@ -28,7 +28,7 @@ public class AccountDAOImpl implements AccountDAO {
 				break; // 난수생성한 계좌가 겹치지 않을 경우 실행
 			}
 		}
-		System.out.println(accPassword);
+//		System.out.println(accPassword);
 		sqlSession.insert(AM + "createAcc", new Account(key, accPassword));
 		
 		Users vo = new Users(userId, key, userNameEng, address, phone);
@@ -37,7 +37,7 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	public Account createAccTest(String accPassword) {
-		System.out.println("CreateAccTest 테스트중");
+//		System.out.println("CreateAccTest 테스트중");
 		String key = "";
 		while (true) {
 			key = sqlSession.selectOne(AM + "createAccKey");
@@ -66,14 +66,14 @@ public class AccountDAOImpl implements AccountDAO {
 			sqlSession.update(AM + "manageAcc", new Account(accId, amount, 0));
 			data = "yes";
 		} else {
-			System.out.println("계좌에 잔고가 부족합니다.");
+//			System.out.println("계좌에 잔고가 부족합니다.");
 		}
 		return data;
 	}
 
 	public int createMile(int userId) {
 		String accId = sqlSession.selectOne(UM+"getAccIdByUserId",userId);
-		System.out.println(accId);
+//		System.out.println(accId);
 		return sqlSession.insert(AM + "createMile", accId);
 	}
 
@@ -130,13 +130,13 @@ public class AccountDAOImpl implements AccountDAO {
 			int out = amount * -1;
 			int total = amount + bonus;
 			String message = "";
-			if(total>0) message=" 충전";
+			if(total>0) message="충전";
 			sqlSession.update(AM + "manageAcc", new Account(accId, out, 0));
 			sqlSession.update(AM + "addMile", new Account(accId, 0, total));
-			sqlSession.insert(AM+"addMileHistory", new MileageHistory(0,accId,"",total,total+message));
+			sqlSession.insert(AM+"addMileHistory", new MileageHistory(accId,total,message));
 			return sqlSession.selectOne(AM+"getLastMileHistory", accId);
 		} else {
-			System.out.println("잔액이 부족합니다.");
+//			System.out.println("잔액이 부족합니다.");
 			return null;
 		}
 	}
@@ -144,9 +144,9 @@ public class AccountDAOImpl implements AccountDAO {
 	public String checkUserAcc(int userId) {
 		String str = "no";
 		/*
-		System.out.println("err 어딜까");
+//		System.out.println("err 어딜까");
 		Users user = commonDAO.getUserById(userId);
-		System.out.println("err 여긴가");
+//		System.out.println("err 여긴가");
 		user.getAccId().equals(null) || user.getAccId() == null
 		*/
 		
@@ -159,6 +159,5 @@ public class AccountDAOImpl implements AccountDAO {
 		String accId = sqlSession.selectOne(UM+"getAccIdByUserId",userId);
 		return sqlSession.selectOne(AM+"getMileHistoryAMT",accId);
 	}
-
 
 }

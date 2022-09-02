@@ -51,7 +51,6 @@ public class AccountController {
 		try {
 			Map<String,Object> maps = new HashMap<>();
 			String status = "no";
-			System.out.println("createAcc Contr");
 			Account account = accountService.createAccTest(accPassword);
 			if(account!=null) {
 				status = "yes";

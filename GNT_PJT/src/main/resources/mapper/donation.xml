@@ -82,7 +82,7 @@
 	<update id="UpdateDonaAmount" parameterType="Donation">
 		UPDATE
 		DONATION
-		SET DONATION_AMOUNT = #{donationAmount}
+		SET DONATION_AMOUNT = DONATION_AMOUNT+#{donationAmount}
 		WHERE DONATION_ID = #{donationId}
 	</update>
 	
@@ -93,8 +93,7 @@
 		WHERE ACC_ID = #{accId}
 	</update>
 	
-	
-	<insert id="DonationHistory" parameterType="Donation">
+	<insert id="DonationHistory" parameterType="DonationHistory">
 
 		INSERT INTO
 		DONATION_HISTORY (DONATION_HISTORY_ID, DONATION_ID, USER_ID, CREATE_TIME, AMOUNT)
