@@ -88,8 +88,7 @@ public class CardServiceImpl implements CardService{
 		String accId = cardDAO.selectCardAccId(Integer.parseInt(userId));
 		String cardId = cardDAO.selectCardId(accId);
 		String isIssued = cardDAO.selectIsIssued(cardId);
-		System.out.println("cardId? + "+cardId);
-		System.out.println("isissued? + "+isIssued);
+		
 		if (isIssued!=null && isIssued.equals("1")) {
 			return true;
 		}
@@ -104,8 +103,6 @@ public class CardServiceImpl implements CardService{
 		String accId = cardDAO.selectCardAccId(Integer.parseInt(userId));
 		String cardId = cardDAO.selectCardId(accId);
 		String endTime = cardDAO.selectEndtime(cardId);
-		
-		endTime.substring(0, 9); // 2022-09-02
 		
 		return endTime;
 		
