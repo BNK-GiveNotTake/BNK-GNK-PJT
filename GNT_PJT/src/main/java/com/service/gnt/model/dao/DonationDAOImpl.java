@@ -26,7 +26,6 @@ public class DonationDAOImpl implements DonationDAO{
 
 	@Override
 	public List<Donation> select1() {
-
 		
 		return sqlSession.selectList(NS+"DonationAsk", null);
 		
@@ -84,6 +83,7 @@ public class DonationDAOImpl implements DonationDAO{
 	@Override
 	public Account setAccountToUpdate(int userId, int donationAmount) {
 		Account acc1 = getAccountByUserId(userId);
+		
 		acc1.setMileage(acc1.getMileage()-donationAmount);
 		return acc1;
 	}

@@ -55,37 +55,6 @@ public class DonationController {
 	}
 	
 	
-//	@GetMapping("pageAsk.do") //페이지별 기부 내역 조회
-//	public Map<String,Object> pagination(int pagenum , Model model) {
-//		
-//		String message = "No";
-//		Map<String,Object> maps = new HashMap<String,Object>();
-//		
-//		try {
-//			List<Donation> list = donationService.select2_1(pagenum);
-//			model.addAttribute("title", "기부 목록 조회");
-//			model.addAttribute("donations", list);
-//			System.out.println(list);
-//			System.out.println(list.get(0));
-//			for(int i = 0 ; i<list.size() ; i++) {
-//				
-//				maps.put(Integer.toString(i+1),list.get(i));
-//
-//			}
-//				message = "yes";
-//			
-//			maps.put("message",message);
-//			return maps;
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			
-//			maps.put("message",message);
-//			return maps;
-//		}
-//		
-//	}
-	
 	
 	@GetMapping("pageAsk.do") //페이지별 기부 내역 조회
 	public Map<String,Map<String,Object>> pagination(int pagenum , Model model) {
@@ -202,8 +171,6 @@ public class DonationController {
 		}
 	}
 	
-	
-	
 	// [Donation history테이블]에서 해당하는 donation_id insert, [donation 테이블]에서 donation_amount 필드 업데이트(Clear), 
 	// user_id에 해당하는 User의 마일리지 차감 --> [Account 테이블]의 마일리지 필드 차감(Clear)...
 	// [Milege History 새로운 행 삽입](Clear)
@@ -215,8 +182,17 @@ public class DonationController {
 		Map<String,Object> maps1 = new HashMap<String,Object>();
 		
 		try {
+			
 			donationService.update1(donation);
 			Account acc2 = donationService.setAccountToUpdate(user.getUserId(), donation.getDonationAmount());
+			if(acc2.getMileage()<0) {
+				message = "no Milege";
+				maps1.put("message", message);
+				maps.put("message",maps1);
+				return maps;
+				}
+		
+			else {
 			donationService.update2(acc2);
 			donationService.addMilege(donation.getDonationAmount(), user.getUserId());
 			donationService.addDonaHistory(donation.getDonationId(), donation.getDonationAmount(), user.getUserId());
@@ -224,7 +200,7 @@ public class DonationController {
 			maps1.put("message", message);
 			maps.put("message",maps1);
 			return maps;
-					
+			}
 		} catch (Exception e) {
 			
 			

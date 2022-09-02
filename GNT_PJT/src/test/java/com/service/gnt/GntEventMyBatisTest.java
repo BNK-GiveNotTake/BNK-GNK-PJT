@@ -25,7 +25,7 @@ class EventMyBatisTest {
 	// Event test (myBatis) ----------------------------------------------------------------------
 	
 	@Test
-	public void selectQuizCKTest() throws Exception {
+	void selectQuizCKTest() throws Exception {
 		
 		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 		
@@ -40,7 +40,7 @@ class EventMyBatisTest {
 	}
 	
 	@Test
-	public void selectQuizIdTest() throws Exception {
+	void selectQuizIdTest() throws Exception {
 		
 		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 		
@@ -55,7 +55,7 @@ class EventMyBatisTest {
 	}
 	
 	@Test
-	public void selectQuizTest() throws Exception {
+	void selectQuizTest() throws Exception {
 		
 		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 		
@@ -70,7 +70,7 @@ class EventMyBatisTest {
 	}
 	
 	@Test
-	public void selectQuizAnswerTest() throws Exception {
+	void selectQuizAnswerTest() throws Exception {
 		
 		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 		
@@ -85,7 +85,7 @@ class EventMyBatisTest {
 	}
 	
 	@Test
-	public void updateQuizUserTest() throws Exception {
+	void updateQuizUserTest() throws Exception {
 		
 		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 		
