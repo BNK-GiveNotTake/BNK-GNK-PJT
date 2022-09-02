@@ -27,7 +27,7 @@ public class CardDesignController {
 	
 	// 조회 (시작할 때)
 	@GetMapping("selectCard.do")
-	public Map<String, Object> selectCard(@RequestParam String userId) throws Exception{
+	public Map<String, Object> selectCard(int userId) throws Exception{
 		
 		// 1. 발급 받았는데 날짜도 아직이야 -- no
 		// 2. 발급 받았는데 날짜 지났어 -- 새롭게 줘
@@ -77,7 +77,7 @@ public class CardDesignController {
 	
 	// 저장 버튼
 	@PostMapping("/saveCard.do")
-	public Map<String, String> saveCard(@RequestParam String userId, Card card) throws Exception{
+	public Map<String, String> saveCard(@RequestParam int userId, Card card) throws Exception{
 		System.out.println("==============================================");
 		System.out.println(userId);
 		System.out.println(card.toString());
@@ -141,7 +141,7 @@ public class CardDesignController {
 	
 	// 발급 버튼
 	@GetMapping("issueCard.do")
-	public Map<String, String> issueCard(@RequestParam String userId) throws Exception{
+	public Map<String, String> issueCard(@RequestParam int userId) throws Exception{
 		
 		Map<String, String> result = new HashMap<String, String>();
 		

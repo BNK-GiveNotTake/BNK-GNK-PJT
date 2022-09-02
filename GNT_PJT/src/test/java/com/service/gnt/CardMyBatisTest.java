@@ -29,7 +29,7 @@ class CardMyBatisTest {
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
 		SqlSession session = factory.openSession();
 		
-		Card card = new Card("1234567890123456", 456, "", "", 0, 0, 0, "", ""); // card 생성자 입력
+		Card card = new Card(); // card 생성자 입력
 		
 		int result = session.insert("ns.sql.CardMapper.insertCard",card);
 		
@@ -211,7 +211,6 @@ class CardMyBatisTest {
 		card.setEmoId(5);
 		card.setEmoInfoTop(15);
 		card.setEmoInfoLeft(15);
-		card.setFont("변경 후");
 		card.setCardContent("변경후시다");
 		card.setIsIssued("0");
 		int result = session.update("ns.sql.CardMapper.updateCard", card);
