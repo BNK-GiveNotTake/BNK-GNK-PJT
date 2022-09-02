@@ -35,24 +35,71 @@
 		});
 		
 		$(function() {
-			console.log('안뇽?')
+			var userInfo = JSON.parse(localStorage.getItem('user'));
+			$.ajax({
+				type: 'get',
+				url: '../selectCard.do',
+				data: {
+					'userId': userInfo.userId
+				},
+				success: function(res) {
+					console.log(res)
+					if(res.message=='no') {
+						swal({
+							title: "발급 완료!",
+							text: "이미 발급한 이력이 존재합니다. 자세한 사항은 고객센터에 문의하십시오.",
+							icon: "info",
+							buttons: true,
+						})
+					} else {
+						if (res.card!=null) {
+							Card = res.card
+							localStorage.setItem('Card', JSON.stringify(Card))
+							var today = new Date();
+							console.log(Card)
+							$('.card--front').css('background-color', '#'+Card.bgFront);
+							$('.card--back').css('background-color', '#'+Card.bgBack);
+							$('.card__content').text(Card.cardContent);
+							
+							if (Card.emoId!=0) {
+								$('#draggable3').empty();
+								$('#draggable3').append('<img src=img/'+Card.emoId+'.png class=emo style="width: 150px; height: 157px;">');
+								$('#draggable3').css('left', Card.emoInfoLeft).css('top', Card.emoInfoTop);
+							}
+							$('.emo').css('background-color', '#'+Card.bgFront);
+							$('.card__number').text(Card.cardId.substr(0, 4)+' '+Card.cardId.substr(4, 4)+' '+Card.cardId.substr(8, 4)+' '+Card.cardId.substr(12, 4));
+							$('.card__ccv').text(Card.cvc);
+							$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/"+today.getMonth());
+							$('.front .card__content').css("font-family", Card.fontFront).css('color', Card.fontColorFront);
+							$('.back .card__ccv').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
+							$('.back .card__owner').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
+							$('.back .card__expiry-date').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
+							$('.back .card__number').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
+						} 
+					}
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
 		})
 		
 		$(window).on('load', function() {
 			$('#card').addClass('loaded');
 		});
 		
-			
+		
 		$(function() {
+			Card = JSON.parse(localStorage.getItem('Card'))
 			var isFront = true;
-			var frontFontColor = 'white';
-			var backFontColor = 'white';
-			var frontBackgroundColor = "ffffff";
-			var backBackgroundColor = "ffffff";
-			var emo = "";
-			var frontFont = "";
-			var backFont = "";		
-			var card_content = "";
+			var frontFontColor = Card.fontColorFront;
+			var backFontColor = Card.fontColorBack;
+			var frontBackgroundColor = Card.bgFront;
+			var backBackgroundColor = Card.bgBack;
+			var emo = Card.emoId;
+			var frontFont = Card.fontFront;
+			var backFont = Card.fontBack;		
+			var card_content = Card.cardContent;
 			
 			$('.front-card').click(function() {
 				$('#front').removeClass('card--front_small');
@@ -64,6 +111,7 @@
 				$('#change-front').addClass('front-card')
 				$('#change-back').removeClass('front-card').removeClass('back-card')
 				$('#change-back').addClass('back-card')
+				$('.card__number').css('font-size', '25px')
 				console.log($('#draggable3').css('top'))			
 				if (isFront == false) {
 					$('.emo').css('width', '150px').css('height', '185px')
@@ -91,6 +139,7 @@
 				$('#change-front').addClass('back-card')
 				$('#change-back').removeClass('front-card').removeClass('back-card')
 				$('#change-back').addClass('front-card')
+				$('.card__number').css('font-size', '30px')
 				if (isFront == true) {
 					$('.emo').css('width', '130px').css('height', '157px')
 					left_position = parseInt($('#draggable3').css('left')) * 0.82
@@ -178,10 +227,13 @@
 						$('#draggable3').empty();
 						$('#draggable3').append('<img src="img/5.png" class="emo" style="width: 150px; height: 157px;">')
 						emo = "5"
-					} else {
+					} else if ($(this).text() == '토리') {
 						$('#draggable3').empty();
 						$('#draggable3').append('<img src="img/6.png" class="emo" style="width: 150px; height: 157px;">')
 						emo = "6"
+					} else {
+						$('#draggable3').empty();
+						emo = "0"
 					}
 				} else {
 					alert('뒷면에서는 이모티콘을 변경할 수 없다.')
@@ -224,8 +276,8 @@
 					'bgFront': frontBackgroundColor,
 					'bgBack': backBackgroundColor,
 					'emoId': emo,
-					'emoInfoTop': emoInfoTop.toFixed(2),
-					'emoInfoLeft': emoInfoLeft.toFixed(2),
+					'emoInfoTop': emoInfoTop,
+					'emoInfoLeft': emoInfoLeft,
 					'fontFront': frontFont,
 					'fontBack': backFont,
 					'fontColorFront': frontFontColor,
@@ -250,12 +302,77 @@
 					},
 					success: function(res) {
 						console.log(res)
+						swal({
+							title: "Good job!",
+							text: "성공적으로 카드를 저장했습니다.",
+							icon: "success",
+							button: "확인!",
+						})
 					},
 					error: function(err) {
 						console.log(err)
 					}
 				
 				})
+			})
+			
+			$('.card_issue_btn').click(function() {
+				var userInfo = JSON.parse(localStorage.getItem('user'));
+				var emoInfoTop = ""
+				var emoInfoLeft = ""
+				if (isFront == true) {
+					emoInfoTop = parseInt($('#draggable3').css('top'))
+					emoInfoLeft = parseInt($('#draggable3').css('left'))
+				} else {
+					emoInfoTop = parseInt($('#draggable3').css('top')) * 0.68
+					emoInfoLeft = parseInt($('#draggable3').css('left')) * 0.82
+				}
+				$.ajax({
+					type: 'post',
+					url: '../saveCard.do',
+					data: {
+						'userId': userInfo.userId,
+						'bgFront': frontBackgroundColor,
+						'bgBack': backBackgroundColor,
+						'emoId': emo,
+						'emoInfoTop': emoInfoTop,
+						'emoInfoLeft': emoInfoLeft,
+						'fontFront': frontFont,
+						'fontBack': backFont,
+						'fontColorFront': frontFontColor,
+						'fontColorBack': backFontColor,
+						'cardContent': card_content,
+					},
+					success: function(res) {
+						console.log(res)
+						$.ajax({
+							type: 'get',
+							url: '../issueCard.do',
+							data: {
+								'userId': userInfo.userId,
+							},
+							success: function(res) {
+								swal({
+									title: "카드 발급 성공!",
+									text: "2주 안에 자택으로 카드 배송이 완료될 것입니다.",
+									icon: "success",
+									button: "확인!",
+								})
+							},
+							error: function(err) {
+								console.log(err)
+							}
+						})
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				
+				})
+			})
+			
+			$('.card_reset_btn').click(function() {
+				
 			})
 			
 		});
@@ -337,13 +454,14 @@
 				    '../Card/img/3.png',
 				    '../Card/img/4.png',
 				    '../Card/img/5.png',
-				    '../Card/img/6.png'
+				    '../Card/img/6.png',
 				];
 				const emos_name = ['미스터 비', '엔젤 케이', '바우 와우', '엔젤 엔', 'G방울', '토리']
 				$('#emoList').empty();
 				for(var i=0; i<emos.length ;i++){
-					$('#emoList').append("<li class=item-gradient><img class=tabs-emo src="+emos[i]+"><p>"+emos_name[i]+"</p></li>")
+					$('#emoList').append("<li class=item-gradient><img class=tabs-emo src="+emos[i]+"><span>"+emos_name[i]+"</span></li>")
 				}
+				$('#emoList').append('<li class="item-gradient reset-emo"><span>임티 제거</span></li>')
 				
 			})
 			
@@ -455,7 +573,7 @@
 								<div class="col-8">
 									<div id="containment-wrapper" style="border: none; height: 100%; padding-right: 30px;">
 									  <div id="draggable3" class="draggable ui-widget-content" style="border: none; width: 40%;">
-									    <!-- <img src="img/MrB.png" class="emo" style="width: 140%;"> -->
+									  
 									  </div>
 									</div>
 								</div>
@@ -468,10 +586,10 @@
 							<div class="card__strip"></div>
 							<div class="card-change-margin">
 								<div class="card__signature"></div>
-								<div class="card__ccv">303</div>							
+								<div class="card__ccv"></div>							
 							</div>
-							<div class="card__number">1234 5678 9012 3456</div>
-							<div class="card__expiry-date">10/17</div>
+							<div class="card__number"></div>
+							<div class="card__expiry-date"></div>
 							<div>
 								<div class="card__owner">
 									yudingg
