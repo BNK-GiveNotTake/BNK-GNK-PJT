@@ -58,4 +58,25 @@ public class CardDAOImpl implements CardDAO{
 
 	}
 
+	@Override
+	public String selectIsIssued(String cardId) throws Exception {
+		return sqlSession.selectOne(NS+"selectIsIssued", cardId);
+	}
+
+	@Override
+	public String selectEndtime(String cardId) throws Exception {
+		return sqlSession.selectOne(NS+"selectEndtime", cardId);
+	}
+
+	@Override
+	public Card selectCard(String cardId) throws Exception {
+		Card card = sqlSession.selectOne(NS+"selectCard", cardId);
+		return card;
+	}
+
+	@Override
+	public int updateCard(Card card) throws Exception {
+		return sqlSession.update(NS+"updateCard", card);
+	}
+
 }
