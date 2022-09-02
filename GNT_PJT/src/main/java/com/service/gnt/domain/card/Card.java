@@ -11,30 +11,20 @@ public class Card {
 	private int emoId;
 	private int emoInfoTop;
 	private int emoInfoLeft;
-	private String font; // 글꼴
+	private String fontFront; // 글꼴
+	private String fontBack;
+	private String fontColorFront;
+	private String fontColorBack;
 	private String cardContent; // 카드 내 사용자 입력 내용
 	private String isIssued;
 	
 	
 	public Card() {}
-//new Card(tempCard, tempCvc, bg_front, bg_back, Integer.parseInt(emoId), Integer.parseInt(emoInfoTop),
-	//Integer.parseInt(emoInfoLeft), font, cardContent)
-	public Card(String cardId, int cvc, String bgFront, String bgBack, int emoId, int emoInfoTop, int emoInfoLeft,
-			String font, String cardContent) {
-		super();
-		this.cardId = cardId;
-		this.cvc = cvc;
-		this.bgFront = bgFront;
-		this.bgBack = bgBack;
-		this.emoId = emoId;
-		this.emoInfoTop = emoInfoTop;
-		this.emoInfoLeft = emoInfoLeft;
-		this.font = font;
-		this.cardContent = cardContent;
-	}
-	
+
+
 	public Card(String cardId, int cvc, String createTime, String endTime, String bgFront, String bgBack, int emoId,
-			int emoInfoTop, int emoInfoLeft, String font, String cardContent, String isIssued) {
+			int emoInfoTop, int emoInfoLeft, String fontFront, String fontBack, String fontColorFront,
+			String fontColorBack, String cardContent, String isIssued) {
 		super();
 		this.cardId = cardId;
 		this.cvc = cvc;
@@ -45,31 +35,67 @@ public class Card {
 		this.emoId = emoId;
 		this.emoInfoTop = emoInfoTop;
 		this.emoInfoLeft = emoInfoLeft;
-		this.font = font;
+		this.fontFront = fontFront;
+		this.fontBack = fontBack;
+		this.fontColorFront = fontColorFront;
+		this.fontColorBack = fontColorBack;
 		this.cardContent = cardContent;
 		this.isIssued = isIssued;
 	}
-	
-	
 
-	public Card(String bgFront, String bgBack, int emoId, int emoInfoTop, int emoInfoLeft, String font,
-			String cardContent) {
+
+	public Card(String cardId, int cvc, String createTime, String endTime, String bgFront, String bgBack, int emoId,
+			int emoInfoTop, int emoInfoLeft, String fontFront, String fontBack, String fontColorFront,
+			String fontColorBack, String cardContent) {
+		super();
+		this.cardId = cardId;
+		this.cvc = cvc;
+		this.createTime = createTime;
+		this.endTime = endTime;
+		this.bgFront = bgFront;
+		this.bgBack = bgBack;
+		this.emoId = emoId;
+		this.emoInfoTop = emoInfoTop;
+		this.emoInfoLeft = emoInfoLeft;
+		this.fontFront = fontFront;
+		this.fontBack = fontBack;
+		this.fontColorFront = fontColorFront;
+		this.fontColorBack = fontColorBack;
+		this.cardContent = cardContent;
+	}
+
+
+	public Card(String cardId, int cvc, String bgFront, String bgBack, int emoId, int emoInfoTop, int emoInfoLeft,
+			String fontFront, String fontBack, String fontColorFront, String fontColorBack, String cardContent) {
+		super();
+		this.cardId = cardId;
+		this.cvc = cvc;
+		this.bgFront = bgFront;
+		this.bgBack = bgBack;
+		this.emoId = emoId;
+		this.emoInfoTop = emoInfoTop;
+		this.emoInfoLeft = emoInfoLeft;
+		this.fontFront = fontFront;
+		this.fontBack = fontBack;
+		this.fontColorFront = fontColorFront;
+		this.fontColorBack = fontColorBack;
+		this.cardContent = cardContent;
+	}
+
+
+	public Card(String bgFront, String bgBack, int emoId, int emoInfoTop, int emoInfoLeft, String fontFront,
+			String fontBack, String fontColorFront, String fontColorBack, String cardContent) {
 		super();
 		this.bgFront = bgFront;
 		this.bgBack = bgBack;
 		this.emoId = emoId;
 		this.emoInfoTop = emoInfoTop;
 		this.emoInfoLeft = emoInfoLeft;
-		this.font = font;
+		this.fontFront = fontFront;
+		this.fontBack = fontBack;
+		this.fontColorFront = fontColorFront;
+		this.fontColorBack = fontColorBack;
 		this.cardContent = cardContent;
-	}
-	public int getEmoId() {
-		return emoId;
-	}
-
-
-	public void setEmoId(int emoId) {
-		this.emoId = emoId;
 	}
 
 
@@ -132,6 +158,17 @@ public class Card {
 		this.bgBack = bgBack;
 	}
 
+
+	public int getEmoId() {
+		return emoId;
+	}
+
+
+	public void setEmoId(int emoId) {
+		this.emoId = emoId;
+	}
+
+
 	public int getEmoInfoTop() {
 		return emoInfoTop;
 	}
@@ -140,6 +177,7 @@ public class Card {
 	public void setEmoInfoTop(int emoInfoTop) {
 		this.emoInfoTop = emoInfoTop;
 	}
+
 
 	public int getEmoInfoLeft() {
 		return emoInfoLeft;
@@ -151,13 +189,43 @@ public class Card {
 	}
 
 
-	public String getFont() {
-		return font;
+	public String getFontFront() {
+		return fontFront;
 	}
 
 
-	public void setFont(String font) {
-		this.font = font;
+	public void setFontFront(String fontFront) {
+		this.fontFront = fontFront;
+	}
+
+
+	public String getFontBack() {
+		return fontBack;
+	}
+
+
+	public void setFontBack(String fontBack) {
+		this.fontBack = fontBack;
+	}
+
+
+	public String getFontColorFront() {
+		return fontColorFront;
+	}
+
+
+	public void setFontColorFront(String fontColorFront) {
+		this.fontColorFront = fontColorFront;
+	}
+
+
+	public String getFontColorBack() {
+		return fontColorBack;
+	}
+
+
+	public void setFontColorBack(String fontColorBack) {
+		this.fontColorBack = fontColorBack;
 	}
 
 
@@ -185,8 +253,9 @@ public class Card {
 	public String toString() {
 		return "Card [cardId=" + cardId + ", cvc=" + cvc + ", createTime=" + createTime + ", endTime=" + endTime
 				+ ", bgFront=" + bgFront + ", bgBack=" + bgBack + ", emoId=" + emoId + ", emoInfoTop=" + emoInfoTop
-				+ ", emoInfoLeft=" + emoInfoLeft + ", font=" + font + ", cardContent=" + cardContent + ", isIssued="
-				+ isIssued + "]";
+				+ ", emoInfoLeft=" + emoInfoLeft + ", fontFront=" + fontFront + ", fontBack=" + fontBack
+				+ ", fontColorFront=" + fontColorFront + ", fontColorBack=" + fontColorBack + ", cardContent="
+				+ cardContent + ", isIssued=" + isIssued + "]";
 	}
 
 	

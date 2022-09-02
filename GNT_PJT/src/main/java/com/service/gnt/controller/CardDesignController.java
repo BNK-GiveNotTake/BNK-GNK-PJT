@@ -8,9 +8,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.service.gnt.domain.card.Card;
+import com.service.gnt.domain.users.Users;
 import com.service.gnt.model.service.CardService;
 
 @RestController
@@ -25,7 +27,7 @@ public class CardDesignController {
 	
 	// 조회 (시작할 때)
 	@GetMapping("selectCard.do")
-	public Map<String, Object> selectCard(String userId) throws Exception{
+	public Map<String, Object> selectCard(@RequestParam String userId) throws Exception{
 		
 		// 1. 발급 받았는데 날짜도 아직이야 -- no
 		// 2. 발급 받았는데 날짜 지났어 -- 새롭게 줘
@@ -74,11 +76,12 @@ public class CardDesignController {
 	
 	
 	// 저장 버튼
-	@PostMapping("saveCard.do")
-	public Map<String, String> saveCard(String userId, String bg_front, String bg_back, String emoId, String emoInfoTop, String emoInfoLeft, String font, String cardContent) throws Exception{
-		
+	@PostMapping("/saveCard.do")
+	public Map<String, String> saveCard(@RequestParam String userId, Card card) throws Exception{
+		System.out.println("==============================================");
+		System.out.println(userId);
+		System.out.println(card.toString());
 		Map<String, String> result = new HashMap<String, String>();
-		Card card;
 		
 		
 		if (cardService.selectCard(userId)==null) { // 처음 저장? -- insert
@@ -100,12 +103,12 @@ public class CardDesignController {
 			System.out.println("cardDesignController :: temp cvc id? -> "+tempCvc);
 			
 			// 카드 객체 생성해서 담기
-			card = new Card(tempCard, tempCvc, bg_front, bg_back, Integer.parseInt(emoId), Integer.parseInt(emoInfoTop), Integer.parseInt(emoInfoLeft), font, cardContent); // emo_id int값
+			card.setCardId(tempCard);
+			card.setCvc(tempCvc);
 			try {
 
 				// 카드 생성
 				cardService.insertCard(card, userId);
-				
 				result.put("message", "yes");
 			
 			} catch (Exception e) {
@@ -116,7 +119,6 @@ public class CardDesignController {
 		}
 		else { // 처음 아닌 저장? -- update
 			
-			card = new Card(bg_front, bg_back, Integer.parseInt(emoId), Integer.parseInt(emoInfoTop), Integer.parseInt(emoInfoLeft), font, cardContent); // emo_id int값
 			try {
 				cardService.updateCard(userId, card);
 				result.put("message", "yes");
@@ -139,7 +141,7 @@ public class CardDesignController {
 	
 	// 발급 버튼
 	@GetMapping("issueCard.do")
-	public Map<String, String> issueCard(String userId) throws Exception{
+	public Map<String, String> issueCard(@RequestParam String userId) throws Exception{
 		
 		Map<String, String> result = new HashMap<String, String>();
 		
