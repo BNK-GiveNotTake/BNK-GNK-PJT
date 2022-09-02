@@ -21,6 +21,7 @@
 		});
 		
 		$(function() {
+			
 			$('.mileage-shopbtn').click(function() {
 				var amount = $(this).val();
 				swal({
@@ -335,7 +336,7 @@
 							          <div class="modal-form">
 							            <div class="form-group">
 							              <label for="exampleInputKoreaName">한글 이름</label>
-							              <input type="name" class="form-control" id="exampleInputKoreaName" placeholder="정재호" disabled>
+							              <input type="name" class="form-control" id="exampleInputKoreaName" disabled>
 							            </div>
 							            <div class="form-group">
 							              <label for="exampleInputEnglishName">영어 이름</label>
