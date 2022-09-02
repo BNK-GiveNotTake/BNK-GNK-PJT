@@ -219,21 +219,33 @@
 					emoInfoTop = parseInt($('#draggable3').css('top')) * 0.68
 					emoInfoLeft = parseInt($('#draggable3').css('left')) * 0.82
 				}
-				
-				/* $.ajax({
+				console.log({
+					'userId': userInfo.userId,
+					'bgFront': frontBackgroundColor,
+					'bgBack': backBackgroundColor,
+					'emoId': emo,
+					'emoInfoTop': emoInfoTop.toFixed(2),
+					'emoInfoLeft': emoInfoLeft.toFixed(2),
+					'fontFront': frontFont,
+					'fontBack': backFont,
+					'fontColorFront': frontFontColor,
+					'fontColorBack': backFontColor,
+					'cardContent': card_content,
+				})
+				$.ajax({
 					type: 'post',
 					url: '../saveCard.do',
 					data: {
 						'userId': userInfo.userId,
-						'bg_front': frontBackgroundColor,
-						'bg_back': backBackgroundColor,
+						'bgFront': frontBackgroundColor,
+						'bgBack': backBackgroundColor,
 						'emoId': emo,
 						'emoInfoTop': emoInfoTop,
 						'emoInfoLeft': emoInfoLeft,
-						'font_front': frontFont,
-						'font_back': backFont,
-						'font_color_front': frontFontColor,
-						'font_color_back': backFontColor,
+						'fontFront': frontFont,
+						'fontBack': backFont,
+						'fontColorFront': frontFontColor,
+						'fontColorBack': backFontColor,
 						'cardContent': card_content,
 					},
 					success: function(res) {
@@ -243,7 +255,7 @@
 						console.log(err)
 					}
 				
-				}) */
+				})
 			})
 			
 		});
