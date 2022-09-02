@@ -129,7 +129,7 @@ public class AccountDAOImpl implements AccountDAO {
 		if (getAccBalance(accId) >= amount) {
 			int out = amount * -1;
 			int total = amount + bonus;
-			String message = "";
+			String message = "생성";
 			if(total>0) message="충전";
 			sqlSession.update(AM + "manageAcc", new Account(accId, out, 0));
 			sqlSession.update(AM + "addMile", new Account(accId, 0, total));
