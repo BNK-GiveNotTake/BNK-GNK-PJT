@@ -1,7 +1,16 @@
 @charset "utf-8";
 
+body {
+	height: 100vh;
+}
+
+@media (min-width: 1200px)
+.container {
+    max-width: 1240px;
+}
+
 #main {
-	background-color: #fdffb6;
+	background-color: #ffadad;
 }
 
 @font-face {
@@ -15,7 +24,7 @@
   color: #5b5b5b;
   font-size: large;
   font-weight: bold;
-  padding: 8px 16px;
+  padding: 8px 16px 8px 0px;
   border-radius: 50px;
   letter-spacing: 0.2px;
 }
@@ -34,7 +43,7 @@
 }
 
 .animated-item {
-  color: #ffc200;
+  color: #f33e4f;
   width: 200%;
 }
 
@@ -101,7 +110,7 @@ button {
 	cursor: pointer;
 	text-transform: uppercase;
 	background-color: #ffffff;
-	border: 3px solid rgb(255 194 13);
+	border: 3px solid #ffd1d1;
 	color: #5b5b5b;
 	font-weight: bold;
 	font-size: 22px;
@@ -163,27 +172,6 @@ button:hover span {
 	border-radius: 30px;
 }
 
-.btn-slide-line.center:after {
-  left: 50%;
-}
-.btn-slide-line:after {
-  position: absolute;
-  right: 0;
-  left: auto;
-  transition: 0.3s;
-  content: "";
-  width: 0;
-  bottom: -15%;
-  height: 3px;
-  background: rgb(255 194 13);
-}
-.btn-slide-line:hover {
-  cursor: pointer;
-}
-.btn-slide-line:hover:after {
-  width: 100%;
-  left: 0;
-}
 
 @media (max-width: 991px) {
   .about-image {
@@ -257,19 +245,21 @@ button:hover span {
 }
 
 .pass-box {
-	width: 50px;
-    height: 50px;
+	border-radius: 5px;
+    width: 55px;
+    height: 55px;
+    margin-top: 10px;
     background-color: white;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
     font-size: x-large;
-    line-height: 2;
+    line-height: 2.3;
 }
 
 .pass-num {
     height: 50px;
-    background: #f9e31d;
-    border: 2px solid white;
+    background: #ffffff;
+    border: 2px solid #ff9191;
     line-height: 2.8;
     cursor: pointer;
     margin: 5px;
@@ -277,11 +267,11 @@ button:hover span {
 }
 
 .pass-num:hover {
-	background-color: #f9eb72;	
+	background-color: #ff9191;	
 }
 
 #secondary {
-  background-color: #ffee56;
+  background-color: #ffcaca;
   border-radius: 0 4rem 4rem 0;
   text-align: center;
 }
@@ -290,17 +280,19 @@ button:hover span {
   font-size: 1.2em;
 }
 
-.btn {
-  text-transform: uppercase;
-  width: 200px;
-  padding: .150rem .75rem;
-  margin: 30px auto 0px;
-  font-family: 'Happiness-Sans-Title';
-  letter-spacing: 2px;
-}
-
 .btn:hover {
 	background-color: #fff6a8;
+}
+
+.create-account {
+    font-size: large;
+    text-transform: uppercase;
+    width: 60%;
+    background-color: #ffcaca;
+    border: 3px solid #ffcaca;
+    color: white;
+    border-radius: 30px;
+    margin: 2rem auto 0px;
 }
 
 /* .btn-primary {
@@ -419,6 +411,56 @@ figure.snip1390 blockquote:before {
   left: 20px;
 }
 
+
+/* 마일리지 구매 2 */
+.items {
+  display: flex;
+  justify-content: center;
+  padding-left: 0px;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(131.83deg, #FFFAFA 0%,     #FFF7F7 99.21%);
+  width: 200px;
+  text-align: center;
+  height: 200px;
+  border-radius: 16px;
+  position: relative;
+}
+
+.item:not(:last-child) {
+  margin-right: 90px;
+}
+.item::before {
+  content: "";
+  top: -2px;
+  bottom: -2px;
+  left: -2px;
+  right: -2px;
+  background-image: linear-gradient(312.25deg, #FFC4BC 0%,     rgba(255, 255, 255, 0) 66.19%);
+  z-index: -1;
+  border-radius: 18px;
+}
+
+.inner {
+  background-color: #fff;
+  width: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 170px;
+  box-shadow: 0 40px 80px #FBE4E0;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.name {
+  font-size: x-large;
+  margin: 0;
+}
 
 
 /* loading 화면 */
