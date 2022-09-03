@@ -1,28 +1,21 @@
 package com.service.gnt.controller;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
 import com.service.gnt.model.service.AccountService;
-
 import io.swagger.annotations.ApiOperation;
-
 @RestController
 public class AccountController {
-	
 	@Autowired
 	private AccountService accountService;
-	
 	@ApiOperation(value="createAcc", notes="계좌 생성")
 	@PostMapping("/createAcc.do")
 	public Map<String,Object> createAccount(@RequestParam int userId,@RequestParam String accPassword,@RequestParam String userNameEng,
@@ -44,7 +37,6 @@ public class AccountController {
 			return null;
 		}
 	}
-	
 	@ApiOperation(value="createAccTest", notes="계좌 생성")
 	@PostMapping("/createAccTest.do")
 	public Map<String,Object> createAccount(@RequestParam String accPassword, Model model) {
@@ -65,7 +57,6 @@ public class AccountController {
 			return null;
 		}
 	}
-
 	@ApiOperation(value="checkUserAcc", notes="계좌 존재유무 확인")
 	@PostMapping("/checkUserAcc.do")
 	public Map<String,Object> checkUserAccount(int userId) {
@@ -79,7 +70,6 @@ public class AccountController {
 			return maps;
 		}
 	}
-	
 	@ApiOperation(value="getAccount", notes="계좌 정보 확인") //비정상 작동 WIP
 	@PostMapping("/getAccount.do")
 	public Map<String,Object> getAccount(int userId) {
@@ -100,7 +90,6 @@ public class AccountController {
 			return maps;
 		}
 	}
-	
 	@ApiOperation(value="depositAcc", notes="계좌 입금")
 	@PostMapping("/depositAcc.do")
 	public Map<String,Object> depositAccount(int userId, int amount) {
@@ -118,7 +107,6 @@ public class AccountController {
 			return maps;
 		}
 	}
-	
 	@ApiOperation(value="sendAcc", notes="송금")
 	@PostMapping("/sendAcc.do")
 	public Map<String,Object> sendAccount(int userId, int amount, String accId) {
@@ -135,7 +123,6 @@ public class AccountController {
 			return maps;
 		}
 	}
-	
 	@ApiOperation(value="createMile", notes="마일리지 생성")
 	@PostMapping("/createMile.do")
 	public Map<String,Object> createMileage(int userId) {
@@ -154,7 +141,6 @@ public class AccountController {
 			return maps;
 		}
 	}
-	
 	@ApiOperation(value="getMileBalance", notes="마일리지 잔액 확인")
 	@PostMapping("/getMileBalance.do")
 	public Map<String,Object> getMileageBalance(int userId) {
@@ -174,7 +160,6 @@ public class AccountController {
 			return maps;
 		}
 	}
-	
 	@ApiOperation(value="getMileHistory", notes="마일리지 내역 확인")
 	@PostMapping("/getMileHistory.do")
 	public Map<String,Object> getMileageHistory(int userId) {
@@ -195,7 +180,6 @@ public class AccountController {
 			return maps;
 		}
 	}
-	
 	@ApiOperation(value="addMile", notes="마일리지 충전")
 	@PostMapping("/addMile.do")
 	public Map<String,Object> addMileage(int amount, int userId) {

@@ -1,24 +1,17 @@
 package com.service.gnt.controller;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.service.gnt.domain.notice.Notice;
 import com.service.gnt.model.service.NoticeService;
-
 import io.swagger.annotations.ApiOperation;
-
 @RestController
 public class NoticeController {
-
 	@Autowired
 	private NoticeService noticeService;
-	
 	@ApiOperation(value="getNoticeList", notes="공지사항 목록")
 	@GetMapping("/getNoticeList.do")
 	public Map<String,Object> getNoticeList() {
@@ -43,7 +36,6 @@ public class NoticeController {
 			return maps;
 		}
 	}
-	
 	@ApiOperation(value="getNoticeDetail", notes="공지사항 상세")
 	@GetMapping("/getNoticeDetail.do")
 	public Map<String,Object> getNoticeDetail(int noticeId) {
@@ -64,7 +56,6 @@ public class NoticeController {
 			return maps;
 		}
 	}
-	
 	@ApiOperation(value="addNoticeCNT", notes="공지사항 조회수 증가")
 	@GetMapping("/addNoticeCNT.do")
 	public Map<String,Object> addNoticeCount(int noticeId) {

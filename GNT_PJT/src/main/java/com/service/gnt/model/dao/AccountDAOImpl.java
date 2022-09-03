@@ -1,24 +1,18 @@
 package com.service.gnt.model.dao;
-
 import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
 import com.service.gnt.domain.users.Users;
-
 @Repository
 public class AccountDAOImpl implements AccountDAO {
-
 	public final static String AM = "ns.sql.AccountMapper.";
 	private final static String UM = "ns.sql.UserMapper.";
 	@Autowired
 	private SqlSession sqlSession;
 	private CommonDAO commonDAO;
-
 	public Account createAccount(int userId, String accPassword, String userNameEng, String address,
 			String phone) {
 		String key = "";
@@ -30,12 +24,10 @@ public class AccountDAOImpl implements AccountDAO {
 		}
 //		System.out.println(accPassword);
 		sqlSession.insert(AM + "insertAccount", new Account(key, accPassword));
-		
 		Users vo = new Users(userId, key, userNameEng, address, phone);
 		sqlSession.update(UM + "updateUserInfo", vo); // user 정보 추가부
 		return getAccount(key);
 	}
-
 	public Account createAccTest(String accPassword) {
 //		System.out.println("CreateAccTest 테스트중");
 		String key = "";
@@ -48,15 +40,12 @@ public class AccountDAOImpl implements AccountDAO {
 		sqlSession.insert(AM + "insertAccount", new Account(key, accPassword));
 		return getAccount(key);
 	}
-
 	public int getAccountBalance(String accId) {
 		return sqlSession.selectOne(AM + "selectAccountAmount", accId);
 	}
-
 	public int depositAccount(int userId, int amount) {
 		return sqlSession.update(AM + "updateAccountAmount", new Account(getAccIdByUserId(userId), amount, 0));
 	}
-
 	public String sendAccount(int userId, int amount, String accId) {
 		String mainId = getAccIdByUserId(userId);
 		String data = "no";
@@ -70,13 +59,11 @@ public class AccountDAOImpl implements AccountDAO {
 		}
 		return data;
 	}
-
 	public int createMileage(int userId) {
 		String accId = sqlSession.selectOne(UM+"selectAccIdByUserId",userId);
 //		System.out.println(accId);
 		return sqlSession.insert(AM + "updateAccountIsMileage", accId);
 	}
-
 	public int getMileageBalance(int userId) {
 		String accId = getAccIdByUserId(userId);
 		return sqlSession.selectOne(AM + "selectMileage", accId);
@@ -90,11 +77,9 @@ public class AccountDAOImpl implements AccountDAO {
 	public String getAccIdByUserId(int userId) {
 		return sqlSession.selectOne(UM+"selectAccIdByUserId",userId);
 	}
-
 	public List<MileageHistory> getMileageHistory(int userId) {
 		return sqlSession.selectList(AM + "selectMileageHistory", getAccIdByUserId(userId));
 	}
-
 	public MileageHistory addMileage(int type, int userId) {
 		int amount = 0;
 		int bonus = 0;
@@ -140,12 +125,10 @@ public class AccountDAOImpl implements AccountDAO {
 //		System.out.println("err 여긴가");
 		user.getAccId().equals(null) || user.getAccId() == null
 		*/
-		
 		if(sqlSession.selectOne(AM+"selectAccIdExistancy",userId).equals("0")) str = "no";
 		else str = "yes";
 		return str;
 	}
-
 	public int getMileageHistoryCount(int userId) {
 		String accId = sqlSession.selectOne(UM+"selectAccIdByUserId",userId);
 		return sqlSession.selectOne(AM+"selectMileageHistoryCount",accId);
