@@ -1,5 +1,9 @@
 @charset "utf-8";
 
+#main {
+	background-color: #fdffb6;
+}
+
 @font-face {
     font-family: 'Happiness-Sans-Title';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2') format('woff2');
@@ -245,7 +249,7 @@ button:hover span {
   padding: 10px;
 }
 
-.column#main {
+.column#main-modal {
 	flex: 55%;
     padding: 32px;
     margin-left: 30px;
@@ -282,7 +286,7 @@ button:hover span {
   text-align: center;
 }
 
-#main .form-control {
+#main-modal .form-control {
   font-size: 1.2em;
 }
 
@@ -308,7 +312,7 @@ button:hover span {
 	Color format:     Comments
 } */
 
-#main .btn-primary {
+#main-modal .btn-primary {
   width: 100%;
 }
 #secondary .btn-primary {
