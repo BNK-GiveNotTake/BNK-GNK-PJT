@@ -18,17 +18,13 @@
 	 </resultMap>
 	 
 	<update id="updateUserInfo" parameterType="users">
-	UPDATE USERS A
+	UPDATE USERS
 	SET 
-		acc_id=(
-			SELECT acc_id
-			FROM account B
-			WHERE B.acc_id=#{accId}
-		),
-		A.user_name_eng=#{userNameEng},
-		A.address=#{address},
-		A.phone=#{phone}
-	 WHERE A.user_id = #{userId}
+		acc_id=#{accId},
+		user_name_eng=#{userNameEng},
+		address=#{address},
+		phone=#{phone}
+	 WHERE user_id = #{userId}
 	</update>
 	<!-- 	UPDATE users
 	SET (acc_id, user_name_eng, address, phone)	= (select 
