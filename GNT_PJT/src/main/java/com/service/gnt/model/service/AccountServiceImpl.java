@@ -34,9 +34,6 @@ public class AccountServiceImpl implements AccountService{
 	public MileageHistory addMileage(int amount, int userId) {
 		return accountDAO.addMileage(amount, userId);
 	}
-	public Account createAccTest(String accPassword) {
-		return accountDAO.createAccTest(accPassword);
-	}
 	public Account getAccount(String accId) {
 		return accountDAO.getAccount(accId);
 	}
