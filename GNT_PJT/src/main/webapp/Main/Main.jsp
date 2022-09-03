@@ -22,11 +22,24 @@
 		
 		$(function() {
 			$('.nav').css('background-color', '#ffadad');
+			var account = JSON.parse(localStorage.getItem('account'));
 			var userInfo = JSON.parse(localStorage.getItem('user'));
+			if (userInfo==null) {
+				$('.small-text').text('환영합니다.')
+				$('.animated-text span').text('로그인 부탁드립니다.')
+				$('.animated-info').css('display', 'none');
+				$('.main_btn_list').css('display', 'none');
+				$('.mileage-shop').css('display', 'none');
+				$('.mileage-history').css('display', 'none');
+				$('#main').css('height', '100vh')
+			} else {
+				getMileageHistory()
+			}
+			
 			$('#exampleInputKoreaName').val(userInfo.userName);
 			$('.small-text-name').text(userInfo.userName);
 			$('.item .inner').click(function() {
-				var amount = $(this).val();
+				var amount = $(this).attr('value');
 				swal({
 					title: "정말로 구매하시겠습니까?",
 					text: "한 번 구매하시면, 청약철회 불가능합니다.",
@@ -36,41 +49,50 @@
 				.then((value) => {
 					if (value==true) {
 						var userInfo = JSON.parse(localStorage.getItem('user'));
-						console.log(userInfo);
-						$.ajax({
-							type: 'post',
-							url: '../addMile.do',
-							data: {
-								'amount': amount,
-								'userId': userInfo.userId,
-							},
-							success: function(res) {
-								if(res.message=='yes') {
-									console.log(res);
-									var accountInfo = new Object();
-									$.each(res.account, function(index, item) {
-										if (item===null) {
-											
-										} else {
-											accountInfo[index] = item;
-										}
-									})
-									localStorage.setItem('account', JSON.stringify(accountInfo));
-									swal({
-										title: "Good job!",
-										text: "성공적으로 마일리지를 구매했습니다.",
-										icon: "success",
-										button: "확인!",
-									})
-									.then((value) => {
-										location.href="../Main/Main.jsp";
-									})
+						var account = JSON.parse(localStorage.getItem('account'));
+						if (account.isMileage=='0') {
+							swal({
+								title: "마일리지 계좌 문제",
+								text: "마일리지 구매에 앞서 마일리지 계좌를 개설하세요.",
+								icon: "warning",
+								button: true,
+							})
+						} else {
+							$.ajax({
+								type: 'post',
+								url: '../addMile.do',
+								data: {
+									'amount': amount,
+									'userId': userInfo.userId,
+								},
+								success: function(res) {
+									if(res.message=='yes') {
+										console.log(res);
+										var accountInfo = new Object();
+										$.each(res.account, function(index, item) {
+											if (item===null) {
+												
+											} else {
+												accountInfo[index] = item;
+											}
+										})
+										localStorage.setItem('account', JSON.stringify(accountInfo));
+										swal({
+											title: "Good job!",
+											text: "성공적으로 마일리지를 구매했습니다.",
+											icon: "success",
+											button: "확인!",
+										})
+										.then((value) => {
+											location.href="../Main/Main.jsp";
+										})
+									}
+								},
+								error: function(err) {
+									console.log(err);
 								}
-							},
-							error: function(err) {
-								console.log(err);
-							}
-						})
+							})
+						}
 						
 					} else {
 						
@@ -222,6 +244,11 @@
 										$('#mileage-btn').css('display', 'none');
 										$('#account-btn').css('width', '90%');
 									}
+									if (accountInfo.isMileage==0) {
+										$('.mileage-history').css('display', 'none')
+									} else {
+										
+									}
 								}
 							},
 							error: function(err) {
@@ -264,11 +291,47 @@
 		      });
 		}
 		
+		function getMileageHistory() {
+			var userInfo = JSON.parse(localStorage.getItem('user'))
+			$.ajax({
+				type: 'post',
+				url: '../getMileHistory.do',
+				data: {
+					'userId': userInfo.userId
+				},
+				success: function(res) {
+					mileageHistory = res.mileageHistory
+					var cnt = 1;
+					$.each(mileageHistory, function(index, item) {
+						$('.fl-table tbody').append(
+							'<tr>' +
+					            '<td>'+cnt+'</td>' +
+					            '<td style=line-height:1.5;>'+item.createTime+'</td>' +
+					            '<td>'+item.mileageAmount+' MP</td>' +
+					            '<td>'+item.mileageContent+'</td>' +
+					        '</tr>'
+						);
+						cnt += 1
+					})
+					/*
+					<tr>
+			            <td>Content 1</td>
+			            <td>Content 1</td>
+			            <td>Content 1</td>
+			            <td>Content 1</td>
+			        </tr>
+			        */
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		}
+		
 		var passNum = "";
 		var passIdx = 0;
 		
 		$(function() {
-			
 			$('.pass-num').click(function() {
 				var txt = $(this).text();
 				if (txt=='확인') {
@@ -324,7 +387,7 @@
 	                    <p style="font-family: 'Happiness-Sans-Title';">기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크</p>
 	                    <p style="font-family: 'Happiness-Sans-Title';">기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크</p>
 	                    <br><br>
-	                    <div class="d-flex main_btn_list">
+	                    <div class="main_btn_list">
 							<button class="btn-slide-line" id="account-btn" style="width: 40%; margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal">계좌 관리</button>
 							<button class="btn-slide-line" id="mileage-btn" style="width: 40%;">마일리지 생성</button>
 							<!-- Modal -->
@@ -399,7 +462,7 @@
 	        </div>
 	    </div>
 	    
-	    <div class="container mileage-shop" style="margin-top: 5rem;padding: 2rem;border: 5px solid #ffd1d1;border-radius: 20px;">
+	    <div class="container mileage-shop" style="padding: 2rem;">
        		<h3 class="mileage-h3" style="margin-bottom: 3rem;">마일리지 구매</h3>
        		<div class="d-flex justify-content-start">
        			<ul class="items">
@@ -431,8 +494,25 @@
        		</div>
        		
 	    </div>
-	    <div class="container mileage-history" style="margin-top: 5rem; padding: 3rem;">
+	    <div class="container mileage-history" style="padding: 2rem;">
+	    	<h3 class="mileage-h3" style="margin-bottom: 3rem;">마일리지 구매 내역</h3>
+	    	<div class="d-flex justify-content-center">
+		    	<table class="fl-table">
+			        <thead>
+				        <tr>
+				            <th>번&nbsp;&nbsp;호</th>
+				            <th>날&nbsp;&nbsp;짜</th>
+				            <th>금&nbsp;&nbsp;액</th>
+				            <th>내&nbsp;&nbsp;역</th>
+				        </tr>
+			        </thead>
+			        <tbody>
+			        
+			        </tbody>
+			    </table>
+	    	</div>
 	    </div>
+	    <div style="padding: 2.5rem;"></div>
 	</div>
 </body>
 </html>

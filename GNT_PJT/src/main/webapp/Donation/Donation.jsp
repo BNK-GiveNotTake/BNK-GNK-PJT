@@ -237,25 +237,25 @@
 		function checkBackgroundColor(donationPercent) {
 			backgroundColor = ""
 			if (donationPercent < 10) {
-				backgroundColor = "rgb(0,110,110,0.1)";
+				backgroundColor = "rgb(247,100,33,0.1)";
 			} else if (donationPercent>=10 && donationPercent<20) {
-				backgroundColor = "rgb(0,125,125,0.2)";
+				backgroundColor = "rgb(247,115,33,0.2)";
 			} else if (donationPercent>=20 && donationPercent<30) {
-				backgroundColor = "rgb(0,140,140,0.3)";
+				backgroundColor = "rgb(247,130,33,0.3)";
 			} else if (donationPercent>=30 && donationPercent<40) {
-				backgroundColor = "rgb(0,155,155,0.4)";
+				backgroundColor = "rgb(247,145,33,0.4)";
 			} else if (donationPercent>=40 && donationPercent<50) {
-				backgroundColor = "rgb(0,170,170,0.5)";
+				backgroundColor = "rgb(247,160,33,0.5)";
 			} else if (donationPercent>=50 && donationPercent<60) {
-				backgroundColor = "rgb(0,185,185,0.6)";
+				backgroundColor = "rgb(247,185,33,0.6)";
 			} else if (donationPercent>=60 && donationPercent<70) {
-				backgroundColor = "rgb(0,200,200,0.7)";
+				backgroundColor = "rgb(247,200,33,0.7)";
 			} else if (donationPercent>=70 && donationPercent<80) {
-				backgroundColor = "rgb(0,215,215,0.8)";
+				backgroundColor = "rgb(247,215,33,0.8)";
 			} else if (donationPercent>=80 && donationPercent<90) {
-				backgroundColor = "rgb(0,240,240,0.9)";
+				backgroundColor = "rgb(247,230,33,0.9)";
 			} else {
-				backgroundColor = "rgb(0,255,255,1)";
+				backgroundColor = "rgb(247,245,33,1)";
 			}
 			return backgroundColor
 		}
