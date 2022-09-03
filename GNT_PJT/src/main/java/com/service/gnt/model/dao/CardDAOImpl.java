@@ -17,7 +17,7 @@ public class CardDAOImpl implements CardDAO{
 	public final static String NS = "ns.sql.CardMapper.";
 
 	public int createCard(Card card) throws Exception {
-		return sqlSession.createUser(NS+"insertCard",card);
+		return sqlSession.insert(NS+"insertCard",card);
 	}
 
 	public String selectCardAccId(int userId) throws Exception {

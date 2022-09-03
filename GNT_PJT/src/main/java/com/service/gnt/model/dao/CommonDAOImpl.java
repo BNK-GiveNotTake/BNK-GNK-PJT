@@ -14,7 +14,7 @@ private final static String NS = "ns.sql.UserMapper.";
 	@Autowired
 	private SqlSession sqlSession;
 	public int createUser(Users user) {
-		int returnInt = sqlSession.createUser(NS+"insertUser", user);
+		int returnInt = sqlSession.insert(NS+"insertUser", user);
 		return returnInt;
 	}
 	public Users getUser(Users user) {

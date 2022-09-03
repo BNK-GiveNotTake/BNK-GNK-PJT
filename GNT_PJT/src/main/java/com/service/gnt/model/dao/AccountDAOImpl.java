@@ -29,7 +29,7 @@ public class AccountDAOImpl implements AccountDAO {
 			}
 		}
 //		System.out.println(accPassword);
-		sqlSession.createUser(AM + "insertAccount", new Account(key, accPassword));
+		sqlSession.insert(AM + "insertAccount", new Account(key, accPassword));
 		
 		Users vo = new Users(userId, key, userNameEng, address, phone);
 		sqlSession.update(UM + "updateUserInfo", vo); // user 정보 추가부
@@ -45,7 +45,7 @@ public class AccountDAOImpl implements AccountDAO {
 				break; // 난수생성한 계좌가 겹치지 않을 경우 실행
 			}
 		}
-		sqlSession.createUser(AM + "insertAccount", new Account(key, accPassword));
+		sqlSession.insert(AM + "insertAccount", new Account(key, accPassword));
 		return getAccount(key);
 	}
 
@@ -74,7 +74,7 @@ public class AccountDAOImpl implements AccountDAO {
 	public int createMileage(int userId) {
 		String accId = sqlSession.selectOne(UM+"selectAccIdByUserId",userId);
 //		System.out.println(accId);
-		return sqlSession.createUser(AM + "updateAccountIsMileage", accId);
+		return sqlSession.insert(AM + "updateAccountIsMileage", accId);
 	}
 
 	public int getMileageBalance(int userId) {
@@ -125,7 +125,7 @@ public class AccountDAOImpl implements AccountDAO {
 			if(total>0) message="충전";
 			sqlSession.update(AM + "updateAccountAmount", new Account(accId, out, 0));
 			sqlSession.update(AM + "updateMileage", new Account(accId, 0, total));
-			sqlSession.createUser(AM+"insertMileageHistory", new MileageHistory(accId,total,message));
+			sqlSession.insert(AM+"insertMileageHistory", new MileageHistory(accId,total,message));
 			return sqlSession.selectOne(AM+"selectLastMileageHistory", accId);
 		} else {
 //			System.out.println("잔액이 부족합니다.");
