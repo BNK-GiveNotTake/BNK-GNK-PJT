@@ -13,7 +13,6 @@ public interface AccountDAO {
 	List<MileageHistory> getMileageHistory(int userId);
 	MileageHistory addMileage(int amount, int userId);
 	Account getAccount(String accId);
-	Account createAccTest(String accPassword); //테스트용 지울거임
 	String checkUserAccount(int userId);
 	Account getAccountByUserId(int userId);
 	int getMileageHistoryCount(int userId);
