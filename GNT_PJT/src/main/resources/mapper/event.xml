@@ -11,14 +11,12 @@
 		FROM users
 		WHERE user_id=#{value}
 	</select>
-	
 	<!-- 퀴즈 번호에 맞는 퀴즈 데이터 가져오기 :: 첫번째, quiz_id부터 가져오기 + 퀴즈 풀이 이후 :: 퀴즈 정답 가져오기 1(사용자->퀴즈 번호) -->
 	<select id="selectQuizId" parameterType="string" resultType="string">
 		SELECT quiz_id
 		FROM users
 		WHERE user_id=#{value}
 	</select>
-	
 	<!-- 퀴즈 번호에 맞는 퀴즈 데이터 가져오기 :: 두번째, quiz select 하기 -->
 	<select id="selectQuiz" parameterType="string" resultType="quiz"> <!-- error check :: select 절에 몇 개만 뽑아서 vo에 그대로 넣을 수 있나? -->
 		SELECT quiz_content, select1, select2, select3, select4
@@ -37,70 +35,45 @@
 		FROM quiz
 		WHERE quiz_id=#{value}
 	</select>
-	
 	<!-- 퀴즈 풀이 이후 :: 퀴즈 여부 변경+퀴즈 번호 증가-->
 	<update id="updateQuizUser" parameterType="string">
 		UPDATE users
 		SET is_quiz_participate='1' , quiz_id = quiz_id+1
 		WHERE user_id=#{value}
 	</update>
-	
-	
-	
-	
-	
-	
-	
 	<!-- 퀴즈 정답 :: accId 찾아오기(마일리지 back을 위한) -->
 	<select id="selectQuizAccId" parameterType="string" resultType="string">
 		SELECT acc_id
 		FROM users
 		WHERE user_id = #{value}
 	</select>
-	
 	<!-- 퀴즈 정답 :: 마일리지 back -->
 	<update id="updateQuizMileage" parameterType="account">
 		UPDATE account
 		SET mileage = mileage + #{mileage}
 		WHERE acc_id = #{accId}
 	</update>
-	
 	<!-- 퀴즈 정답 :: 마일리지 히스토리 PK값 올리기(selectKey 대체) -->
 	<select id="selectMilieageHistorySeq" resultType="_int">
 		SELECT mileage_history_seq.NEXTVAL
 		FROM dual
 	</select>
-	
 	<!-- 퀴즈 정답 :: 마일리지 히스토리 추가 -->
 	<insert id="insertMilieage" parameterType="mileageHistory">
 		INSERT
 		INTO mileage_history(mileage_pk, acc_id, mileage_amount, mileage_content)
 		VALUES (#{mileagePk}, #{accId}, #{mileageAmount}, #{mileageContent})
 	</insert>
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	<!-- 퀴즈 리셋 -->
 	<update id="updateQuizReset">
 		UPDATE users
 		SET is_quiz_participate='0'
 	</update>
-	
 	<!-- 돌림판 리셋(을 위한 user_id 가져오기) -->
 	<select id="selectAllUserId" resultType="int">
 		SELECT user_id
 		FROM users
 		WHERE user_id not in(1, 2, 3, 4) <!-- error check -->
 	</select>
-	
-	
-	
-	
 	
 </mapper>

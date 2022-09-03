@@ -21,6 +21,8 @@
 		});
 		
 		$(function() {
+			$('.nav').css('background-color', '#fdffb6');
+			
 			$('.mileage-shopbtn').click(function() {
 				var amount = $(this).val();
 				swal({
@@ -214,11 +216,13 @@
 									if (res.account.isMileage=="0") {
 										$('#mileage-btn').css('display', 'block');
 										$('#account-btn').css('width', '40%');
+										$('.main_btn_list').css('justify-content', 'space-around')
 									} else {
 										var mileage = accountInfo.mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 										$('.mileage-amount').text(mileage);
 										$('#mileage-btn').css('display', 'none');
 										$('#account-btn').css('width', '90%');
+										$('.main_btn_list').css('justify-content', 'flex-start')
 									}
 								}
 							},
@@ -310,19 +314,19 @@
 	    	<div class="row">
 	            <div class="col-7 d-flex align-items-center">
 	                <div class="about-text">
-	                    <h5 class="small-text">환영합니다 정재호 고객님</h5>
+	                    <h5 class="small-text" style="font-family: 'Happiness-Sans-Title';">환영합니다 정재호 고객님</h5>
 	                    <h1 class="animated animated-text">
-	                        <span class="mr-2">잔액 조회</span>
+	                        <span class="mr-2" style="font-family: 'Happiness-Sans-Title';">잔액 조회</span>
                             <div class="animated-info">
                                 <span class="animated-item">연동 계좌 : <span class="account-amount">0</span>원</span>
                                 <span class="animated-item">마일리지 : <span class="mileage-amount">0</span>원</span>
                             </div>
 	                    </h1>
 						<br>
-	                    <p>Building a successful product is a challenge.</p>
-	                    <p>I am highly energetic in user experience design, interfaces and web development.</p>
+	                    <p style="font-family: 'Happiness-Sans-Title';">Building a successful product is a challenge.</p>
+	                    <p style="font-family: 'Happiness-Sans-Title';">I am highly energetic in user experience design, interfaces and web development.</p>
 	                    <br><br>
-	                    <div class="d-flex justify-content-around">
+	                    <div class="d-flex main_btn_list">
 							<button class="btn-slide-line" id="account-btn" style="width: 40%;" data-toggle="modal" data-target="#exampleModal">계좌 관리</button>
 							<button class="btn-slide-line" id="mileage-btn" style="width: 40%;">마일리지 생성</button>
 							<!-- Modal -->
@@ -330,12 +334,12 @@
 							  <div class="modal-dialog" role="document">
 							    <div class="modal-content" style="border-radius: 4rem; width: 190%; left: -10%;">
 							      <div class="modal-body" style="padding: 0px;">
-							        <div class="column" id="main">
+							        <div class="column" id="main-modal">
 							          <h1>계좌 생성</h1>
 							          <div class="modal-form">
 							            <div class="form-group">
 							              <label for="exampleInputKoreaName">한글 이름</label>
-							              <input type="name" class="form-control" id="exampleInputKoreaName" placeholder="정재호" disabled>
+							              <input type="name" class="form-control" id="exampleInputKoreaName" disabled>
 							            </div>
 							            <div class="form-group">
 							              <label for="exampleInputEnglishName">영어 이름</label>

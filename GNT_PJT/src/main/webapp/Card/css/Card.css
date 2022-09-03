@@ -28,19 +28,18 @@ a {
   border: 1px solid black;
   border-radius: 20px !important;
   box-sizing: border-box;
-  background: grey;
 }
 
 .card__number {
-  font-size: 30px;
+  font-size: 25px;
   padding: 20px 0 15px;
   text-align: center;
 }
 
 .card__expiry-date {
-  font-size: 14px;
-  padding-bottom: 20px;
-  text-align: center;
+    font-size: 18px;
+    padding-bottom: 10px;
+    text-align: center;
 }
 .card__owner {
   text-align: left;
@@ -182,7 +181,7 @@ a {
 .ic-chip .chip-line:nth-child(4) {
 	left: 41px;
     width: 1px;
-    height: 60px;
+    height: 65px;
 }
 .ic-chip .chip-main {
   width: 20px;
@@ -446,7 +445,7 @@ section {
 svg {
   width: 50%;
   height: auto;
-  margin: 0 1.5rem;
+  margin: 0 3rem;
   cursor: pointer;
   overflow: visible;
 }
@@ -511,20 +510,20 @@ svg:hover .arrow-fixed {
 
 .item-gradient {
 	width: auto;
-    height: 30vh;
+    height: 28vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
     flex: 1 1 auto;
-    min-width: 150px;
-    max-width: 150px;
+    min-width: 120px;
+    max-width: 130px;
     padding: 20px;
     margin: 10px;
     border: 2px solid #99eb47;
     border-radius: 10px;
     box-shadow: 0 0 5px 0 #99eb47;
     cursor: pointer;
+    align-items: center;
+    justify-content: space-between;
 }
 .item-gradient:hover {
   border-color: #99eb47;
@@ -548,8 +547,13 @@ svg:hover .arrow-fixed {
 }
 
 .tabs-emo {
-	width: 105px;
-	height: 130px;
+    width: 105px;
+    height: 120px;
+}
+
+.reset-emo {
+	display: flex;
+    flex-direction: column-reverse;
 }
 
 .font__color-black, .font__color-white {
@@ -592,6 +596,30 @@ svg:hover .arrow-fixed {
 
 .change-content:hover {
 	color: #99eb47
+}
+
+
+.btn-list {
+	display: flex;
+	justify-content: center;
+	margin-top: 13%;
+	margin-bottom: 5%;
+}
+
+.btn-list button {
+	margin-left: 1rem;
+	margin-right: 1rem;
+	width: 10%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: large;
+    font-weight: bold;
+    border: 1px solid #99eb47;
+    border-radius: 20px;
+    color: white;
+	background-color: #99eb47;
+	box-shadow: 0 0 5px 0 #99eb47;
+	cursor: pointer;
 }
 
 

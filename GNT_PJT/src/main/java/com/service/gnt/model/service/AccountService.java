@@ -1,25 +1,20 @@
 package com.service.gnt.model.service;
-
 import java.util.List;
-
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
-
 public interface AccountService {
-	Account createAcc(int userId, String accPassword, String userNameEng, String address,
-			String phone);
-	int getAccBalance(String accId);
-	int depositAcc(int userId, int amount);
-	String sendAcc(int userId, int amount, String accId);
-	int createMile(int userId);
-	int getMileBalance(int userId);
-	List<MileageHistory> getMileHistory(int userId);
-	MileageHistory addMile(int amount, int userId);
-	int getMilePk(int userId);
+	Account createAccount(int userId, String accPassword, String userNameEng, String address, String phone);
+	int getAccountBalance(String accId);
+	int depositAccount(int userId, int amount);
+	String sendAccount(int userId, int amount, String accId);
+	int createMileage(int userId);
+	int getMileageBalance(int userId);
+	List<MileageHistory> getMileageHistory(int userId);
+	MileageHistory addMileage(int amount, int userId);
 	Account getAccount(String accId);
 	Account createAccTest(String accPassword);
-	String checkUserAcc(int userId);
+	String checkUserAccount(int userId);
 	Account getAccountByUserId(int userId);
-	int getMileHistoryAMT(int userId);
+	int getMileageHistoryCount(int userId);
 	String getAccIdByUserId(int userId);
 }

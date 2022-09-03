@@ -50,6 +50,10 @@
 			$('.nav-inner #notice').click(function() {
 				location.href="../Notice/Notice.jsp"
 			})
+			
+			$('.nav-inner #event').click(function() {
+				location.href="../Event/Event.jsp"
+			})
 		})
 		
 		$(function() {	
@@ -75,16 +79,16 @@
 <body>
 	<div class="nav row">
         <div class="nav-inner offset-1 col-4">
-        	<img class="logo" src="../Common/img/logo.jpg">
+        	<img class="logo" src="../Common/img/logo.png">
        		<span id="login">로그인</span>
        		<span id="signup">회원가입</span>
        		<span id="logout">로그아웃</span>
        	</div>
         <div class="nav-inner offset-2 col-4">
-        	<span id="main">홈</span>
+        	<span id="main">계좌</span>
        		<span id="donation">기부</span>
        		<span id="card">카드발급</span>
-       		<span>이벤트</span>
+       		<span id="event">이벤트</span>
        		<span id="notice">공지사항</span>
        	</div>
     </div>
