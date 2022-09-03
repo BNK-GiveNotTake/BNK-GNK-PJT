@@ -15,29 +15,21 @@ public class AccountDAOImpl implements AccountDAO {
 	private CommonDAO commonDAO;
 	public Account createAccount(int userId, String accPassword, String userNameEng, String address,
 			String phone) {
-		String key = "";
-		while (true) {
-			key = sqlSession.selectOne(AM + "createAccKey");
-			if (sqlSession.selectOne(AM + "validateAccId", key).equals("0")) {
-				break; // 난수생성한 계좌가 겹치지 않을 경우 실행
+		String key = getAccIdByUserId(userId);
+		if(key==null || key.equals("")) {
+			key = "";
+			while (true) {
+				key = sqlSession.selectOne(AM + "createAccKey");
+				if (sqlSession.selectOne(AM + "validateAccId", key).equals("0")) {
+					break; // 난수생성한 계좌가 겹치지 않을 경우 실행
+				}
 			}
+			sqlSession.insert(AM + "insertAccount", new Account(key, accPassword));
+		} else {
+			sqlSession.update(AM+"updateAccPassword", new Account(key, accPassword));
 		}
-//		System.out.println(accPassword);
-		sqlSession.insert(AM + "insertAccount", new Account(key, accPassword));
 		Users vo = new Users(userId, key, userNameEng, address, phone);
 		sqlSession.update(UM + "updateUserInfo", vo); // user 정보 추가부
-		return getAccount(key);
-	}
-	public Account createAccTest(String accPassword) {
-//		System.out.println("CreateAccTest 테스트중");
-		String key = "";
-		while (true) {
-			key = sqlSession.selectOne(AM + "createAccKey");
-			if (sqlSession.selectOne(AM + "validateAccId", key).equals("0")) {
-				break; // 난수생성한 계좌가 겹치지 않을 경우 실행
-			}
-		}
-		sqlSession.insert(AM + "insertAccount", new Account(key, accPassword));
 		return getAccount(key);
 	}
 	public int getAccountBalance(String accId) {
@@ -119,12 +111,6 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 	public String checkUserAccount(int userId) {
 		String str = "no";
-		/*
-//		System.out.println("err 어딜까");
-		Users user = commonDAO.getUserByUserId(userId);
-//		System.out.println("err 여긴가");
-		user.getAccId().equals(null) || user.getAccId() == null
-		*/
 		if(sqlSession.selectOne(AM+"selectAccIdExistancy",userId).equals("0")) str = "no";
 		else str = "yes";
 		return str;

@@ -75,6 +75,11 @@
 		SET mileage = mileage + #{mileage}
 		WHERE acc_id = #{accId}
 	</update>
+	<update id="updateAccPassword" parameterType="account">
+		UPDATE account
+		SET acc_password = {accPassword}
+		WHERE acc_id = #{accId}
+	</update>
 	<select id="selectMileageHistory" parameterType="string" resultType="mileageHistory">
 		SELECT mileage_pk, acc_id, create_time, mileage_amount, mileage_content
 		FROM mileage_history

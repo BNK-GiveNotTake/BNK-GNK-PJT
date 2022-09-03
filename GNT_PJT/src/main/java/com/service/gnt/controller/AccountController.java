@@ -37,26 +37,6 @@ public class AccountController {
 			return null;
 		}
 	}
-	@ApiOperation(value="createAccTest", notes="계좌 생성")
-	@PostMapping("/createAccTest.do")
-	public Map<String,Object> createAccount(@RequestParam String accPassword, Model model) {
-		try {
-			Map<String,Object> maps = new HashMap<>();
-			String status = "no";
-			Account account = accountService.createAccTest(accPassword);
-			if(account!=null) {
-				status = "yes";
-				maps.put("account", account);
-			}			
-			maps.put("message", status);
-			return maps;
-		} catch(Exception e) {
-			model.addAttribute("title", "Error - Occured");
-			model.addAttribute("message", "Error Occured :"+e.getMessage());
-			System.out.println("Error :"+e.getMessage()+e.toString());
-			return null;
-		}
-	}
 	@ApiOperation(value="checkUserAcc", notes="계좌 존재유무 확인")
 	@PostMapping("/checkUserAcc.do")
 	public Map<String,Object> checkUserAccount(int userId) {
