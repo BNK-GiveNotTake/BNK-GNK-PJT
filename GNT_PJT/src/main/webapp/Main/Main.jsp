@@ -21,9 +21,11 @@
 		});
 		
 		$(function() {
-			$('.nav').css('background-color', '#fdffb6');
-			
-			$('.mileage-shopbtn').click(function() {
+			$('.nav').css('background-color', '#ffadad');
+			var userInfo = JSON.parse(localStorage.getItem('user'));
+			$('#exampleInputKoreaName').val(userInfo.userName);
+			$('.small-text-name').text(userInfo.userName);
+			$('.item .inner').click(function() {
 				var amount = $(this).val();
 				swal({
 					title: "정말로 구매하시겠습니까?",
@@ -43,7 +45,6 @@
 								'userId': userInfo.userId,
 							},
 							success: function(res) {
-								console.log(res);
 								if(res.message=='yes') {
 									console.log(res);
 									var accountInfo = new Object();
@@ -145,7 +146,6 @@
 					url: '../createAcc.do',
 					data: accData,
 					success: function(res) {
-						console.log(res)
 						if(res.message=="yes") {
 							swal({
 								title: "계좌 생성",
@@ -216,13 +216,11 @@
 									if (res.account.isMileage=="0") {
 										$('#mileage-btn').css('display', 'block');
 										$('#account-btn').css('width', '40%');
-										$('.main_btn_list').css('justify-content', 'space-around')
 									} else {
 										var mileage = accountInfo.mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 										$('.mileage-amount').text(mileage);
 										$('#mileage-btn').css('display', 'none');
 										$('#account-btn').css('width', '90%');
-										$('.main_btn_list').css('justify-content', 'flex-start')
 									}
 								}
 							},
@@ -314,20 +312,20 @@
 	    	<div class="row">
 	            <div class="col-7 d-flex align-items-center">
 	                <div class="about-text">
-	                    <h5 class="small-text" style="font-family: 'Happiness-Sans-Title';">환영합니다 정재호 고객님</h5>
+	                    <h5 class="small-text" style="font-family: 'Happiness-Sans-Title';">환영합니다.&nbsp;<span class="small-text-name"></span>&nbsp;고객님!!</h5>
 	                    <h1 class="animated animated-text">
-	                        <span class="mr-2" style="font-family: 'Happiness-Sans-Title';">잔액 조회</span>
+	                        <span class="mr-2" style="font-family: 'Happiness-Sans-Title';">현재 금액은</span>
                             <div class="animated-info">
                                 <span class="animated-item">연동 계좌 : <span class="account-amount">0</span>원</span>
                                 <span class="animated-item">마일리지 : <span class="mileage-amount">0</span>원</span>
                             </div>
 	                    </h1>
 						<br>
-	                    <p style="font-family: 'Happiness-Sans-Title';">Building a successful product is a challenge.</p>
-	                    <p style="font-family: 'Happiness-Sans-Title';">I am highly energetic in user experience design, interfaces and web development.</p>
+	                    <p style="font-family: 'Happiness-Sans-Title';">기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크</p>
+	                    <p style="font-family: 'Happiness-Sans-Title';">기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크</p>
 	                    <br><br>
 	                    <div class="d-flex main_btn_list">
-							<button class="btn-slide-line" id="account-btn" style="width: 40%;" data-toggle="modal" data-target="#exampleModal">계좌 관리</button>
+							<button class="btn-slide-line" id="account-btn" style="width: 40%; margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal">계좌 관리</button>
 							<button class="btn-slide-line" id="mileage-btn" style="width: 40%;">마일리지 생성</button>
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -353,7 +351,7 @@
 							              <label for="exampleInputAddress">주소</label>
 							              <input type="text" onclick="openHomeSearch()" class="form-control" id="exampleInputAddress" placeholder="주소를 입력하세요">
 							            </div>
-							            <button type="submit" class="btn btn-primary create-account" style="background-color: #ffffff; border: 3px solid rgb(255 194 13); color: black;  border-radius: 15px;">계좌 생성하기</button>
+							            <button type="submit" class="create-account">계좌 생성하기</button>
 							          </div>
 							        </div>
 							        <div>
@@ -363,7 +361,7 @@
 							              <title>Path</title>
 							              <desc>Created with Sketch.</desc>
 							              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-							                  <path d="M11.3847656,-5.68434189e-14 C-7.44726562,36.7213542 5.14322917,126.757812 49.15625,270.109375 C70.9827986,341.199016 54.8877465,443.829224 0.87109375,578 L67,578 L67,-5.68434189e-14 L11.3847656,-5.68434189e-14 Z" id="Path" fill="#ffee56"></path>
+							                  <path d="M11.3847656,-5.68434189e-14 C-7.44726562,36.7213542 5.14322917,126.757812 49.15625,270.109375 C70.9827986,341.199016 54.8877465,443.829224 0.87109375,578 L67,578 L67,-5.68434189e-14 L11.3847656,-5.68434189e-14 Z" id="Path" fill="#ffcaca"></path>
 							              </g>
 							          </svg>
 							        </div>
@@ -400,41 +398,40 @@
 	            </div>
 	        </div>
 	    </div>
-	    <div class="container mileage-shop" style="margin-top: 5rem;">
-       		<h3 class="mileage-h3">마일리지 구매</h3>
-       		<div class="d-flex justify-content-around">
-       			<figure class="snip1390">
-					<button class="mileage-shopbtn" value="1">구매하기</button>
-					<figcaption>
-					    <h2>10,000원</h2>
-					    <blockquote style="padding-bottom: 102px;">10,000MP</blockquote>
-				  	</figcaption>
-				</figure>
-				<figure class="snip1390">
-					<button class="mileage-shopbtn" value="2">구매하기</button>
-				  	<figcaption>
-					    <h2>30,000원</h2>
-					    <blockquote>30,000MP<br> + <br>3,000MP</blockquote>
-				  	</figcaption>
-				</figure>
-				<figure class="snip1390">
-					<button class="mileage-shopbtn" value="3">구매하기</button>
-					<figcaption>
-					    <h2>50,000원</h2>
-					    <blockquote>50,000MP<br> + <br>5,000MP</blockquote>
-				  	</figcaption>
-				</figure>
-				<figure class="snip1390">
-					<button class="mileage-shopbtn" value="4">구매하기</button>
-					<figcaption>
-					    <h2>100,000원</h2>
-					    <blockquote>100,000MP<br> + <br>10,000MP</blockquote>
-				  	</figcaption>
-				</figure>
+	    
+	    <div class="container mileage-shop" style="margin-top: 5rem;padding: 2rem;border: 5px solid #ffd1d1;border-radius: 20px;">
+       		<h3 class="mileage-h3" style="margin-bottom: 3rem;">마일리지 구매</h3>
+       		<div class="d-flex justify-content-start">
+       			<ul class="items">
+				    <li class="item">
+				      <div class="inner" value="1">
+				        <h4 class="name">10,000MP</h4>
+				        <p class="descr"></p>
+				      </div>
+				    </li>
+				    <li class="item">
+				      <div class="inner" value="2">
+				        <h4 class="name">30,000MP</h4>
+				        <p class="escr">+3,000MP</p>
+				      </div>
+				    </li>
+				    <li class="item">
+				      <div class="inner" value="3">
+				        <h4 class="name">50,000MP</h4>
+				        <p class="descr">+5,000MP</p>
+				      </div>
+				    </li>
+				    <li class="item">
+				      <div class="inner" value="4">
+				        <h4 class="name">100,000MP</h4>
+				        <p class="descr">+10,000MP</p>
+				      </div>
+				    </li>
+				  </ul>
        		</div>
        		
 	    </div>
-	    <div class="container mileage-history" style="margin-top: 5rem;">
+	    <div class="container mileage-history" style="margin-top: 5rem; padding: 3rem;">
 	    </div>
 	</div>
 </body>
