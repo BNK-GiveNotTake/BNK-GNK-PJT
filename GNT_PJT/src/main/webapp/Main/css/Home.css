@@ -28,9 +28,9 @@ body {
 
 .scrolls {
   position: absolute;
-  bottom: -5%;
+  bottom: -15%;
   transform: translateY(-50%);
-  right: 50%;
+  right: 37%;
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -126,7 +126,7 @@ body {
 
 .section-btn {
   text-transform: uppercase;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 900;
   color: #1d1e22;
   background-color: #f4f4f4;
@@ -141,22 +141,23 @@ body {
   font-family: 'KOTRA_BOLD-Bold';
   margin-left: 5rem;
   margin-bottom: 2rem;
+  font-size: 3.5rem;
 }
 
 .smooth #home {
-  background-color: #ebc247;
+  background-color: #ff7a87;
 }
 .smooth #donation {
-  background-color: #47ebeb;
+  background-color: #FCE38A;
 }
 .smooth #card-issue {
-	background-color: #99eb47;
+	background-color: #95E1D3;
 }
 .smooth #event {
-	background-color: #eb47c2;
+	background-color: #6E85B7;
 }
 .smooth #footer {
-	background-color: #ebc247;
+	background-color: #b6b6b6;
 }
 
 h5 {
