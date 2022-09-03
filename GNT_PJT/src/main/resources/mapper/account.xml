@@ -84,6 +84,7 @@
 		SELECT mileage_pk, acc_id, create_time, mileage_amount, mileage_content
 		FROM mileage_history
 		WHERE acc_id = #{VALUE}
+		ORDER BY create_time DESC
 	</select>
 
 	<select id="selectMileageHistoryCount" parameterType="string" resultType="integer">
