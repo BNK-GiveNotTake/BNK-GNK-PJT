@@ -8,30 +8,21 @@ import com.service.gnt.model.dao.CommonDAO;
 
 @Service
 public class CommonServiceImpl implements CommonService{
-	
 	@Autowired
 	private CommonDAO commonDAO;
 
-	@Override
-	public int insert(Users user) {
-		return commonDAO.insert(user);
+	public int createUser(Users user) {
+		return commonDAO.createUser(user);
 	}
 
-	@Override
-	public Users select(Users user) {
-		return commonDAO.select(user);
+	public Users getUser(Users user) {
+		return commonDAO.getUser(user);
 	}
-	
-	@Override
-	public Users select01(Users user) {
-		return commonDAO.select01(user);
+	public Users getUserEmailByUserId(Users user) {
+		return commonDAO.getUserEmailByUserId(user);
 	}
-	
-	
-	@Override
-	public Users getUserById(int userId) {
-		return commonDAO.getUserById(userId);
+	public Users getUserByUserId(int userId) {
+		return commonDAO.getUserByUserId(userId);
 	}
-	
 	
 }

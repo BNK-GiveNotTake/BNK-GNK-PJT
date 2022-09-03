@@ -9,14 +9,14 @@ import com.service.gnt.domain.event.Quiz;
 public interface EventDAO {
 	
 	// 퀴즈 풀이 여부
-	String selectQuizCK(String userId) throws Exception;
+	String checkQuizPlayed(String userId) throws Exception;
 	
 	// 퀴즈 데이터 가져오기
 	String selectQuizId(String userId) throws Exception;
-	Quiz selectQuiz(String quizId) throws Exception;
+	Quiz getQuiz(String quizId) throws Exception;
 	
 	// 퀴즈 정답 반환 및 고객 퀴즈 데이터 변경
-	int selectQuizAnswer(String quizId) throws Exception;
+	int getQuizAnswer(String quizId) throws Exception;
 	int updateQuizUser(String userId) throws Exception;
 	
 	// 고객이 정답을 맞췄을 시

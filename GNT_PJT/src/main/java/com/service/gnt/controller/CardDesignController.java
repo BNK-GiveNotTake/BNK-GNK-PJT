@@ -27,7 +27,7 @@ public class CardDesignController {
 	
 	// 조회 (시작할 때)
 	@GetMapping("selectCard.do")
-	public Map<String, Object> selectCard(int userId) throws Exception{
+	public Map<String, Object> getCard(int userId) throws Exception{
 		
 		// 1. 발급 받았는데 날짜도 아직이야 -- no
 		// 2. 발급 받았는데 날짜 지났어 -- 새롭게 줘
@@ -41,8 +41,8 @@ public class CardDesignController {
 		stringTime = stringTime.replaceAll("-", ""); //20220902
 		
 		// 이미 발급 받았는지 확인
-		if (cardService.selectIsIssued(userId)) { // true면은 발급 이미 받았다
-			String endTime = cardService.selectEndtime(userId);
+		if (cardService.getCardIsIssue(userId)) { // true면은 발급 이미 받았다
+			String endTime = cardService.getEndTime(userId);
 			endTime = endTime.substring(0, 10);
 			endTime = endTime.replaceAll("-", ""); // 20220902
 			
@@ -50,14 +50,14 @@ public class CardDesignController {
 				result.put("message", "no");
 			}
 			else { // 카드 새로 받자!
-				cardService.deleteCard(userId);
+				cardService.removeCard(userId);
 				result.put("card", null);
 				result.put("message", "yes");
 			}
 		}
 		else { // false면은 발급 안 받았다
-			if (cardService.isReIssued(userId)) { // 값이 있대.
-				Card card = cardService.selectCard(userId);
+			if (cardService.checkCardReIssue(userId)) { // 값이 있대.
+				Card card = cardService.getCard(userId);
 				result.put("card", card);
 				result.put("message", "yes");
 			}
@@ -84,12 +84,12 @@ public class CardDesignController {
 		Map<String, String> result = new HashMap<String, String>();
 		
 		
-		if (cardService.selectCard(userId)==null) { // 처음 저장? -- insert
+		if (cardService.getCard(userId)==null) { // 처음 저장? -- insert
 			
 			// 카드 번호 랜덤 생성 (4번 만들어서 4번 붙이자!)
 			// 카드 랜덤 확인 (false 뜰 때까지 반복)
 			String tempCard = "";
-			while (tempCard=="" || cardService.isExistCardId(tempCard)) {  // -------------------------------------------------------------- error check
+			while (tempCard=="" || cardService.checkCardIdExistancy(tempCard)) {  // -------------------------------------------------------------- error check
 				tempCard = "";
 				for (int i=0;i<4;i++) {
 					int ranNum = (int)(Math.random() * (9999-1000))+1000;
@@ -108,7 +108,7 @@ public class CardDesignController {
 			try {
 
 				// 카드 생성
-				cardService.insertCard(card, userId);
+				cardService.createCard(card, userId);
 				result.put("message", "yes");
 			
 			} catch (Exception e) {
@@ -120,7 +120,7 @@ public class CardDesignController {
 		else { // 처음 아닌 저장? -- update
 			
 			try {
-				cardService.updateCard(userId, card);
+				cardService.modifyCard(userId, card);
 				result.put("message", "yes");
 			}
 			catch (Exception e) {
@@ -147,7 +147,7 @@ public class CardDesignController {
 		
 		// 발급 가능? -- updateCardIssued
 		try {
-			cardService.updateCardIssued(userId);
+			cardService.modifyCardIssue(userId);
 			result.put("message", "yes");
 		}
 		catch (Exception e) {

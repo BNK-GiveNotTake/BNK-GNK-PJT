@@ -27,7 +27,7 @@ public class NoticeController {
 		String status = "no";
 		try {
 			List<Notice> data = noticeService.getNoticeList();
-			if(noticeService.getNoticeAMT()>0) {
+			if(noticeService.getNoticeCount()>0) {
 				status = "yes";
 				for(Notice vo : data) {
 					innermap.put(Integer.toString(vo.getNoticeId()), (Object) vo);
@@ -67,13 +67,13 @@ public class NoticeController {
 	
 	@ApiOperation(value="addNoticeCNT", notes="공지사항 조회수 증가")
 	@GetMapping("/addNoticeCNT.do")
-	public Map<String,Object> addNoticeCNT(int noticeId) {
+	public Map<String,Object> addNoticeCount(int noticeId) {
 		Map<String,Object> maps = new HashMap<>();
 		String status = "no";
 		try {
 			Object data = noticeService.getNoticeDetail(noticeId);
 			if(data!=null) {
-				noticeService.addNoticeCNT(noticeId);
+				noticeService.addNoticeCount(noticeId);
 				status = "yes";
 				maps.put("cnt", noticeService.getNoticeDetail(noticeId).getViewCnt());
 			}			

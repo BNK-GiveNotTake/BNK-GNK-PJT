@@ -7,22 +7,22 @@ import com.service.gnt.domain.card.Card;
 
 public interface CardDAO {
 	
-	int insertCard(Card card) throws Exception;
+	int createCard(Card card) throws Exception;
 	String selectCardAccId(int userId) throws Exception;
 	int updateCardToAcc(Account account) throws Exception;
-	int deleteCard(String cardId) throws Exception;
+	int removeCard(String cardId) throws Exception;
 	
 	List<String> selectAccIds() throws Exception;
 	String selectCardId(String accId) throws Exception;
 	
-	int updateCardIssued(String cardId) throws Exception;
+	int modifyCardIssue(String cardId) throws Exception;
 	String selectCardDelete(String accId) throws Exception;
 	
-	String selectIsIssued(String cardId) throws Exception;
-	String selectEndtime(String cardId) throws Exception;
-	Card selectCard(String cardId) throws Exception;
+	String getCardIsIssue(String cardId) throws Exception;
+	String getEndTime(String cardId) throws Exception;
+	Card getCard(String cardId) throws Exception;
 	
-	int updateCard(Card card) throws Exception;
+	int modifyCard(Card card) throws Exception;
 	
 
 }
