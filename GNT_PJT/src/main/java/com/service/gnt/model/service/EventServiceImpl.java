@@ -1,20 +1,15 @@
 package com.service.gnt.model.service;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
 import com.service.gnt.domain.event.Quiz;
 import com.service.gnt.model.dao.EventDAO;
-
 @Service
 public class EventServiceImpl implements EventService{
 	@Autowired
 	private EventDAO eventDAO;
-
 	// 퀴즈 풀이 여부 확인하기 (0->안 풀었음,  1-> 풀었음)
 	public String checkQuizPlayed(String userId) throws Exception {
 		return eventDAO.checkQuizPlayed(userId);
@@ -25,7 +20,6 @@ public class EventServiceImpl implements EventService{
 		Quiz quiz = eventDAO.getQuiz(quizId); // 퀴즈
 		return quiz;
 	}
-
 	// 퀴즈 제출 이후
 	public int getQuizAnswer(String userId) throws Exception {
 		String quizId = eventDAO.selectQuizId(userId); // 고객 퀴즈번호
@@ -52,13 +46,10 @@ public class EventServiceImpl implements EventService{
 	public void resetQuiz() throws Exception {
 		eventDAO.updateQuizReset();
 	}
-
 	// 돌림판 참가자 반환
 	public List<Integer> resetRoullete() throws Exception {
 		List<Integer> list = eventDAO.selectAllUserId();
 		return list;
 	}
-
 	
-
 }

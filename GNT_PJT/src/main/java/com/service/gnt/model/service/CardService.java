@@ -1,10 +1,7 @@
 package com.service.gnt.model.service;
-
 import java.util.List;
-
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.card.Card;
-
 public interface CardService {
 	void createCard(Card card, int userId) throws Exception;
 	void removeCard(int userId) throws Exception;
@@ -17,5 +14,4 @@ public interface CardService {
 	void modifyCard(int userId, Card card) throws Exception;
 	void modifyCardIssue(int userId) throws Exception;
 	
-
 }

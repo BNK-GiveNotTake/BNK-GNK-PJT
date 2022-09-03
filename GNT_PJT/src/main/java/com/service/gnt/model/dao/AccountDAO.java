@@ -1,10 +1,7 @@
 package com.service.gnt.model.dao;
-
 import java.util.List;
-
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
-
 public interface AccountDAO {
 	Account createAccount(int userId, String accPassword, String userNameEng, String address,
 			String phone);
@@ -21,5 +18,4 @@ public interface AccountDAO {
 	Account getAccountByUserId(int userId);
 	int getMileageHistoryCount(int userId);
 	String getAccIdByUserId(int userId);
-
 }

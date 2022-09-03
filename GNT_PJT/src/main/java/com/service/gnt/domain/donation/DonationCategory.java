@@ -1,11 +1,8 @@
 package com.service.gnt.domain.donation;
-
 public class DonationCategory {
 	private int categoryId;
 	private String categoryTitle;
-	
 	public DonationCategory() {}
-	
 	public DonationCategory(int categoryId, String categoryTitle) {
 		super();
 		this.categoryId = categoryId;
@@ -23,10 +20,8 @@ public class DonationCategory {
 	public void setCategoryTitle(String categoryTitle) {
 		this.categoryTitle = categoryTitle;
 	}
-	@Override
 	public String toString() {
 		return "donationCategory [categoryId=" + categoryId + ", categoryTitle=" + categoryTitle + "]";
 	}
-	
 	
 }

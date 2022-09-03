@@ -1,10 +1,7 @@
 package com.service.gnt.model.service;
-
 import java.util.List;
-
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
-
 public interface AccountService {
 	Account createAccount(int userId, String accPassword, String userNameEng, String address, String phone);
 	int getAccountBalance(String accId);

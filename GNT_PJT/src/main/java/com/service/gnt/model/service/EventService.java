@@ -1,9 +1,6 @@
 package com.service.gnt.model.service;
-
 import java.util.List;
-
 import com.service.gnt.domain.event.Quiz;
-
 public interface EventService {
 	// 퀴즈 풀이 여부
 	String checkQuizPlayed(String userId) throws Exception;
@@ -17,5 +14,4 @@ public interface EventService {
 	void resetQuiz() throws Exception;
 	List<Integer> resetRoullete() throws Exception;
 	
-
 }
