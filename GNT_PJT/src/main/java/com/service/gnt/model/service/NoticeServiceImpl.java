@@ -18,10 +18,10 @@ public class NoticeServiceImpl implements NoticeService{
 	public Notice getNoticeDetail(int noticeId) {
 		return noticeDAO.getNoticeDetail(noticeId);
 	}
-	public int getNoticeAMT() {
-		return noticeDAO.getNoticeAMT();
+	public int getNoticeCount() {
+		return noticeDAO.getNoticeCount();
 	}
-	public int addNoticeCNT(int noticeId) {
-		return noticeDAO.addNoticeCNT(noticeId);
+	public int addNoticeCount(int noticeId) {
+		return noticeDAO.addNoticeCount(noticeId);
 	}
 }

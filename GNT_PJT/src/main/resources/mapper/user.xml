@@ -17,7 +17,7 @@
 	 	<result property="isQuizParticipate" column="is_quiz_participate" jdbcType="VARCHAR"/>
 	 </resultMap>
 	 
-	<update id="addUserInfo" parameterType="users">
+	<update id="updateUserInfo" parameterType="users">
 	UPDATE USERS A
 	SET 
 		acc_id=(
@@ -30,32 +30,29 @@
 		A.phone=#{phone}
 	 WHERE A.user_id = #{userId}
 	</update>
-	
 	<!-- 	UPDATE users
 	SET (acc_id, user_name_eng, address, phone)	= (select 
 	( SELECT acc_id FROM account WHERE acc_id=#{accId} ),
 	#{userNameEng}, #{address}, #{phone} from dual)
 	WHERE user_id = #{userId} -->
-	
-	<select id="getAccIdByUserId" parameterType="integer" resultType="string">
+	<select id="selectAccIdByUserId" parameterType="integer" resultType="string">
 		SELECT acc_id
 		FROM users
 		WHERE user_id = #{VALUE}
 	</select>
 
-	<select id="getUserById" parameterType="integer" resultType="users" resultMap="Userreg">
+	<select id="selectUserById" parameterType="integer" resultType="users" resultMap="Userreg">
 		SELECT user_id, acc_id, user_name, user_name_eng, user_email,
 		address, phone, total_donation, quiz_id, is_quiz_participate
 		FROM users
 		WHERE user_id = #{VALUE}
 	</select>
-	
-	<select id="getUserId" parameterType="users" resultType="integer">
+	<select id="selectUserId" parameterType="users" resultType="integer">
 		SELECT user_id
 		FROM users
 		WHERE user_password = ${userPassword} AND user_name = #{userName} AND user_email = #{userEmail}	
 	</select>
-	<insert id="newUser" parameterType="users">
+	<insert id="insertUser" parameterType="users">
 		<!-- <selectKey keyProperty="id" resultType="int" order="BEFORE">
 			SELECT users_seq.nextVal FROM dual
 		</selectKey> -->
@@ -63,16 +60,11 @@
 		USERS (user_id, user_password, user_name, user_email)
 		VALUES (users_seq.nextVal, #{userPassword}, #{userName}, #{userEmail})
 	</insert>
-	
-	<select id="newUser_email" parameterType="users" resultMap="Userreg">
+	<select id="selectUserEmail" parameterType="users" resultMap="Userreg">
 		SELECT USER_EMAIL
 		FROM USERS
 		WHERE USER_EMAIL=#{userEmail}
 	</select>
-	
-	
-	
-	
 	<select id="selectUser" parameterType="users" resultMap="Userreg">
 		SELECT user_id, acc_id, user_name, user_name_eng, user_email, USER_PASSWORD,
 		address, phone, total_donation, quiz_id, is_quiz_participate

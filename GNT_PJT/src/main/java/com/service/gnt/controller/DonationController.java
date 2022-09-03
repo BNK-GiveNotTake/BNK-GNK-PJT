@@ -32,7 +32,7 @@ public class DonationController {
 		Map<String,Object> maps2 = new HashMap<String,Object>();
 		
 		try {
-			List<Donation> list = donationService.select1();
+			List<Donation> list = donationService.getDonationAsk();
 
 			for(int i = 0 ; i<list.size() ; i++) {
 				
@@ -64,7 +64,7 @@ public class DonationController {
 		Map<String,Object> maps1 = new HashMap<String,Object>();
 		Map<String,Object> maps2 = new HashMap<String,Object>();
 		try {
-			List<Donation> list = donationService.select2_1(pagenum);
+			List<Donation> list = donationService.getDonationPage(pagenum);
 			model.addAttribute("title", "기부 목록 조회");
 			model.addAttribute("donations", list);
 			message = "yes";
@@ -101,7 +101,7 @@ public class DonationController {
 		Map<String,Object> maps2 = new HashMap<String,Object>();
 		
 		try {
-			List<Donation> list = donationService.select2(categoryId);
+			List<Donation> list = donationService.getCategoryPage(categoryId);
 			for(int i = 0 ; i<list.size() ; i++) {
 				
 				maps1.put(Integer.toString(i+1),list.get(i));
@@ -130,7 +130,7 @@ public class DonationController {
 //		Map<String,Object> maps = new HashMap<String,Object>();
 //		
 //		try {
-//			Donation detail = donationService.select3(donationId);
+//			Donation detail = donationService.getDoantionDetail(donationId);
 //			System.out.println(detail);
 //			maps.put("donation", detail);
 //			message = "yes";
@@ -153,7 +153,7 @@ public class DonationController {
 		Map<String,Object> maps2 = new HashMap<String,Object>();
 		
 		try {
-			Donation detail = donationService.select3(donationId);		
+			Donation detail = donationService.getDoantionDetail(donationId);		
 			maps1.put("1", detail);
 			maps.put("Donation",maps1);
 			message = "yes";
@@ -183,8 +183,8 @@ public class DonationController {
 		
 		try {
 			
-			donationService.update1(donation);
-			Account acc2 = donationService.setAccountToUpdate(user.getUserId(), donation.getDonationAmount());
+			donationService.modifyDonationAmount(donation);
+			Account acc2 = donationService.modifyMileage(user.getUserId(), donation.getDonationAmount());
 			if(acc2.getMileage()<0) {
 				message = "no Milege";
 				maps1.put("message", message);
@@ -193,9 +193,9 @@ public class DonationController {
 				}
 		
 			else {
-			donationService.update2(acc2);
-			donationService.addMilege(donation.getDonationAmount(), user.getUserId());
-			donationService.addDonaHistory(donation.getDonationId(), donation.getDonationAmount(), user.getUserId());
+			donationService.modifyMileage(acc2);
+			donationService.addMileageThruDonation(donation.getDonationAmount(), user.getUserId());
+			donationService.addDonationHistory(donation.getDonationId(), donation.getDonationAmount(), user.getUserId());
 			message = "yes";
 			maps1.put("message", message);
 			maps.put("message",maps1);

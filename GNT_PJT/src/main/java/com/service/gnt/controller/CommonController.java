@@ -60,7 +60,7 @@ public class CommonController {
 		String message = "no";
 		try {
 			
-			Users selected = commonService.select(user);
+			Users selected = commonService.getUser(user);
 			if(selected!=null) {
 				maps.put("userinfo", selected);
 				message = "yes";
@@ -83,7 +83,7 @@ public class CommonController {
 	@PostMapping("overlapCheck.do")
 	public Map<String,Object> Check(Users user, Model model) {
 		String message = "no";
-		Users find = commonService.select01(user);
+		Users find = commonService.getUserEmailByUserId(user);
 		Map<String,Object> maps = new HashMap<String,Object>();
 		if(find!=null) {
 			maps.put("message", message);
@@ -115,7 +115,7 @@ public class CommonController {
 			// 성공페이지
 			Map<String,Object> maps = new HashMap<String,Object>();
 			Users user1 = new Users();
-			Users find = commonService.select01(user);
+			Users find = commonService.getUserEmailByUserId(user);
 			if(find!=null) {
 				maps.put("1", find);
 				message = "no";
@@ -125,7 +125,7 @@ public class CommonController {
 			}
 			
 			else {
-			commonService.insert(user);
+			commonService.createUser(user);
 			
 			user1.setUserEmail(user.getUserEmail());
 			user1.setUserName(user.getUserName());
@@ -156,7 +156,7 @@ public class CommonController {
 			String message="no";
 			try {
 				Map<String,Object> maps = new HashMap<String,Object>();
-				Users user1 = commonService.getUserById(userId);
+				Users user1 = commonService.getUserByUserId(userId);
 				model.addAttribute("title", "고객 정보 조회");
 				message="yes";
 				maps.put("getUserbyId",user1);

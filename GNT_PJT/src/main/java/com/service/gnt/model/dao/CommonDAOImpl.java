@@ -11,26 +11,19 @@ import com.service.gnt.domain.users.Users;
 public class CommonDAOImpl implements CommonDAO{
 	
 private final static String NS = "ns.sql.UserMapper.";
-	
 	@Autowired
 	private SqlSession sqlSession;
-	
-	public int insert(Users user) {
-		int returnInt = sqlSession.insert(NS+"newUser", user);
+	public int createUser(Users user) {
+		int returnInt = sqlSession.createUser(NS+"insertUser", user);
 		return returnInt;
 	}
-
-	public Users select(Users user) {
+	public Users getUser(Users user) {
 		return sqlSession.selectOne(NS+"selectUser",user);
 	}
-
-	public Users select01(Users user) {
-		return sqlSession.selectOne(NS+"newUser_email",user);
+	public Users getUserEmailByUserId(Users user) {
+		return sqlSession.selectOne(NS+"selectUserEmail",user);
 	}
-	
-	
-	public Users getUserById(int userId) {
-		return sqlSession.selectOne(NS+"getUserById",userId);
+	public Users getUserByUserId(int userId) {
+		return sqlSession.selectOne(NS+"selectAccIdByUserId",userId);
 	}
-	
 }

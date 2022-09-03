@@ -16,18 +16,15 @@ public class NoticeDAOImpl implements NoticeDAO{
 	private SqlSession sqlSession;
 	
 	public List<Notice> getNoticeList(){
-		return sqlSession.selectList(NM+"getNoticeList");
+		return sqlSession.selectList(NM+"selectNoticeList");
 	}
-	public int getNoticeAMT() {
-		return sqlSession.selectOne(NM+"getNoticeAMT");
+	public int getNoticeCount() {
+		return sqlSession.selectOne(NM+"updateNoticeCount");
 	}
 	public Notice getNoticeDetail(int noticeId) {
-		// sqlSession.update(NM+"addNoticeCNT", noticeId);
-		return sqlSession.selectOne(NM+"getNoticeDetail", noticeId);
+		return sqlSession.selectOne(NM+"selectNoticeDetail", noticeId);
 	}
-	
-	@Override
-	public int addNoticeCNT(int noticeId) {
-		return sqlSession.update(NM+"addNoticeCNT", noticeId);
+	public int addNoticeCount(int noticeId) {
+		return sqlSession.update(NM+"selectNoticeAmount", noticeId);
 	}
 }
