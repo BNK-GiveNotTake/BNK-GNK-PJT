@@ -38,7 +38,6 @@ public class EventController {
 		else {
 			result.put("message", "yes"); // 안 풀었어
 		}
-		
 		return result;
 	}
 	
@@ -57,11 +56,7 @@ public class EventController {
 		catch (Exception e) {
 			result.put("message", "no");
 		}
-										   
-										   
-		
 		return result;
-	
 	}
 	
 	@GetMapping("submitAnswer.do")
@@ -82,11 +77,8 @@ public class EventController {
 		else {
 			result.put("message", "no");
 		}
-		
 		return result;
-	
 	}
-	
 	
 	@GetMapping("getRouletteWinner.do")
 	public Map<String, String> getRouletteWinner (String userId) throws Exception {
@@ -106,10 +98,8 @@ public class EventController {
 		return result;
 	
 	}
-
 	
-	
-	// 확인해봐야함. 여기 들어가도 돌아가려나? -- application 앞에 @EnableScheduling 붙여야 함 + class 앞에 @component 붙여야 함
+	// 0시 0분 리셋
 	@Scheduled(cron = "0 0 0 * * *")
 	public void doSchedule() throws Exception {
 		
@@ -124,12 +114,8 @@ public class EventController {
 		winner = user.get(0);
 		
 		servletContext.setAttribute("winner", winner); // error ----------------- 매일 값 바꿀 수 있는 건가?
-		
+		//int result = (int)servletContext.getAttribute("winner");
+		//System.out.println("scheduler :: "+result);
 	}
-	
-	
-	
-	
-	
 
 }
