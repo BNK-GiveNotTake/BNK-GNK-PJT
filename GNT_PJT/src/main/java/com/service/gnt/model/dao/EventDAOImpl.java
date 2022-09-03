@@ -51,7 +51,7 @@ public class EventDAOImpl implements EventDAO{
 	}
 
 	public int insertMilieage(MileageHistory mh) throws Exception {
-		return sqlSession.createUser(NS+"insertMilieage",mh);
+		return sqlSession.insert(NS+"insertMilieage",mh);
 	}
 
 	public int updateQuizReset() throws Exception {
