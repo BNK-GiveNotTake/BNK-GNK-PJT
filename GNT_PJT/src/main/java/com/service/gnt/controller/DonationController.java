@@ -40,6 +40,7 @@ public class DonationController {
 			return maps;
 		}
 	}
+	
 	@GetMapping("pageAsk.do") //페이지별 기부 내역 조회
 	public Map<String,Map<String,Object>> pagination(int pagenum , Model model) {
 		String message = "no";

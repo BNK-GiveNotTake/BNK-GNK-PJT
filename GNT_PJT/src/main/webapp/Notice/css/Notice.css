@@ -7,34 +7,39 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Katuri';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .container h2 {
-	font-family: 'Happiness-Sans-Title';
+	font-family: 'Katuri';
 	margin-top: 2rem;
     margin-left: 2.3rem;
     margin-bottom: 2rem;
 }
 
 .responsive-table li {
-  border-radius: 3px;
-  padding: 25px 30px;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 25px;
+	padding: 30px;
+	display: flex;
+	justify-content: space-between;
 }
 
 .responsive-table .table-header {
-  background-color: #ebc247;
-  color: white;
-  font-size: large;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+	background-color: #b6b6b6;
+	border-radius: 10px;
+	color: white;
+	font-size: large;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
 }
 
 .responsive-table .table-row {
-  background-color: #ffffff;
-  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
+	border-bottom: 1px solid #c4c4c4;
+	cursor: pointer;
 }
 
 @media all and (max-width: 767px) {
@@ -61,13 +66,11 @@
 }
 
 #notice-content {
-	width: 80%;
-    margin: 0 auto 3rem;
+	width: 100%;
+	background-color: #FBFAFB;
+    padding: 5rem 8rem;
 }
 
-div[data-label=createTime], div[data-label=viewCnt] {
-	text-align: end;
-}
 
 
 /* loading 화면 */

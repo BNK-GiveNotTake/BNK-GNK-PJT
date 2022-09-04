@@ -18,6 +18,21 @@
 			$(window).on('load', function() {
 				$('#donation').addClass('loaded');
 			});
+			
+			$(function() {
+				$('body').css('height', '100%').css('background-color', '#cedbef4f')
+				
+				$('.event-card').click(function() {
+					if ($(this).attr('value') == '1') {
+						location.href = 'Quiz.jsp'
+					} else if ($(this).attr('value') == '2') {
+						location.href = 'Roulette.jsp'
+					} else {
+						location.href = 'Fortune.jsp'
+					}
+				})
+				
+			})
 		</script>
 	</head>
 	
@@ -30,17 +45,18 @@
 			</div>
 			<%@ include file="../Common/Nav.jsp" %><br>
 			
-			<div class="container my-5">
+			<div class="container">
+				<h2 class="title">이벤트</h2>
 				<div class="d-flex justify-content-around event-list">
-					<div class="event-card">
+					<div class="event-card" value="1">
 						<div class="event-background">
 							<div class="event-content">
 								<h3>No.1</h3>
-								<h1>퀴즈 Quiz</h1>							
+								<h1>퀴즈</h1>							
 							</div>
 						</div>
 					</div>
-					<div class="event-card">
+					<div class="event-card" value="2">
 						<div class="event-background">
 							<div class="event-content">
 								<h3>No.2</h3>
@@ -48,7 +64,7 @@
 							</div>
 						</div>		
 					</div>
-					<div class="event-card">
+					<div class="event-card" value="3">
 						<div class="event-background">
 							<div class="event-content">
 								<h3>No.3</h3>
