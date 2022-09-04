@@ -112,9 +112,16 @@
 			    if ( event.keyCode == 27 || event.which == 27 ) {
 			    	$('.modal').removeClass('show')
 			    	$('.modal').css('display', 'none')
-			    	$('.modal-backdrop').remove()
+			    	$('body').removeClass('modal-open')
 			    };
 			});
+			
+			$('.x-mark').click(function() {
+				$('.modal').removeClass('show')
+		    	$('.modal').css('display', 'none')
+		    	$('.modal-backdrop').remove()
+		    	$('body').removeClass('modal-open')
+			})
 			
 			$('#mileage-btn').click(function() {
 				swal({
@@ -351,6 +358,13 @@
 						$('.pass-box').eq(2).text("*");
 					} else if (passIdx == 3) {
 						$('.pass-box').eq(3).text("*");
+					} else if (passIdx >= 4) {
+						swal({
+							title: "비밀번호 오류",
+							text: "이미 4자리를 모두 작성하셨습니다.\n 변경을 위해 초기화 버튼을 클릭해주세요.",
+							icon: "warning",
+							button: true,
+						})
 					}
 					passNum += txt;
 					passIdx += 1;
@@ -428,22 +442,26 @@
 							          </svg>
 							        </div>
 							        <div class="column" id="secondary">
-							          <div class="sec-content">
-							          	<h1>계좌 비밀번호</h1>
-							          	<div class="d-flex justify-content-center">
-							          		<div class="pass-box"></div>
-							          		<div class="pass-box"></div>
-							          		<div class="pass-box"></div>
-							          		<div class="pass-box"></div>
-							          	</div>
-							          	<div class="row justify-content-center" style="margin-top: 2rem; padding: 2rem;">
-							          		<c:forEach var="i" begin="0" end="9">
-							          			<div class="col-3 pass-num">${i}</div>
-							          		</c:forEach>
-							          		<div class="col-3 pass-num">초기화</div>
-							          		<div class="col-3 pass-num">확인</div>
-							          	</div>
-							          </div>
+							        	<div style="text-align: end; margin-right: 25px; margin-top: 15px;">
+							        		<img class="x-mark" src="img/x-mark.png" style="width: 10%; cursor: pointer;">
+							        	</div>
+										<div class="sec-content">
+											<h1>계좌 비밀번호</h1>
+											<div class="d-flex justify-content-center">
+												<div class="pass-box"></div>
+												<div class="pass-box"></div>
+												<div class="pass-box"></div>
+												<div class="pass-box"></div>
+											</div>
+											<div class="row justify-content-center" style="margin-top: 2rem; padding: 2rem;">
+												<c:forEach var="i" begin="1" end="9">
+													<div class="col-3 pass-num">${i}</div>
+												</c:forEach>
+												<div class="col-3 pass-num">초기화</div>
+												<div class="col-3 pass-num">0</div>
+												<div class="col-3 pass-num">확인</div>
+											</div>
+										</div>
 							        </div>
 							      </div>
 							    </div>
@@ -494,7 +512,7 @@
        		
 	    </div>
 	    <div class="container mileage-history" style="padding: 2rem;">
-	    	<h3 class="mileage-h3" style="margin-bottom: 3rem; font-family: 'Katuri';">마일리지 구매 내역</h3>
+	    	<h3 class="mileage-h3" style="margin-bottom: 3rem; font-family: 'Katuri';">마일리지 내역</h3>
 	    	<div class="d-flex justify-content-center">
 		    	<table class="fl-table">
 			        <thead>

@@ -164,6 +164,7 @@
 						},
 						// 응답 부분
 						success: function(res) {
+							console.log(res)
 							if(res.message== 'yes') {
 								var userInfo = new Object();
 								$.each(res.userinfo, function(index, item) {
@@ -173,6 +174,7 @@
 										userInfo[index] = item;
 									}
 								})
+								console.log(userInfo)
 								localStorage.setItem('user', JSON.stringify(userInfo));
 								swal({
 									title: "회원가입 성공!",
