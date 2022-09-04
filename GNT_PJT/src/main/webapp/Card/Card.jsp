@@ -38,6 +38,7 @@
 			$('body').css('height', '100%').css('background-color', '#bee7df29')
 			
 			var userInfo = JSON.parse(localStorage.getItem('user'));
+			/* 카드 조회 */
 			$.ajax({
 				type: 'get',
 				url: '../selectCard.do',
@@ -71,17 +72,32 @@
 							$('.emo').css('background-color', '#'+Card.bgFront);
 							$('.card__number').text(Card.cardId.substr(0, 4)+' '+Card.cardId.substr(4, 4)+' '+Card.cardId.substr(8, 4)+' '+Card.cardId.substr(12, 4));
 							$('.card__ccv').text(Card.cvc);
-							$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/"+today.getMonth());
+							if (String(today.getMonth()).length==1) {
+								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/0"+today.getMonth());
+							} else {
+								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/"+today.getMonth());								
+							}
 							$('.front .card__content').css("font-family", Card.fontFront).css('color', Card.fontColorFront);
 							$('.back .card__ccv').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
 							$('.back .card__owner').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
 							$('.back .card__expiry-date').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
 							$('.back .card__number').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
 						} else {
+							var today = new Date();
+							if (String(today.getMonth()).length==1) {
+								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/0"+today.getMonth());
+							} else {
+								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/"+today.getMonth());								
+							}
+							$('.card__ccv').text("000").css('color', 'white');
+							$('.card__number').text("0000 0000 0000 0000");
 							data = {}
 							data.cardId = 'null';
 							localStorage.setItem('Card', JSON.stringify(data))
 						}
+						
+						$('.card__owner').text(userInfo.userEngName)
+						
 					}
 				},
 				error: function(err) {
@@ -284,11 +300,11 @@
 				var emoInfoTop = ""
 				var emoInfoLeft = ""
 				if (isFront == true) {
-					emoInfoTop = parseInt($('#draggable3').css('top'))
-					emoInfoLeft = parseInt($('#draggable3').css('left'))
+					emoInfoTop = Math.round(parseInt($('#draggable3').css('top'))*100 / 100)
+					emoInfoLeft = Math.round(parseInt($('#draggable3').css('left'))*100 / 100)
 				} else {
-					emoInfoTop = parseInt($('#draggable3').css('top')) * 0.68
-					emoInfoLeft = parseInt($('#draggable3').css('left')) * 0.82
+					emoInfoTop = Math.round((parseInt($('#draggable3').css('top')) * 0.68)*100 / 100)
+					emoInfoLeft = Math.round((parseInt($('#draggable3').css('left')) * 0.82)*100 / 100)
 				}
 				console.log({
 					'userId': userInfo.userId,
@@ -340,12 +356,25 @@
 				var emoInfoTop = ""
 				var emoInfoLeft = ""
 				if (isFront == true) {
-					emoInfoTop = parseInt($('#draggable3').css('top'))
-					emoInfoLeft = parseInt($('#draggable3').css('left'))
+					emoInfoTop = Math.round(parseInt($('#draggable3').css('top'))*100 / 100)
+					emoInfoLeft = Math.round(parseInt($('#draggable3').css('left'))*100 / 100)
 				} else {
-					emoInfoTop = parseInt($('#draggable3').css('top')) * 0.68
-					emoInfoLeft = parseInt($('#draggable3').css('left')) * 0.82
+					emoInfoTop = Math.round((parseInt($('#draggable3').css('top')) * 0.68)*100 / 100)
+					emoInfoLeft = Math.round((parseInt($('#draggable3').css('left')) * 0.82)*100 / 100)
 				}
+				console.log({
+					'userId': userInfo.userId,
+					'bgFront': frontBackgroundColor,
+					'bgBack': backBackgroundColor,
+					'emoId': emo,
+					'emoInfoTop': emoInfoTop,
+					'emoInfoLeft': emoInfoLeft,
+					'fontFront': frontFont,
+					'fontBack': backFont,
+					'fontColorFront': frontFontColor,
+					'fontColorBack': backFontColor,
+					'cardContent': card_content,
+				})
 				$.ajax({
 					type: 'post',
 					url: '../saveCard.do',
@@ -391,7 +420,28 @@
 			})
 			
 			$('.card_reset_btn').click(function() {
+				var today = new Date();
+				if (String(today.getMonth()).length==1) {
+					$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/0"+today.getMonth());
+				} else {
+					$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/"+today.getMonth());								
+				}
+				$('.card__ccv').text("000").css('color', 'white');
+				data = {}
+				data.cardId = 'null';
+				localStorage.setItem('Card', JSON.stringify(data))
+				$('.card--front').css('background-color', '#ffffff');
+				$('.card--back').css('background-color', '#ffffff');
+				$('.front .card__content').text("");
+				$('.front .card__content').css("font-family", "none").css('color', '#ffffff');
 				
+				$('#draggable3').empty();
+				$('.card__number').text("0000 0000 0000 0000");
+				$('.card__ccv').text("000");
+				$('.back .card__ccv').css("font-family", "none").css('color', Card.fontColorBack);
+				$('.back .card__owner').css("font-family", "none").css('color', Card.fontColorBack);
+				$('.back .card__expiry-date').css("font-family", "none").css('color', Card.fontColorBack);
+				$('.back .card__number').css("font-family", "none").css('color', Card.fontColorBack);
 			})
 			
 		});

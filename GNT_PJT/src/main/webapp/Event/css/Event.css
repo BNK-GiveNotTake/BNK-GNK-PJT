@@ -31,6 +31,7 @@
 	font-family: 'Katuri';
 	padding: 2rem;
     color: white;
+    height: 100%;
     font-weight: bold;
 }
 
@@ -54,6 +55,10 @@
 
 .event-list:hover > .event-card:not(:hover) .event-background{
   filter: brightness(0.8) saturate(0.5) contrast(0.8) blur(5px);
+}
+
+.event-content img {
+	width: 100%;
 }
 
 

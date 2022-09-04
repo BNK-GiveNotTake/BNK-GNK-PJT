@@ -33,6 +33,7 @@ body:after {
 }
 
 .donation_modal {
+	font-family: 'Katuri';
     position: absolute;
     z-index: 5;
     background: white;
@@ -51,17 +52,17 @@ body:after {
 .donation_modal h3 {
 	margin-top: 2rem;
 	margin-bottom: 3rem;
-	font-size: large;
+	font-size: x-large;
 }
 
 .donation_modal button {
-	background-color: #47ebeb;
-	border: none;
-	border-radius: 15px;
-	padding: 1rem 2rem;
-	font-size: large;
-	font-weight: bold;
-	color: white;
+    background-color: #ffcf63;
+    border: none;
+    border-radius: 30px;
+    padding: 1rem 2rem;
+    font-size: x-large;
+    font-weight: 100;
+    color: white;
 }
 
 
