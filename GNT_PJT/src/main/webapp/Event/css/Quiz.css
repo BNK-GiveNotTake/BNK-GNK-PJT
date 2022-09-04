@@ -10,12 +10,74 @@
 .title {
 	font-family: 'Katuri';
 	margin-bottom: 2rem;
+	text-align: center;
+	font-size: xxx-large;
+}
+
+.quiz {
+	width: 70%;
+    margin: auto;
+}
+
+.quiz-question {
+	font-family: 'Katuri';
+	font-size: x-large;
+	font-bold: 100;
+}
+
+.quiz-image {
+	text-align: center;
+}
+
+.quiz-image img {
+	width: 100%;
 }
 
 
+.answer {
+	width: 220px;
+    height: 220px;
+    border-radius: 20px;
+    border: 10px solid black;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Katuri';
+    font-size: x-large;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.answer-1 {
+	background-color: #df75a5;
+}
+
+.answer-2 {
+	background-color: #ffe07d;
+}
+
+.answer-3 {
+	background-color: #b3e59f;
+}
+
+.answer-4 {
+	background-color: #90d8f9;
+}
 
 
-
+.quiz-btn {
+	font-family: 'Katuri';
+    font-size: x-large;
+    padding: 0.3rem 1.5rem;
+    border: none;
+    border-radius: 30px;
+    background: #42454c;
+    color: white;
+}
 
 
 /* loading 화면 */
