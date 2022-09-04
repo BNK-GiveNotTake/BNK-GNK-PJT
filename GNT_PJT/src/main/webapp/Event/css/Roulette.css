@@ -12,49 +12,9 @@
 	margin-bottom: 2rem;
 }
 
-.event-card {
-	width: 30%;
-    height: 60vh;
-    cursor: pointer;
-}
 
-.event-background {
-    height: 100%;
-	background-size: cover;
-	border-radius: 15px;
-	transform-origin: center;
-	trsnsform: scale(1) translateZ(0);
-	transition: filter 200ms linear, transform 200ms linear;
-}
 
-.event-content {
-	font-family: 'Katuri';
-	padding: 2rem;
-    color: white;
-    font-weight: bold;
-}
 
-.event-card:nth-child(1) .event-background {
-	background-image: url(https://images.unsplash.com/photo-1557177324-56c542165309?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80);
-}
-.event-card:nth-child(2) .event-background {
-	background-image: url(https://images.unsplash.com/photo-1557187666-4fd70cf76254?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60);
-}
-.event-card:nth-child(3) .event-background {
-	background-image: url(https://images.unsplash.com/photo-1557004396-66e4174d7bf6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60);
-}
-
-.event-card:hover .event-background {
-  transform: scale(1.05) translateZ(0);
-}
-
-.event-list:hover > .event-card:not(:hover) .event-background{
-  filter: brightness(0.8) saturate(0.5) contrast(0.8) blur(5px);
-}
-
-.event-list:hover > .event-card:not(:hover) .event-background{
-  filter: brightness(0.8) saturate(0.5) contrast(0.8) blur(5px);
-}
 
 
 
