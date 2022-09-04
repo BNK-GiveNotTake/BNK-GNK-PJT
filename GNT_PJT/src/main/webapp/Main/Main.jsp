@@ -21,7 +21,6 @@
 		});
 		
 		$(function() {
-			$('.nav').css('background-color', '#ffadad');
 			var account = JSON.parse(localStorage.getItem('account'));
 			var userInfo = JSON.parse(localStorage.getItem('user'));
 			if (userInfo==null) {
@@ -375,9 +374,9 @@
 	    	<div class="row">
 	            <div class="col-7 d-flex align-items-center">
 	                <div class="about-text">
-	                    <h5 class="small-text" style="font-family: 'Happiness-Sans-Title';">환영합니다.&nbsp;<span class="small-text-name"></span>&nbsp;고객님!!</h5>
+	                    <h5 class="small-text">환영합니다.&nbsp;<span class="small-text-name"></span>&nbsp;고객님!!</h5>
 	                    <h1 class="animated animated-text">
-	                        <span class="mr-2" style="font-family: 'Happiness-Sans-Title';">현재 금액은</span>
+	                        <span class="mr-2">현재 금액은</span>
                             <div class="animated-info">
                                 <span class="animated-item">연동 계좌 : <span class="account-amount">0</span>원</span>
                                 <span class="animated-item">마일리지 : <span class="mileage-amount">0</span>원</span>
@@ -388,8 +387,8 @@
 	                    <p style="font-family: 'Happiness-Sans-Title';">기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크</p>
 	                    <br><br>
 	                    <div class="main_btn_list">
-							<button class="btn-slide-line" id="account-btn" style="width: 40%; margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal">계좌 관리</button>
-							<button class="btn-slide-line" id="mileage-btn" style="width: 40%;">마일리지 생성</button>
+							<button class="btn-slide-line" id="account-btn" style="font-size: x-large; width: 40%; font-weight: normal; margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal">계좌 관리</button>
+							<button class="btn-slide-line" id="mileage-btn" style="font-size: x-large; width: 40%; font-weight: normal;">마일리지 생성</button>
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							  <div class="modal-dialog" role="document">
@@ -463,7 +462,7 @@
 	    </div>
 	    
 	    <div class="container mileage-shop" style="padding: 2rem;">
-       		<h3 class="mileage-h3" style="margin-bottom: 3rem;">마일리지 구매</h3>
+       		<h3 class="mileage-h3" style="margin-bottom: 3rem; font-family: 'Katuri';">마일리지 구매</h3>
        		<div class="d-flex justify-content-start">
        			<ul class="items">
 				    <li class="item">
@@ -495,7 +494,7 @@
        		
 	    </div>
 	    <div class="container mileage-history" style="padding: 2rem;">
-	    	<h3 class="mileage-h3" style="margin-bottom: 3rem;">마일리지 구매 내역</h3>
+	    	<h3 class="mileage-h3" style="margin-bottom: 3rem; font-family: 'Katuri';">마일리지 구매 내역</h3>
 	    	<div class="d-flex justify-content-center">
 		    	<table class="fl-table">
 			        <thead>

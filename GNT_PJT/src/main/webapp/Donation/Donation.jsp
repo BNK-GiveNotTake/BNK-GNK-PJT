@@ -31,13 +31,19 @@
 			})
 			
 			$('.donation-list').on('click', '.card ', function() {
-				localStorage.setItem('DonationDetailId', $(this).attr('id'))
-				console.log($(this))
+				id = $(this).attr('id')
+				localStorage.setItem('DonationDetailId', id)
 				location.href="DonationDetail.jsp"
 			});
 			
+			$('.recent-items').on('click', '.recent-item img', function() {
+				id = $(this).attr('id')
+				localStorage.setItem('DonationDetailId', id)
+				location.href="DonationDetail.jsp"
+			})
+			
 			var delay = 500;
-			$('.top-btn').click(function() {
+			$('.top-img').click(function() {
 				$('html, body').stop().animate({scrollTop: 0}, delay);
 			})
 			
@@ -107,7 +113,13 @@
 			recentList = JSON.parse(recentList)
 			$('.recent-items').empty()
 			$.each(recentList, function(index, item) {
-				$('.recent-items').append('<div class=recent-item><img src='+item.imageUri+'></div>')
+				title = ""
+				if (item.title.length > 10) {
+					title = item.title.substr(0, 10) + "..."
+				} else {
+					title = item.title
+				}
+				$('.recent-items').prepend('<div class=recent-item><img id='+item.donationId+' src='+item.imageUri+'><span>'+title+'</span></div>')
 			})	
 		}
 		
@@ -118,13 +130,12 @@
 				data: {},
 				success: function(res) {
 					Donation = res.Donation
-					console.log(Donation)
 					$('.donation-list').empty();
 					$.each(Donation, function(index, item) {
 						donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
 						backgroundColor = checkBackgroundColor(donationPercent)
 						$('.donation-list').append(
-							'<section class="cards col-3 mb-5">' +
+							'<section class="cards col-4 mb-5">' +
 								'<article class="card card--1" id='+item.donationId+'>' +
 								'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
 								'<a href="#" class="card_link">' +
@@ -133,7 +144,6 @@
 								'<div class="card__info">' +
 									'<h3 class="card__title">'+item.title+'</h3>' +
 									'<span class="card__by">' +
-										'<img class="card__logo" src=https://happybean-phinf.pstatic.net/20200116_34/1579150184219Bj6oe_JPEG/%C6%C4%BA%F1%C4%DC.jpg?type=w180>' +
 										'<a href="#" class="card__author" title="author">'+item.organization+'</a>' +
 									'</span>' +
 									'<div class="container-fluid">' +
@@ -166,7 +176,7 @@
 						donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
 						backgroundColor = checkBackgroundColor(donationPercent)
 						$('.donation-list').append(
-							'<section class="cards col-3 mb-5">' +
+							'<section class="cards col-4 mb-5">' +
 								'<article class="card card--1" id='+item.donationId+'>' +
 								'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
 								'<a href="#" class="card_link">' +
@@ -175,7 +185,6 @@
 								'<div class="card__info">' +
 									'<h3 class="card__title">'+item.title+'</h3>' +
 									'<span class="card__by">' +
-										'<img class="card__logo" src=https://happybean-phinf.pstatic.net/20200116_34/1579150184219Bj6oe_JPEG/%C6%C4%BA%F1%C4%DC.jpg?type=w180>' +
 										'<a href="#" class="card__author" title="author">'+item.organization+'</a>' +
 									'</span>' +
 									'<div class="container-fluid">' +
@@ -207,7 +216,7 @@
 						donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
 						backgroundColor = checkBackgroundColor(donationPercent)
 						$('.donation-list').append(
-							'<section class="cards col-3 mb-5">' +
+							'<section class="cards col-4 mb-5">' +
 								'<article class="card card--1" id='+item.donationId+'>' +
 								'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
 								'<a href="#" class="card_link">' +
@@ -216,7 +225,6 @@
 								'<div class="card__info">' +
 									'<h3 class="card__title">'+item.title+'</h3>' +
 									'<span class="card__by">' +
-										'<img class="card__logo" src=https://happybean-phinf.pstatic.net/20200116_34/1579150184219Bj6oe_JPEG/%C6%C4%BA%F1%C4%DC.jpg?type=w180>' +
 										'<a href="#" class="card__author" title="author">'+item.organization+'</a>' +
 									'</span>' +
 									'<div class="container-fluid">' +
@@ -270,33 +278,40 @@
 			<div class="loader-section section-right"></div>
 		</div>
 		<%@ include file="../Common/Nav.jsp" %><br>
-		<div class="row" style="width: 99vw;">
-			<div class="col-10 row" style="border-right: 1px solid #c4c5c4; padding-left: 3rem; padding-right: 0rem;">
-				<div class="donation-category">
-					<span>기부</span>
-					<button class="donation-btn selected" id="all">전체</button>
-					<button class="donation-btn" id="child">아동•청소년</button>
-					<button class="donation-btn" id="old">어르신</button>
-					<button class="donation-btn" id="disabled">장애인</button>
-					<button class="donation-btn" id="multiculture">다문화</button>
-					<button class="donation-btn" id="global">지구촌</button>
-					<button class="donation-btn" id="family">가족•여성</button>
-					<button class="donation-btn" id="animal">동물</button>
-					<button class="donation-btn" id="environ">환경</button>
-				</div>
-				<div class="donation-list row" style="margin-left: 1rem;">
-					
-				</div>
-				
-				<button class="next-page">더보기</button>
-			</div>
-			<div class="col-2">
-				<div class="recent">
-					<h4 align="center">최근 본 목록</h4>
-					<div class="recent-items">
-					
+		<div class="container" style="min-width: 1200px;">
+		
+			<div class="row">
+				<div class="col-10 row" style="border-right: 1px solid #c4c5c4; padding-left: 3rem; padding-right: 0rem;">
+					<div class="donation-category">
+						<span>기부</span>
+						<button class="donation-btn selected" id="all">전체</button>
+						<button class="donation-btn" id="child">아동•청소년</button>
+						<button class="donation-btn" id="old">어르신</button>
+						<button class="donation-btn" id="disabled">장애인</button>
+						<button class="donation-btn" id="multiculture">다문화</button>
+						<button class="donation-btn" id="global">지구촌</button>
+						<button class="donation-btn" id="family">가족•여성</button>
+						<button class="donation-btn" id="animal">동물</button>
+						<button class="donation-btn" id="environ">환경</button>
 					</div>
-					<button class="top-btn">TOP</button>
+					<div class="donation-list row">
+						
+					</div>
+					
+					<button class="next-page">더보기</button>
+				</div>
+				<div class="col-2">
+					<div class="recent">
+						<div class="recent-title">
+							<img src="../Donation/img/recent.png">
+						</div>
+						<div class="recent-items">
+						
+						</div>
+						<div style="text-align: center; margin-top: 1rem;">
+							<img class="top-img" src="../Donation/img/top.png">
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

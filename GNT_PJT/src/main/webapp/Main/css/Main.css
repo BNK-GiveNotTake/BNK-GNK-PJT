@@ -9,8 +9,15 @@ body {
     max-width: 1240px;
 }
 
-#main {
-	background-color: #ffadad;
+body>#main {
+	background-color: #ffdbdb26;
+}
+
+@font-face {
+    font-family: 'Katuri';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
@@ -21,37 +28,41 @@ body {
 }
 
 .small-text {
-  color: #5b5b5b;
-  font-size: large;
-  font-weight: bold;
-  padding: 8px 16px 8px 0px;
-  border-radius: 50px;
-  letter-spacing: 0.2px;
+	font-family: 'Katuri';
+	color: #5b5b5b;
+	font-size: large;
+	font-weight: bold;
+	padding: 8px 16px 8px 0px;
+	border-radius: 50px;
+	letter-spacing: 0.2px;
 }
 
 .main_btn_list {
+	font-family: 'Katuri';
+	font-weight: 100;
 	display: flex;
 }
 
 .animated {
-  position: relative;
+	font-family: 'Katuri';
+	position: relative;
 }
 
 .animated-info {
-  display: inline-block;
-  vertical-align: top;
-  margin-top: 5px;
-  min-width: 260px;
-  position: relative;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 5px;
+	min-width: 260px;
+	position: relative;
 }
 
 .animated-item {
-  color: #f33e4f;
-  width: 200%;
+	color: #f33e4f;
+	width: 200%;
 }
 
 .animated-item {
-	font-family: 'Happiness-Sans-Title';
+	font-family: 'Katuri';
 	font-size: 2rem;
 	line-height: inherit;
 	display: block;
@@ -97,6 +108,10 @@ body {
   100% {
     opacity: 0;
   }
+}
+
+.account-amount, .mileage-amount {
+	font-size: 2rem;	
 }
 
 button {
@@ -353,7 +368,7 @@ button:hover span {
 
 /* 히스토리 테이블 */
 .fl-table {
-	font-family: 'Happiness-Sans-Title';
+	font-family: 'Katuri';
     display: block;
 }
 .table-wrapper:before{
@@ -394,6 +409,7 @@ button:hover span {
     text-align: center;
     font-size: large;
     border-bottom: 1px solid #f7f7f9;
+	line-height: 2.3;
 }
 .fl-table thead th:nth-child(odd) {
     background: #ff8181;
@@ -523,15 +539,16 @@ figure.snip1390 blockquote:before {
 }
 
 .inner {
-  background-color: #fff;
-  width: 170px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 170px;
-  box-shadow: 0 40px 80px #FBE4E0;
-  border-radius: 14px;
-  cursor: pointer;
+	font-family: 'Katuri';
+	background-color: #fff;
+	width: 170px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 170px;
+	box-shadow: 5px 5px 10px #fbe4e0;
+	border-radius: 14px;
+	cursor: pointer;
 }
 
 .name {

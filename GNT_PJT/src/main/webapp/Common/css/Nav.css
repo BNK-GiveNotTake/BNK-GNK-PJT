@@ -7,10 +7,17 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Katuri';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .nav {
     width: 99vw;
     height: 15vh;
-    font-family: 'Happiness-Sans-Title';
+    font-family: 'Katuri';
     font-size: large;
 }
 
@@ -21,10 +28,12 @@
 
 .nav-inner {
 	display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
 }
 
-span {
+.nav-inner span {
 	cursor: pointer;
+	margin-left: 2rem;
+	font-size: x-large;
 }
