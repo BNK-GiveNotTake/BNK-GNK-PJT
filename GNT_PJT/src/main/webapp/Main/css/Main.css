@@ -370,6 +370,7 @@ button:hover span {
 .fl-table {
 	font-family: 'Katuri';
     display: block;
+    width: 100%;
 }
 .table-wrapper:before{
     content: "Scroll horizontally >";

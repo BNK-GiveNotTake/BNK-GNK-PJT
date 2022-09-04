@@ -23,8 +23,34 @@
 				$('body').css('height', '100%').css('background-color', '#cedbef4f')
 				
 				$('.event-card').click(function() {
+					var userInfo = JSON.parse(localStorage.getItem('user'));
 					if ($(this).attr('value') == '1') {
-						location.href = 'Quiz.jsp'
+						console.log({
+							'userId': userInfo.userId,
+						})
+						$.ajax({
+							type: 'get',
+							url: '../checkedQuiz.do',
+							data: {
+								'userId': userInfo.userId,
+							},
+							success: function(res) {
+								if(res.message=='yes') {
+									location.href = 'Quiz.jsp'
+								} else {
+									swal({
+										title: "퀴즈 불가!",
+										text: "내일 다시 만나요!",
+										icon: "info",
+										button: true,
+									})
+								}
+							},
+							error: function(err) {
+								console.log(err)
+							}
+						})
+						
 					} else if ($(this).attr('value') == '2') {
 						location.href = 'Roulette.jsp'
 					} else {
@@ -50,25 +76,22 @@
 				<div class="d-flex justify-content-around event-list">
 					<div class="event-card" value="1">
 						<div class="event-background">
-							<div class="event-content">
-								<h3>No.1</h3>
-								<h1>퀴즈</h1>							
+							<div class="event-content d-flex align-items-center">
+								<img src="img/no1.png">					
 							</div>
 						</div>
 					</div>
 					<div class="event-card" value="2">
 						<div class="event-background">
-							<div class="event-content">
-								<h3>No.2</h3>
-								<h1>Not Yet</h1>							
+							<div class="event-content d-flex align-items-center">
+								<img src="img/no2.png">							
 							</div>
 						</div>		
 					</div>
 					<div class="event-card" value="3">
 						<div class="event-background">
-							<div class="event-content">
-								<h3>No.3</h3>
-								<h1>오늘의 운세</h1>							
+							<div class="event-content d-flex align-items-center">
+								<img src="img/no3.png">							
 							</div>
 						</div>		
 					</div>

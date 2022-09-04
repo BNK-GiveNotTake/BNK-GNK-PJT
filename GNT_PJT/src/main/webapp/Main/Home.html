@@ -13,7 +13,7 @@
 		$(function() {
 			$('.section-btn').click(function() {
 				var text = $(this).text()
-				if(text=='home') {
+				if(text=='account') {
 					location.href = "Main.jsp"
 				} else if (text=='donation') {
 					location.href = "../Donation/Donation.jsp"
@@ -39,21 +39,30 @@
 	<div class="smooth">
 		<div class="header">
 			<ul>
-			  <li><a href="#home">home</a></li>
-			  <li><a href="#donation">donation</a></li>
-			  <li><a href="#card-issue">card-issue</a></li>
-			  <li><a href="#event">event</a></li>
-			  <li><a href="#footer">footer</a></li>
+			  <li><a href="Main.jsp">account</a></li>
+			  <li><a href="../Donation/Donation.jsp">donation</a></li>
+			  <li><a href="../Card/Card.jsp">card-issue</a></li>
+			  <li><a href="../Event/Event.jsp">event</a></li>
+			  <li><a href="../Notice/Notice.jsp">footer</a></li>
 			</ul>
 		</div>
-	  <div class="section" id="home">
+		<div class="aside">
+			<ul>
+			  <li><a href="#account"><div class="circle"></div></a></li>
+			  <li><a href="#donation"><div class="circle"></div></a></li>
+			  <li><a href="#card-issue"><div class="circle"></div></a></li>
+			  <li><a href="#event"><div class="circle"></div></a></li>
+			  <li><a href="#footer"><div class="circle"></div></a></li>
+			</ul>
+		</div>
+	  <div class="section" id="account">
 		<div class="row" style="width: 100%;">
 			<div class="col-1"></div>
 			<div class="col-6">
 				<h1>기부와 함께하는</h1>
 				<h1>금융문화, </h1>
 				<h1>GNT와 함께하자!</h1>
-				<button class="section-btn">home</button>
+				<button class="section-btn">account</button>
 			</div>
 			<div class="col-4">
 			</div>
