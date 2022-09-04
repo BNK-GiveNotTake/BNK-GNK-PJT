@@ -13,12 +13,12 @@ public class NoticeDAOImpl implements NoticeDAO{
 		return sqlSession.selectList(NM+"selectNoticeList");
 	}
 	public int getNoticeCount() {
-		return sqlSession.selectOne(NM+"updateNoticeCount");
+		return sqlSession.selectOne(NM+"selectNoticeAmount");
 	}
 	public Notice getNoticeDetail(int noticeId) {
 		return sqlSession.selectOne(NM+"selectNoticeDetail", noticeId);
 	}
 	public int addNoticeCount(int noticeId) {
-		return sqlSession.update(NM+"selectNoticeAmount", noticeId);
+		return sqlSession.update(NM+"updateNoticeCount", noticeId);
 	}
 }
