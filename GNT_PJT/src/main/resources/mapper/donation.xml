@@ -35,7 +35,7 @@
 		donation
 		order by CREATE_TIME desc
 		)
-		where rownum <= 20]]>
+		where rownum <= 15]]>
 		<!-- TITLE,CREATE_TIME,END_TIME -->
 	</select>
 	<select id="selectDonationPage" parameterType="int" resultType="Donation">
@@ -52,7 +52,7 @@
 		donation
 		order by CREATE_TIME desc
 		))
-        Where rn between 20*(#{k}-1)+1 and 20*#{k}
+        Where rn between 15*(#{k}-1)+1 and 15*#{k}
 	</select>
 	<select id="selectCategoryPage" parameterType="int" resultType="Donation">
 		
