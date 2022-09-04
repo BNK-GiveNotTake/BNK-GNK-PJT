@@ -58,6 +58,7 @@
 				url: '../getNoticeList.do',
 				data: {},
 				success: function(res) {
+					console.log(res)
 					notices = res.notice
 					$('.table-body').empty();
 					$.each(notices, function(index, item) {
