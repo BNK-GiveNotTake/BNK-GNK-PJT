@@ -62,7 +62,7 @@ class CardMyBatisTest {
 		SqlSession session = factory.openSession();
 		
 		Account account = new Account("4223616120041","1234567890123456",""); // account 집어넣기
-		int result = session.update("ns.sql.CardMapper.updateCardToAcc", account);
+		int result = session.update("ns.sql.CardMapper.updateCardIdOnAccount", account);
 		
 		System.out.println("Card Test :: updateCardToAcc? ----------> "+result);
 		session.commit();
@@ -124,7 +124,7 @@ class CardMyBatisTest {
 		SqlSession session = factory.openSession();
 		
 		String cardId = "1111111111111111"; // 카드번호
-		int result = session.update("ns.sql.CardMapper.updateCardIssued", cardId);
+		int result = session.update("ns.sql.CardMapper.updateCardIsIssued", cardId);
 		
 		System.out.println("Card Test :: updateCardIssued? ----------> "+result);
 		session.commit();

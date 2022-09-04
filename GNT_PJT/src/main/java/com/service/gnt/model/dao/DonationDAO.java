@@ -1,25 +1,20 @@
 package com.service.gnt.model.dao;
-
 import java.util.List;
 import java.util.Map;
-
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.donation.Donation;
-
 public interface DonationDAO {
-	
-	List<Donation> select1();
-	List<Donation> select2(int categoryId);
-	List<Donation> select2_1(int k);
-	Donation select3(String donationId);
-	int update1(Donation donation);
-	int update2(Account account);
+	List<Donation> getDonationAsk();
+	List<Donation> getCategoryPage(int categoryId);
+	List<Donation> getDonationPage(int k);
+	Donation getDoantionDetail(String donationId);
+	int modifyDonationAmount(Donation donation);
+	int modifyMileage(Account account);
 	Account getAccountByUserId(int userId);
 	String getAccIdByUserId(int userId);
 	Account getAccount(String accId);
-	Account setAccountToUpdate(int userId, int donationAmount);
-	int addMilege(int donationAmount, int userId);
-	int addDonaHistory(String donationId, int donationAmount, int userId);
-
+	Account modifyMileage(int userId, int donationAmount);
+	int addMileageThruDonation(int donationAmount, int userId);
+	int addDonationHistory(String donationId, int donationAmount, int userId);
 	
 }

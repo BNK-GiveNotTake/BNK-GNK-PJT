@@ -1,6 +1,13 @@
 @charset "utf-8";
 
 @font-face {
+    font-family: 'Katuri';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Happiness-Sans-Title';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2') format('woff2');
     font-weight: normal;
@@ -8,12 +15,12 @@
 }
 
 body:after {
-  mix-blend-mode: multiply;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 38.25%);
-  text-align: center;  
+	mix-blend-mode: multiply;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translate(-50%, 38.25%);
+	text-align: center;  
 }
 
 .success {
@@ -56,6 +63,7 @@ body:after {
 	font-weight: bold;
 	color: white;
 }
+
 
 /* 사진 */
 
@@ -106,36 +114,33 @@ body:after {
 }
 
 .donation_detail_title {
-	font-family: 'Happiness-Sans-Title';
+	font-family: 'Katuri';
 	font-weight: bold;
+	font-size: xx-large;
 }
 
 .donation_detail_category {
-	font-family: 'Happiness-Sans-Title';
+	font-family: 'Katuri';
 	font-weight: bold;
 	font-size: x-large;
 }
 
 .donation_detail_organization {
+	color: #AD7D52;
+	font-family: 'Katuri';
 	text-align: end;
 	font-size: large;
-    font-weight: bold;
-}
-
-.card__logo {
-	width: 7%;
-    margin-right: 0.5rem;
-    margin-left: 0.5rem;
+    font-weight: 300;
 }
 
 .donation_detail_content {
+	font-family: 'Katuri';
 	margin-top: 2rem;
 	overflow: visible;
 	height: 70%;
 }
 
 .content-title {
-	font-weight: bold;
 	margin-bottom: 1rem;
 }
 
@@ -151,7 +156,7 @@ body:after {
   border-radius: 4px;
   border: none;
   box-sizing: border-box;
-  background: #fff;
+  background-color: #fff2c61c;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -180,37 +185,37 @@ body:after {
 }
 
 .donation_detail_date {
-	font-family: 'Happiness-Sans-Title';
-	font-size: x-large;
-	font-weight: bold;
+	font-family: 'Katuri';
+	font-size: xx-large;
+	font-weight: 300;
     position: relative;
     top: 2%;
 }
 
 .donation_detail_amount {
-	font-family: 'Happiness-Sans-Title';
+	font-family: 'Katuri';
 	font-size: large;
-	font-weight: bold;
+	font-weight: 300;
 }
 .donation_detail_limit {
-	font-family: 'Happiness-Sans-Title';
+	font-family: 'Katuri';
 	font-size: large;
-	font-weight: bold;
+	font-weight: 300;
 }
 
 /* arrow */
 .arrow{
     position: relative;
     left: 15%;
-    transform: translate(0%,110%);
+    transform: translate(0%,90%);
     display: flex;
 }
 .arrow span{
     display: block;
     width: 20px;
     height: 20px;
-    border-bottom: 5px solid rgba(0, 240, 240, 0.9);
-    border-right: 5px solid rgba(0, 240, 240, 0.9);
+    border-bottom: 5px solid #ffbf2b;
+    border-right: 5px solid #ffd982;
     transform: rotate(-45deg);
     margin: -25px;
     animation: animate 2s infinite;
@@ -248,8 +253,9 @@ body:after {
 /* 기부 버튼 */
 
 .fingerbtn	 {
+	font-family: 'Katuri';
 	align-items: center;
-	background: rgba(0, 240, 240, 0.9);
+	background: #ffd982;
 	border-radius: 40px;
 	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 	display: flex;
@@ -257,8 +263,8 @@ body:after {
 	justify-content: center;
 	position: relative;
 	width: 200px;
-	font-size: x-large;
-	font-weight: bold;
+	font-size: xx-large;
+    font-weight: 300;
 	margin: 3rem auto;
 	cursor: pointer;
 }

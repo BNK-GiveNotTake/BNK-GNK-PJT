@@ -28,7 +28,7 @@
 	 </resultMap>
 
 
-	<select id="DonationAsk" parameterType="string" resultType="Donation">
+	<select id="selectDonationAsk" parameterType="string" resultType="Donation">
 		<![CDATA[
 		select * from (
 		select DONATION_ID,CATEGORY_ID,DONATION_LIMIT,DONATION_AMOUNT,TITLE,IMAGE_URI,ORGANIZATION from
@@ -38,8 +38,7 @@
 		where rownum <= 20]]>
 		<!-- TITLE,CREATE_TIME,END_TIME -->
 	</select>
-	
-	<select id="DonationPage" parameterType="int" resultType="Donation">
+	<select id="selectDonationPage" parameterType="int" resultType="Donation">
 		select DONATION_ID,CATEGORY_ID,title, ORGANIZATION,
 		ORGANIZATION_DESCRIPT,IMAGE_URI, SECTION1_TITLE, SECTION1,SECTION2_TITLE, SECTION2,
 		SECTION3_TITLE,SECTION3, SECTION4_TITLE, SECTION4, SECTION5_TITLE, SECTION5,CREATE_TIME
@@ -55,8 +54,7 @@
 		))
         Where rn between 20*(#{k}-1)+1 and 20*#{k}
 	</select>
-	
-	<select id="CategoryPage" parameterType="int" resultType="Donation">
+	<select id="selectCategoryPage" parameterType="int" resultType="Donation">
 		
 		select * from (
 		select * from
@@ -65,40 +63,31 @@
 		)
 		WHERE CATEGORY_ID = #{categoryId}	
 	</select>
-	
-	<select id="detailDonation" parameterType="String" resultType="Donation">
+	<select id="selectDonationDetail" parameterType="String" resultType="Donation">
 		select * from donation
 		WHERE DONATION_ID = #{donationId}	
 	</select>
-	
-	
-	<select id="findAccIdByUserId" parameterType="String" resultType="Donation">
+	<select id="selectAccIdByUserId" parameterType="String" resultType="Donation">
 		select ACC_ID from users
 		WHERE USER_ID = #{userId}	
 	</select>	<!--아마 안쓸듯 -->
-	
-	
-	
-	<update id="UpdateDonaAmount" parameterType="Donation">
+	<update id="updateDonationAmount" parameterType="Donation">
 		UPDATE
 		DONATION
 		SET DONATION_AMOUNT = DONATION_AMOUNT+#{donationAmount}
 		WHERE DONATION_ID = #{donationId}
 	</update>
-	
-	<update id="UpdateMileage" parameterType="ACCOUNT">
+	<update id="updateMileage" parameterType="ACCOUNT">
 		UPDATE
 		ACCOUNT
 		SET MILEAGE = #{mileage}
 		WHERE ACC_ID = #{accId}
 	</update>
-	
-	<insert id="DonationHistory" parameterType="DonationHistory">
+	<insert id="insertDonationHistory" parameterType="DonationHistory">
 
 		INSERT INTO
 		DONATION_HISTORY (DONATION_HISTORY_ID, DONATION_ID, USER_ID, CREATE_TIME, AMOUNT)
 		VALUES (DONATION_HISTORY_SEQ.nextVal, #{donationId}, #{userId}, SYSDATE, #{donationAmount})
 	</insert>
-	
 	
 </mapper>

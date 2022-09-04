@@ -1,11 +1,7 @@
 package com.service.gnt.domain.users;
-
-
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.event.Quiz;
-
 public class Users {
-	
 	private int userId;
 	private String accId;
 	private String userName;
@@ -17,17 +13,12 @@ public class Users {
 	private int totalDonation;
 	private int quizId;
 	private String isQuizParticipate; // BOOLEAN
-	
 	public Users() {}
-	
 	public Users(String userEmail, String userName, String userPassword) {
 		this.userEmail = userEmail;
 		this.userName = userName;
 		this.userPassword = userPassword;
 	}
-
-	
-	
 	public Users(int userId, String accId, String userNameEng, String address, String phone) {
 		super();
 		this.userId = userId;
@@ -36,9 +27,6 @@ public class Users {
 		this.address = address;
 		this.phone = phone;
 	}
-	
-	
-
 	public Users(int userId, String accId, String userName, String userNameEng, String userEmail, String userPassword,
 			String address, String phone) {
 		super();
@@ -51,7 +39,6 @@ public class Users {
 		this.address = address;
 		this.phone = phone;
 	}
-
 	public Users(int userId, String accId, String userName, String userEmail, String userPassword, String address,
 			int totalDonation, int quizId, String isQuizParticipate) {
 		super();
@@ -65,7 +52,6 @@ public class Users {
 		this.quizId = quizId;
 		this.isQuizParticipate = isQuizParticipate;
 	}
-	
 	public Users(int userId, String accId, String userName, String userNameEng, String userEmail, String userPassword,
 			String address, String phone, int totalDonation, int quizId, String isQuizParticipate) {
 		super();
@@ -81,102 +67,76 @@ public class Users {
 		this.quizId = quizId;
 		this.isQuizParticipate = isQuizParticipate;
 	}
-
-	
-	
 	public String getAccId() {
 		return accId;
 	}
-
 	public void setAccId(String accId) {
 		this.accId = accId;
 	}
-
 	public String getUserphone() {
 		return phone;
 	}
-
 	public void setUserphone(String phone) {
 		this.phone = phone;
 	}
-
 	public int getUserId() {
 		return userId;
 	}
-
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-
 	public String getUserName() {
 		return userName;
 	}
-
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
 	public String getUserEmail() {
 		return userEmail;
 	}
-
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-
 	public String getUserPassword() {
 		return userPassword;
 	}
-
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
-
 	public String getAddress() {
 		return address;
 	}
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
 	public int getTotalDonation() {
 		return totalDonation;
 	}
-
 	public void setTotalDonation(int totalDonation) {
 		this.totalDonation = totalDonation;
 	}
-
 	public int getQuiz() {
 		return quizId;
 	}
-
 	public void setQuiz(int quizId) {
 		this.quizId = quizId;
 	}
-
 	public String getIsQuizParticipate() {
 		return isQuizParticipate;
 	}
-
 	public void setIsQuizParticipate(String isQuizParticipate) {
 		this.isQuizParticipate = isQuizParticipate;
 	}
 	public String getUserEngName() {
 		return userNameEng;
 	}
-
 	public void setUserEngName(String userNameEng) {
 		this.userNameEng = userNameEng;
 	}
-
-	@Override
 	public String toString() {
 		return "Users [userId=" + userId + ", accId=" + accId + ", userName=" + userName + ", userNameEng="
 				+ userNameEng + ", userEmail=" + userEmail + ", userPassword=" + userPassword + ", address=" + address
 				+ ", phone=" + phone + ", totalDonation=" + totalDonation + ", quizId=" + quizId + ", isQuizParticipate="
 				+ isQuizParticipate + "]";
 	}
-
 }
