@@ -54,6 +54,9 @@
 							icon: "info",
 							buttons: true,
 						})
+						.then((val) => {
+							location.href = "../Main/Main.jsp"
+						})
 					} else {
 						if (res.card!=null) {
 							Card = res.card

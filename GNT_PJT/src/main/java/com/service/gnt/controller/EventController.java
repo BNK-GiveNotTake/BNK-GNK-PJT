@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,12 +14,12 @@ import com.service.gnt.domain.event.Quiz;
 import com.service.gnt.model.service.EventService;
 @Component
 @RestController
-public class EventController {
+public class EventController implements CommandLineRunner{
 	@Autowired ServletContext servletContext;
 	@Autowired
 	private EventService eventService;
 	@GetMapping("checkedQuiz.do")
-	public Map<String, String> checkedQuiz (String userId) throws Exception {
+	public Map<String, String> checkedQuiz (int userId) throws Exception {
 		Map<String, String> result = new HashMap<String, String>();
 		String check = eventService.checkQuizPlayed(userId);
 		if (check.equals("1")) {
@@ -30,7 +31,7 @@ public class EventController {
 		return result;
 	}
 	@GetMapping("getQuiz.do")
-	public Map<String, Object> getQuiz (String userId) throws Exception {
+	public Map<String, Object> getQuiz (int userId) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Quiz quiz;
 									
@@ -45,7 +46,7 @@ public class EventController {
 		return result;
 	}
 	@GetMapping("submitAnswer.do")
-	public Map<String, Object> submitAnswer (String userId, String userAnswer) throws Exception {
+	public Map<String, Object> submitAnswer (int userId, String userAnswer) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		int answer = eventService.getQuizAnswer(userId);
 		if (answer == Integer.parseInt(userAnswer)) {
@@ -59,15 +60,27 @@ public class EventController {
 		}
 		return result;
 	}
+	@GetMapping("checkedRoulette.do")
+	public Map<String, String> checkedRoulette (int userId) throws Exception {
+		Map<String, String> result = new HashMap<String, String>();
+		String check = eventService.checkRoulettePlayed(userId);
+		if (check.equals("1")) {
+			result.put("message", "no"); // 이미 돌렸어
+		}
+		else {
+			result.put("message", "yes"); // 안 돌렸어
+		}
+		return result;
+	}
 	@GetMapping("getRouletteWinner.do")
-	public Map<String, String> getRouletteWinner (String userId) throws Exception {
+	public Map<String, String> getRouletteWinner (int userId) throws Exception {
 		Map<String, String> result = new HashMap<String, String>();
 												
   
 		int winner = (int)servletContext.getAttribute("winner");
 		System.out.println("EventController :: "+winner);
-		if (userId.equals(winner)) {
-			// 어떻게 이벤트 상품 줄래!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		eventService.expressRoulette(userId);
+		if (userId == winner) {
 			result.put("message", "yes");
 		}
 		else {
@@ -79,9 +92,9 @@ public class EventController {
 	@Scheduled(cron = "0 0 0 * * *")
 	public void doSchedule() throws Exception {
 		// 퀴즈 리셋
-		eventService.resetQuiz();
+		eventService.resetEvent();
 		// 돌림판 추첨 -- user가 삭제될 수도 있으니, null이 아닐 때까지 계속 반복(삭제는 안 하는 걸로.)
-		List<Integer> user = eventService.resetRoullete();
+		List<Integer> user = eventService.resetRoulette();
 		int winner = 0;
 		Collections.shuffle(user);
 		winner = user.get(0);
@@ -89,4 +102,17 @@ public class EventController {
 		//int result = (int)servletContext.getAttribute("winner");
 		//System.out.println("scheduler :: "+result);
 	}
+	// 서버가 구동될 때 실행
+	@Override
+	public void run(String... args) throws Exception {
+		
+		eventService.resetEvent();
+		List<Integer> user = eventService.resetRoulette();
+		int winner = 0;
+		Collections.shuffle(user);
+		winner = user.get(0);
+		servletContext.setAttribute("winner", winner);
+		
+	}
 }
+

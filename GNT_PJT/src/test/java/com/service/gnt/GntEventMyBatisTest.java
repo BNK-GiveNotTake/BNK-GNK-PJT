@@ -198,4 +198,22 @@ class EventMyBatisTest {
 			System.out.println("Event Test :: selectAllUserId? ----------> "+userId+" (List)");
 		}
 	}
+	
+	
+	
+	
+	@Test
+	void updateRouletteUserTest() throws Exception {
+		
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+		SqlSession session = factory.openSession();
+		
+		int result = session.update("ns.sql.EventMapper.updateRouletteUser");
+		
+		System.out.println("Event Test :: updateRouletteUser? ----------> "+result);
+		
+	}
+	
 }
