@@ -1,75 +1,21 @@
 @charset "utf-8";
 
 @font-face {
-    font-family: 'Happiness-Sans-Title';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'Katuri';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
-.container h2 {
+.title {
 	font-family: 'Katuri';
-	margin-top: 2rem;
-    margin-left: 2.3rem;
-    margin-bottom: 2rem;
+	margin-bottom: 2rem;
 }
 
-.responsive-table li {
-	padding: 30px;
-	display: flex;
-	justify-content: space-between;
-}
 
-.responsive-table .table-header {
-	background-color: #b6b6b6;
-	border-radius: 10px;
-	color: white;
-	font-size: large;
-	font-weight: bold;
-	text-transform: uppercase;
-	letter-spacing: 0.03em;
-}
 
-.responsive-table .table-row {
-	border-bottom: 1px solid #c4c4c4;
-	cursor: pointer;
-}
 
-@media all and (max-width: 767px) {
-  .responsive-table .table-header {
-    display: none;
-  }
-  .responsive-table li {
-    display: block;
-  }
-  .responsive-table .col {
-    flex-basis: 100%;
-  }
-  .responsive-table .col {
-    display: flex;
-    padding: 10px 0;
-  }
-  .responsive-table .col:before {
-    color: #6C7A89;
-    padding-right: 10px;
-    content: attr(data-label);
-    flex-basis: 50%;
-    text-align: right;
-  }
-}
 
-#notice-content {
-	width: 100%;
-	background-color: #FBFAFB;
-    padding: 5rem 8rem;
-}
 
 
 

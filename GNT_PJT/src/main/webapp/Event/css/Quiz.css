@@ -1,76 +1,83 @@
 @charset "utf-8";
 
 @font-face {
-    font-family: 'Happiness-Sans-Title';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'Katuri';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
-.container h2 {
+.title {
 	font-family: 'Katuri';
-	margin-top: 2rem;
-    margin-left: 2.3rem;
-    margin-bottom: 2rem;
+	margin-bottom: 2rem;
+	text-align: center;
+	font-size: xxx-large;
 }
 
-.responsive-table li {
-	padding: 30px;
-	display: flex;
-	justify-content: space-between;
+.quiz {
+	width: 70%;
+    margin: auto;
 }
 
-.responsive-table .table-header {
-	background-color: #b6b6b6;
-	border-radius: 10px;
-	color: white;
-	font-size: large;
-	font-weight: bold;
-	text-transform: uppercase;
-	letter-spacing: 0.03em;
+.quiz-question {
+	font-family: 'Katuri';
+	font-size: x-large;
+	font-bold: 100;
 }
 
-.responsive-table .table-row {
-	border-bottom: 1px solid #c4c4c4;
-	cursor: pointer;
+.quiz-image {
+	text-align: center;
 }
 
-@media all and (max-width: 767px) {
-  .responsive-table .table-header {
-    display: none;
-  }
-  .responsive-table li {
-    display: block;
-  }
-  .responsive-table .col {
-    flex-basis: 100%;
-  }
-  .responsive-table .col {
-    display: flex;
-    padding: 10px 0;
-  }
-  .responsive-table .col:before {
-    color: #6C7A89;
-    padding-right: 10px;
-    content: attr(data-label);
-    flex-basis: 50%;
-    text-align: right;
-  }
-}
-
-#notice-content {
+.quiz-image img {
 	width: 100%;
-	background-color: #FBFAFB;
-    padding: 5rem 8rem;
 }
 
+
+.answer {
+	width: 220px;
+    height: 220px;
+    border-radius: 20px;
+    border: 10px solid black;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Katuri';
+    font-size: x-large;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.answer-1 {
+	background-color: #df75a5;
+}
+
+.answer-2 {
+	background-color: #ffe07d;
+}
+
+.answer-3 {
+	background-color: #b3e59f;
+}
+
+.answer-4 {
+	background-color: #90d8f9;
+}
+
+
+.quiz-btn {
+	font-family: 'Katuri';
+    font-size: x-large;
+    padding: 0.3rem 1.5rem;
+    border: none;
+    border-radius: 30px;
+    background: #42454c;
+    color: white;
+}
 
 
 /* loading 화면 */

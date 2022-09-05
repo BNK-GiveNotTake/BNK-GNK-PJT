@@ -21,12 +21,24 @@
 		});
 		
 		$(function() {
-			$('.nav').css('background-color', '#ffadad');
+			var account = JSON.parse(localStorage.getItem('account'));
 			var userInfo = JSON.parse(localStorage.getItem('user'));
+			if (userInfo==null) {
+				$('.small-text').text('환영합니다.')
+				$('.animated-text span').text('로그인 부탁드립니다.')
+				$('.animated-info').css('display', 'none');
+				$('.main_btn_list').css('display', 'none');
+				$('.mileage-shop').css('display', 'none');
+				$('.mileage-history').css('display', 'none');
+				$('#main').css('height', '100vh')
+			} else {
+				getMileageHistory()
+			}
+			
 			$('#exampleInputKoreaName').val(userInfo.userName);
 			$('.small-text-name').text(userInfo.userName);
 			$('.item .inner').click(function() {
-				var amount = $(this).val();
+				var amount = $(this).attr('value');
 				swal({
 					title: "정말로 구매하시겠습니까?",
 					text: "한 번 구매하시면, 청약철회 불가능합니다.",
@@ -36,41 +48,50 @@
 				.then((value) => {
 					if (value==true) {
 						var userInfo = JSON.parse(localStorage.getItem('user'));
-						console.log(userInfo);
-						$.ajax({
-							type: 'post',
-							url: '../addMile.do',
-							data: {
-								'amount': amount,
-								'userId': userInfo.userId,
-							},
-							success: function(res) {
-								if(res.message=='yes') {
-									console.log(res);
-									var accountInfo = new Object();
-									$.each(res.account, function(index, item) {
-										if (item===null) {
-											
-										} else {
-											accountInfo[index] = item;
-										}
-									})
-									localStorage.setItem('account', JSON.stringify(accountInfo));
-									swal({
-										title: "Good job!",
-										text: "성공적으로 마일리지를 구매했습니다.",
-										icon: "success",
-										button: "확인!",
-									})
-									.then((value) => {
-										location.href="../Main/Main.jsp";
-									})
+						var account = JSON.parse(localStorage.getItem('account'));
+						if (account.isMileage=='0') {
+							swal({
+								title: "마일리지 계좌 문제",
+								text: "마일리지 구매에 앞서 마일리지 계좌를 개설하세요.",
+								icon: "warning",
+								button: true,
+							})
+						} else {
+							$.ajax({
+								type: 'post',
+								url: '../addMile.do',
+								data: {
+									'amount': amount,
+									'userId': userInfo.userId,
+								},
+								success: function(res) {
+									if(res.message=='yes') {
+										console.log(res);
+										var accountInfo = new Object();
+										$.each(res.account, function(index, item) {
+											if (item===null) {
+												
+											} else {
+												accountInfo[index] = item;
+											}
+										})
+										localStorage.setItem('account', JSON.stringify(accountInfo));
+										swal({
+											title: "Good job!",
+											text: "성공적으로 마일리지를 구매했습니다.",
+											icon: "success",
+											button: "확인!",
+										})
+										.then((value) => {
+											location.href="../Main/Main.jsp";
+										})
+									}
+								},
+								error: function(err) {
+									console.log(err);
 								}
-							},
-							error: function(err) {
-								console.log(err);
-							}
-						})
+							})
+						}
 						
 					} else {
 						
@@ -91,9 +112,16 @@
 			    if ( event.keyCode == 27 || event.which == 27 ) {
 			    	$('.modal').removeClass('show')
 			    	$('.modal').css('display', 'none')
-			    	$('.modal-backdrop').remove()
+			    	$('body').removeClass('modal-open')
 			    };
 			});
+			
+			$('.x-mark').click(function() {
+				$('.modal').removeClass('show')
+		    	$('.modal').css('display', 'none')
+		    	$('.modal-backdrop').remove()
+		    	$('body').removeClass('modal-open')
+			})
 			
 			$('#mileage-btn').click(function() {
 				swal({
@@ -222,6 +250,11 @@
 										$('#mileage-btn').css('display', 'none');
 										$('#account-btn').css('width', '90%');
 									}
+									if (accountInfo.isMileage==0) {
+										$('.mileage-history').css('display', 'none')
+									} else {
+										
+									}
 								}
 							},
 							error: function(err) {
@@ -264,11 +297,47 @@
 		      });
 		}
 		
+		function getMileageHistory() {
+			var userInfo = JSON.parse(localStorage.getItem('user'))
+			$.ajax({
+				type: 'post',
+				url: '../getMileHistory.do',
+				data: {
+					'userId': userInfo.userId
+				},
+				success: function(res) {
+					mileageHistory = res.mileageHistory
+					var cnt = 1;
+					$.each(mileageHistory, function(index, item) {
+						$('.fl-table tbody').append(
+							'<tr>' +
+					            '<td>'+cnt+'</td>' +
+					            '<td style=line-height:1.5;>'+item.createTime+'</td>' +
+					            '<td>'+item.mileageAmount+' MP</td>' +
+					            '<td>'+item.mileageContent+'</td>' +
+					        '</tr>'
+						);
+						cnt += 1
+					})
+					/*
+					<tr>
+			            <td>Content 1</td>
+			            <td>Content 1</td>
+			            <td>Content 1</td>
+			            <td>Content 1</td>
+			        </tr>
+			        */
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		}
+		
 		var passNum = "";
 		var passIdx = 0;
 		
 		$(function() {
-			
 			$('.pass-num').click(function() {
 				var txt = $(this).text();
 				if (txt=='확인') {
@@ -289,6 +358,13 @@
 						$('.pass-box').eq(2).text("*");
 					} else if (passIdx == 3) {
 						$('.pass-box').eq(3).text("*");
+					} else if (passIdx >= 4) {
+						swal({
+							title: "비밀번호 오류",
+							text: "이미 4자리를 모두 작성하셨습니다.\n 변경을 위해 초기화 버튼을 클릭해주세요.",
+							icon: "warning",
+							button: true,
+						})
 					}
 					passNum += txt;
 					passIdx += 1;
@@ -312,9 +388,9 @@
 	    	<div class="row">
 	            <div class="col-7 d-flex align-items-center">
 	                <div class="about-text">
-	                    <h5 class="small-text" style="font-family: 'Happiness-Sans-Title';">환영합니다.&nbsp;<span class="small-text-name"></span>&nbsp;고객님!!</h5>
+	                    <h5 class="small-text">환영합니다.&nbsp;<span class="small-text-name"></span>&nbsp;고객님!!</h5>
 	                    <h1 class="animated animated-text">
-	                        <span class="mr-2" style="font-family: 'Happiness-Sans-Title';">현재 금액은</span>
+	                        <span class="mr-2">현재 금액은</span>
                             <div class="animated-info">
                                 <span class="animated-item">연동 계좌 : <span class="account-amount">0</span>원</span>
                                 <span class="animated-item">마일리지 : <span class="mileage-amount">0</span>원</span>
@@ -324,9 +400,9 @@
 	                    <p style="font-family: 'Happiness-Sans-Title';">기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크</p>
 	                    <p style="font-family: 'Happiness-Sans-Title';">기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크</p>
 	                    <br><br>
-	                    <div class="d-flex main_btn_list">
-							<button class="btn-slide-line" id="account-btn" style="width: 40%; margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal">계좌 관리</button>
-							<button class="btn-slide-line" id="mileage-btn" style="width: 40%;">마일리지 생성</button>
+	                    <div class="main_btn_list">
+							<button class="btn-slide-line" id="account-btn" style="font-size: x-large; width: 40%; font-weight: normal; margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal">계좌 관리</button>
+							<button class="btn-slide-line" id="mileage-btn" style="font-size: x-large; width: 40%; font-weight: normal;">마일리지 생성</button>
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							  <div class="modal-dialog" role="document">
@@ -366,22 +442,26 @@
 							          </svg>
 							        </div>
 							        <div class="column" id="secondary">
-							          <div class="sec-content">
-							          	<h1>계좌 비밀번호</h1>
-							          	<div class="d-flex justify-content-center">
-							          		<div class="pass-box"></div>
-							          		<div class="pass-box"></div>
-							          		<div class="pass-box"></div>
-							          		<div class="pass-box"></div>
-							          	</div>
-							          	<div class="row justify-content-center" style="margin-top: 2rem; padding: 2rem;">
-							          		<c:forEach var="i" begin="0" end="9">
-							          			<div class="col-3 pass-num">${i}</div>
-							          		</c:forEach>
-							          		<div class="col-3 pass-num">초기화</div>
-							          		<div class="col-3 pass-num">확인</div>
-							          	</div>
-							          </div>
+							        	<div style="text-align: end; margin-right: 25px; margin-top: 15px;">
+							        		<img class="x-mark" src="img/x-mark.png" style="width: 10%; cursor: pointer;">
+							        	</div>
+										<div class="sec-content">
+											<h1>계좌 비밀번호</h1>
+											<div class="d-flex justify-content-center">
+												<div class="pass-box"></div>
+												<div class="pass-box"></div>
+												<div class="pass-box"></div>
+												<div class="pass-box"></div>
+											</div>
+											<div class="row justify-content-center" style="margin-top: 2rem; padding: 2rem;">
+												<c:forEach var="i" begin="1" end="9">
+													<div class="col-3 pass-num">${i}</div>
+												</c:forEach>
+												<div class="col-3 pass-num">초기화</div>
+												<div class="col-3 pass-num">0</div>
+												<div class="col-3 pass-num">확인</div>
+											</div>
+										</div>
 							        </div>
 							      </div>
 							    </div>
@@ -399,8 +479,8 @@
 	        </div>
 	    </div>
 	    
-	    <div class="container mileage-shop" style="margin-top: 5rem;padding: 2rem;border: 5px solid #ffd1d1;border-radius: 20px;">
-       		<h3 class="mileage-h3" style="margin-bottom: 3rem;">마일리지 구매</h3>
+	    <div class="container mileage-shop" style="padding: 2rem;">
+       		<h3 class="mileage-h3" style="margin-bottom: 3rem; font-family: 'Katuri';">마일리지 구매</h3>
        		<div class="d-flex justify-content-start">
        			<ul class="items">
 				    <li class="item">
@@ -431,8 +511,25 @@
        		</div>
        		
 	    </div>
-	    <div class="container mileage-history" style="margin-top: 5rem; padding: 3rem;">
+	    <div class="container mileage-history" style="padding: 2rem;">
+	    	<h3 class="mileage-h3" style="margin-bottom: 3rem; font-family: 'Katuri';">마일리지 내역</h3>
+	    	<div class="d-flex justify-content-center">
+		    	<table class="fl-table">
+			        <thead>
+				        <tr>
+				            <th>번&nbsp;&nbsp;호</th>
+				            <th>날&nbsp;&nbsp;짜</th>
+				            <th>금&nbsp;&nbsp;액</th>
+				            <th>내&nbsp;&nbsp;역</th>
+				        </tr>
+			        </thead>
+			        <tbody>
+			        
+			        </tbody>
+			    </table>
+	    	</div>
 	    </div>
+	    <div style="padding: 2.5rem;"></div>
 	</div>
 </body>
 </html>

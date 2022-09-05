@@ -9,8 +9,15 @@ body {
     max-width: 1240px;
 }
 
-#main {
-	background-color: #ffadad;
+body>#main {
+	background-color: #ffdbdb26;
+}
+
+@font-face {
+    font-family: 'Katuri';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
@@ -21,34 +28,41 @@ body {
 }
 
 .small-text {
-  color: #5b5b5b;
-  font-size: large;
-  font-weight: bold;
-  padding: 8px 16px 8px 0px;
-  border-radius: 50px;
-  letter-spacing: 0.2px;
+	font-family: 'Katuri';
+	color: #5b5b5b;
+	font-size: large;
+	font-weight: bold;
+	padding: 8px 16px 8px 0px;
+	border-radius: 50px;
+	letter-spacing: 0.2px;
 }
 
+.main_btn_list {
+	font-family: 'Katuri';
+	font-weight: 100;
+	display: flex;
+}
 
 .animated {
-  position: relative;
+	font-family: 'Katuri';
+	position: relative;
 }
 
 .animated-info {
-  display: inline-block;
-  vertical-align: top;
-  margin-top: 5px;
-  min-width: 260px;
-  position: relative;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 5px;
+	min-width: 260px;
+	position: relative;
 }
 
 .animated-item {
-  color: #f33e4f;
-  width: 200%;
+	color: #f33e4f;
+	width: 200%;
 }
 
 .animated-item {
-	font-family: 'Happiness-Sans-Title';
+	font-family: 'Katuri';
 	font-size: 2rem;
 	line-height: inherit;
 	display: block;
@@ -94,6 +108,10 @@ body {
   100% {
     opacity: 0;
   }
+}
+
+.account-amount, .mileage-amount {
+	font-size: 2rem;	
 }
 
 button {
@@ -295,15 +313,6 @@ button:hover span {
     margin: 2rem auto 0px;
 }
 
-/* .btn-primary {
-	background: #f1da36; Old browsers
-	background: -moz-linear-gradient(left, #f1da36 0%, #fca86c 99%); FF3.6-15
-	background: -webkit-linear-gradient(left, #f1da36 0%,#fca86c 99%); Chrome10-25,Safari5.1-6
-	background: linear-gradient(to right, #f1da36 0%,#fca86c 99%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1da36', endColorstr='#fca86c',GradientType=1 ); IE6-9
-	Color format:     Comments
-} */
-
 #main-modal .btn-primary {
   width: 100%;
 }
@@ -321,7 +330,7 @@ button:hover span {
 }
 
 .sec-content {
-  margin-top: 20%;
+  margin-top: 12%;
 }
 
 #exampleInputPhone::-webkit-outer-spin-button,
@@ -334,6 +343,9 @@ button:hover span {
 
 .mileage-shop {
 	font-family: 'Happiness-Sans-Title';
+	margin-top: 5rem;
+    border: 5px solid #ffd1d1;
+    border-radius: 20px;
 }
 
 .mileage-h3 {
@@ -346,6 +358,88 @@ button:hover span {
     margin-bottom: 1.5rem;
     font-size: large;
 }
+
+
+.mileage-history {
+	margin-top: 5rem;
+    border: 5px solid #ffd1d1;
+    border-radius: 20px;
+}
+
+/* 히스토리 테이블 */
+.fl-table {
+	font-family: 'Katuri';
+    display: block;
+    width: 100%;
+}
+.table-wrapper:before{
+    content: "Scroll horizontally >";
+    display: block;
+    text-align: right;
+    font-size: 11px;
+    color: white;
+    padding: 0 0 10px;
+}
+.fl-table thead, .fl-table tbody, .fl-table thead th {
+    display: block;
+}
+.fl-table thead th:last-child{
+    border-bottom: none;
+}
+.fl-table thead {
+    float: left;
+}
+.fl-table tbody {
+    width: auto;
+    position: relative;
+    overflow-x: auto;
+    line-height: 3;
+}
+.fl-table td, .fl-table th {
+    padding: 20px .625em .625em .625em;
+    height: 80px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 120px;
+    font-size: 13px;
+    text-overflow: ellipsis;
+}
+.fl-table thead th {
+    text-align: center;
+    font-size: large;
+    border-bottom: 1px solid #f7f7f9;
+	line-height: 2.3;
+}
+.fl-table thead th:nth-child(odd) {
+    background: #ff8181;
+}
+.fl-table thead th:nth-child(even) {
+    background: #e45656;
+}
+.fl-table tbody tr {
+    display: table-cell;
+}
+.fl-table tbody tr:nth-child(odd) {
+    background: none;
+}
+.fl-table tr:nth-child(even) {
+    background: transparent;
+}
+.fl-table tr td:nth-child(odd) {
+    background: #FFFAFA;
+    border-right: 1px solid #E6E4E4;
+}
+.fl-table tr td:nth-child(even) {
+	background: #ffffff;
+    border-right: 1px solid #E6E4E4;
+}
+.fl-table tbody td {
+    display: block;
+    text-align: center;
+}
+
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400);
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
@@ -446,15 +540,16 @@ figure.snip1390 blockquote:before {
 }
 
 .inner {
-  background-color: #fff;
-  width: 170px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 170px;
-  box-shadow: 0 40px 80px #FBE4E0;
-  border-radius: 14px;
-  cursor: pointer;
+	font-family: 'Katuri';
+	background-color: #fff;
+	width: 170px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 170px;
+	box-shadow: 5px 5px 10px #fbe4e0;
+	border-radius: 14px;
+	cursor: pointer;
 }
 
 .name {

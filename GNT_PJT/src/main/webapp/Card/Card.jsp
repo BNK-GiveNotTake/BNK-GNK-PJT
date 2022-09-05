@@ -35,7 +35,10 @@
 		});
 		
 		$(function() {
+			$('body').css('height', '100%').css('background-color', '#bee7df29')
+			
 			var userInfo = JSON.parse(localStorage.getItem('user'));
+			/* 카드 조회 */
 			$.ajax({
 				type: 'get',
 				url: '../selectCard.do',
@@ -69,13 +72,32 @@
 							$('.emo').css('background-color', '#'+Card.bgFront);
 							$('.card__number').text(Card.cardId.substr(0, 4)+' '+Card.cardId.substr(4, 4)+' '+Card.cardId.substr(8, 4)+' '+Card.cardId.substr(12, 4));
 							$('.card__ccv').text(Card.cvc);
-							$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/"+today.getMonth());
+							if (String(today.getMonth()).length==1) {
+								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/0"+today.getMonth());
+							} else {
+								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/"+today.getMonth());								
+							}
 							$('.front .card__content').css("font-family", Card.fontFront).css('color', Card.fontColorFront);
 							$('.back .card__ccv').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
 							$('.back .card__owner').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
 							$('.back .card__expiry-date').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
 							$('.back .card__number').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
-						} 
+						} else {
+							var today = new Date();
+							if (String(today.getMonth()).length==1) {
+								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/0"+today.getMonth());
+							} else {
+								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/"+today.getMonth());								
+							}
+							$('.card__ccv').text("000").css('color', 'white');
+							$('.card__number').text("0000 0000 0000 0000");
+							data = {}
+							data.cardId = 'null';
+							localStorage.setItem('Card', JSON.stringify(data))
+						}
+						
+						$('.card__owner').text(userInfo.userEngName)
+						
 					}
 				},
 				error: function(err) {
@@ -91,15 +113,28 @@
 		
 		$(function() {
 			Card = JSON.parse(localStorage.getItem('Card'))
-			var isFront = true;
-			var frontFontColor = Card.fontColorFront;
-			var backFontColor = Card.fontColorBack;
-			var frontBackgroundColor = Card.bgFront;
-			var backBackgroundColor = Card.bgBack;
-			var emo = Card.emoId;
-			var frontFont = Card.fontFront;
-			var backFont = Card.fontBack;		
-			var card_content = Card.cardContent;
+			console.log(Card)
+			if (Card==null) {
+				var isFront = true;
+				var frontFontColor = '#ffffff';
+				var backFontColor = '#ffffff';
+				var frontBackgroundColor = 'white';
+				var backBackgroundColor = 'white';
+				var emo = '0';
+				var frontFont = "";
+				var backFont = "";		
+				var card_content = "";
+			} else {
+				var isFront = true;
+				var frontFontColor = Card.fontColorFront;
+				var backFontColor = Card.fontColorBack;
+				var frontBackgroundColor = Card.bgFront;
+				var backBackgroundColor = Card.bgBack;
+				var emo = Card.emoId;
+				var frontFont = Card.fontFront;
+				var backFont = Card.fontBack;		
+				var card_content = Card.cardContent;	
+			}
 			
 			$('.front-card').click(function() {
 				$('#front').removeClass('card--front_small');
@@ -265,11 +300,11 @@
 				var emoInfoTop = ""
 				var emoInfoLeft = ""
 				if (isFront == true) {
-					emoInfoTop = parseInt($('#draggable3').css('top'))
-					emoInfoLeft = parseInt($('#draggable3').css('left'))
+					emoInfoTop = Math.round(parseInt($('#draggable3').css('top'))*100 / 100)
+					emoInfoLeft = Math.round(parseInt($('#draggable3').css('left'))*100 / 100)
 				} else {
-					emoInfoTop = parseInt($('#draggable3').css('top')) * 0.68
-					emoInfoLeft = parseInt($('#draggable3').css('left')) * 0.82
+					emoInfoTop = Math.round((parseInt($('#draggable3').css('top')) * 0.68)*100 / 100)
+					emoInfoLeft = Math.round((parseInt($('#draggable3').css('left')) * 0.82)*100 / 100)
 				}
 				console.log({
 					'userId': userInfo.userId,
@@ -321,12 +356,25 @@
 				var emoInfoTop = ""
 				var emoInfoLeft = ""
 				if (isFront == true) {
-					emoInfoTop = parseInt($('#draggable3').css('top'))
-					emoInfoLeft = parseInt($('#draggable3').css('left'))
+					emoInfoTop = Math.round(parseInt($('#draggable3').css('top'))*100 / 100)
+					emoInfoLeft = Math.round(parseInt($('#draggable3').css('left'))*100 / 100)
 				} else {
-					emoInfoTop = parseInt($('#draggable3').css('top')) * 0.68
-					emoInfoLeft = parseInt($('#draggable3').css('left')) * 0.82
+					emoInfoTop = Math.round((parseInt($('#draggable3').css('top')) * 0.68)*100 / 100)
+					emoInfoLeft = Math.round((parseInt($('#draggable3').css('left')) * 0.82)*100 / 100)
 				}
+				console.log({
+					'userId': userInfo.userId,
+					'bgFront': frontBackgroundColor,
+					'bgBack': backBackgroundColor,
+					'emoId': emo,
+					'emoInfoTop': emoInfoTop,
+					'emoInfoLeft': emoInfoLeft,
+					'fontFront': frontFont,
+					'fontBack': backFont,
+					'fontColorFront': frontFontColor,
+					'fontColorBack': backFontColor,
+					'cardContent': card_content,
+				})
 				$.ajax({
 					type: 'post',
 					url: '../saveCard.do',
@@ -372,7 +420,28 @@
 			})
 			
 			$('.card_reset_btn').click(function() {
+				var today = new Date();
+				if (String(today.getMonth()).length==1) {
+					$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/0"+today.getMonth());
+				} else {
+					$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/"+today.getMonth());								
+				}
+				$('.card__ccv').text("000").css('color', 'white');
+				data = {}
+				data.cardId = 'null';
+				localStorage.setItem('Card', JSON.stringify(data))
+				$('.card--front').css('background-color', '#ffffff');
+				$('.card--back').css('background-color', '#ffffff');
+				$('.front .card__content').text("");
+				$('.front .card__content').css("font-family", "none").css('color', '#ffffff');
 				
+				$('#draggable3').empty();
+				$('.card__number').text("0000 0000 0000 0000");
+				$('.card__ccv').text("000");
+				$('.back .card__ccv').css("font-family", "none").css('color', Card.fontColorBack);
+				$('.back .card__owner').css("font-family", "none").css('color', Card.fontColorBack);
+				$('.back .card__expiry-date').css("font-family", "none").css('color', Card.fontColorBack);
+				$('.back .card__number').css("font-family", "none").css('color', Card.fontColorBack);
 			})
 			
 		});
@@ -541,7 +610,7 @@
 			<div>
 				<div class="d-flex justify-content-between align-items-end" style="border-bottom: 1px solid beige; margin-bottom: 2rem;">
 					<h2 class="title">카드 발급</h2>
-					<div class="d-flex">
+					<div class="d-flex" style="font-family: 'Katuri';">
 						<div id="change-front" class="front-card">
 							앞면
 						</div>
@@ -579,7 +648,7 @@
 								</div>
 							</div>
 						</div>
-						<h5 class="front__hover" style="color: #898989;"><b>앞면</b></h5>
+						<h5 class="front__hover" style="color: #898989; font-weight: bold; font-family: Montserrat;"><b>앞면</b></h5>
 					</div>
 					<div class="back">
 						<div id="back" class="card card--back">
@@ -597,7 +666,7 @@
 								</div>
 							</div>
 						</div>
-						<h5 class="back__hover" style="color: #898989;"><b>뒷면</b></h5>
+						<h5 class="back__hover" style="color: #898989; font-weight: bold; font-family: Montserrat;"><b>뒷면</b></h5>
 					</div>
 				</div>
 				<div class="tabs">
@@ -616,7 +685,7 @@
 				    <section>
 						<h2>Background</h2>
 						<div class="d-flex">
-							<svg id="arrow-before" width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill: #99eb47;">
+							<svg id="arrow-before" width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill: #4fd0b9;">
 							    <g id="prev" transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
 							        <polygon class="arrow" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
 							        <polygon class="arrow-fixed" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
@@ -626,7 +695,7 @@
 							
 							<div id="backGroundColorList" class="d-flex">
 							</div>
-							<svg id="arrow-after" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill: #99eb47;">
+							<svg id="arrow-after" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill: #4fd0b9;">
 							    <g>
 							        <polygon class="arrow" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
 							        <polygon class="arrow-fixed" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
@@ -646,8 +715,10 @@
 							<div class="col-3 d-flex justify-content-around" style="flex-direction: column">
 								<div>
 									<h5><b>8글자 내로 작성하시오.</b></h5>
-									<input type="text" class="content-input" maxlength='8'>
-									<button class="change-content">작성</button>
+									<div class="d-flex justify-content-between">
+										<input type="text" class="content-input" maxlength='8'>
+										<button class="change-content">작성</button>
+									</div>
 								</div>
 								<div>
 									<h5><b>글자색을 정하시오.</b></h5>
@@ -658,7 +729,7 @@
 								</div>
 							</div>
 							<div class="col-9 d-flex">
-								<svg id="arrow-before-font" width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: visible; fill: #99eb47;">
+								<svg id="arrow-before-font" width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: visible; fill: #4fd0b9;">
 								    <g id="prev" transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
 								        <polygon class="arrow" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
 								        <polygon class="arrow-fixed" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
@@ -668,7 +739,7 @@
 								
 								<div id="FontList" class="d-flex">
 								</div>
-								<svg id="arrow-after-font" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: visible; fill: #99eb47;">
+								<svg id="arrow-after-font" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: visible; fill: #4fd0b9;">
 								    <g>
 								        <polygon class="arrow" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
 								        <polygon class="arrow-fixed" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>

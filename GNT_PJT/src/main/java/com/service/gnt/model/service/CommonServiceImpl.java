@@ -18,6 +18,5 @@ public class CommonServiceImpl implements CommonService{
 	}
 	public Users getUserByUserId(int userId) {
 		return commonDAO.getUserByUserId(userId);
-	}
-	
+	}	
 }
