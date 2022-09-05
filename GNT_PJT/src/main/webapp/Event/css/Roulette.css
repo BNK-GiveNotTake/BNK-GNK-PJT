@@ -334,6 +334,20 @@
     transform: rotate(35deg);
 }
 
+.roulette-img3 {
+	width: 12%;
+    position: absolute;
+    left: 5%;
+    bottom: 10%;
+}
+
+.roulette-img4 {
+    width: 15%;
+    position: absolute;
+    right: 12%;
+    top: 14%;
+}
+
 .start-roulette {
 	position: absolute;
     top: 388px;

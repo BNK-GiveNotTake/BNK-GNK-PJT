@@ -32,7 +32,39 @@
 							'userId': userInfo.userId,
 						},
 						success: function(res) {
-							console.log(res)
+							var randomNo = Math.random() * 4
+							randomNo = Math.round(randomNo)
+							if (res.message=='yes') {
+								evenList = [0, 2, 4, 6, 8]
+								$('#roulette').removeAttr('class').addClass("number-"+evenList[randomNo])
+								setTimeout(() => {
+									swal({
+										title: "정답!!",
+										text: "정답입니다! 이벤트 상품은 뭘까요?",
+										icon: "success",
+										button: true,
+									})
+									.then((val) => {
+										location.href="../Event/Event.jsp"
+									})	
+								}, 2500);
+								
+							} else {
+								oddList = [1, 3, 5, 7, 9]
+								$('#roulette').removeAttr('class').addClass("number-"+oddList[randomNo])
+								setTimeout(() => {
+									swal({
+										title: "땡!",
+										text: "아쉽게도 틀렸습니다. 내일 다시 도전해주세요!",
+										icon: "error",
+										button: true,
+									})
+									.then((val) => {
+										location.href="../Event/Event.jsp"
+									})	
+								}, 2500);
+								
+							}
 						},
 						error: function(err) {
 							console.log(err)	
@@ -85,6 +117,8 @@
 				<div>
 					<img src="img/Roulette1.png" class="roulette-img1">
 					<img src="img/Roulette2.png" class="roulette-img2">
+					<img src="img/firework.png" class="roulette-img3">
+					<img src="img/firework2.png" class="roulette-img4">
 					<button class="start-roulette">실행</button>
 				</div>
 				
