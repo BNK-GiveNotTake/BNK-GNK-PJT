@@ -34,6 +34,7 @@
 			});
 		});
 		
+		
 		$(function() {
 			$('body').css('height', '100%').css('background-color', '#bee7df29')
 			
@@ -336,10 +337,9 @@
 						'fontBack': backFont,
 						'fontColorFront': frontFontColor,
 						'fontColorBack': backFontColor,
-						'cardContent': card_content,
+						'cardContent': card_content
 					},
 					success: function(res) {
-						console.log(res)
 						swal({
 							title: "Good job!",
 							text: "성공적으로 카드를 저장했습니다.",
@@ -450,21 +450,19 @@
 		});
 		
 		const gradients = [ 
-		    '00bd56', 'f9fd50',
-		    '26baee', '9fe8fa',
-		    '8f71ff', '8bffff', 
-		    'c7004c', 'ffaaaa',
-		    '55968f', '8acbbb',
-		    '226b80', '35b0ab',
-		    '3d6cb9', '00fff0',
-		    '4d3664', 'bab5f6',
-		    'fa4659', 'e9007f',
-		    '00b7c2', '4ef037',
-		    '303481', 'a100ff',
+		    'ffaaaa', 'c7004c',
+		    'fa4659', 'ff0592',
+		    'e1248f', 'f9fd50', 
 		    'fc8a15', 'fff6a2',
-		    'f9d00f', 'fbff64',
-		    '295e6a', '4797b1',
-		    'ff0592', 'ffbee3',
+		    'f9d00f', 'd39e00',
+		    '26baee', '9fe8fa',
+		    '303481', '226b80',
+		    '3d6cb9', '00bd56',
+		    '55968f', '8acbbb',
+		    '22805b', '26af13',
+		    '651893', '4d3664',
+		    '8f71ff', 'bab5f6',
+		    'a116ab'
 		];
 		
 		const fonts = [
@@ -472,49 +470,76 @@
 			'한컴 울주 반구대 암각화체:울주문화재단:HancomUljuBangudae',
 			'다이어리체:얼리폰트:EarlyFontDiary',
 			'혀니고딕:얼리폰트:EF_hyunygothic',
-			'마초체:얼리폰트:EF_MACHO',
+			'쿠키런:데브시스터즈(주):CookieRun-Regular',
 			'정신차렷체:얼리폰트:EF_WAKEUP',
 			'MICE고딕:한국MICE협회X문화체육관광부:MICEGothic Bold',
 			'조선100년체:조선일보:ChosunCentennial',
 			'밀양영남루체:밀양시:MYYeongnamnu',
 			'읏찬체:OK홀딩스대부(주):OKCHAN',
-			'읏뚱체:OK홀딩스대부(주):OKDDUNG',
 			'평창평화체:평창군:PyeongChangPeace-Bold',
-			'평창평화체:평창군:PyeongChangPeace-Light',
 			'울산중구전용서체:울산광역시중구:ulsanjunggu',
 			'HBIOS-SYS:이민서:HBIOS-SYS',
 			'마비옛체:㈜넥슨코리아:MabinogiClassicR',
-			'Rix이누아리두리네:이두아리두리네X폰트릭스:RixInooAriDuriR',
 			'길벗체 Rainbow:비온뒤무지개재단:GilbeotRainbow',
 			'교보손글씨 2020 박도연:교보문고:KyoboHandwriting2020A',
 			'상주경천섬체:상주시청X투게더그룹:SANGJUGyeongcheonIsland',
 			'KITA:한국무역협회:-KITA-Regular',
 			'레페리포인트 Oblique:레페리X윤디자인:LeferiPoint-WhiteObliqueA',
-			'HS겨울눈꽃체2.0:토끼네활자공장:HSGyeoulNoonkott20',
 			'HS산토끼체:토끼네활자공장:HS-Regular',
 			'강원교육튼튼체:강원도교육청X헤움디자인:GangwonEduPowerExtraBoldA',
 			'강원교육모두체:강원도교육청X헤움디자인:GangwonEdu_OTFBoldA',
 			'수트:SUNN YOUN:SUIT-Medium',
-			'충북대직지체:충북대학교:CBNUJIKJI',
-			'한림고딕체:한림대학교의료원:HallymGothic-Regular',
-			'추사 사랑체:예산군:ChusaLove',
-			'카페24 써라운드:카페24:Cafe24Ssurround',
-			'원스토어 모바일POP체:(주)원스토어:ONE-Mobile-POP',
+			'충북대직지체:충북대학교:CBNUJIKJI'
 		]
 		
 		$(function() {
 			var idx = 0;
 			var fontIdx = 0;
+			var cardInfo = JSON.parse(localStorage.getItem('Card'));
+			var userInfo = JSON.parse(localStorage.getItem('user'));
+			
+			console.log(userInfo)
+			
+			if (userInfo.totalDonation >= 1000000) {
+				new_gradients = gradients
+				new_fonts = fonts
+			} else if (userInfo.totalDonation >= 600000 && userInfo.totalDonation <= 1000000) {
+				new_gradients = gradients.slice(0, 20)
+				new_fonts = fonts.slice(0, 20)
+			} else if (userInfo.totalDonation >= 300000 && userInfo.totalDonation <= 600000) {
+				new_gradients = gradients.slice(0, 15)
+				new_fonts = fonts.slice(0, 16)
+			} else if (userInfo.totalDonation >= 100000 && userInfo.totalDonation <= 300000) {
+				new_gradients = gradients.slice(0, 10)
+				new_fonts = fonts.slice(0, 12)
+			} else {
+				new_gradients = gradients.slice(0, 5)
+				new_fonts = fonts.slice(0, 8)
+			}
+			
+			if (cardInfo.isUniqueColor=="1") {
+				new_gradients.push('ff0000', '524e4e', '8bffff', '4ef037', 'a100ff')
+			}
+			
+			if (cardInfo.isUniqueFont=="1") {
+				new_fonts.push('한림고딕체:한림대학교의료원:HallymGothic-Regular',
+						'추사 사랑체:예산군:ChusaLove',
+						'카페24 써라운드:카페24:Cafe24Ssurround',
+						'원스토어 모바일POP체:(주)원스토어:ONE-Mobile-POP')
+			}
+			
+			console.log(new_gradients)
+			console.log(new_fonts)
+			
 			idx = showBackgroundAfter(idx);
 			
 			$('#arrow-before').click(function() {
 				idx = showBackgroundBefore(idx)
-				
 			})
 			
 			$('#arrow-after').click(function() {
 				idx = showBackgroundAfter(idx)
-				if (idx==30) {
+				if (idx==new_gradients.length) {
 					idx = 0
 				}
 			})
@@ -544,57 +569,57 @@
 			
 			$('#arrow-before-font').click(function() {
 				if (fontIdx==0) {
-					fontIdx = 28
+					fontIdx = new_fonts.length-4
 				} else {
 					fontIdx -= 4
 				}
 				changeFonts(fontIdx)
+				
 			})
 			
 			$('#arrow-after-font').click(function() {
-				if (fontIdx==28) {
+				if (fontIdx==new_fonts.length-4) {
 					fontIdx = 0
 				} else {
 					fontIdx += 4
 				}
 				changeFonts(fontIdx)
 			})
-			
 		})
 		
 		const showBackgroundBefore = function(idx) {
 			$('#backGroundColorList').empty()
 			if (idx==0) {
-				idx = 20
+				idx = new_gradients.length-10
 			} else if (idx==5) {
-				idx = 25
+				idx = new_gradients.length-5
 			} else {
 				idx -= 10
 			}
 			for(var i=idx; i<idx+5;i++){
-				$('#backGroundColorList').append("<li class=item-gradient><div class=gradient style='background-color: #"+gradients[i]+";'></div><p class=start style=color: #"+gradients[i]+";>"+gradients[i]+"</p></li>")
+				$('#backGroundColorList').append("<li class=item-gradient><div class=gradient style='background-color: #"+new_gradients[i]+";'></div><p class=start style=color: #"+new_gradients[i]+";>"+new_gradients[i]+"</p></li>")
 			}
 			return idx + 5
-		}
+		};
 		
 		const showBackgroundAfter = function(idx) {
 			$('#backGroundColorList').empty()
 			for(var i=idx; i<idx+5;i++){
-				$('#backGroundColorList').append("<li class=item-gradient><div class=gradient style='background-color: #"+gradients[i]+";'></div><p class=start style=color: #"+gradients[i]+";>"+gradients[i]+"</p></li>")
+				$('#backGroundColorList').append("<li class=item-gradient><div class=gradient style='background-color: #"+new_gradients[i]+";'></div><p class=start style=color: #"+new_gradients[i]+";>"+new_gradients[i]+"</p></li>")
 			}
 			return idx+5
-		}
+		};
 		
 		const changeFonts = function(fontIdx) {
 			$('#FontList').empty();
 			for(var i=fontIdx; i<fontIdx+4; i++) {
-				font_list = fonts[i].split(':')
+				font_list = new_fonts[i].split(':')
 				var font_name = font_list[0]
 				var font_company = font_list[1]
 				var font_family = font_list[2] 
 				$('#FontList').append("<li class=item-gradient name="+font_family+" style=font-family:"+font_family+"><div style=text-align:center;><p style=font-size:large;>"+font_name+"</p><p>"+font_company+"</p></div><div>GiveNotTake</div></li>")
 			}
-		}
+		};
 		
 	</script>
 <head>
