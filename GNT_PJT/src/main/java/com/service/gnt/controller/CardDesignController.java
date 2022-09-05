@@ -15,6 +15,9 @@ import com.service.gnt.model.service.CardService;
 public class CardDesignController {
 	@Autowired
 	private CardService cardService;
+	
+	
+	
 	// 조회 (시작할 때)
 	@GetMapping("selectCard.do")
 	public Map<String, Object> getCard(int userId) throws Exception{
@@ -53,6 +56,11 @@ public class CardDesignController {
 		}
 		return result;
 	}
+	
+	
+	
+	
+	
 	// 저장 버튼
 	@PostMapping("/saveCard.do")
 	public Map<String, String> saveCard(@RequestParam int userId, Card card) throws Exception{
@@ -99,6 +107,11 @@ public class CardDesignController {
 		}
 		return result;
 	}
+	
+	
+	
+	
+	
 	// 발급 버튼
 	@GetMapping("issueCard.do")
 	public Map<String, String> issueCard(@RequestParam int userId) throws Exception{

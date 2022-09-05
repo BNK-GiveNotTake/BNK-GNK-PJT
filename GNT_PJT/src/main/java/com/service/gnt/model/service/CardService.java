@@ -14,4 +14,7 @@ public interface CardService {
 	void modifyCard(int userId, Card card) throws Exception;
 	void modifyCardIssue(int userId) throws Exception;
 	
+	void modifyIsUniqueColor(int userId) throws Exception;
+	void modifyIsUniqueFont(int userId) throws Exception;
+	
 }

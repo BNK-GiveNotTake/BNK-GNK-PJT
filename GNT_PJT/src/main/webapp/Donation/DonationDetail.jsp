@@ -48,37 +48,50 @@
 								buttons: ["취소", "생성"],
 							})
 							.then((value) => {
-								userInfo = JSON.parse(localStorage.getItem('user'));
-								console.log(userInfo)
-								donationId = localStorage.getItem('DonationDetailId')
-								console.log({
-									'userId': userInfo.userId,
-									'donationId': donationId,
-									'donationAmount': name
-								},)
-								$.ajax({
-									type: 'post',
-									url: '../donate.do',
-									data: {
-										'userId': userInfo.userId,
-										'donationId': donationId,
-										'donationAmount': name
-									},
-									success: function(res) {
-										swal({
-											title: "Good job!",
-											text: "성공적으로 기부했습니다.",
-											icon: "success",
-											button: "확인!",
+								if (name=="") {
+									swal({
+										title: "에러!",
+										text: "기부 금액을 입력하세요!",
+										icon: "warning",
+										button: "확인!",
+									})
+								} else {
+									if (value==true) {
+										userInfo = JSON.parse(localStorage.getItem('user'));
+										console.log(userInfo)
+										donationId = localStorage.getItem('DonationDetailId')
+										console.log({
+											'userId': userInfo.userId,
+											'donationId': donationId,
+											'donationAmount': name
+										},)
+										$.ajax({
+											type: 'post',
+											url: '../donate.do',
+											data: {
+												'userId': userInfo.userId,
+												'donationId': donationId,
+												'donationAmount': name
+											},
+											success: function(res) {
+												swal({
+													title: "Good job!",
+													text: "성공적으로 기부했습니다.",
+													icon: "success",
+													button: "확인!",
+												})
+												.then((value) => {
+													location.href="../Donation/DonationDetail.jsp";
+												})
+											},
+											error: function(err) {
+												console.log(err)
+											}
 										})
-										.then((value) => {
-											location.href="../Donation/DonationDetail.jsp";
-										})
-									},
-									error: function(err) {
-										console.log(err)
 									}
-								})
+									
+								}
+								
 							})
 							
 						} else {
