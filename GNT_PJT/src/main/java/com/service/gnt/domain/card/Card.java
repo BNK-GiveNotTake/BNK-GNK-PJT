@@ -1,5 +1,7 @@
 package com.service.gnt.domain.card;
 public class Card {
+	
+	
 	private String cardId; // pk
 	private int cvc;
 	private String createTime; // date
@@ -15,7 +17,12 @@ public class Card {
 	private String fontColorBack;
 	private String cardContent; // 카드 내 사용자 입력 내용
 	private String isIssued;
+	private String isUniqueColor;
+	private String isUniqueFont;
+	
+	
 	public Card() {}
+	
 	public Card(String cardId, int cvc, String createTime, String endTime, String bgFront, String bgBack, int emoId,
 			int emoInfoTop, int emoInfoLeft, String fontFront, String fontBack, String fontColorFront,
 			String fontColorBack, String cardContent, String isIssued) {
@@ -175,12 +182,32 @@ public class Card {
 	public void setIsIssued(String isIssued) {
 		this.isIssued = isIssued;
 	}
+	
+	public String getIsUniqueColor() {
+		return isUniqueColor;
+	}
+
+	public void setIsUniqueColor(String isUniqueColor) {
+		this.isUniqueColor = isUniqueColor;
+	}
+
+	public String getIsUniqueFont() {
+		return isUniqueFont;
+	}
+
+	public void setIsUniqueFont(String isUniqueFont) {
+		this.isUniqueFont = isUniqueFont;
+	}
+
+	@Override
 	public String toString() {
 		return "Card [cardId=" + cardId + ", cvc=" + cvc + ", createTime=" + createTime + ", endTime=" + endTime
 				+ ", bgFront=" + bgFront + ", bgBack=" + bgBack + ", emoId=" + emoId + ", emoInfoTop=" + emoInfoTop
 				+ ", emoInfoLeft=" + emoInfoLeft + ", fontFront=" + fontFront + ", fontBack=" + fontBack
 				+ ", fontColorFront=" + fontColorFront + ", fontColorBack=" + fontColorBack + ", cardContent="
-				+ cardContent + ", isIssued=" + isIssued + "]";
+				+ cardContent + ", isIssued=" + isIssued + ", isUniqueColor=" + isUniqueColor + ", isUniqueFont="
+				+ isUniqueFont + "]";
 	}
-	
+
+
 }

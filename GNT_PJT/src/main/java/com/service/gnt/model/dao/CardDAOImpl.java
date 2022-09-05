@@ -7,9 +7,13 @@ import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.card.Card;
 @Repository
 public class CardDAOImpl implements CardDAO{
+	
+	
 	@Autowired
 	private SqlSession sqlSession;
 	public final static String NS = "ns.sql.CardMapper.";
+	
+	
 	public int createCard(Card card) throws Exception {
 		return sqlSession.insert(NS+"insertCard",card);
 	}
@@ -47,5 +51,19 @@ public class CardDAOImpl implements CardDAO{
 	}
 	public int modifyCard(Card card) throws Exception {
 		return sqlSession.update(NS+"updateCard", card);
+	}
+	
+	
+	
+	// 2022.09.05 추가
+	
+	
+	
+	public int modifyIsUniqueColor(String cardId) throws Exception {
+		return sqlSession.update(NS+"updateIsUniqueColor", cardId);
+	}
+	@Override
+	public int modifyIsUniqueFont(String cardId) throws Exception {
+		return sqlSession.update(NS+"updateIsUniqueFont", cardId);
 	}
 }
