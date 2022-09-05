@@ -19,7 +19,7 @@ import com.service.gnt.domain.event.Quiz;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class EventMyBatisTest {
+class EventMyBatisOldTest {
 	
 	
 	// Event test (myBatis) ----------------------------------------------------------------------

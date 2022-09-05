@@ -7,8 +7,12 @@ import com.service.gnt.domain.card.Card;
 import com.service.gnt.model.dao.CardDAO;
 @Service
 public class CardServiceImpl implements CardService{
+	
+	
 	@Autowired
 	private CardDAO cardDAO;
+	
+	
 	// 카드 생성 (유저 아이디 -- 카드 정보)
 	public void createCard(Card card, int userId) throws Exception {	
 		Account account = new Account();
@@ -86,5 +90,17 @@ public class CardServiceImpl implements CardService{
 		String accId = cardDAO.selectCardAccId(userId);
 		String cardId = cardDAO.selectCardId(accId);
 		cardDAO.modifyCardIssue(cardId);
+	}
+	
+	public void modifyIsUniqueColor(int userId) throws Exception {
+		String accId = cardDAO.selectCardAccId(userId);
+		String cardId = cardDAO.selectCardId(accId);
+		cardDAO.modifyIsUniqueColor(cardId);
+	}
+	
+	public void modifyIsUniqueFont(int userId) throws Exception {
+		String accId = cardDAO.selectCardAccId(userId);
+		String cardId = cardDAO.selectCardId(accId);
+		cardDAO.modifyIsUniqueFont(cardId);
 	}
 }
