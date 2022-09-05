@@ -60,6 +60,18 @@ public class EventController implements CommandLineRunner{
 		}
 		return result;
 	}
+	@GetMapping("checkedRoulette.do")
+	public Map<String, String> checkedRoulette (int userId) throws Exception {
+		Map<String, String> result = new HashMap<String, String>();
+		String check = eventService.checkRoulettePlayed(userId);
+		if (check.equals("1")) {
+			result.put("message", "no"); // 이미 돌렸어
+		}
+		else {
+			result.put("message", "yes"); // 안 돌렸어
+		}
+		return result;
+	}
 	@GetMapping("getRouletteWinner.do")
 	public Map<String, String> getRouletteWinner (int userId) throws Exception {
 		Map<String, String> result = new HashMap<String, String>();
@@ -67,8 +79,8 @@ public class EventController implements CommandLineRunner{
   
 		int winner = (int)servletContext.getAttribute("winner");
 		System.out.println("EventController :: "+winner);
+		eventService.expressRoulette(userId);
 		if (userId == winner) {
-			eventService.expressRoulette(userId);
 			result.put("message", "yes");
 		}
 		else {
