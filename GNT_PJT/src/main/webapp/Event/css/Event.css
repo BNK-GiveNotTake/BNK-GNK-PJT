@@ -36,13 +36,16 @@
 }
 
 .event-card:nth-child(1) .event-background {
-	background-image: url(https://images.unsplash.com/photo-1557177324-56c542165309?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80);
+	background-image: url(../img/event7.jpeg);
+	background-size: cover;
 }
 .event-card:nth-child(2) .event-background {
-	background-image: url(https://images.unsplash.com/photo-1557187666-4fd70cf76254?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60);
+	background-image: url(../img/event8.jpeg);
+	background-size: cover;
 }
 .event-card:nth-child(3) .event-background {
-	background-image: url(https://images.unsplash.com/photo-1557004396-66e4174d7bf6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60);
+	background-image: url(../img/event9.jpeg);
+	background-size: cover;
 }
 
 .event-card:hover .event-background {

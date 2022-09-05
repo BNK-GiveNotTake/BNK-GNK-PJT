@@ -25,9 +25,6 @@
 				$('.event-card').click(function() {
 					var userInfo = JSON.parse(localStorage.getItem('user'));
 					if ($(this).attr('value') == '1') {
-						console.log({
-							'userId': userInfo.userId,
-						})
 						$.ajax({
 							type: 'get',
 							url: '../checkedQuiz.do',
@@ -52,9 +49,31 @@
 						})
 						
 					} else if ($(this).attr('value') == '2') {
-						location.href = 'Roulette.jsp'
+						$.ajax({
+							type: 'get',
+							url: '../checkedRoulette.do',
+							data: {
+								'userId': userInfo.userId,
+							},
+							success: function(res) {
+								if(res.message=='yes') {
+									location.href = 'Roulette.jsp'
+								} else {
+									swal({
+										title: "추첨 불가!",
+										text: "내일 다시 만나요!",
+										icon: "info",
+										button: true,
+									})
+								}
+							},
+							error: function(err) {
+								console.log(err)
+							}
+						})
+						
 					} else {
-						location.href = 'Fortune.jsp'
+						location.href = 'Game.jsp'
 					}
 				})
 				

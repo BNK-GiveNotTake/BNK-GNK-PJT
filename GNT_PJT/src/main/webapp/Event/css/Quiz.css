@@ -55,17 +55,33 @@
 .answer-1 {
 	background-color: #df75a5;
 }
+.answer-1:hover {
+	background-color: #dd5790;
+	opacity: 1;
+}
 
 .answer-2 {
 	background-color: #ffe07d;
+}
+.answer-2:hover {
+	background-color: #ffd064;
+	opacity: 1;
 }
 
 .answer-3 {
 	background-color: #b3e59f;
 }
+.answer-3:hover {
+	background-color: #95d6a4;
+	opacity: 1;
+}
 
 .answer-4 {
 	background-color: #90d8f9;
+}
+.answer-4:hover {
+	background-color: #75cef9;
+	opacity: 1;
 }
 
 
