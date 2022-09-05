@@ -10,6 +10,9 @@ public interface EventService {
 	int getQuizAnswer(int userId) throws Exception;
 	// 고객이 정답을 맞췄을 시
 	void expressQuizWin(int userId, int random) throws Exception;
+	
+	// 돌림판 실행 여부
+	String checkRoulettePlayed(int userId) throws Exception;
 	// 돌림판 실행
 	void expressRoulette(int userId) throws Exception;
 	// 퀴즈와 룰렛 세팅

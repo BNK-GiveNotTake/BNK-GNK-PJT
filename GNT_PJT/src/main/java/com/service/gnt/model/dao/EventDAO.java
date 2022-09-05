@@ -17,8 +17,10 @@ public interface EventDAO {
 	int updateQuizMileage(Account account) throws Exception;
 	int selectMilieageHistorySeq() throws Exception;
 	int insertMilieage(MileageHistory mh) throws Exception;
+	// 룰렛 풀이 여부와 실행하기
+	String checkRoulettePlayed(int userId) throws Exception;
+	int updateRouletteUser(int userId) throws Exception;
 	// 퀴즈와 룰렛 세팅
 	int updateEventReset() throws Exception;
-	int updateRouletteUser(int userId) throws Exception;
 	List<Integer> selectAllUserId() throws Exception;
 }

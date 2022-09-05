@@ -42,10 +42,13 @@ public class EventServiceImpl implements EventService{
 		mh.setMileageContent("적립");
 		eventDAO.insertMilieage(mh); // 마일리지 내역 생성
 	}
-	@Override
+	// 돌림판 실행 여부
+	public String checkRoulettePlayed(int userId) throws Exception {
+		return eventDAO.checkRoulettePlayed(userId);
+	}
+	// 돌림판 실행
 	public void expressRoulette(int userId) throws Exception {
 		eventDAO.updateRouletteUser(userId);
-		
 	}
 	// 퀴즈 리셋
 	public void resetEvent() throws Exception {
@@ -56,6 +59,8 @@ public class EventServiceImpl implements EventService{
 		List<Integer> list = eventDAO.selectAllUserId();
 		return list;
 	}
+
+
 
 	
 }

@@ -39,6 +39,17 @@ public class EventDAOImpl implements EventDAO{
 	public int insertMilieage(MileageHistory mh) throws Exception {
 		return sqlSession.insert(NS+"insertMilieage",mh);
 	}
+	
+	
+	public String checkRoulettePlayed(int userId) throws Exception {
+		return sqlSession.selectOne(NS+"selectRouletteCK",userId);
+	}
+
+	public int updateRouletteUser(int userId) throws Exception {
+		return sqlSession.update(NS+"updateRouletteUser", userId);
+	}
+	
+	
 	public int updateEventReset() throws Exception {
 		return sqlSession.update(NS+"updateEventReset");
 	}
@@ -46,8 +57,6 @@ public class EventDAOImpl implements EventDAO{
 		List<Integer> list = sqlSession.selectList(NS+"selectAllUserId");
 		return list;
 	}
-	@Override
-	public int updateRouletteUser(int userId) throws Exception {
-		return sqlSession.update(NS+"updateRouletteUser", userId);
-	}
+
+
 }

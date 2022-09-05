@@ -76,12 +76,17 @@
 	<!-- 퀴즈 리셋 -->
 	<update id="updateEventReset"> <!-- change -->
 		UPDATE users
-		SET is_quiz_participate='0', is_roulette_participate='1'
+		SET is_quiz_participate='0', is_roulette_participate='0'
 	</update>
 	
 	
 	
-	
+	<!-- 돌림판을 오늘 돌렸나 안 돌렸나 확인 -->
+	<select id="selectRouletteCK" parameterType="int" resultType="string">
+		SELECT is_roulette_participate
+		FROM users
+		WHERE user_id=#{value}
+	</select>
 	<!-- 돌림판 실행 이후 -->
 	<update id="updateRouletteUser" parameterType="int">
 		UPDATE users
