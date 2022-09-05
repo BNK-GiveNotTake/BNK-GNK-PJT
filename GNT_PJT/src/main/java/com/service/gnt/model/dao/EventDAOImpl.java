@@ -11,23 +11,23 @@ public class EventDAOImpl implements EventDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	private static final String NS = "ns.sql.EventMapper.";
-	public String checkQuizPlayed(String userId) throws Exception {
+	public String checkQuizPlayed(int userId) throws Exception {
 		return sqlSession.selectOne(NS+"selectQuizCK",userId);
 	}
-	public String selectQuizId(String userId) throws Exception {
+	public int selectQuizId(int userId) throws Exception {
 		return sqlSession.selectOne(NS+"selectQuizId",userId);
 	}
-	public Quiz getQuiz(String quizId) throws Exception {
+	public Quiz getQuiz(int quizId) throws Exception {
 		Quiz quiz = sqlSession.selectOne(NS+"selectQuiz",quizId);
 		return quiz;
 	}
-	public int getQuizAnswer(String quizId) throws Exception {
+	public int getQuizAnswer(int quizId) throws Exception {
 		return sqlSession.selectOne(NS+"selectQuizAnswer",quizId);
 	}
-	public int updateQuizUser(String userId) throws Exception {
+	public int updateQuizUser(int userId) throws Exception {
 		return sqlSession.update(NS+"updateQuizUser",userId);
 	}
-	public String selectQuizAccId(String userId) throws Exception {
+	public String selectQuizAccId(int userId) throws Exception {
 		return sqlSession.selectOne(NS+"selectQuizAccId",userId);
 	}
 	public int updateQuizMileage(Account account) throws Exception {
@@ -39,11 +39,15 @@ public class EventDAOImpl implements EventDAO{
 	public int insertMilieage(MileageHistory mh) throws Exception {
 		return sqlSession.insert(NS+"insertMilieage",mh);
 	}
-	public int updateQuizReset() throws Exception {
-		return sqlSession.update(NS+"updateQuizReset");
+	public int updateEventReset() throws Exception {
+		return sqlSession.update(NS+"updateEventReset");
 	}
 	public List<Integer> selectAllUserId() throws Exception {
 		List<Integer> list = sqlSession.selectList(NS+"selectAllUserId");
 		return list;
+	}
+	@Override
+	public int updateRouletteUser(int userId) throws Exception {
+		return sqlSession.update(NS+"updateRouletteUser", userId);
 	}
 }
