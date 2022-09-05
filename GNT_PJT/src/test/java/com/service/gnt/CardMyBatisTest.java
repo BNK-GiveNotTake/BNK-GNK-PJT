@@ -220,5 +220,34 @@ class CardMyBatisTest {
 		session.commit();
 	}
 	
+	@Test
+	void updateIsUniqueColorTest() throws Exception {
+		
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+		SqlSession session = factory.openSession();
+		
+		String cardId = "1111111111111111"; // 카드번호
+		int result = session.update("ns.sql.CardMapper.updateIsUniqueColor", cardId);
+		
+		System.out.println("Card Test :: updateIsUniqueColor? ----------> "+result);
+		session.commit();
+	}
+	
+	@Test
+	void updateIsUniqueFontTest() throws Exception {
+		
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+		SqlSession session = factory.openSession();
+		
+		String cardId = "1111111111111111"; // 카드번호
+		int result = session.update("ns.sql.CardMapper.updateIsUniqueFont", cardId);
+		
+		System.out.println("Card Test :: updateIsUniqueFont? ----------> "+result);
+		session.commit();
+	}
 
 }

@@ -16,4 +16,6 @@ public interface CardDAO {
 	Card getCard(String cardId) throws Exception;
 	int modifyCard(Card card) throws Exception;
 	
+	int modifyIsUniqueColor(String cardId) throws Exception;
+	int modifyIsUniqueFont(String cardId) throws Exception;
 }
