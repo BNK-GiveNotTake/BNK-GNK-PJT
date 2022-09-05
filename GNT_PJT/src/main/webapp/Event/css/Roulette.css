@@ -10,23 +10,25 @@
 .title {
 	font-family: 'Katuri';
 	margin-bottom: 2rem;
+	text-align: center;
+    font-size: xxx-large;
 }
 
 
 /* wheel */
 #roulette {
-  top: 50px;
-  left: 35%;
-  position: relative;
-  animation-timing-function: cubic-bezier(0, 0.4, 0.4, 1.04);
-  animation-duration: 1.8s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  width: 308px;
-  height: 308px;
-  border-radius: 50%;
-  overflow: hidden;
-  counter-reset: num;
+	top: 38%;
+    left: 40%;
+    position: absolute;
+    animation-timing-function: cubic-bezier(0, 0.4, 0.4, 1.04);
+    animation-duration: 1.8s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    width: 308px;
+    height: 308px;
+    border-radius: 50%;
+    overflow: hidden;
+    counter-reset: num;
 }
 #roulette.number-1 {
 	animation-name: number-1;
@@ -268,8 +270,8 @@
 	width: 0;
     height: 0;
     position: absolute;
-    top: 35%;
-    left: 46%;
+    top: 38%;
+    left: 47%;
     z-index: 999;
     transform: rotate(90deg);
     border-bottom: 30px solid transparent;
@@ -283,16 +285,16 @@
     background: #c09208;
     width: 34px;
     height: 230px;
-    left: 48%;
+    left: 49%;
 }
 
 .ladder2 {
 	position: absolute;
     background: #c09208;
     width: 34px;
-    height: 230px;
+    height: 250px;
     top: 62%;
-    left: 42%;
+    left: 43%;
     transform: rotate(25deg);
 }
 
@@ -300,8 +302,8 @@
 	position: absolute;
     background: #c09208;
     width: 34px;
-    height: 230px;
-    left: 54%;
+    height: 250px;
+    left: 55%;
     top: 62%;
     transform: rotate(-25deg);
 }
@@ -312,8 +314,8 @@
     width: 34px;
     height: 230px;
     transform: rotate(90deg);
-    top: 66%;
-    left: 48%;
+    top: 70%;
+    left: 49%;
 }
 
 .roulette-img1 {
@@ -334,16 +336,16 @@
 
 .start-roulette {
 	position: absolute;
-    top: 366px;
-    left: 715px;
+    top: 388px;
+    left: 729px;
     width: 80px;
     height: 80px;
     border: none;
     border-radius: 100%;
     background: white;
     font-family: 'Katuri';
-	font-weight: 100;
-	font-size: large;
+    font-weight: 100;
+    font-size: large;
 }
 
 
