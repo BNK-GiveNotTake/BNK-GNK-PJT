@@ -151,6 +151,8 @@ public class EventController implements CommandLineRunner{
 				       0,0,200,0};
 		
 		afterGame.setGameId(0); // 오류 방지용 
+		afterGame.setUserId(userId);
+		afterGame.setIsToday('1');
 		afterGame.setIsTomorrow('0');
 		
 		try {
@@ -175,6 +177,7 @@ public class EventController implements CommandLineRunner{
 			
 			if (locationNum == 7) { // 한 번 더
 				result.put("message", "again");
+				afterGame.setIsToday('0');
 			}
 			else if (locationNum == 11) { // 처음으로
 				afterGame.setGameLocation(0);
@@ -205,8 +208,6 @@ public class EventController implements CommandLineRunner{
 				}
 			}
 			
-			afterGame.setIsToday('1');
-			afterGame.setUserId(userId);
 			eventService.updateGame(afterGame); // 저장
 			
 		} catch (Exception e) {
