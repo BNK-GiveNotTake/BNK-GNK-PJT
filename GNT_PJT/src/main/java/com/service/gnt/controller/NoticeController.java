@@ -56,7 +56,7 @@ public class NoticeController {
 			return maps;
 		}
 	}
-	@ApiOperation(value="addNoticeCNT", notes="공지사항 조회수 증가")
+	@ApiOperation(value="addNoticeCount", notes="공지사항 조회수 증가")
 	@GetMapping("addNoticeCount.do")
 	public Map<String,Object> addNoticeCount(int noticeId) {
 		Map<String,Object> maps = new HashMap<>();

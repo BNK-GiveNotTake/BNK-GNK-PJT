@@ -34,7 +34,7 @@ public class CommonController {
 	}
 	@ApiOperation(value="Swagger", notes="Swagger-ui page로 이동")
 	@GetMapping("swagger")
-	public void swagger(HttpServletResponse response) throws Exception {
+	public void> swagger(HttpServletResponse response) throws Exception {
 		uri = "swagger-ui.html";
 		response.sendRedirect(uri);
 	}
@@ -66,7 +66,7 @@ public class CommonController {
 		}
 	}
 	@PostMapping("validateEmail.do")
-	public Map<String,Object> Check(Users user, Model model) {
+	public Map<String,Object> validateEmail(Users user, Model model) {
 		String message = "no";
 		Users find = commonService.getUserEmailByUserId(user);
 		Map<String,Object> maps = new HashMap<String,Object>();
@@ -92,7 +92,7 @@ public class CommonController {
 //		return "UserReg";
 //	}
 	@PostMapping("registerUser.do")
-	public Map<String,Object> doRegUser(Users user, Model model) {
+	public Map<String,Object> registerUser(Users user, Model model) {
 		String message = "no";
 		try {
 			// 성공페이지
@@ -130,7 +130,7 @@ public class CommonController {
 		}
 	}
 		@PostMapping("getUser.do")
-		public Map<String,Object> userinfo(int userId, Model model){
+		public Map<String,Object> getUser(int userId, Model model){
 			String message="no";
 			try {
 				Map<String,Object> maps = new HashMap<String,Object>();

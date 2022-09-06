@@ -37,7 +37,7 @@ public class AccountController {
 			return null;
 		}
 	}
-	@ApiOperation(value="checkUserAcc", notes="계좌 존재유무 확인")
+	@ApiOperation(value="checkUserAccount", notes="계좌 존재유무 확인")
 	@PostMapping("checkUserAccount.do")
 	public Map<String,Object> checkUserAccount(int userId) {
 		Map<String,Object> maps = new HashMap<>();
@@ -83,7 +83,7 @@ public class AccountController {
 			return maps;
 		}
 	}
-	@ApiOperation(value="depositAcc", notes="계좌 입금")
+	@ApiOperation(value="depositAccount", notes="계좌 입금")
 	@PostMapping("depositAccount.do")
 	public Map<String,Object> depositAccount(int userId, int amount) {
 			Map<String,Object> maps = new HashMap<>();
@@ -100,7 +100,7 @@ public class AccountController {
 			return maps;
 		}
 	}
-	@ApiOperation(value="sendAcc", notes="송금")
+	@ApiOperation(value="sendAccount", notes="송금")
 	@PostMapping("sendAccount.do")
 	public Map<String,Object> sendAccount(int userId, int amount, String accId) {
 		Map<String,Object> maps = new HashMap<>();
@@ -116,7 +116,7 @@ public class AccountController {
 			return maps;
 		}
 	}
-	@ApiOperation(value="createMile", notes="마일리지 생성")
+	@ApiOperation(value="createMileage", notes="마일리지 생성")
 	@PostMapping("createMileage.do")
 	public Map<String,Object> createMileage(int userId) {
 		Map<String,Object> maps = new HashMap<>();
@@ -153,7 +153,7 @@ public class AccountController {
 			return maps;
 		}
 	}
-	@ApiOperation(value="getMileHistory", notes="마일리지 내역 확인")
+	@ApiOperation(value="getMileageHistory", notes="마일리지 내역 확인")
 	@PostMapping("getMileageHistory.do")
 	public Map<String,Object> getMileageHistory(int userId) {
 		Map<String,Object> maps = new HashMap<>();
@@ -173,7 +173,7 @@ public class AccountController {
 			return maps;
 		}
 	}
-	@ApiOperation(value="addMile", notes="마일리지 충전")
+	@ApiOperation(value="addMileage", notes="마일리지 충전")
 	@PostMapping("addMileage.do")
 	public Map<String,Object> addMileage(int amount, int userId) {
 		Map<String,Object> maps = new HashMap<>();
