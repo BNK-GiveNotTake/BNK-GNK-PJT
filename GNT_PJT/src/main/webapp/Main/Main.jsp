@@ -108,6 +108,41 @@
 				checkAccount(userInfo.userId);
 			}
 			
+			if (JSON.parse(localStorage.getItem('account'))==null) {
+				$('#account-btn').attr("data-toggle", "modal").attr("data-target", "#exampleModal")
+			} else {
+				$('#account-btn').text('계좌 생성')
+				$('#main-modal>h1').text('계좌 관리')
+				$('.create-account').text('계좌 수정하기')
+				$('#account-btn').click(function() {
+					swal({
+						title: "계좌 비밀번호",
+						content: "input",
+						icon: "info",
+						buttons: ["취소", "생성"]
+					})
+					.then((val) => {
+						if (val==null) {
+							console.log("취소")
+						} else if (val=="") {
+							swal({
+								title: "계좌 비밀번호",
+								text: "비밀번호를 입력하시길 바랍니다.",
+								icon: "warning",
+								button: "확인"
+							})
+						} else {
+							console.log("user_id / acc_pass를 보내줘서 확인하는 결과값 받은 걸로 체크")
+							$('.modal').addClass('show');
+							$('.modal').css('display', 'block');
+							$('body').append('<div class="modal-backdrop fade show"></div>');
+						}
+					})
+				})
+			}
+			
+			
+			
 			$(document).keydown(function(event) {
 			    if ( event.keyCode == 27 || event.which == 27 ) {
 			    	$('.modal').removeClass('show')
@@ -219,7 +254,7 @@
 								$('body').append('<div class="modal-backdrop fade show"></div>');
 							}
 						})
-					} else {
+					} else {						
 						$.ajax({
 							type: 'post',
 							url: '../getAccount.do',
@@ -401,7 +436,7 @@
 	                    <p style="font-family: 'Happiness-Sans-Title';">기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크</p>
 	                    <br><br>
 	                    <div class="main_btn_list">
-							<button class="btn-slide-line" id="account-btn" style="font-size: x-large; width: 40%; font-weight: normal; margin-right: 2rem;" data-toggle="modal" data-target="#exampleModal">계좌 관리</button>
+							<button class="btn-slide-line" id="account-btn" style="font-size: x-large; width: 40%; font-weight: normal; margin-right: 2rem;">계좌 생성</button>
 							<button class="btn-slide-line" id="mileage-btn" style="font-size: x-large; width: 40%; font-weight: normal;">마일리지 생성</button>
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

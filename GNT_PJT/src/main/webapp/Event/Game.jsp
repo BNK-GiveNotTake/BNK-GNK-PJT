@@ -139,7 +139,7 @@
 					setVal(1, diceValue);
 					setTimeout(() => {
 						moveIcon()
-					}, 100);
+					}, 1000);
 				}
 				
 				function rollDice() {
