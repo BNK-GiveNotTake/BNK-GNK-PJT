@@ -69,7 +69,7 @@ public class EventController implements CommandLineRunner{
 		}
 		return result;
 	}
-	@GetMapping("checkedRoulette.do")
+	@GetMapping("checkRoulettePlayed.do")
 	public Map<String, String> checkedRoulette (int userId) throws Exception {
 		Map<String, String> result = new HashMap<String, String>();
 		String check = eventService.checkRoulettePlayed(userId);

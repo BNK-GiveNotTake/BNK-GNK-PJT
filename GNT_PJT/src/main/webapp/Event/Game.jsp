@@ -309,7 +309,7 @@
 							} else if (res.message=='again') {
 								$.ajax({
 									type: 'get',
-									url: '../checkedGame.do',
+									url: '../checkGamePlayed.do',
 									data: {
 										'userId': userInfo.userId,
 									},

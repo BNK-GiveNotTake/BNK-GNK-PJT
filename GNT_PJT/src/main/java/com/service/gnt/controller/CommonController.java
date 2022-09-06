@@ -91,7 +91,7 @@ public class CommonController {
 //		
 //		return "UserReg";
 //	}
-	@PostMapping("saveUser.do")
+	@PostMapping("registerUser.do")
 	public Map<String,Object> doRegUser(Users user, Model model) {
 		String message = "no";
 		try {

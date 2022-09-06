@@ -156,7 +156,7 @@
 				} else {
 					$.ajax({
 						type: 'post',
-						url: '../saveUser.do',
+						url: '../registerUser.do',
 						data: {
 							'userEmail': $('#signUp_email').val(),
 							'userName': $('#signUp_nickname').val(),
