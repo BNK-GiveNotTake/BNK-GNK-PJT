@@ -49,4 +49,7 @@ public class AccountServiceImpl implements AccountService{
 	public String getAccIdByUserId(int userId) {
 		return accountDAO.getAccIdByUserId(userId);
 	}
+	public String checkUserAccPasword(int userId, String accPassword) {
+		return accountDAO.checkUserAccPasword(userId, accPassword);
+	}
 }
