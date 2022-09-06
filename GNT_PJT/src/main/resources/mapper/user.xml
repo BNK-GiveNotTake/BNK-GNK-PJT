@@ -48,13 +48,18 @@
 		FROM users
 		WHERE user_password = ${userPassword} AND user_name = #{userName} AND user_email = #{userEmail}	
 	</select>
+<<<<<<< Updated upstream
 	<insert id="newUser" parameterType="users">
 		<!-- <selectKey keyProperty="id" resultType="int" order="BEFORE">
+=======
+	<insert id="insertUser" parameterType="users">
+		<selectKey keyProperty="userId" resultType="int" order="BEFORE">
+>>>>>>> Stashed changes
 			SELECT users_seq.nextVal FROM dual
-		</selectKey> -->
+		</selectKey>
 		INSERT INTO
 		USERS (user_id, user_password, user_name, user_email)
-		VALUES (users_seq.nextVal, #{userPassword}, #{userName}, #{userEmail})
+		VALUES (#{userId}, #{userPassword}, #{userName}, #{userEmail})
 	</insert>
 	
 	<select id="selectUser" parameterType="users" resultMap="Userreg">
