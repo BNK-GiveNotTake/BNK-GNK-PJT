@@ -1,7 +1,9 @@
 package com.service.gnt.model.dao;
 import java.util.List;
+
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
+import com.service.gnt.domain.event.Game;
 import com.service.gnt.domain.event.Quiz;
 public interface EventDAO {
 	// 퀴즈 풀이 여부
@@ -23,4 +25,21 @@ public interface EventDAO {
 	// 퀴즈와 룰렛 세팅
 	int updateEventReset() throws Exception;
 	List<Integer> selectAllUserId() throws Exception;
+	
+	
+	// 2022.09.05 update
+	// 게임 생성
+	int selectGameSeq() throws Exception;
+	int insertGame(Game game) throws Exception;
+	// 오늘 내일 게임 참가 여부 확인
+	String checkGamePlayed(int userId) throws Exception;
+	List<Game> checkGamePlayedTomorrow() throws Exception;
+	// 게임 데이터 조회
+	Game getGame(int userId) throws Exception;
+	// 게임 끝
+	int updateGame(Game game) throws Exception;
+	// 게임 리셋 (0시 0분)
+	int updateGameIsTodayReset() throws Exception;
+	int updateGameIsTomorrowReset(int userId) throws Exception;
+	
 }

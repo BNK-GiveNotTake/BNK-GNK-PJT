@@ -23,12 +23,18 @@
 		INSERT	INTO account(acc_id, acc_password, create_time)
 		VALUES (#{accId}, #{accPassword}, SYSDATE)
 	</insert>
-	<select id="selectAccIdExistancy" resultType="string" parameterType="integer">
+	<select id="selectAccIdExistancy" parameterType="integer" resultType="integer">
 		SELECT count(acc_id) FROM users
 		WHERE user_id = #{VALUE}
 	</select>
+	
+	<select id="checkAccountPassword" parameterType="account" resultType="integer">
+		SELECT count(*)
+		FROM account
+		WHERE acc_id = #{accId} AND acc_password = #{accPassword}
+	</select>
 
-	<select id="selectAccountAmount" parameterType="string" resultType="int">
+	<select id="selectAccountAmount" parameterType="string" resultType="integer">
 		SELECT acc_amount
 		FROM account
 		WHERE acc_id = #{VALUE}
