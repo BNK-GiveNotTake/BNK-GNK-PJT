@@ -51,7 +51,7 @@
 					} else if ($(this).attr('value') == '2') {
 						$.ajax({
 							type: 'get',
-							url: '../checkedRoulette.do',
+							url: '../checkRoulettePlayed.do',
 							data: {
 								'userId': userInfo.userId,
 							},
@@ -75,7 +75,7 @@
 					} else {
 						$.ajax({
 							type: 'get',
-							url: '../checkedGame.do',
+							url: '../checkGamePlayed.do',
 							data: {
 								'userId': userInfo.userId,
 							},
