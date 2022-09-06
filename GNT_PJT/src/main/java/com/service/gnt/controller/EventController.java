@@ -173,31 +173,34 @@ public class EventController implements CommandLineRunner{
 			
 			result.put("message", "bang");
 			
-			if (locationNum == 7) {
+			if (locationNum == 7) { // 한 번 더
 				result.put("message", "again");
 			}
-			else if (locationNum == 11) {
+			else if (locationNum == 11) { // 처음으로
 				afterGame.setGameLocation(0);
+				afterGame.setTop(122);
+				afterGame.setLeft(276);
 				result.put("message", "yes");
 			}
-			else if (locationNum == 18) {
+			else if (locationNum == 18) { // 내일 휴가
 				afterGame.setIsTomorrow('1');
 				result.put("message", "yes");
-				
 			}
 			else if (roundNum <= 5) { // 전체 횟수를 1,2,3,4,5
-				result.put("message", "yes");
 				if (locationNum == 2 ||locationNum == 6 ||locationNum == 9 ||locationNum == 14 ||locationNum == 20) {
+					result.put("message", "yes");
 					eventService.updateGameForMilieage(userId, bonus[locationNum]);
 				} else if (locationNum == 4 || locationNum == 12 || locationNum == 16) {
+					result.put("message", "yes");
 					eventService.updateGameForMoney(userId, bonus[locationNum]);
 				}
 			}
 			else{ // 6,7,8,9,10
-				result.put("message", "yes");
 				if (locationNum == 2 ||locationNum == 6 ||locationNum == 9 ||locationNum == 14 ||locationNum == 20) {
+					result.put("message", "yes");
 					eventService.updateGameForMilieage(userId, bonus[locationNum]*2);
 				} else if (locationNum == 4 || locationNum == 12 || locationNum == 16) {
+					result.put("message", "yes");
 					eventService.updateGameForMoney(userId, bonus[locationNum]*2);
 				}
 			}
