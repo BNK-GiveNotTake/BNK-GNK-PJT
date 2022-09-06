@@ -8,11 +8,14 @@ import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
 import com.service.gnt.domain.event.Game;
 import com.service.gnt.domain.event.Quiz;
+import com.service.gnt.model.dao.AccountDAO;
 import com.service.gnt.model.dao.EventDAO;
 @Service
 public class EventServiceImpl implements EventService{
 	@Autowired
 	private EventDAO eventDAO;
+	@Autowired
+	private AccountDAO accountDAO;
 	// 퀴즈 풀이 여부 확인하기 (0->안 풀었음,  1-> 풀었음)
 	public String checkQuizPlayed(int userId) throws Exception {
 		return eventDAO.checkQuizPlayed(userId);
@@ -111,8 +114,7 @@ public class EventServiceImpl implements EventService{
 	}
 	@Override
 	public void updateGameForMoney(int userId, int money) throws Exception {
-		// 계좌에 돈 넣어주기
-		
+		accountDAO.depositAccount(userId, money);
 	}
 
 
