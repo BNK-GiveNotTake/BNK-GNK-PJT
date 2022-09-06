@@ -126,7 +126,7 @@
 		function getDonationBasic() {
 			$.ajax({
 				type: 'get',
-				url: '../DonationAsk.do',
+				url: '../getDonationAsk.do',
 				data: {},
 				success: function(res) {
 					Donation = res.Donation
@@ -165,7 +165,7 @@
 			page += 1
 			$.ajax({
 				type: 'get',
-				url: '../pageAsk.do',
+				url: '../getDonationPage.do',
 				data: {
 					'pagenum': page,
 				},
@@ -205,7 +205,7 @@
 		function getDonationCategory(categoryId) {
 			$.ajax({
 				type: 'get',
-				url: '../category.do',
+				url: '../getCategoryPage.do',
 				data: {
 					'categoryId': categoryId,
 				},

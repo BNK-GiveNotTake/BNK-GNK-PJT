@@ -59,7 +59,7 @@
 						} else {
 							$.ajax({
 								type: 'post',
-								url: '../addMile.do',
+								url: '../addMileage.do',
 								data: {
 									'amount': amount,
 									'userId': userInfo.userId,
@@ -119,7 +119,7 @@
 						title: "계좌 비밀번호",
 						content: "input",
 						icon: "info",
-						buttons: ["취소", "생성"]
+						buttons: ["취소", "확인"]
 					})
 					.then((val) => {
 						if (val==null) {
@@ -132,10 +132,33 @@
 								button: "확인"
 							})
 						} else {
-							console.log("user_id / acc_pass를 보내줘서 확인하는 결과값 받은 걸로 체크")
-							$('.modal').addClass('show');
-							$('.modal').css('display', 'block');
-							$('body').append('<div class="modal-backdrop fade show"></div>');
+							$.ajax({
+								type: 'post',
+								url: '../checkUserAccPasword.do',
+								data: {
+									'userId': userInfo.userId,
+									'accPassword': val
+								},
+								success: function(res) {
+									if (res.message=='yes') {
+										console.log("user_id / acc_pass를 보내줘서 확인하는 결과값 받은 걸로 체크")
+										$('.modal').addClass('show');
+										$('.modal').css('display', 'block');
+										$('body').append('<div class="modal-backdrop fade show"></div>');
+									} else {
+										swal({
+											title: "계좌 비밀번호",
+											text: "비밀번호가 틀렸습니다.",
+											icon: "warning",
+											button: "확인"
+										})
+									}
+								},
+								error: function(err) {
+									console.log(err)
+								}
+							})
+							
 						}
 					})
 				})
@@ -169,7 +192,7 @@
 					if (value==true) {
 						$.ajax({
 							type: 'post',
-							url: '../createMile.do',
+							url: '../createMileage.do',
 							data: {
 								'userId': userInfo.userId
 							},
@@ -206,7 +229,7 @@
 				};
 				$.ajax({
 					type: 'post',
-					url: '../createAcc.do',
+					url: '../createAccount.do',
 					data: accData,
 					success: function(res) {
 						if(res.message=="yes") {
@@ -235,7 +258,7 @@
 		function checkAccount(userId) {
 			$.ajax({
 				type: 'post',
-				url: '../checkUserAcc.do',
+				url: '../checkUserAccount.do',
 				data: {
 					'userId': userId
 				},
@@ -336,7 +359,7 @@
 			var userInfo = JSON.parse(localStorage.getItem('user'))
 			$.ajax({
 				type: 'post',
-				url: '../getMileHistory.do',
+				url: '../getMileageHistory.do',
 				data: {
 					'userId': userInfo.userId
 				},

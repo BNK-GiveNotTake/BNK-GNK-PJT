@@ -36,15 +36,15 @@
 }
 
 .event-card:nth-child(1) .event-background {
-	background-image: url(../img/event19.jpg);
+	background-image: url(../img/event16.jpg);
 	background-size: cover;
 }
 .event-card:nth-child(2) .event-background {
-	background-image: url(../img/event20.jpg);
+	background-image: url(../img/event17.jpg);
 	background-size: cover;
 }
 .event-card:nth-child(3) .event-background {
-	background-image: url(../img/event21.jpg);
+	background-image: url(../img/event18.jpg);
 	background-size: cover;
 }
 

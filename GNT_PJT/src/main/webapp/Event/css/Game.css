@@ -13,11 +13,16 @@
 	text-align: center;
 }
 
+.round-trip {
+	font-family: 'Katuri';
+	font-size: 3rem;
+	position: absolute;
+    left: 5%;
+}
+
 .game-img {
     position: absolute;
     width: 8%;
-    left: 276px;
-    top: 122px;
     transition-property: left, top;
 	transition-duration: 0.5s, 0.5s;
 	transition-timing-function: ease-in-out;

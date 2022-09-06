@@ -13,7 +13,7 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 	@ApiOperation(value="getNoticeList", notes="공지사항 목록")
-	@GetMapping("/getNoticeList.do")
+	@GetMapping("getNoticeList.do")
 	public Map<String,Object> getNoticeList() {
 		Map<String,Object> maps = new HashMap<>();
 		Map<String,Object> innermap = new HashMap<>();
@@ -37,7 +37,7 @@ public class NoticeController {
 		}
 	}
 	@ApiOperation(value="getNoticeDetail", notes="공지사항 상세")
-	@GetMapping("/getNoticeDetail.do")
+	@GetMapping("getNoticeDetail.do")
 	public Map<String,Object> getNoticeDetail(int noticeId) {
 		Map<String,Object> maps = new HashMap<>();
 		String status = "no";
@@ -57,7 +57,7 @@ public class NoticeController {
 		}
 	}
 	@ApiOperation(value="addNoticeCNT", notes="공지사항 조회수 증가")
-	@GetMapping("/addNoticeCNT.do")
+	@GetMapping("addNoticeCount.do")
 	public Map<String,Object> addNoticeCount(int noticeId) {
 		Map<String,Object> maps = new HashMap<>();
 		String status = "no";

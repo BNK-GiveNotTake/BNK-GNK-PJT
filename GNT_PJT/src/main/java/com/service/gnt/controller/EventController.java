@@ -27,7 +27,7 @@ public class EventController implements CommandLineRunner{
 	private EventService eventService;
 	@Autowired
 	private CardService CardService;
-	@GetMapping("checkedQuiz.do")
+	@GetMapping("checkQuizPlayed.do")
 	public Map<String, String> checkedQuiz (int userId) throws Exception {
 		Map<String, String> result = new HashMap<String, String>();
 		String check = eventService.checkQuizPlayed(userId);
@@ -103,7 +103,7 @@ public class EventController implements CommandLineRunner{
 	
 	
 	
-	@GetMapping("checkedGame.do")
+	@GetMapping("checkGamePlayed.do")
 	public Map<String, Object> checkedGame (int userId) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String check = eventService.checkGamePlayed(userId);
@@ -150,9 +150,8 @@ public class EventController implements CommandLineRunner{
 				       0,10,0,100,0,20,0,
 				       0,0,200,0};
 		
-		afterGame.setGameId(0); // 오류 방지용
+		afterGame.setGameId(0); // 오류 방지용 
 		afterGame.setUserId(userId);
-
 		afterGame.setIsToday('1');
 		afterGame.setIsTomorrow('0');
 		
@@ -178,6 +177,7 @@ public class EventController implements CommandLineRunner{
 			
 			if (locationNum == 7) { // 한 번 더
 				result.put("message", "again");
+				afterGame.setIsToday('0');
 			}
 			else if (locationNum == 11) { // 처음으로
 				afterGame.setGameLocation(0);
