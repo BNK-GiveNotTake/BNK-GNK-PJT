@@ -17,4 +17,5 @@ public interface AccountDAO {
 	Account getAccountByUserId(int userId);
 	int getMileageHistoryCount(int userId);
 	String getAccIdByUserId(int userId);
+	String checkUserAccPasword(int userId, String accPassword);
 }

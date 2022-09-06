@@ -111,12 +111,22 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 	public String checkUserAccount(int userId) {
 		String str = "no";
-		if(sqlSession.selectOne(AM+"selectAccIdExistancy",userId).equals("0")) str = "no";
+		int data = sqlSession.selectOne(AM+"selectAccIdExistancy",userId);
+		if(data==0) str = "no";
 		else str = "yes";
 		return str;
 	}
 	public int getMileageHistoryCount(int userId) {
 		String accId = sqlSession.selectOne(UM+"selectAccIdByUserId",userId);
 		return sqlSession.selectOne(AM+"selectMileageHistoryCount",accId);
+	}
+	public String checkUserAccPasword(int userId, String accPassword) {
+		String str = "no";
+		String accId = sqlSession.selectOne(UM+"selectAccIdByUserId",userId);
+		int data = sqlSession.selectOne(AM+"checkAccountPassword",new Account(accId,accPassword));
+		System.out.println(data);
+		if(data==0) str = "no";
+		else str = "yes";
+		return str;
 	}
 }

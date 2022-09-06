@@ -50,6 +50,19 @@ public class AccountController {
 			return maps;
 		}
 	}
+	@ApiOperation(value="checkUserAccPasword", notes="계좌 비밀번호 확인")
+	@PostMapping("/checkUserAccPasword.do")
+	public Map<String,Object> checkUserAccPasword(int userId, String accPassword) {
+		Map<String,Object> maps = new HashMap<>();
+		try {
+			maps.put("message", accountService.checkUserAccPasword(userId,accPassword));
+			return maps;
+		} catch(Exception e) {
+			System.out.println("Error :"+e.getMessage()+e.toString());
+			maps.put("message","no");
+			return maps;
+		}
+	}
 	@ApiOperation(value="getAccount", notes="계좌 정보 확인") //비정상 작동 WIP
 	@PostMapping("/getAccount.do")
 	public Map<String,Object> getAccount(int userId) {
