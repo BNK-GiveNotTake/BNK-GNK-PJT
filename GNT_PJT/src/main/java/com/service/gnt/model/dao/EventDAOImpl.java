@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
+import com.service.gnt.domain.event.Game;
 import com.service.gnt.domain.event.Quiz;
 @Repository
 public class EventDAOImpl implements EventDAO{
@@ -56,6 +57,45 @@ public class EventDAOImpl implements EventDAO{
 	public List<Integer> selectAllUserId() throws Exception {
 		List<Integer> list = sqlSession.selectList(NS+"selectAllUserId");
 		return list;
+	}
+	
+	// game
+	
+	
+	@Override
+	public int selectGameSeq() throws Exception {
+		return sqlSession.selectOne(NS+"selectGameSeq");
+	}
+	@Override
+	public int insertGame(Game game) throws Exception {
+		return sqlSession.insert(NS+"insertGame", game);
+	}
+	@Override
+	public String checkGamePlayed(int userId) throws Exception {
+		return sqlSession.selectOne(NS+"selectIsToday", userId);
+	}
+	@Override
+	public List<Game> checkGamePlayedTomorrow() throws Exception {
+		List<Game> list = sqlSession.selectList(NS+"selectIsTomorrow");
+		return list;
+	}
+
+	@Override
+	public Game getGame(int userId) throws Exception {
+		Game game = sqlSession.selectOne(NS+"selectGame", userId);
+		return game;
+	}
+	@Override
+	public int updateGame(Game game) throws Exception {
+		return sqlSession.update(NS+"updateGame", game);
+	}
+	@Override
+	public int updateGameIsTodayReset() throws Exception {
+		return sqlSession.update(NS+"updateGameIsTodayReset");
+	}
+	@Override
+	public int updateGameIsTomorrowReset(int userId) throws Exception {
+		return sqlSession.update(NS+"updateGameIsTomorrowReset", userId);
 	}
 
 
