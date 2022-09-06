@@ -11,6 +11,7 @@ body {
 
 body>#main {
 	background-color: #ffdbdb26;
+	padding: 0px !important;
 }
 
 @font-face {
