@@ -17,7 +17,7 @@ public class DonationController {
 	@Autowired
 	private DonationService donationService;
 	@GetMapping("getDonationAsk.do") //기부 페이지 조회 최신 20개
-	public Map<String,Map<String,Object>> donationindex(Model model) {
+	public Map<String,Map<String,Object>> getDonationAsk(Model model) {
 		String message = "no";
 		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
 		Map<String,Object> maps1 = new HashMap<String,Object>();
@@ -42,7 +42,7 @@ public class DonationController {
 	}
 	
 	@GetMapping("getDonationPage.do") //페이지별 기부 내역 조회
-	public Map<String,Map<String,Object>> pagination(int pagenum , Model model) {
+	public Map<String,Map<String,Object>> getDonationPage(int pagenum , Model model) {
 		String message = "no";
 		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
 		Map<String,Object> maps1 = new HashMap<String,Object>();
@@ -69,7 +69,7 @@ public class DonationController {
 		
 	}
 	@GetMapping("getCategoryPage.do")//카테고리별 모든 기부 목록 조회
-	public Map<String,Map<String,Object>> Category(int categoryId, Model model) {
+	public Map<String,Map<String,Object>> getCategoryPage(int categoryId, Model model) {
 		String message = "no";
 		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
 		Map<String,Object> maps1 = new HashMap<String,Object>();
@@ -113,7 +113,7 @@ public class DonationController {
 //		}
 //	}
 	@GetMapping("getDoantionDetail.do") //상세 기부 페이지
-	public Map<String,Map<String,Object>> detailPage(String donationId, Model model) {
+	public Map<String,Map<String,Object>> getDoantionDetail(String donationId, Model model) {
 		String message = "no";
 		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
 		Map<String,Object> maps1 = new HashMap<String,Object>();
@@ -136,7 +136,7 @@ public class DonationController {
 	// user_id에 해당하는 User의 마일리지 차감 --> [Account 테이블]의 마일리지 필드 차감(Clear)...
 	// [Milege History 새로운 행 삽입](Clear)
 	@PostMapping("excuteDonation.do") //기부하기
-	public Map<String,Map<String,Object>> donate(Donation donation, Users user, Model model) {
+	public Map<String,Map<String,Object>> excuteDonation(Donation donation, Users user, Model model) {
 		String message = "no";
 		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
 		Map<String,Object> maps1 = new HashMap<String,Object>();

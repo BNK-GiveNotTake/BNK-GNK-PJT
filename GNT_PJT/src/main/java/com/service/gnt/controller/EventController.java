@@ -28,7 +28,7 @@ public class EventController implements CommandLineRunner{
 	@Autowired
 	private CardService CardService;
 	@GetMapping("checkQuizPlayed.do")
-	public Map<String, String> checkedQuiz (int userId) throws Exception {
+	public Map<String, String> checkQuizPlayed (int userId) throws Exception {
 		Map<String, String> result = new HashMap<String, String>();
 		String check = eventService.checkQuizPlayed(userId);
 		if (check.equals("1")) {
@@ -70,7 +70,7 @@ public class EventController implements CommandLineRunner{
 		return result;
 	}
 	@GetMapping("checkRoulettePlayed.do")
-	public Map<String, String> checkedRoulette (int userId) throws Exception {
+	public Map<String, String> checkRoulettePlayed (int userId) throws Exception {
 		Map<String, String> result = new HashMap<String, String>();
 		String check = eventService.checkRoulettePlayed(userId);
 		if (check.equals("1")) {
@@ -104,7 +104,7 @@ public class EventController implements CommandLineRunner{
 	
 	
 	@GetMapping("checkGamePlayed.do")
-	public Map<String, Object> checkedGame (int userId) throws Exception {
+	public Map<String, Object> checkGamePlayed (int userId) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String check = eventService.checkGamePlayed(userId);
 		
