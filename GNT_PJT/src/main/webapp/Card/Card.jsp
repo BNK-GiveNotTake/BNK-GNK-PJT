@@ -42,7 +42,7 @@
 			/* 카드 조회 */
 			$.ajax({
 				type: 'get',
-				url: '../selectCard.do',
+				url: '../getCard.do',
 				data: {
 					'userId': userInfo.userId
 				},

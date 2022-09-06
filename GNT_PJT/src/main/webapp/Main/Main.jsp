@@ -59,7 +59,7 @@
 						} else {
 							$.ajax({
 								type: 'post',
-								url: '../addMile.do',
+								url: '../addMileage.do',
 								data: {
 									'amount': amount,
 									'userId': userInfo.userId,
@@ -192,7 +192,7 @@
 					if (value==true) {
 						$.ajax({
 							type: 'post',
-							url: '../createMile.do',
+							url: '../createMileage.do',
 							data: {
 								'userId': userInfo.userId
 							},
@@ -229,7 +229,7 @@
 				};
 				$.ajax({
 					type: 'post',
-					url: '../createAcc.do',
+					url: '../createAccount.do',
 					data: accData,
 					success: function(res) {
 						if(res.message=="yes") {
@@ -258,7 +258,7 @@
 		function checkAccount(userId) {
 			$.ajax({
 				type: 'post',
-				url: '../checkUserAcc.do',
+				url: '../checkUserAccount.do',
 				data: {
 					'userId': userId
 				},
@@ -359,7 +359,7 @@
 			var userInfo = JSON.parse(localStorage.getItem('user'))
 			$.ajax({
 				type: 'post',
-				url: '../getMileHistory.do',
+				url: '../getMileageHistory.do',
 				data: {
 					'userId': userInfo.userId
 				},

@@ -27,7 +27,7 @@
 					if ($(this).attr('value') == '1') {
 						$.ajax({
 							type: 'get',
-							url: '../checkedQuiz.do',
+							url: '../checkQuizPlayed.do',
 							data: {
 								'userId': userInfo.userId,
 							},
