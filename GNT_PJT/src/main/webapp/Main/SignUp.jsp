@@ -117,7 +117,7 @@
 				var userEmail = $('#signUp_email').val() 
 				$.ajax({
 					type: 'post',
-					url: '../overlapCheck.do',
+					url: '../validateEmail.do',
 					data: {
 						'userEmail': userEmail
 					},

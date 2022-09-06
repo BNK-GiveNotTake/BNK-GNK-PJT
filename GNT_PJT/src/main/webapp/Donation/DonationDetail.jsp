@@ -67,7 +67,7 @@
 										},)
 										$.ajax({
 											type: 'post',
-											url: '../donate.do',
+											url: '../excuteDonation.do',
 											data: {
 												'userId': userInfo.userId,
 												'donationId': donationId,
@@ -121,7 +121,7 @@
 			
 			$.ajax({
 				type: 'get',
-				url: '../detailDonation.do',
+				url: '../getDoantionDetail.do',
 				data: {
 					'donationId': donationId
 				},

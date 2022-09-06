@@ -38,7 +38,7 @@
 					noticeId = $(this).children().eq(0).text()
 					$.ajax({
 						type: 'get',
-						url: '../addNoticeCNT.do',
+						url: '../addNoticeCount.do',
 						data: {
 							'noticeId': noticeId
 						},
