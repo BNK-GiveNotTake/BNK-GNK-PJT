@@ -1,7 +1,16 @@
 @charset "utf-8";
 
+@font-face {
+    font-family: 'Katuri';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .title {
-	font-weight: bold;
+	font-family: 'Katuri';
+	font-weight: 100;
+	font-size: xx-large;
 	margin-left: 1rem;
 	margin-bottom: 2rem;
 }
@@ -28,19 +37,18 @@ a {
   border: 1px solid black;
   border-radius: 20px !important;
   box-sizing: border-box;
-  background: grey;
 }
 
 .card__number {
-  font-size: 30px;
+  font-size: 25px;
   padding: 20px 0 15px;
   text-align: center;
 }
 
 .card__expiry-date {
-  font-size: 14px;
-  padding-bottom: 20px;
-  text-align: center;
+    font-size: 18px;
+    padding-bottom: 10px;
+    text-align: center;
 }
 .card__owner {
   text-align: left;
@@ -123,16 +131,18 @@ a {
 
 .front-card {
 	color: white;
-	background-color: #99eb47;
+	background-color: #95E1D3;
 	height: 50px;
 	width: 100px;
-	border: 1px solid #74cf19;
+	border: 1px solid #95E1D3;
 	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
 	text-align: center;
 	font-size: larger;
 	font-weight: bold;
 	line-height: 2.3;
+	box-shadow: 0 0 5px 0 #95E1D3;
+	cursor: pointer;
 }
 
 .back-card {
@@ -140,13 +150,57 @@ a {
 	background-color: white;
 	height: 50px;
 	width: 100px;
-	border: 1px solid #74cf19;
+	border: 1px solid #95E1D3;
 	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
 	text-align: center;
 	font-weight: bold;
 	font-size: larger;
 	line-height: 2.3;
+	box-shadow: 0 0 5px 0 #95E1D3;
+	cursor: pointer;
+}
+
+.ic-chip {
+	position: relative;
+	left: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 80px;
+	height: 65px;
+	border-radius: 5px;
+	background-image: linear-gradient(to bottom left, #ffecc7, #d0b978);
+	overflow: hidden;
+}
+
+.ic-chip .chip-line {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: #333;
+}
+.ic-chip .chip-line:nth-child(1) {
+  top: 13px;
+}
+.ic-chip .chip-line:nth-child(2) {
+  top: 31px;
+}
+.ic-chip .chip-line:nth-child(3) {
+  top: 52px;
+}
+.ic-chip .chip-line:nth-child(4) {
+	left: 41px;
+    width: 1px;
+    height: 65px;
+}
+.ic-chip .chip-main {
+  width: 20px;
+  height: 25px;
+  border: 1px solid #333;
+  border-radius: 3px;
+  background-image: linear-gradient(to bottom left, #efdbab, #e1cb94);
+  z-index: 1;
 }
 
 /* tabs */
@@ -154,7 +208,6 @@ a {
 	left: 50%;
 	transform: translateX(-50%);
 	position: relative;
-	background: white;
 	padding: 50px;
 	padding-bottom: 80px;
 	width: 100%;
@@ -178,7 +231,7 @@ a {
   padding-left: 0;
   display: flex;
   flex-direction: row;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   justify-content: space-between;
   align-items: flex-end;
   flex-wrap: wrap;
@@ -210,7 +263,7 @@ a {
   display: none;
 }
 .tabs ul li label svg {
-  fill: #929daf;
+  fill: #4fd0b9;
   height: 1.2em;
   vertical-align: bottom;
   margin-right: 0.2em;
@@ -234,7 +287,7 @@ a {
   max-width: 100%;
   margin: 0 auto;
   height: 4px;
-  background: #99eb47;
+  background: #4fd0b9;
   border-radius: 1px;
 }
 .tabs .content {
@@ -270,10 +323,10 @@ a {
 }
 .tabs input[name=tab-control]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label {
   cursor: default;
-  color: #99eb47;
+  color: #4fd0b9;
 }
 .tabs input[name=tab-control]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label svg {
-  fill: #99eb47;
+  fill: #4fd0b9;
 }
 @media (max-width: 600px) {
   .tabs input[name=tab-control]:nth-of-type(1):checked ~ ul > li:nth-child(1) > label {
@@ -281,17 +334,17 @@ a {
   }
 }
 .tabs input[name=tab-control]:nth-of-type(1):checked ~ .slider {
-  transform: translateX(10%);
+  transform: translateX(16%);
 }
 .tabs input[name=tab-control]:nth-of-type(1):checked ~ .content > section:nth-child(1) {
   display: block;
 }
 .tabs input[name=tab-control]:nth-of-type(2):checked ~ ul > li:nth-child(2) > label {
   cursor: default;
-  color: #99eb47;
+  color: #4fd0b9;
 }
 .tabs input[name=tab-control]:nth-of-type(2):checked ~ ul > li:nth-child(2) > label svg {
-  fill: #99eb47;
+  fill: #4fd0b9;
 }
 @media (max-width: 600px) {
   .tabs input[name=tab-control]:nth-of-type(2):checked ~ ul > li:nth-child(2) > label {
@@ -299,17 +352,17 @@ a {
   }
 }
 .tabs input[name=tab-control]:nth-of-type(2):checked ~ .slider {
-  transform: translateX(140%);
+  transform: translateX(149%);
 }
 .tabs input[name=tab-control]:nth-of-type(2):checked ~ .content > section:nth-child(2) {
   display: block;
 }
 .tabs input[name=tab-control]:nth-of-type(3):checked ~ ul > li:nth-child(3) > label {
   cursor: default;
-  color: #99eb47;
+  color: #4fd0b9;
 }
 .tabs input[name=tab-control]:nth-of-type(3):checked ~ ul > li:nth-child(3) > label svg {
-  fill: #99eb47;
+  fill: #4fd0b9;
 }
 @media (max-width: 600px) {
   .tabs input[name=tab-control]:nth-of-type(3):checked ~ ul > li:nth-child(3) > label {
@@ -317,7 +370,7 @@ a {
   }
 }
 .tabs input[name=tab-control]:nth-of-type(3):checked ~ .slider {
-  transform: translateX(270%);
+  transform: translateX(283%);
 }
 
 .tabs input[name=tab-control]:nth-of-type(3):checked ~ .content > section:nth-child(3) {
@@ -402,7 +455,7 @@ section {
 svg {
   width: 50%;
   height: auto;
-  margin: 0 1.5rem;
+  margin: 0 3rem;
   cursor: pointer;
   overflow: visible;
 }
@@ -411,7 +464,7 @@ svg polygon, svg path {
 }
 svg:hover polygon, svg:hover path {
   transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
-  fill: #99eb47;
+  fill: #4fd0b9;
 }
 svg:hover .arrow {
   animation: arrow-anim 2.5s cubic-bezier(0.2, 1, 0.3, 1) infinite;
@@ -467,23 +520,23 @@ svg:hover .arrow-fixed {
 
 .item-gradient {
 	width: auto;
-    height: 30vh;
+    height: 28vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
     flex: 1 1 auto;
-    min-width: 150px;
-    max-width: 150px;
+    min-width: 120px;
+    max-width: 130px;
     padding: 20px;
     margin: 10px;
-    border: 2px solid #99eb47;
+    border: 2px solid #4fd0b9;
     border-radius: 10px;
-    box-shadow: 0 0 5px 0 #99eb47;
+    box-shadow: 0 0 5px 0 #4fd0b9;
     cursor: pointer;
+    align-items: center;
+    justify-content: space-between;
 }
 .item-gradient:hover {
-  border-color: #99eb47;
+  border-color: #4fd0b9;
 }
 
 .gradient {
@@ -504,10 +557,88 @@ svg:hover .arrow-fixed {
 }
 
 .tabs-emo {
-	width: 105px;
-	height: 130px;
+    width: 105px;
+    height: 120px;
 }
 
+.reset-emo {
+	display: flex;
+    flex-direction: column-reverse;
+}
+
+.font__color-black, .font__color-white {
+	width: 40%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: large;
+    font-weight: bold;
+    border: 1px solid #4fd0b9;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 0 5px 0 #4fd0b9;
+}
+
+.font__color-black:hover, .font__color-white:hover {
+	color: white;
+	background-color: #4fd0b9;
+}
+
+.font__color-selected {
+	color: white;
+	background-color: #4fd0b9;
+	box-shadow: 0 0 5px 0 #4fd0b9;
+}
+
+.content-input {
+	width: 65%;
+	border: 1px solid #4fd0b9;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	box-shadow: 0 0 5px 0 #4fd0b9;
+	border-radius: 10px;
+}
+
+.change-content {
+	background-color: #4fd0b9;
+    padding: 0.4rem 1rem;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: large;
+    font-weight: bold;
+}
+
+.change-content:hover {
+	color: black;
+}
+
+
+.btn-list {
+	display: flex;
+	justify-content: center;
+	margin-top: 13%;
+	margin-bottom: 5%;
+}
+
+.btn-list button {
+	margin-left: 1rem;
+	margin-right: 1rem;
+	width: 10%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: large;
+    font-weight: bold;
+    border: 1px solid #4fd0b9;
+    border-radius: 20px;
+    color: white;
+	background-color: #4fd0b9;
+	box-shadow: 0 0 5px 0 #4fd0b9;
+	cursor: pointer;
+}
+
+.btn-list button:hover {
+	color: black;
+}
 
 
 /* loading 화면 */

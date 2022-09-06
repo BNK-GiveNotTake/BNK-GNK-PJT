@@ -19,99 +19,88 @@
 		SELECT count(acc_id) FROM account
 		WHERE acc_id = #{VALUE}
 	</select>
-	<insert id="createAcc" parameterType="account">
+	<insert id="insertAccount" parameterType="account">
 		INSERT	INTO account(acc_id, acc_password, create_time)
 		VALUES (#{accId}, #{accPassword}, SYSDATE)
 	</insert>
-	<select id="checkUserAcc" resultType="string" parameterType="integer">
+	<select id="selectAccIdExistancy" parameterType="integer" resultType="integer">
 		SELECT count(acc_id) FROM users
 		WHERE user_id = #{VALUE}
 	</select>
-<!--
-	selectKey 관련된 MyBatis 버그로 해당사항 주석처리합니다.
- 	<insert id="createAcc" parameterType="account">
- 		<selectKey keyProperty="accId" resultType="_long" order="BEFORE">
-		SELECT TRUNC(DBMS_RANDOM.VALUE(power(10,12)+1, power(10,13)-1)) RANDOM FROM DUAL
-		</selectKey>
-		INSERT	INTO account(acc_id, acc_password, create_time)
-		VALUES (#{accId}, #{accPassword}, SYSDATE)
-	</insert> 
--->
 	
-<!-- (acc_id, card_id, acc_password, create_time, acc_amount, mileage) -->
-<!-- VALUES (#{id}, #{accPassword}, sysdate) -->
+	<select id="checkAccountPassword" parameterType="account" resultType="integer">
+		SELECT count(*)
+		FROM account
+		WHERE acc_id = #{accId} AND acc_password = #{accPassword}
+	</select>
 
-	<select id="getAccBalance" parameterType="string" resultType="int">
+	<select id="selectAccountAmount" parameterType="string" resultType="integer">
 		SELECT acc_amount
 		FROM account
 		WHERE acc_id = #{VALUE}
 	</select>
-	
-	<update id="depositAcc" parameterType="account">
+	<update id="updateAccountAmount" parameterType="account">
 		UPDATE account
-		SET acc_amount = acc_amount 
-		<if test="#{accAmount} lt 0">
-		- ABS(#{accAmount})
-		</if>
-		<if test="#{accAmount} ge 0">
-		+ ABS(#{accAmount})
-		</if>
+		SET acc_amount = acc_amount + #{accAmount}
 		WHERE acc_id = #{accId}
 	</update>
-	
-	<update id="createMile" parameterType="string">
+	<update id="updateAccountIsMileage" parameterType="string">
 		UPDATE account
 		SET is_mileage = '1'
 		WHERE acc_id = #{VALUE}
 	</update>
-	
-<!-- 
-		INSERT	INTO mileageHistory
-		(mileage_pk, acc_id, create_time, mileage_amount)
-		(acc_id, card_id, acc_password, create_time, acc_amount, mileage)
-		VALUES (
-		(SELECT mileage_seq.nextVal FROM dual),
-		#{accId}, SYSDATE, 0)
- -->
-	
-	<select id="getMileBalance" parameterType="string" resultType="int">
+
+	<select id="selectMileage" parameterType="string" resultType="int">
 		SELECT mileage
 		FROM account
 		WHERE acc_id = #{VALUE}
 	</select>
-	
-	<select id="getLastMileHistory" parameterType="string" resultType="mileageHistory">
+	<select id="selectLastMileageHistory" parameterType="string" resultType="mileageHistory">
  		SELECT mileage_pk, acc_id, create_time, mileage_amount, mileage_content
-			FROM (
-				SELECT mileage_amount
-				FROM mileage_history
-				WHERE acc_id = #{VALUE}
-				ORDER BY create_time desc
+		FROM mileage_history
+		WHERE mileage_pk = (
+			SELECT * FROM (
+					SELECT mileage_pk
+					FROM mileage_history
+					WHERE acc_id = #{VALUE}
+					ORDER BY create_time desc
+				)
+			WHERE rownum = 1
 			)
-		WHERE rownum = 1
-		</select>
+	</select>
 
-	<insert id="addMileHistory" parameterType="mileageHistory">
-	INSERT	INTO mileageHistory
-		(mileage_pk, acc_id, create_time, mileage_amount, mileage_content)
-		VALUES (
-		(SELECT mileage_seq.nextVal FROM dual),
-		#{accId}, SYSDATE, #{mileageAmount}, #{mileageContent})
+	<insert id="insertMileageHistory" parameterType="mileageHistory">
+ 		<selectKey keyProperty="mileagePk" resultType="int" order="BEFORE">
+		SELECT mileage_history_seq.nextVal FROM dual
+		</selectKey>
+		INSERT INTO mileage_history (mileage_pk, acc_id, create_time, mileage_amount, mileage_content)
+		VALUES (#{mileagePk}, #{accId}, SYSDATE, #{mileageAmount}, #{mileageContent})
 	</insert>
-	<update id="addMile" parameterType="account">
+	<update id="updateMileage" parameterType="account">
 		UPDATE account
 		SET mileage = mileage + #{mileage}
-		WHERE mileage_pk = #{accId}
+		WHERE acc_id = #{accId}
 	</update>
-	
-	<select id="getMileageHistory" parameterType="string" resultType="mileageHistory">
-		SELECT *
+	<update id="updateAccPassword" parameterType="account">
+		UPDATE account
+		SET acc_password = #{accPassword}
+		WHERE acc_id = #{accId}
+	</update>
+	<select id="selectMileageHistory" parameterType="string" resultType="mileageHistory">
+		SELECT mileage_pk, acc_id, create_time, mileage_amount, mileage_content
+		FROM mileage_history
+		WHERE acc_id = #{VALUE}
+		ORDER BY create_time DESC
+	</select>
+
+	<select id="selectMileageHistoryCount" parameterType="string" resultType="integer">
+		SELECT count(*)
 		FROM mileage_history
 		WHERE acc_id = #{VALUE}
 	</select>
 
-	<select id="getAccount" parameterType="string" resultType="account">
-		SELECT (acc_id, card_id, create_time, acc_amount, mileage)
+	<select id="selectAccount" parameterType="string" resultType="account">
+		SELECT acc_id, card_id, create_time, acc_amount, mileage, is_mileage
 		FROM account
 		WHERE acc_id = #{VALUE}
 	</select>

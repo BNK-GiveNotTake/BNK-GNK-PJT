@@ -1,7 +1,6 @@
 package com.service.gnt;
 
 import java.io.Reader;
-import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -9,21 +8,22 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
-import com.service.gnt.domain.donation.Donation;
+import com.service.gnt.domain.users.Users;
 
-public class MyBatisTest2 {
-	
+public class CommonMyBatisTest {
 	@Test
 	public void unit() throws Exception {
+		String um = "ns.sql.UserMapper.";
 		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
 		
 		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
 		SqlSession session = factory.openSession();
-
-
-		List<Donation> list = session.selectList("ns.sql.DonationMapper.DonationAsk");
-		System.out.println(list);
 		
+		Users user = new Users("aa@naver.com", "AAA", "12355");
+		System.out.println(user.toString());
+		int returnInsert = session.insert(um+"insertUser", user);
+		session.commit();
+		System.out.println(returnInsert);
 	}
 	
 }

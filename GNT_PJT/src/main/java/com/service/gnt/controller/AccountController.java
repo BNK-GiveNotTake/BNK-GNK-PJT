@@ -1,32 +1,35 @@
 package com.service.gnt.controller;
-
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.account.MileageHistory;
 import com.service.gnt.model.service.AccountService;
-
 import io.swagger.annotations.ApiOperation;
-
 @RestController
 public class AccountController {
-	
 	@Autowired
 	private AccountService accountService;
-
 	@ApiOperation(value="createAcc", notes="계좌 생성")
 	@PostMapping("/createAcc.do")
-	public Account createAcc(@RequestParam int userId,@RequestParam int accPassword,@RequestParam String userNameEng,
+	public Map<String,Object> createAccount(@RequestParam int userId,@RequestParam String accPassword,@RequestParam String userNameEng,
 			@RequestParam String address, @RequestParam String phone, Model model) {
 		try {
-		return accountService.createAcc(userId, accPassword, userNameEng, address, phone);
+			Map<String,Object> maps = new HashMap<>();
+			String status = "no";
+			Account account = accountService.createAccount(userId, accPassword, userNameEng, address, phone);
+			if(account!=null) {
+				status = "yes";
+				maps.put("account", account);
+			}			
+			maps.put("message", status);
+			return maps;
 		} catch(Exception e) {
 			model.addAttribute("title", "Error - Occured");
 			model.addAttribute("message", "Error Occured :"+e.getMessage());
@@ -34,139 +37,160 @@ public class AccountController {
 			return null;
 		}
 	}
-	
-	@ApiOperation(value="createAccTest", notes="계좌 생성")
-	@PostMapping("/createAccTest.do")
-	public Account createAcc(@RequestParam int accPassword, Model model) {
-		try {
-			System.out.println("createAcc Contr");
-		return accountService.createAccTest(accPassword);
-		} catch(Exception e) {
-			model.addAttribute("title", "Error - Occured");
-			model.addAttribute("message", "Error Occured :"+e.getMessage());
-			System.out.println("Error :"+e.getMessage()+e.toString());
-			return null;
-		}
-	}
-
 	@ApiOperation(value="checkUserAcc", notes="계좌 존재유무 확인")
 	@PostMapping("/checkUserAcc.do")
-	public String checkUserAcc(int userId) {
+	public Map<String,Object> checkUserAccount(int userId) {
+		Map<String,Object> maps = new HashMap<>();
 		try {
-			return accountService.checkUserAcc(userId);
+			maps.put("message", accountService.checkUserAccount(userId));
+			return maps;
 		} catch(Exception e) {
-	//		model.addAttribute("title", "Error - Occured");
-	//		model.addAttribute("message", "Error Occured :"+e.getMessage());
 			System.out.println("Error :"+e.getMessage()+e.toString());
-			return null;
+			maps.put("message","no");
+			return maps;
 		}
 	}
-	
-	@ApiOperation(value="getAccount", notes="계좌 정보 확인")
+	@ApiOperation(value="checkUserAccPasword", notes="계좌 비밀번호 확인")
+	@PostMapping("/checkUserAccPasword.do")
+	public Map<String,Object> checkUserAccPasword(int userId, String accPassword) {
+		Map<String,Object> maps = new HashMap<>();
+		try {
+			maps.put("message", accountService.checkUserAccPasword(userId,accPassword));
+			return maps;
+		} catch(Exception e) {
+			System.out.println("Error :"+e.getMessage()+e.toString());
+			maps.put("message","no");
+			return maps;
+		}
+	}
+	@ApiOperation(value="getAccount", notes="계좌 정보 확인") //비정상 작동 WIP
 	@PostMapping("/getAccount.do")
-	public Account getAccount(int userId) {
+	public Map<String,Object> getAccount(int userId) {
+		Map<String,Object> maps = new HashMap<>();
+		String status = "no";
 		try {
-			return accountService.getAccountByUserId(userId);
+			Account data = accountService.getAccountByUserId(userId);
+			if(data!=null) {
+				status = "yes";
+				maps.put("account", data);
+			}			
+			maps.put("message", status);
+			return maps;
 		} catch(Exception e) {
-	//		model.addAttribute("title", "Error - Occured");
-	//		model.addAttribute("message", "Error Occured :"+e.getMessage());
+			maps.put("message", status);
+			System.out.println(userId);
 			System.out.println("Error :"+e.getMessage()+e.toString());
-			return null;
+			return maps;
 		}
 	}
-	
-	@ApiOperation(value="depositAcc", notes="계좌 입금") //WIP
+	@ApiOperation(value="depositAcc", notes="계좌 입금")
 	@PostMapping("/depositAcc.do")
-	public void depositAcc(int userId, int amount) {
+	public Map<String,Object> depositAccount(int userId, int amount) {
+			Map<String,Object> maps = new HashMap<>();
+			String status = "no";
 		try {
-		accountService.depositAcc(userId, amount);
+			if(accountService.depositAccount(userId, amount)>0){
+				status = "yes";
+			}
+			maps.put("message", status);
+			return maps;
 		} catch(Exception e) {
-//		model.addAttribute("title", "Error - Occured");
-//		model.addAttribute("message", "Error Occured :"+e.getMessage());
-		System.out.println("Error :"+e.getMessage()+e.toString());
-//		return null;
+			System.out.println("Error :"+e.getMessage()+e.toString());
+			maps.put("message", status);
+			return maps;
 		}
 	}
-	
-	@ApiOperation(value="sendAcc", notes="송금") //WIP
+	@ApiOperation(value="sendAcc", notes="송금")
 	@PostMapping("/sendAcc.do")
-	public void sendAcc(int userId, int amount, String accId) {
+	public Map<String,Object> sendAccount(int userId, int amount, String accId) {
+		Map<String,Object> maps = new HashMap<>();
+		String status = "no";
 		try {
-		accountService.sendAcc(userId, amount, accId);
+			status = accountService.sendAccount(userId, amount, accId);
+			maps.put("message", status);
+			maps.put("amount",amount);
+			return maps;
 		} catch(Exception e) {
-//		model.addAttribute("title", "Error - Occured");
-//		model.addAttribute("message", "Error Occured :"+e.getMessage());
-		System.out.println("Error :"+e.getMessage()+e.toString());
-//		return null;
+			System.out.println("Error :"+e.getMessage()+e.toString());
+			maps.put("message", status);
+			return maps;
 		}
 	}
-	
-	@ApiOperation(value="createMile", notes="마일리지 생성") //WIP
+	@ApiOperation(value="createMile", notes="마일리지 생성")
 	@PostMapping("/createMile.do")
-	public String createMile(int userId) {
+	public Map<String,Object> createMileage(int userId) {
+		Map<String,Object> maps = new HashMap<>();
+		String status = "no";
 		try {
-			String status = "fail"; //아직 작성중
-			if(accountService.createMile(userId)>0) status="success";
-			return status;
+			if(accountService.createMileage(userId)>0) {
+				status="yes";
+				maps.put("mileageHisstory", accountService.addMileage(0, userId));
+			}
+			maps.put("message", status);
+			return maps;
 		} catch(Exception e) {
-//		model.addAttribute("title", "Error - Occured");
-//		model.addAttribute("message", "Error Occured :"+e.getMessage());
-		System.out.println("Error :"+e.getMessage()+e.toString());
-			return null;
+			System.out.println("Error :"+e.getMessage()+e.toString());
+			maps.put("message", status);
+			return maps;
 		}
 	}
-	
 	@ApiOperation(value="getMileBalance", notes="마일리지 잔액 확인")
 	@PostMapping("/getMileBalance.do")
-	public int getMileBalance(int userId) {
+	public Map<String,Object> getMileageBalance(int userId) {
+		Map<String,Object> maps = new HashMap<>();
+		String status = "no";
 		try {
-			return accountService.getMileBalance(userId);
+			Object data = accountService.getMileageBalance(userId);
+			if(data!=null){
+				status = "yes";
+				maps.put("mileage", data);
+			}
+			maps.put("message", status);
+			return maps;
 		} catch(Exception e) {
-//		model.addAttribute("title", "Error - Occured");
-//		model.addAttribute("message", "Error Occured :"+e.getMessage());
-		System.out.println("Error :"+e.getMessage()+e.toString());
-			return 0;
+			System.out.println("Error :"+e.getMessage()+e.toString());
+			maps.put("message", status);
+			return maps;
 		}
 	}
-	
 	@ApiOperation(value="getMileHistory", notes="마일리지 내역 확인")
 	@PostMapping("/getMileHistory.do")
-	public List<MileageHistory> getMileHistory(int userId) {
+	public Map<String,Object> getMileageHistory(int userId) {
+		Map<String,Object> maps = new HashMap<>();
+		String status = "no";
 		try {
-			List<MileageHistory> list = accountService.getMileHistory(userId);
-			for(MileageHistory mi : list) System.out.println(mi);
-			return list;
+			List<MileageHistory> data = accountService.getMileageHistory(userId);
+			if(accountService.getMileageHistoryCount(userId)>0) {
+				status = "yes";
+				maps.put("mileageHistory", data);
+				maps.put("mileageBalance",accountService.getMileageBalance(userId));
+			}
+			maps.put("message", status);
+			return maps;
 		} catch(Exception e) {
-	//		model.addAttribute("title", "Error - Occured");
-	//		model.addAttribute("message", "Error Occured :"+e.getMessage());
 			System.out.println("Error :"+e.getMessage()+e.toString());
-			return null;
+			maps.put("message", status);
+			return maps;
 		}
 	}
-	
 	@ApiOperation(value="addMile", notes="마일리지 충전")
-	@GetMapping("/addMile.do")
-	public MileageHistory addMile(int amount, int userId) {
+	@PostMapping("/addMile.do")
+	public Map<String,Object> addMileage(int amount, int userId) {
+		Map<String,Object> maps = new HashMap<>();
+		String status = "no";
 		try {
-			return accountService.addMile(amount, userId);
+			Object data = accountService.addMileage(amount, userId);
+			if(data!=null){
+				status = "yes";
+				maps.put("mileage", data);
+				maps.put("mileageBalance",accountService.getMileageBalance(userId));
+			}
+			maps.put("message", status);
+			return maps;
 		} catch(Exception e) {
-	//		model.addAttribute("title", "Error - Occured");
-	//		model.addAttribute("message", "Error Occured :"+e.getMessage());
 			System.out.println("Error :"+e.getMessage()+e.toString());
-			return null;
-		}
-	}
-	
-	@ApiOperation(value="getMilePk", notes="마일리지 PK 확인") //WIP
-	@PostMapping("/getMilePk.do")
-	public int getMilePk(int userId) {
-		try {
-				return accountService.getMilePk(userId);
-		} catch(Exception e) {
-		//		model.addAttribute("title", "Error - Occured");
-		//		model.addAttribute("message", "Error Occured :"+e.getMessage());
-				System.out.println("Error :"+e.getMessage()+e.toString());
-				return 0;
+			maps.put("message", status);
+			return maps;
 		}
 	}
 }

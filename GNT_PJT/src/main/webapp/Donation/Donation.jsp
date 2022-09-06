@@ -18,80 +18,254 @@
 		$(window).on('load', function() {
 			$('#donation').addClass('loaded');
 		});
+		
+		var page = 1
+		var Donation = {}
+		
 		$(function() {
-			/* $('.cards').on('click', '.card__img--hover', changeRecent()); */
-			$('.card__img').click(changeRecent());
+			getDonationBasic()
+			getRecent()
+			
+			$('.next-page').click(function() {
+				getDonationPage()
+			})
+			
+			$('.donation-list').on('click', '.card ', function() {
+				id = $(this).attr('id')
+				localStorage.setItem('DonationDetailId', id)
+				location.href="DonationDetail.jsp"
+			});
+			
+			$('.recent-items').on('click', '.recent-item img', function() {
+				id = $(this).attr('id')
+				localStorage.setItem('DonationDetailId', id)
+				location.href="DonationDetail.jsp"
+			})
 			
 			var delay = 500;
-			$('.top-btn').click(function() {
+			$('.top-img').click(function() {
 				$('html, body').stop().animate({scrollTop: 0}, delay);
 			})
 			
 			$('#all').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'block')
+				getDonationBasic()
 			})
 			$('#child').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(1)
 			})
 			$('#old').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(2)
 			})
 			$('#disabled').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(3)
 			})
 			$('#multiculture').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(4)
 			})
 			$('#global').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(5)
 			})
 			$('#family').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(6)
 			})
 			$('#animal').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(7)
 			})
 			$('#environ').click(function() {
 				removeSelected();
 				$(this).addClass('selected')
+				$('.next-page').css('display', 'none')
+				getDonationCategory(8)
 			})
 		})
 		
-		const removeSelected = function() {
+		function removeSelected() {
 			var btnList = $('.donation-btn')
 			btnList.removeClass('selected')
 		}
 		
-		const changeRecent = function() {
-			console.log("실행되나????")
+		function getRecent() {
 			var recentList = localStorage.getItem("recentList")
-			if (recentList==null) {
-				recentList = ["https://happybean-phinf.pstatic.net/20220819_67/1660868531689IgY4X_JPEG/메인이미지01jpg?type=w720"]
-				recentList = JSON.stringify(recentList)
-				localStorage.setItem("recentList", recentList)
-			} else {
-				recentList = JSON.parse(recentList)
-				if (recentList.length == 3) {
-					recentList.shift();
-				}
-				recentList.push("https://happybean-phinf.pstatic.net/20220819_67/1660868531689IgY4X_JPEG/메인이미지01jpg?type=w720");
-				recentList = JSON.stringify(recentList)
-				localStorage.removeItem("recentList")
-				localStorage.setItem("recentList", recentList)
-			}
 			recentList = JSON.parse(recentList)
 			$('.recent-items').empty()
 			$.each(recentList, function(index, item) {
-				$('.recent-items').append('<div class=recent-item><img src='+item+'></div>')
+				title = ""
+				if (item.title.length > 10) {
+					title = item.title.substr(0, 10) + "..."
+				} else {
+					title = item.title
+				}
+				$('.recent-items').prepend('<div class=recent-item><img id='+item.donationId+' src='+item.imageUri+'><span>'+title+'</span></div>')
 			})	
+		}
+		
+		function getDonationBasic() {
+			$.ajax({
+				type: 'get',
+				url: '../DonationAsk.do',
+				data: {},
+				success: function(res) {
+					Donation = res.Donation
+					$('.donation-list').empty();
+					$.each(Donation, function(index, item) {
+						donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
+						backgroundColor = checkBackgroundColor(donationPercent)
+						$('.donation-list').append(
+							'<section class="cards col-4 mb-5">' +
+								'<article class="card card--1" id='+item.donationId+'>' +
+								'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
+								'<a href="#" class="card_link">' +
+									'<div class="card__img--hover" style=background-image:url('+item.imageUri+')></div>' +
+								'</a>' +
+								'<div class="card__info">' +
+									'<h3 class="card__title">'+item.title+'</h3>' +
+									'<span class="card__by">' +
+										'<a href="#" class="card__author" title="author">'+item.organization+'</a>' +
+									'</span>' +
+									'<div class="container-fluid">' +
+										'<div class="Loading">' +
+											'<div class="Loading-after" style=width:'+donationPercent+'%;background-color:'+backgroundColor+';></div>' +
+										'</div>' +
+										'<span class="progress-span">'+donationPercent+'%</span>' +
+							'</div></div></article></section>'
+						);
+					})
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		}
+		
+		function getDonationPage() {
+			page += 1
+			$.ajax({
+				type: 'get',
+				url: '../pageAsk.do',
+				data: {
+					'pagenum': page,
+				},
+				success: function(res) {
+					Donation = res.Donation
+					console.log(Donation)
+					$.each(Donation, function(index, item) {
+						donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
+						backgroundColor = checkBackgroundColor(donationPercent)
+						$('.donation-list').append(
+							'<section class="cards col-4 mb-5">' +
+								'<article class="card card--1" id='+item.donationId+'>' +
+								'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
+								'<a href="#" class="card_link">' +
+									'<div class="card__img--hover" style=background-image:url('+item.imageUri+')></div>' +
+								'</a>' +
+								'<div class="card__info">' +
+									'<h3 class="card__title">'+item.title+'</h3>' +
+									'<span class="card__by">' +
+										'<a href="#" class="card__author" title="author">'+item.organization+'</a>' +
+									'</span>' +
+									'<div class="container-fluid">' +
+										'<div class="Loading">' +
+											'<div class="Loading-after" style=width:'+donationPercent+'%;background-color:'+backgroundColor+';></div>' +
+										'</div>' +
+										'<span class="progress-span">'+donationPercent+'%</span>' +
+							'</div></div></article></section>'
+						);
+					})
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		} 
+		
+		function getDonationCategory(categoryId) {
+			$.ajax({
+				type: 'get',
+				url: '../category.do',
+				data: {
+					'categoryId': categoryId,
+				},
+				success: function(res) {
+					Donation = res.Donation
+					$('.donation-list').empty();
+					$.each(Donation, function(index, item) {
+						donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
+						backgroundColor = checkBackgroundColor(donationPercent)
+						$('.donation-list').append(
+							'<section class="cards col-4 mb-5">' +
+								'<article class="card card--1" id='+item.donationId+'>' +
+								'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
+								'<a href="#" class="card_link">' +
+									'<div class="card__img--hover" style=background-image:url('+item.imageUri+')></div>' +
+								'</a>' +
+								'<div class="card__info">' +
+									'<h3 class="card__title">'+item.title+'</h3>' +
+									'<span class="card__by">' +
+										'<a href="#" class="card__author" title="author">'+item.organization+'</a>' +
+									'</span>' +
+									'<div class="container-fluid">' +
+										'<div class="Loading">' +
+											'<div class="Loading-after" style=width:'+donationPercent+'%;background-color:'+backgroundColor+';></div>' +
+										'</div>' +
+										'<span class="progress-span">'+donationPercent+'%</span>' +
+							'</div></div></article></section>'
+						);
+					})
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		}
+		
+		function checkBackgroundColor(donationPercent) {
+			backgroundColor = ""
+			if (donationPercent < 10) {
+				backgroundColor = "rgb(247,100,33,0.1)";
+			} else if (donationPercent>=10 && donationPercent<20) {
+				backgroundColor = "rgb(247,115,33,0.2)";
+			} else if (donationPercent>=20 && donationPercent<30) {
+				backgroundColor = "rgb(247,130,33,0.3)";
+			} else if (donationPercent>=30 && donationPercent<40) {
+				backgroundColor = "rgb(247,145,33,0.4)";
+			} else if (donationPercent>=40 && donationPercent<50) {
+				backgroundColor = "rgb(247,160,33,0.5)";
+			} else if (donationPercent>=50 && donationPercent<60) {
+				backgroundColor = "rgb(247,185,33,0.6)";
+			} else if (donationPercent>=60 && donationPercent<70) {
+				backgroundColor = "rgb(247,200,33,0.7)";
+			} else if (donationPercent>=70 && donationPercent<80) {
+				backgroundColor = "rgb(247,215,33,0.8)";
+			} else if (donationPercent>=80 && donationPercent<90) {
+				backgroundColor = "rgb(247,230,33,0.9)";
+			} else {
+				backgroundColor = "rgb(247,245,33,1)";
+			}
+			return backgroundColor
 		}
 		
 	</script>
@@ -104,70 +278,40 @@
 			<div class="loader-section section-right"></div>
 		</div>
 		<%@ include file="../Common/Nav.jsp" %><br>
-		<div class="row" style="width: 99vw;">
-			<div class="col-10 row" style="border-right: 1px solid #c4c5c4; padding-left: 3rem; padding-right: 0rem;">
-				<div class="donation-category">
-					<span>기부</span>
-					<button class="donation-btn selected" id="all">전체</button>
-					<button class="donation-btn" id="child">아동•청소년</button>
-					<button class="donation-btn" id="old">어르신</button>
-					<button class="donation-btn" id="disabled">장애인</button>
-					<button class="donation-btn" id="multiculture">다문화</button>
-					<button class="donation-btn" id="global">지구촌</button>
-					<button class="donation-btn" id="family">가족•여성</button>
-					<button class="donation-btn" id="animal">동물</button>
-					<button class="donation-btn" id="environ">환경</button>
-				</div>
-				
-				<c:forEach var="i" begin="0" end="5">
-					<section class="cards col-3 mb-5">
-						<article class="card card--1">
-						  <div class="card__img" style="background-image: url('<c:out value="https://happybean-phinf.pstatic.net/20220819_67/1660868531689IgY4X_JPEG/메인이미지01jpg?type=w720" />')"></div>
-						  <a href="#" class="card_link">
-						     <div class="card__img--hover" style="background-image: url('<c:out value="https://happybean-phinf.pstatic.net/20220819_67/1660868531689IgY4X_JPEG/메인이미지01jpg?type=w720" />')"></div>
-						   </a>
-						  <div class="card__info">
-						    <h3 class="card__title">밥 한끼조차 챙기기 어려운 연아</h3>
-						    <span class="card__by">
-						    	<img class="card__logo" src="https://happybean-phinf.pstatic.net/20200116_34/1579150184219Bj6oe_JPEG/%C6%C4%BA%F1%C4%DC.jpg?type=w180">
-						    	<a href="#" class="card__author" title="author">세이브더칠드런</a>
-						    </span>
-						    <div class="container-fluid">
-							    <div class="Loading">
-							    	<div
-							    		class="Loading-after"
-							    		style="width: <c:out value='70%' />;
-							    		background-color:
-							    			<c:if test="${i==0}"><c:out value="black" /></c:if>
-							    			<c:if test="${i==1}"><c:out value="yellow" /></c:if>
-							    			<c:if test="${i==2}"><c:out value="blue" /></c:if>
-							    			<c:if test="${i==3}"><c:out value="crimson" /></c:if>
-							    			<c:if test="${i==4}"><c:out value="pink" /></c:if>
-							    			<c:if test="${i==5}"><c:out value="red" /></c:if>
-							    		;"
-							    	>
-							    	</div>
-							    </div>
-							    
-							    <span class="progress-span">70%</span>
-							    <span>
-							    	<c:if test="${i} = 0">aaaa</c:if>
-							    </span>
-							</div>
-						  </div>
-						</article>
-						 
-					</section>
-				</c:forEach>
-				
-			</div>
-			<div class="col-2">
-				<div class="recent">
-					<h4 align="center">최근 본 목록</h4>
-					<div class="recent-items">
-					
+		<div class="container" style="min-width: 1200px;">
+		
+			<div class="row">
+				<div class="col-10 row" style="border-right: 1px solid #c4c5c4; padding-left: 3rem; padding-right: 0rem;">
+					<div class="donation-category">
+						<span>기부</span>
+						<button class="donation-btn selected" id="all">전체</button>
+						<button class="donation-btn" id="child">아동•청소년</button>
+						<button class="donation-btn" id="old">어르신</button>
+						<button class="donation-btn" id="disabled">장애인</button>
+						<button class="donation-btn" id="multiculture">다문화</button>
+						<button class="donation-btn" id="global">지구촌</button>
+						<button class="donation-btn" id="family">가족•여성</button>
+						<button class="donation-btn" id="animal">동물</button>
+						<button class="donation-btn" id="environ">환경</button>
 					</div>
-					<button class="top-btn">TOP</button>
+					<div class="donation-list row">
+						
+					</div>
+					
+					<button class="next-page">더보기</button>
+				</div>
+				<div class="col-2">
+					<div class="recent">
+						<div class="recent-title">
+							<img src="../Donation/img/recent.png">
+						</div>
+						<div class="recent-items">
+						
+						</div>
+						<div style="text-align: center; margin-top: 1rem;">
+							<img class="top-img" src="../Donation/img/top.png">
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
