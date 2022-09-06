@@ -34,7 +34,7 @@ public class CommonController {
 	}
 	@ApiOperation(value="Swagger", notes="Swagger-ui page로 이동")
 	@GetMapping("swagger")
-	public void> swagger(HttpServletResponse response) throws Exception {
+	public void swagger(HttpServletResponse response) throws Exception {
 		uri = "swagger-ui.html";
 		response.sendRedirect(uri);
 	}
