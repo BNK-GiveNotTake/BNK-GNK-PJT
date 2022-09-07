@@ -59,13 +59,14 @@ public class CommonController {
 				return maps;
 			}
 		}catch (Exception e){
+			message = "error";
 			model.addAttribute("title", "로그인 에러");
 //			model.addAttribute("message", "로그인 중 에러 발생");
 			maps.put("message", message);
 			return maps;
 		}
 	}
-	@PostMapping("validateEmail.do")
+	@GetMapping("validateEmail.do")
 	public Map<String,Object> validateEmail(Users user, Model model) {
 		String message = "no";
 		Users find = commonService.getUserEmailByUserId(user);
@@ -124,12 +125,13 @@ public class CommonController {
 			user1.setUserEmail("회원 가입 실패");
 			user1.setUserName("회원 가입 실패");
 			user1.setUserPassword("회원 가입 실패");
+			message = "error";
 			maps.put("1",user1);
 			maps.put("message", message);
 			return maps;
 		}
 	}
-		@PostMapping("getUser.do")
+		@GetMapping("getUser.do")
 		public Map<String,Object> getUser(int userId, Model model){
 			String message="no";
 			try {

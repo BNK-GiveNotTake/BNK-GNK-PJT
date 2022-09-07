@@ -74,7 +74,7 @@
 						
 					} else {
 						$.ajax({
-							type: 'get',
+							type: 'post',
 							url: '../checkGamePlayed.do',
 							data: {
 								'userId': userInfo.userId,
@@ -137,23 +137,31 @@
 					<div class="event-card" value="1">
 						<div class="event-background">
 							<div class="event-content d-flex justify-content-center align-items-center" style="flex-direction: column;">
-								<img src="img/no1.png">					
-								<!-- <h1 style="text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">No.1</h1><br>
-								<h1 style="text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;">오늘의 퀴즈</h1> -->
+								<!-- <img src="img/no1.png">	 -->
+								<div style="width: 100%;">
+									<h1 style="text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000; font-size: 3rem; margin-left: 1.5rem; margin-bottom: 0px;">No.1</h1>
+								</div>				
+								<h1 style="text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000; font-size: 3.5rem;">오늘의 퀴즈</h1>
 							</div>
 						</div>
 					</div>
 					<div class="event-card" value="2">
 						<div class="event-background">
-							<div class="event-content d-flex align-items-center">
-								<img src="img/no2.png">							
+							<div class="event-content d-flex justify-content-center align-items-center" style="flex-direction: column;">
+								<div style="width: 100%;">
+									<h1 style="text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000; font-size: 3rem; margin-left: 1.5rem; margin-bottom: 0px;">No.2</h1>
+								</div>				
+								<h1 style="text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000; font-size: 3.5rem;">오늘의 추첨</h1>			
 							</div>
 						</div>		
 					</div>
 					<div class="event-card" value="3">
 						<div class="event-background">
-							<div class="event-content d-flex align-items-center">
-								<img src="img/no3.png">							
+							<div class="event-content d-flex justify-content-center align-items-center" style="flex-direction: column;">
+								<div style="width: 100%;">
+									<h1 style="text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000; font-size: 3rem; margin-left: 1.5rem; margin-bottom: 0px;">No.3</h1>
+								</div>				
+								<h1 style="text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000; font-size: 3.5rem;">오늘의 게임</h1>					
 							</div>
 						</div>		
 					</div>

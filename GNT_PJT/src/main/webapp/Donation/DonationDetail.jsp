@@ -74,15 +74,19 @@
 												'donationAmount': name
 											},
 											success: function(res) {
-												swal({
-													title: "Good job!",
-													text: "성공적으로 기부했습니다.",
-													icon: "success",
-													button: "확인!",
-												})
-												.then((value) => {
-													location.href="../Donation/DonationDetail.jsp";
-												})
+												if (res.message=='yes') {
+													swal({
+														title: "Good job!",
+														text: "성공적으로 기부했습니다.",
+														icon: "success",
+														button: "확인!",
+													})
+													.then((value) => {
+														location.href="../Donation/DonationDetail.jsp";
+													})													
+												} else {
+													location.href = "../Error/Error.jsp"
+												}
 											},
 											error: function(err) {
 												console.log(err)
@@ -126,65 +130,69 @@
 					'donationId': donationId
 				},
 				success: function(res) {
-					Donation = res.Donation[1]
-					
-					donationPercent = Math.round((Donation.donationAmount/Donation.donationLimit)*100)
-					backgroundColor = checkBackgroundColor(donationPercent)
-					donationAmount = Donation.donationAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-					donationLimit = Donation.donationLimit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-					
-					changeRecentItems(Donation)
-					$('.donation_detail_title').empty()
-					$('.donation_detail_title').html(Donation.title)
-					$('.example > .block > .side').css("background-image", "url("+Donation.imageUri+")")
-					$('.donation_detail_content').empty()
-					if (Donation.section1!=null) {
-						$('.donation_detail_content').append('<h4 class=content-title>'+Donation.section1Title+'</h4>');
-						$('.donation_detail_content').append('<p class=content-content>'+Donation.section1+'</p>');
-						if (Donation.section2!=null) {
-							$('.donation_detail_content').append('<h4 class=content-title>'+Donation.section2Title+'</h4>');
-							$('.donation_detail_content').append('<p class=content-content>'+Donation.section2+'</p>');
-							if (Donation.section3!=null) {
-								$('.donation_detail_content').append('<h4 class=content-title>'+Donation.section3Title+'</h4>');
-								$('.donation_detail_content').append('<p class=content-content>'+Donation.section3+'</p>');
-								if (Donation.section4!=null) {
-									$('.donation_detail_content').append('<h4 class=content-title>'+Donation.section4Title+'</h4>');
-									$('.donation_detail_content').append('<p class=content-content>'+Donation.section4+'</p>');
-									if (Donation.section5!=null) {
-										$('.donation_detail_content').append('<h4 class=content-title>'+Donation.section5Title+'</h4>');
-										$('.donation_detail_content').append('<p class=content-content>'+Donation.section5+'</p>');
+					if (res.message=='yes') {
+						Donation = res.Donation[1]
+						
+						donationPercent = Math.round((Donation.donationAmount/Donation.donationLimit)*100)
+						backgroundColor = checkBackgroundColor(donationPercent)
+						donationAmount = Donation.donationAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+						donationLimit = Donation.donationLimit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+						
+						changeRecentItems(Donation)
+						$('.donation_detail_title').empty()
+						$('.donation_detail_title').html(Donation.title)
+						$('.example > .block > .side').css("background-image", "url("+Donation.imageUri+")")
+						$('.donation_detail_content').empty()
+						if (Donation.section1!=null) {
+							$('.donation_detail_content').append('<h4 class=content-title>'+Donation.section1Title+'</h4>');
+							$('.donation_detail_content').append('<p class=content-content>'+Donation.section1+'</p>');
+							if (Donation.section2!=null) {
+								$('.donation_detail_content').append('<h4 class=content-title>'+Donation.section2Title+'</h4>');
+								$('.donation_detail_content').append('<p class=content-content>'+Donation.section2+'</p>');
+								if (Donation.section3!=null) {
+									$('.donation_detail_content').append('<h4 class=content-title>'+Donation.section3Title+'</h4>');
+									$('.donation_detail_content').append('<p class=content-content>'+Donation.section3+'</p>');
+									if (Donation.section4!=null) {
+										$('.donation_detail_content').append('<h4 class=content-title>'+Donation.section4Title+'</h4>');
+										$('.donation_detail_content').append('<p class=content-content>'+Donation.section4+'</p>');
+										if (Donation.section5!=null) {
+											$('.donation_detail_content').append('<h4 class=content-title>'+Donation.section5Title+'</h4>');
+											$('.donation_detail_content').append('<p class=content-content>'+Donation.section5+'</p>');
+										}
 									}
 								}
 							}
 						}
-					}
-					
-					
-					$('.donation_detail_category').empty()
-					$('.donation_detail_category').html(categoryList[Donation.categoryId-1])
-					$('.donation_detail_organization').empty()
-					$('.donation_detail_organization').html(Donation.organization)
-					$('.Loading-after').css('width', donationPercent+'%').css('background-color', backgroundColor)
-					$('.progress-span').html(donationPercent+'%')
-					$('.donation_detail_start').empty()
-					$('.donation_detail_start').html(Donation.createTime.slice(0, 10))
-					$('.donation_detail_end').empty()
-					$('.donation_detail_end').html(Donation.endTime.slice(0, 10))
-					$('.donation_detail_amount').empty()
-					$('.donation_detail_amount').html(donationAmount+"MP")
-					$('.donation_detail_limit').empty();
-					$('.donation_detail_limit').html(donationLimit+"MP")
-					
-					if (donationPercent>=100) {
-						createFirework()
-						$('.donation_detail_part').empty();
-						$('.donation_detail_part').html('<div class=donation_detail_success>목표 금액의 기부를 달성하였습니다!!</div>')
-						$('.success').css('display', 'block').css('background-color', '#8d8787')
-						$('body').css('overflow', 'hidden')
-						$('.donation_detail_content').empty()
-						$('.donation_detail_content').append('<h4 class=content-title>'+Donation.section1Title+'</h4>');
-						$('.donation_detail_content').append('<p class=content-content>'+Donation.section1+'</p>');
-						$('.success').after("<div class=donation_modal><h1>Congratulation!</h1><h3>기부 금액 달성 성공</h3><button class=success-btn>확인</button></div>")
+						
+						
+						$('.donation_detail_category').empty()
+						$('.donation_detail_category').html(categoryList[Donation.categoryId-1])
+						$('.donation_detail_organization').empty()
+						$('.donation_detail_organization').html(Donation.organization)
+						$('.Loading-after').css('width', donationPercent+'%').css('background-color', backgroundColor)
+						$('.progress-span').html(donationPercent+'%')
+						$('.donation_detail_start').empty()
+						$('.donation_detail_start').html(Donation.createTime.slice(0, 10))
+						$('.donation_detail_end').empty()
+						$('.donation_detail_end').html(Donation.endTime.slice(0, 10))
+						$('.donation_detail_amount').empty()
+						$('.donation_detail_amount').html(donationAmount+"MP")
+						$('.donation_detail_limit').empty();
+						$('.donation_detail_limit').html(donationLimit+"MP")
+						
+						if (donationPercent>=100) {
+							createFirework()
+							$('.donation_detail_part').empty();
+							$('.donation_detail_part').html('<div class=donation_detail_success>목표 금액의 기부를 달성하였습니다!!</div>')
+							$('.success').css('display', 'block').css('background-color', '#8d8787')
+							$('body').css('overflow', 'hidden')
+							$('.donation_detail_content').empty()
+							$('.donation_detail_content').append('<h4 class=content-title>'+Donation.section1Title+'</h4>');
+							$('.donation_detail_content').append('<p class=content-content>'+Donation.section1+'</p>');
+							$('.success').after("<div class=donation_modal><h1>Congratulation!</h1><h3>기부 금액 달성 성공</h3><button class=success-btn>확인</button></div>")
+						}
+					} else {
+						location.href = "../Error/Error.jsp"
 					}
 					
 				},

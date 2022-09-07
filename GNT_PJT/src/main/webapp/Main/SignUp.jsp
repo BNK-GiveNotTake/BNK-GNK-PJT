@@ -116,7 +116,7 @@
 			$('.checkDuplicateEmail').click(function() {
 				var userEmail = $('#signUp_email').val() 
 				$.ajax({
-					type: 'post',
+					type: 'get',
 					url: '../validateEmail.do',
 					data: {
 						'userEmail': userEmail
@@ -124,9 +124,19 @@
 					success: function(res) {
 						if (email_valid==true) {
 							if(res.message=='no') {
-								alert("이미 존재하는 이메일입니다.")
+								swal({
+									title: "아이디 중복",
+									text: "이미 존재하는 아이디입니다.",
+									icon: "warning",
+									button: "확인",
+								})
 							} else {
-								alert("사용 가능한 이메일입니다.")
+								swal({
+									title: "아이디 사용 가능",
+									text: "사용 가능한 아이디입니다.!!",
+									icon: "success",
+									button: "확인",
+								})
 								is_duplicate = true;
 								$('.checkDuplicateEmail').css("display", "none");
 							}
@@ -174,6 +184,7 @@
 										'userPassword': $('#signUp_password').val()
 									},
 									success: function(res) {
+										console.log(res)
 										if(res.message== 'yes') {
 											var userInfo = new Object();
 											$.each(res.userinfo, function(index, item) {
@@ -193,13 +204,15 @@
 											.then((value) => {
 												location.href = "Main.jsp";	
 											})
-										} else {
+										} else if (res.message=='no') {
 											swal({
 												title: "회원가입 실패!",
 												text: "회원가입에 실패하셨습니다.!",
 												icon: "warning",
 												button: "확인!",
 											});
+										} else {
+											location.href = "../Error/Error.jsp"
 										}
 									},
 									error: function(err) {
@@ -207,13 +220,15 @@
 									}
 								})
 							
-							} else {
+							} else if (res.message=="no") {
 								swal({
 									title: "회원가입 실패!",
 									text: "회원가입에 실패하셨습니다.!",
 									icon: "warning",
 									button: "확인!",
 								});
+							} else {
+								location.href = "../Error/Error.jsp"
 							}
 						},
 						error: function(err) {

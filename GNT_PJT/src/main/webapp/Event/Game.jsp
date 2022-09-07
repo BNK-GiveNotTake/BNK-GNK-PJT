@@ -199,7 +199,6 @@
 							'top': $('.game-img').offset().top
 						},
 						success: function(res) {
-							console.log(res)
 							if (res.message=='yes') {
 								if (present < gameInfo.gameLocation) {
 									swal({
@@ -335,16 +334,7 @@
 								})
 								
 							} else if (res.message=='no') {
-								swal({
-									title: "에러",
-									text: "에러가 발생했습니다.",
-									icon: "warning",
-									button: "확인",
-									dangerMode: true,
-								})
-								.then((val) => {
-									location.href="Event.jsp"
-								})
+								location.href = "../Error/Error.jsp"
 							}
 						},
 						error: function(err) {

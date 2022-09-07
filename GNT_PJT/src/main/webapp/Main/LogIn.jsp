@@ -80,13 +80,15 @@
 								location.href = "Main.jsp";	
 							})
 							
-						} else {
+						} else if (res.message=="no") {
 							swal({
 								title: "로그인 실패!",
 								text: "로그인에 실패하셨습니다.!",
 								icon: "warning",
 								button: "확인!",
 							});
+						} else {
+							location.href="../Error/Error.jsp"
 						}
 						
 					},
