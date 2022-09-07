@@ -84,8 +84,15 @@
 													.then((value) => {
 														location.href="../Donation/DonationDetail.jsp";
 													})													
-												} else {
+												} else if (res.message.message=='error') {
 													location.href = "../Error/Error.jsp"
+												} else {
+													swal({
+														title: "Fail...",
+														text: "fail to donation",
+														icon: "warning",
+														button: "OK!"
+													})
 												}
 											},
 											error: function(err) {
