@@ -379,7 +379,7 @@
 				  }, 1000);
 				}
 				
-				window.onload = rollDice;
+				/* window.onload = rollDice; */
 				
 				$('.clickDice').click(rollDice);
 			})
