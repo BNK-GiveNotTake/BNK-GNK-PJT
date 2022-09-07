@@ -31,6 +31,9 @@
 				$('.mileage-shop').css('display', 'none');
 				$('.mileage-history').css('display', 'none');
 				$('#main').css('height', '100vh')
+			} else {
+				$('#exampleInputKoreaName').val(userInfo.userName);
+				$('.small-text-name').text(userInfo.userName);
 			}
 			if (account) {
 				console.log(account)
@@ -42,8 +45,7 @@
 				$('.mileage-history').css('display', 'none')
 			}
 			
-			$('#exampleInputKoreaName').val(userInfo.userName);
-			$('.small-text-name').text(userInfo.userName);
+			
 			$('.item .inner').click(function() {
 				var amount = $(this).attr('value');
 				swal({
