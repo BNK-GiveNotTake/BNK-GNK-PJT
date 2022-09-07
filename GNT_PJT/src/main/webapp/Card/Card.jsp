@@ -287,7 +287,12 @@
 						emo = "0"
 					}
 				} else {
-					alert('뒷면에서는 이모티콘을 변경할 수 없다.')
+					swal({
+						title: "사용 불가!",
+						text: "뒷면에서는 이모티콘을 변경할 수 없습니다.",
+						icon: "warning",
+						button: "확인!",
+					})
 				}
 				$('.emo').css('background-color', '#'+frontBackgroundColor);
 			})
