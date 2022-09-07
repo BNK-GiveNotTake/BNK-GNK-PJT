@@ -39,11 +39,21 @@
 			$('body').css('height', '100%').css('background-color', '#bee7df29')
 			
 			var userInfo = JSON.parse(localStorage.getItem('user'));
+			var accountInfo = JSON.parse(localStorage.getItem('account'));
 			
 			if (userInfo==null) {
 				swal({
 					title: "이용 불가!",
 					text: "회원가입 이후 사용해주세요!",
+					icon: "warning",
+					button: "확인",
+				}).then((val) => {
+					location.href = "../Main/Main.jsp"
+				})
+			} else if (accountInfo==null) {
+				swal({
+					title: "이용 불가!",
+					text: "계좌 생성 이후 사용해주세요!",
 					icon: "warning",
 					button: "확인",
 				}).then((val) => {
@@ -287,7 +297,12 @@
 						emo = "0"
 					}
 				} else {
-					alert('뒷면에서는 이모티콘을 변경할 수 없다.')
+					swal({
+						title: "사용 불가!",
+						text: "뒷면에서는 이모티콘을 변경할 수 없습니다.",
+						icon: "warning",
+						button: "확인!",
+					})
 				}
 				$('.emo').css('background-color', '#'+frontBackgroundColor);
 			})

@@ -24,7 +24,9 @@ public class NoticeController {
 			if(noticeService.getNoticeCount()>0) {
 				status = "yes";
 				for(Notice vo : data) {
-					innermap.put(Integer.toString(vo.getNoticeId()), (Object) vo);
+					if(vo != null) {
+						innermap.put(Integer.toString(vo.getNoticeId()), (Object) vo);
+					}					
 				}
 				maps.put("notice", innermap);
 			}			

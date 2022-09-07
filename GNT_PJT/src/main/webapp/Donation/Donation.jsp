@@ -174,7 +174,7 @@
 					'pagenum': page,
 				},
 				success: function(res) {
-					if (res.message=='yes') {
+					if (res.message.message=='yes') {
 						Donation = res.Donation
 						console.log(Donation)
 						$.each(Donation, function(index, item) {
@@ -218,7 +218,7 @@
 					'categoryId': categoryId,
 				},
 				success: function(res) {
-					if (res.message=='yes') {
+					if (res.message.message=='yes') {
 						Donation = res.Donation
 						$('.donation-list').empty();
 						$.each(Donation, function(index, item) {

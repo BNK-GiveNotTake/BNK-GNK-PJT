@@ -6,6 +6,7 @@
 	<select id="selectNoticeList" resultType="notice">
 		SELECT notice_id, user_id, notice_title, notice_content, create_time, view_cnt
 		FROM notice
+		ORDER BY create_time desc
 	</select>
 	<select id="selectNoticeDetail" resultType="notice" parameterType="int">
 		SELECT notice_id, user_id, notice_title, notice_content, create_time, view_cnt
