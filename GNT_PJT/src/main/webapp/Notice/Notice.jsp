@@ -102,7 +102,7 @@
 							);
 						})
 						$('#notice-content').remove();
-						$("#table-list"+noticeId).after('<div class=col-12 id=notice-content>'+notices[noticeId].noticeContent+'</div>')
+						$("#table-list"+noticeId).after('<div class=col-12 id=notice-content style=white-space:pre>'+notices[noticeId].noticeContent+'</div>')
 					} else {
 						location.href = "../Error/Error.jsp"
 					}
