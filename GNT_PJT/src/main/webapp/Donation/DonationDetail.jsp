@@ -74,7 +74,7 @@
 												'donationAmount': name
 											},
 											success: function(res) {
-												if (res.message=='yes') {
+												if (res.message.message=='yes') {
 													swal({
 														title: "Good job!",
 														text: "성공적으로 기부했습니다.",
