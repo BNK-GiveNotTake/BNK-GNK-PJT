@@ -13,7 +13,7 @@
 	</resultMap>
 
 	<select id="createAccKey" resultType="string">
-		SELECT TRUNC(DBMS_RANDOM.VALUE(power(10,12)+1, power(10,13)-1)) RANDOM FROM DUAL
+		SELECT TRUNC(DBMS_RANDOM.VALUE(power(10,13)+1, power(10,14)-1)) RANDOM FROM DUAL
 	</select>
 	<select id="validateAccId" parameterType="string" resultType="string">
 		SELECT count(acc_id) FROM account

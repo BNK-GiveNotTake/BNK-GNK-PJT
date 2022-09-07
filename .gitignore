@@ -160,3 +160,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/serverless,maven,windows,java,git
+GNT_PJT/src/main/resources/application.properties
