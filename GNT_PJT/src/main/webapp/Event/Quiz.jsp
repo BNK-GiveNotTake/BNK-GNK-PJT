@@ -115,12 +115,16 @@
 						'userId': userInfo.userId,
 					},
 					success: function(res) {
-						Quiz = res.notices
-						$('.quiz-question').text('Q. ' + Quiz.quizContent)
-						$('.answer-1').text('A. ' + Quiz.select1)
-						$('.answer-2').text('B. ' + Quiz.select2)
-						$('.answer-3').text('C. ' + Quiz.select3)
-						$('.answer-4').text('D. ' + Quiz.select4)
+						if (res.message=='yes') {
+							Quiz = res.notices
+							$('.quiz-question').text('Q. ' + Quiz.quizContent)
+							$('.answer-1').text('A. ' + Quiz.select1)
+							$('.answer-2').text('B. ' + Quiz.select2)
+							$('.answer-3').text('C. ' + Quiz.select3)
+							$('.answer-4').text('D. ' + Quiz.select4)							
+						} else {
+							location.href = "../Error/Error.jsp"
+						}
 					},
 					error: function(err) {
 						console.log(err)

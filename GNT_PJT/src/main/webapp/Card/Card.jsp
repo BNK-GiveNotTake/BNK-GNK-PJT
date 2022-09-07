@@ -340,12 +340,16 @@
 						'cardContent': card_content
 					},
 					success: function(res) {
-						swal({
-							title: "Good job!",
-							text: "성공적으로 카드를 저장했습니다.",
-							icon: "success",
-							button: "확인!",
-						})
+						if (res.message=='yes') {
+							swal({
+								title: "Good job!",
+								text: "성공적으로 카드를 저장했습니다.",
+								icon: "success",
+								button: "확인!",
+							})							
+						} else {
+							location.href = "../Error/Error.jsp"
+						}
 					},
 					error: function(err) {
 						console.log(err)
@@ -397,18 +401,22 @@
 					success: function(res) {
 						console.log(res)
 						$.ajax({
-							type: 'get',
+							type: 'put',
 							url: '../issueCard.do',
 							data: {
 								'userId': userInfo.userId,
 							},
 							success: function(res) {
-								swal({
-									title: "카드 발급 성공!",
-									text: "2주 안에 자택으로 카드 배송이 완료될 것입니다.",
-									icon: "success",
-									button: "확인!",
-								})
+								if (res.message=='yes') {
+									swal({
+										title: "카드 발급 성공!",
+										text: "2주 안에 자택으로 카드 배송이 완료될 것입니다.",
+										icon: "success",
+										button: "확인!",
+									})									
+								} else {
+									location.href = "../Error/Error.jsp"
+								}
 							},
 							error: function(err) {
 								console.log(err)
@@ -450,6 +458,9 @@
 		});
 		
 		const gradients = [ 
+			'ffffff', '000000',
+			'bcbcbc','999999',
+			'6a6a6a',
 		    'ffaaaa', 'c7004c',
 		    'fa4659', 'ff0592',
 		    'e1248f', 'f9fd50', 
@@ -504,28 +515,29 @@
 				new_gradients = gradients
 				new_fonts = fonts
 			} else if (userInfo.totalDonation >= 600000 && userInfo.totalDonation <= 1000000) {
-				new_gradients = gradients.slice(0, 20)
+				new_gradients = gradients.slice(0, 25)
 				new_fonts = fonts.slice(0, 20)
 			} else if (userInfo.totalDonation >= 300000 && userInfo.totalDonation <= 600000) {
-				new_gradients = gradients.slice(0, 15)
+				new_gradients = gradients.slice(0, 20)
 				new_fonts = fonts.slice(0, 16)
 			} else if (userInfo.totalDonation >= 100000 && userInfo.totalDonation <= 300000) {
-				new_gradients = gradients.slice(0, 10)
+				new_gradients = gradients.slice(0, 15)
 				new_fonts = fonts.slice(0, 12)
 			} else {
-				new_gradients = gradients.slice(0, 5)
+				new_gradients = gradients.slice(0, 10)
 				new_fonts = fonts.slice(0, 8)
 			}
-			
-			if (cardInfo.isUniqueColor=="1") {
-				new_gradients.push('ff0000', '524e4e', '8bffff', '4ef037', 'a100ff')
-			}
-			
-			if (cardInfo.isUniqueFont=="1") {
-				new_fonts.push('한림고딕체:한림대학교의료원:HallymGothic-Regular',
-						'추사 사랑체:예산군:ChusaLove',
-						'카페24 써라운드:카페24:Cafe24Ssurround',
-						'원스토어 모바일POP체:(주)원스토어:ONE-Mobile-POP')
+			if (cardInfo.cardId!=null) {
+				if (cardInfo.isUniqueColor=="1") {
+					new_gradients.push('ff0000', '524e4e', '8bffff', '4ef037', 'a100ff')
+				}
+				
+				if (cardInfo.isUniqueFont=="1") {
+					new_fonts.push('한림고딕체:한림대학교의료원:HallymGothic-Regular',
+							'추사 사랑체:예산군:ChusaLove',
+							'카페24 써라운드:카페24:Cafe24Ssurround',
+							'원스토어 모바일POP체:(주)원스토어:ONE-Mobile-POP')
+				}				
 			}
 			
 			console.log(new_gradients)

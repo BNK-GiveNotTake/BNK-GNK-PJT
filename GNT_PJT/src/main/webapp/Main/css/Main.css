@@ -198,6 +198,10 @@ button:hover span {
   }
 }
 
+.img-fluid {
+	max-width: 90%;
+	margin-left: 4rem;
+}
 
 @media (max-width: 320px) {
   .animated-text {

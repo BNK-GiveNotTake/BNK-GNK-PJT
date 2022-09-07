@@ -39,8 +39,8 @@
 								$('#roulette').removeAttr('class').addClass("number-"+evenList[randomNo])
 								setTimeout(() => {
 									swal({
-										title: "정답!!",
-										text: "정답입니다! 이벤트 상품은 뭘까요?",
+										title: "당첨!!",
+										text: "당첨입니다! 이벤트 상품은 뭘까요?",
 										icon: "success",
 										button: true,
 									})
@@ -54,8 +54,8 @@
 								$('#roulette').removeAttr('class').addClass("number-"+oddList[randomNo])
 								setTimeout(() => {
 									swal({
-										title: "땡!",
-										text: "아쉽게도 틀렸습니다. 내일 다시 도전해주세요!",
+										title: "아쉬워요!",
+										text: "아쉽게도 선택받지 못했습니다. 내일 다시 도전해주세요!",
 										icon: "error",
 										button: true,
 									})

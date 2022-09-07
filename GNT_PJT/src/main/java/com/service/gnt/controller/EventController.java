@@ -103,7 +103,7 @@ public class EventController implements CommandLineRunner{
 	
 	
 	
-	@GetMapping("checkGamePlayed.do")
+	@PostMapping("checkGamePlayed.do")
 	public Map<String, Object> checkGamePlayed (int userId) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String check = eventService.checkGamePlayed(userId);
@@ -117,6 +117,8 @@ public class EventController implements CommandLineRunner{
 			game.setRoundTrip(0);
 			game.setIsToday('0');
 			game.setIsTomorrow('0');
+			game.setTop(122);
+			game.setLeft(276);
 			eventService.insertGame(game);
 			result.put("game", game);
 			result.put("message", "yes");

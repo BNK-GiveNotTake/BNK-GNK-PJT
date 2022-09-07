@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.service.gnt.domain.notice.Notice;
 import com.service.gnt.model.service.NoticeService;
@@ -57,7 +58,7 @@ public class NoticeController {
 		}
 	}
 	@ApiOperation(value="addNoticeCount", notes="공지사항 조회수 증가")
-	@GetMapping("addNoticeCount.do")
+	@PutMapping("addNoticeCount.do")
 	public Map<String,Object> addNoticeCount(int noticeId) {
 		Map<String,Object> maps = new HashMap<>();
 		String status = "no";
