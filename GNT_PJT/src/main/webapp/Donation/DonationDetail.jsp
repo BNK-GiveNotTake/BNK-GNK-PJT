@@ -74,7 +74,7 @@
 												'donationAmount': name
 											},
 											success: function(res) {
-												if (res.message=='yes') {
+												if (res.message.message=='yes') {
 													swal({
 														title: "Good job!",
 														text: "성공적으로 기부했습니다.",
@@ -130,7 +130,7 @@
 					'donationId': donationId
 				},
 				success: function(res) {
-					if (res.message=='yes') {
+					if (res.message.message=='yes') {
 						Donation = res.Donation[1]
 						
 						donationPercent = Math.round((Donation.donationAmount/Donation.donationLimit)*100)
