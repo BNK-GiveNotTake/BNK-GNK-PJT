@@ -349,9 +349,9 @@
 }
 
 .start-roulette {
-	position: absolute;
-    top: 388px;
-    left: 729px;
+    position: relative;
+    top: 195px;
+    left: 495px;
     width: 80px;
     height: 80px;
     border: none;

@@ -159,6 +159,7 @@ public class DonationController {
 			return maps;
 			}
 		} catch (Exception e) {
+			message = "error";
 			maps1.put("message", message);
 			maps.put("message",maps1);
 			return maps;
