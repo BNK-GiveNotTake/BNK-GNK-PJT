@@ -39,6 +39,18 @@
 			$('body').css('height', '100%').css('background-color', '#bee7df29')
 			
 			var userInfo = JSON.parse(localStorage.getItem('user'));
+			
+			if (userInfo==null) {
+				swal({
+					title: "이용 불가!",
+					text: "회원가입 이후 사용해주세요!",
+					icon: "warning",
+					button: "확인",
+				}).then((val) => {
+					location.href = "../Main/Main.jsp"
+				})
+			}
+			
 			/* 카드 조회 */
 			$.ajax({
 				type: 'get',
