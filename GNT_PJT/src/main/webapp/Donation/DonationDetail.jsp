@@ -130,7 +130,7 @@
 					'donationId': donationId
 				},
 				success: function(res) {
-					if (res.message=='yes') {
+					if (res.message.message=='yes') {
 						Donation = res.Donation[1]
 						
 						donationPercent = Math.round((Donation.donationAmount/Donation.donationLimit)*100)
