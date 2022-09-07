@@ -16,8 +16,8 @@ import com.service.gnt.model.service.DonationService;
 public class DonationController {
 	@Autowired
 	private DonationService donationService;
-	@GetMapping("DonationAsk.do") //기부 페이지 조회 최신 20개
-	public Map<String,Map<String,Object>> donationindex(Model model) {
+	@GetMapping("getDonationAsk.do") //기부 페이지 조회 최신 20개
+	public Map<String,Map<String,Object>> getDonationAsk(Model model) {
 		String message = "no";
 		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
 		Map<String,Object> maps1 = new HashMap<String,Object>();
@@ -41,8 +41,8 @@ public class DonationController {
 		}
 	}
 	
-	@GetMapping("pageAsk.do") //페이지별 기부 내역 조회
-	public Map<String,Map<String,Object>> pagination(int pagenum , Model model) {
+	@GetMapping("getDonationPage.do") //페이지별 기부 내역 조회
+	public Map<String,Map<String,Object>> getDonationPage(int pagenum , Model model) {
 		String message = "no";
 		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
 		Map<String,Object> maps1 = new HashMap<String,Object>();
@@ -68,8 +68,8 @@ public class DonationController {
 		}
 		
 	}
-	@GetMapping("category.do")//카테고리별 모든 기부 목록 조회
-	public Map<String,Map<String,Object>> Category(int categoryId, Model model) {
+	@GetMapping("getCategoryPage.do")//카테고리별 모든 기부 목록 조회
+	public Map<String,Map<String,Object>> getCategoryPage(int categoryId, Model model) {
 		String message = "no";
 		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
 		Map<String,Object> maps1 = new HashMap<String,Object>();
@@ -93,7 +93,7 @@ public class DonationController {
 		}
 	}
 	
-//	@GetMapping("detailDonation.do") //상세 기부 페이지
+//	@GetMapping("getDoantionDetail.do") //상세 기부 페이지
 //	public String detailPage(String donationId, Model model) {
 //		String message = "No";
 //		Map<String,Object> maps = new HashMap<String,Object>();
@@ -112,8 +112,8 @@ public class DonationController {
 //			return "Error";
 //		}
 //	}
-	@GetMapping("detailDonation.do") //상세 기부 페이지
-	public Map<String,Map<String,Object>> detailPage(String donationId, Model model) {
+	@GetMapping("getDoantionDetail.do") //상세 기부 페이지
+	public Map<String,Map<String,Object>> getDoantionDetail(String donationId, Model model) {
 		String message = "no";
 		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
 		Map<String,Object> maps1 = new HashMap<String,Object>();
@@ -135,8 +135,8 @@ public class DonationController {
 	// [Donation history테이블]에서 해당하는 donation_id insert, [donation 테이블]에서 donation_amount 필드 업데이트(Clear), 
 	// user_id에 해당하는 User의 마일리지 차감 --> [Account 테이블]의 마일리지 필드 차감(Clear)...
 	// [Milege History 새로운 행 삽입](Clear)
-	@PostMapping("donate.do") //기부하기
-	public Map<String,Map<String,Object>> donate(Donation donation, Users user, Model model) {
+	@PostMapping("excuteDonation.do") //기부하기
+	public Map<String,Map<String,Object>> excuteDonation(Donation donation, Users user, Model model) {
 		String message = "no";
 		Map<String,Map<String,Object>> maps = new HashMap<String,Map<String,Object>>();
 		Map<String,Object> maps1 = new HashMap<String,Object>();

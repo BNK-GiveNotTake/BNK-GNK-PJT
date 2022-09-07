@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.service.gnt.domain.account.Account;
@@ -17,11 +18,11 @@ public class AccountController {
 	@Autowired
 	private AccountService accountService;
 	@ApiOperation(value="createAcc", notes="계좌 생성")
-	@PostMapping("/createAcc.do")
+	@PostMapping("createAccount.do")
 	public Map<String,Object> createAccount(@RequestParam int userId,@RequestParam String accPassword,@RequestParam String userNameEng,
 			@RequestParam String address, @RequestParam String phone, Model model) {
+		Map<String,Object> maps = new HashMap<>();
 		try {
-			Map<String,Object> maps = new HashMap<>();
 			String status = "no";
 			Account account = accountService.createAccount(userId, accPassword, userNameEng, address, phone);
 			if(account!=null) {
@@ -29,16 +30,13 @@ public class AccountController {
 				maps.put("account", account);
 			}			
 			maps.put("message", status);
-			return maps;
 		} catch(Exception e) {
-			model.addAttribute("title", "Error - Occured");
-			model.addAttribute("message", "Error Occured :"+e.getMessage());
-			System.out.println("Error :"+e.getMessage()+e.toString());
-			return null;
+			maps.put("message", "error");
 		}
+		return maps;
 	}
-	@ApiOperation(value="checkUserAcc", notes="계좌 존재유무 확인")
-	@PostMapping("/checkUserAcc.do")
+	@ApiOperation(value="checkUserAccount", notes="계좌 존재유무 확인")
+	@GetMapping("checkUserAccount.do")
 	public Map<String,Object> checkUserAccount(int userId) {
 		Map<String,Object> maps = new HashMap<>();
 		try {
@@ -50,8 +48,8 @@ public class AccountController {
 			return maps;
 		}
 	}
-	@ApiOperation(value="checkUserAccPasword", notes="계좌 비밀번호 확인")
-	@PostMapping("/checkUserAccPasword.do")
+	@ApiOperation(value="checkUserAccPassword", notes="계좌 비밀번호 확인")
+	@PostMapping("/checkUserAccPassword.do")
 	public Map<String,Object> checkUserAccPasword(int userId, String accPassword) {
 		Map<String,Object> maps = new HashMap<>();
 		try {
@@ -64,7 +62,7 @@ public class AccountController {
 		}
 	}
 	@ApiOperation(value="getAccount", notes="계좌 정보 확인") //비정상 작동 WIP
-	@PostMapping("/getAccount.do")
+	@PostMapping("getAccount.do")
 	public Map<String,Object> getAccount(int userId) {
 		Map<String,Object> maps = new HashMap<>();
 		String status = "no";
@@ -83,8 +81,8 @@ public class AccountController {
 			return maps;
 		}
 	}
-	@ApiOperation(value="depositAcc", notes="계좌 입금")
-	@PostMapping("/depositAcc.do")
+	@ApiOperation(value="depositAccount", notes="계좌 입금")
+	@PutMapping("depositAccount.do")
 	public Map<String,Object> depositAccount(int userId, int amount) {
 			Map<String,Object> maps = new HashMap<>();
 			String status = "no";
@@ -100,8 +98,8 @@ public class AccountController {
 			return maps;
 		}
 	}
-	@ApiOperation(value="sendAcc", notes="송금")
-	@PostMapping("/sendAcc.do")
+	@ApiOperation(value="sendAccount", notes="송금")
+	@PutMapping("sendAccount.do")
 	public Map<String,Object> sendAccount(int userId, int amount, String accId) {
 		Map<String,Object> maps = new HashMap<>();
 		String status = "no";
@@ -116,8 +114,8 @@ public class AccountController {
 			return maps;
 		}
 	}
-	@ApiOperation(value="createMile", notes="마일리지 생성")
-	@PostMapping("/createMile.do")
+	@ApiOperation(value="createMileage", notes="마일리지 생성")
+	@PostMapping("createMileage.do")
 	public Map<String,Object> createMileage(int userId) {
 		Map<String,Object> maps = new HashMap<>();
 		String status = "no";
@@ -135,7 +133,7 @@ public class AccountController {
 		}
 	}
 	@ApiOperation(value="getMileBalance", notes="마일리지 잔액 확인")
-	@PostMapping("/getMileBalance.do")
+	@PostMapping("getMileageBalance.do")
 	public Map<String,Object> getMileageBalance(int userId) {
 		Map<String,Object> maps = new HashMap<>();
 		String status = "no";
@@ -153,8 +151,8 @@ public class AccountController {
 			return maps;
 		}
 	}
-	@ApiOperation(value="getMileHistory", notes="마일리지 내역 확인")
-	@PostMapping("/getMileHistory.do")
+	@ApiOperation(value="getMileageHistory", notes="마일리지 내역 확인")
+	@PostMapping("getMileageHistory.do")
 	public Map<String,Object> getMileageHistory(int userId) {
 		Map<String,Object> maps = new HashMap<>();
 		String status = "no";
@@ -173,8 +171,8 @@ public class AccountController {
 			return maps;
 		}
 	}
-	@ApiOperation(value="addMile", notes="마일리지 충전")
-	@PostMapping("/addMile.do")
+	@ApiOperation(value="addMileage", notes="마일리지 충전")
+	@PutMapping("addMileage.do")
 	public Map<String,Object> addMileage(int amount, int userId) {
 		Map<String,Object> maps = new HashMap<>();
 		String status = "no";
@@ -188,6 +186,7 @@ public class AccountController {
 			maps.put("message", status);
 			return maps;
 		} catch(Exception e) {
+			status = "error";
 			System.out.println("Error :"+e.getMessage()+e.toString());
 			maps.put("message", status);
 			return maps;

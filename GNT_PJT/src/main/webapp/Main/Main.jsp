@@ -31,8 +31,15 @@
 				$('.mileage-shop').css('display', 'none');
 				$('.mileage-history').css('display', 'none');
 				$('#main').css('height', '100vh')
+			}
+			if (account) {
+				console.log(account)
+				if (account.isMileage=='1') {
+					getMileageHistory()
+				}
 			} else {
-				getMileageHistory()
+				$('.mileage-shop').css('display', 'none')
+				$('.mileage-history').css('display', 'none')
 			}
 			
 			$('#exampleInputKoreaName').val(userInfo.userName);
@@ -58,8 +65,8 @@
 							})
 						} else {
 							$.ajax({
-								type: 'post',
-								url: '../addMile.do',
+								type: 'put',
+								url: '../addMileage.do',
 								data: {
 									'amount': amount,
 									'userId': userInfo.userId,
@@ -85,6 +92,15 @@
 										.then((value) => {
 											location.href="../Main/Main.jsp";
 										})
+									} else if (res.message=='no') {
+										swal({
+											title: "구매 불가",
+											text: "현금보다 많은 양의 마일리지를 구매할 수 없습니다.",
+											icon: "warning",
+											button: "확인!",
+										})
+									} else {
+										location.href = "../Error/Error.jsp"
 									}
 								},
 								error: function(err) {
@@ -111,7 +127,7 @@
 			if (JSON.parse(localStorage.getItem('account'))==null) {
 				$('#account-btn').attr("data-toggle", "modal").attr("data-target", "#exampleModal")
 			} else {
-				$('#account-btn').text('계좌 생성')
+				$('#account-btn').text('계좌 관리')
 				$('#main-modal>h1').text('계좌 관리')
 				$('.create-account').text('계좌 수정하기')
 				$('#account-btn').click(function() {
@@ -134,7 +150,7 @@
 						} else {
 							$.ajax({
 								type: 'post',
-								url: '../checkUserAccPasword.do',
+								url: '../checkUserAccPassword.do',
 								data: {
 									'userId': userInfo.userId,
 									'accPassword': val
@@ -192,7 +208,7 @@
 					if (value==true) {
 						$.ajax({
 							type: 'post',
-							url: '../createMile.do',
+							url: '../createMileage.do',
 							data: {
 								'userId': userInfo.userId
 							},
@@ -207,6 +223,8 @@
 									.then((value) => {
 										location.href="../Main/Main.jsp";
 									})
+								} else {
+									location.href = "../Error/Error.jsp"
 								}
 							},
 							error: function(err) {
@@ -227,38 +245,50 @@
 					'address': $('#exampleInputAddress').val(),
 					'phone': phone
 				};
-				$.ajax({
-					type: 'post',
-					url: '../createAcc.do',
-					data: accData,
-					success: function(res) {
-						if(res.message=="yes") {
-							swal({
-								title: "계좌 생성",
-								text: "계좌를 성공적으로 생성했습니다.",
-								icons: "success",
-								buttons: "확인",
-							})
-							.then((value) => {
-								if(value==true) {
-									location.reload();
-								}
-								
-							})
+				if (userInfo.userId=="" || passNum=="" || $('#exampleInputEnglishName').val()=="" || $('#exampleInputAddress').val()=="" || phone=="") {
+					swal({
+						title: "계좌 생성 실패",
+						text: "모든 항목을 기입한 이후 계좌 생성 버튼을 눌러주세요",
+						icons: "warning",
+						buttons: "확인",
+					})
+				} else {
+					$.ajax({
+						type: 'post',
+						url: '../createAccount.do',
+						data: accData,
+						success: function(res) {
+							if(res.message=="yes") {
+								swal({
+									title: "계좌 생성",
+									text: "계좌를 성공적으로 생성했습니다.",
+									icons: "success",
+									buttons: "확인",
+								})
+								.then((value) => {
+									if(value==true) {
+										location.reload();
+									}
+									
+								})
+							} else {
+								location.href = "../Error/Error.jsp"
+							}
+						},
+						error: function(err) {
+							console.log(err)
 						}
-					},
-					error: function(err) {
-						console.log(err)
-					}
-				})
+					})
+				}
+				
 			})
 			
 		})
 		
 		function checkAccount(userId) {
 			$.ajax({
-				type: 'post',
-				url: '../checkUserAcc.do',
+				type: 'get',
+				url: '../checkUserAccount.do',
 				data: {
 					'userId': userId
 				},
@@ -313,6 +343,8 @@
 									} else {
 										
 									}
+								} else {
+									location.href = "../Error/Error.jsp"
 								}
 							},
 							error: function(err) {
@@ -359,32 +391,36 @@
 			var userInfo = JSON.parse(localStorage.getItem('user'))
 			$.ajax({
 				type: 'post',
-				url: '../getMileHistory.do',
+				url: '../getMileageHistory.do',
 				data: {
 					'userId': userInfo.userId
 				},
 				success: function(res) {
-					mileageHistory = res.mileageHistory
-					var cnt = 1;
-					$.each(mileageHistory, function(index, item) {
-						$('.fl-table tbody').append(
-							'<tr>' +
-					            '<td>'+cnt+'</td>' +
-					            '<td style=line-height:1.5;>'+item.createTime+'</td>' +
-					            '<td>'+item.mileageAmount+' MP</td>' +
-					            '<td>'+item.mileageContent+'</td>' +
-					        '</tr>'
-						);
-						cnt += 1
-					})
-					/*
-					<tr>
-			            <td>Content 1</td>
-			            <td>Content 1</td>
-			            <td>Content 1</td>
-			            <td>Content 1</td>
-			        </tr>
-			        */
+					if (res.message == 'yes') {
+						mileageHistory = res.mileageHistory
+						var cnt = 1;
+						$.each(mileageHistory, function(index, item) {
+							$('.fl-table tbody').append(
+								'<tr>' +
+						            '<td>'+cnt+'</td>' +
+						            '<td style=line-height:1.5;>'+item.createTime+'</td>' +
+						            '<td>'+item.mileageAmount+' MP</td>' +
+						            '<td>'+item.mileageContent+'</td>' +
+						        '</tr>'
+							);
+							cnt += 1
+						})
+						/*
+						<tr>
+				            <td>Content 1</td>
+				            <td>Content 1</td>
+				            <td>Content 1</td>
+				            <td>Content 1</td>
+				        </tr>
+				        */	
+					} else {
+						location.href = "../Error/Error.jsp"
+					}
 				},
 				error: function(err) {
 					console.log(err)
@@ -399,7 +435,12 @@
 			$('.pass-num').click(function() {
 				var txt = $(this).text();
 				if (txt=='확인') {
-					alert('비밀번호 지정되었습니다.');
+					swal({
+						title: "비밀번호 설정",
+						text: "비밀번호 설정을 완료했습니다.",
+						icon: "success",
+						button: true,
+					})
 				} else if (txt=='초기화') {
 					$('.pass-box').eq(0).text("");
 					$('.pass-box').eq(1).text("");
@@ -455,8 +496,8 @@
                             </div>
 	                    </h1>
 						<br>
-	                    <p style="font-family: 'Happiness-Sans-Title';">기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크</p>
-	                    <p style="font-family: 'Happiness-Sans-Title';">기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크기부 낫 테이크</p>
+	                    <p style="font-family: 'Happiness-Sans-Title';">기부 낫 테이크와 함께 다양한 활동을 시작해봐요!</p>
+	                    <p style="font-family: 'Happiness-Sans-Title';">기부 낫 테이크를 통해 기부도 하고, 자신만의 카드도 꾸미며, 다양한 이벤트 활동을 해봐요^^</p>
 	                    <br><br>
 	                    <div class="main_btn_list">
 							<button class="btn-slide-line" id="account-btn" style="font-size: x-large; width: 40%; font-weight: normal; margin-right: 2rem;">계좌 생성</button>
@@ -531,7 +572,7 @@
 				<br><br>
 	            <div class="col-5">
 	                <div class="about-image svg">
-	                    <img src="img/undraw_software_engineer_lvl5.svg" class="img-fluid" alt="svg image">
+	                    <img src="img/finance.png" class="img-fluid" alt="svg image">
 	                </div>
 	            </div>
 	        </div>

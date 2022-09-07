@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.service.gnt.domain.card.Card;
@@ -19,7 +20,7 @@ public class CardDesignController {
 	
 	
 	// 조회 (시작할 때)
-	@GetMapping("selectCard.do")
+	@GetMapping("getCard.do")
 	public Map<String, Object> getCard(int userId) throws Exception{
 		// 1. 발급 받았는데 날짜도 아직이야 -- no
 		// 2. 발급 받았는데 날짜 지났어 -- 새롭게 줘
@@ -62,7 +63,7 @@ public class CardDesignController {
 	
 	
 	// 저장 버튼
-	@PostMapping("/saveCard.do")
+	@PostMapping("saveCard.do")
 	public Map<String, String> saveCard(@RequestParam int userId, Card card) throws Exception{
 		System.out.println("==============================================");
 		System.out.println(userId);
@@ -113,7 +114,7 @@ public class CardDesignController {
 	
 	
 	// 발급 버튼
-	@GetMapping("issueCard.do")
+	@PutMapping("issueCard.do")
 	public Map<String, String> issueCard(@RequestParam int userId) throws Exception{
 		Map<String, String> result = new HashMap<String, String>();
 		// 발급 가능? -- updateCardIssued

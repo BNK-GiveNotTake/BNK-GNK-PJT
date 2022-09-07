@@ -33,7 +33,7 @@ public class CommonController {
 		response.sendRedirect(uri);
 	}
 	@ApiOperation(value="Swagger", notes="Swagger-ui page로 이동")
-	@GetMapping("/swagger")
+	@GetMapping("swagger")
 	public void swagger(HttpServletResponse response) throws Exception {
 		uri = "swagger-ui.html";
 		response.sendRedirect(uri);
@@ -59,14 +59,15 @@ public class CommonController {
 				return maps;
 			}
 		}catch (Exception e){
+			message = "error";
 			model.addAttribute("title", "로그인 에러");
 //			model.addAttribute("message", "로그인 중 에러 발생");
 			maps.put("message", message);
 			return maps;
 		}
 	}
-	@PostMapping("overlapCheck.do")
-	public Map<String,Object> Check(Users user, Model model) {
+	@GetMapping("validateEmail.do")
+	public Map<String,Object> validateEmail(Users user, Model model) {
 		String message = "no";
 		Users find = commonService.getUserEmailByUserId(user);
 		Map<String,Object> maps = new HashMap<String,Object>();
@@ -84,15 +85,15 @@ public class CommonController {
 				return maps;
 		}
 	}
-//	@GetMapping("regUser.do")
+//	@GetMapping("registerUser.do")
 //	public String getRegUser(Model model) {
 //		
 //		model.addAttribute("title", "회원 가입");
 //		
 //		return "UserReg";
 //	}
-	@PostMapping("saveUser.do")
-	public Map<String,Object> doRegUser(Users user, Model model) {
+	@PostMapping("registerUser.do")
+	public Map<String,Object> registerUser(Users user, Model model) {
 		String message = "no";
 		try {
 			// 성공페이지
@@ -124,13 +125,14 @@ public class CommonController {
 			user1.setUserEmail("회원 가입 실패");
 			user1.setUserName("회원 가입 실패");
 			user1.setUserPassword("회원 가입 실패");
+			message = "error";
 			maps.put("1",user1);
 			maps.put("message", message);
 			return maps;
 		}
 	}
-		@PostMapping("userinfo.do")
-		public Map<String,Object> userinfo(int userId, Model model){
+		@GetMapping("getUser.do")
+		public Map<String,Object> getUser(int userId, Model model){
 			String message="no";
 			try {
 				Map<String,Object> maps = new HashMap<String,Object>();

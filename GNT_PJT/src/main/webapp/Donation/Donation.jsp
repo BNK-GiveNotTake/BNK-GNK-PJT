@@ -126,34 +126,38 @@
 		function getDonationBasic() {
 			$.ajax({
 				type: 'get',
-				url: '../DonationAsk.do',
+				url: '../getDonationAsk.do',
 				data: {},
 				success: function(res) {
-					Donation = res.Donation
-					$('.donation-list').empty();
-					$.each(Donation, function(index, item) {
-						donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
-						backgroundColor = checkBackgroundColor(donationPercent)
-						$('.donation-list').append(
-							'<section class="cards col-4 mb-5">' +
-								'<article class="card card--1" id='+item.donationId+'>' +
-								'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
-								'<a href="#" class="card_link">' +
-									'<div class="card__img--hover" style=background-image:url('+item.imageUri+')></div>' +
-								'</a>' +
-								'<div class="card__info">' +
-									'<h3 class="card__title">'+item.title+'</h3>' +
-									'<span class="card__by">' +
-										'<a href="#" class="card__author" title="author">'+item.organization+'</a>' +
-									'</span>' +
-									'<div class="container-fluid">' +
-										'<div class="Loading">' +
-											'<div class="Loading-after" style=width:'+donationPercent+'%;background-color:'+backgroundColor+';></div>' +
-										'</div>' +
-										'<span class="progress-span">'+donationPercent+'%</span>' +
-							'</div></div></article></section>'
-						);
-					})
+					if(res.message=="yes") {
+						Donation = res.Donation
+						$('.donation-list').empty();
+						$.each(Donation, function(index, item) {
+							donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
+							backgroundColor = checkBackgroundColor(donationPercent)
+							$('.donation-list').append(
+								'<section class="cards col-4 mb-5">' +
+									'<article class="card card--1" id='+item.donationId+'>' +
+									'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
+									'<a href="#" class="card_link">' +
+										'<div class="card__img--hover" style=background-image:url('+item.imageUri+')></div>' +
+									'</a>' +
+									'<div class="card__info">' +
+										'<h3 class="card__title">'+item.title+'</h3>' +
+										'<span class="card__by">' +
+											'<a href="#" class="card__author" title="author">'+item.organization+'</a>' +
+										'</span>' +
+										'<div class="container-fluid">' +
+											'<div class="Loading">' +
+												'<div class="Loading-after" style=width:'+donationPercent+'%;background-color:'+backgroundColor+';></div>' +
+											'</div>' +
+											'<span class="progress-span">'+donationPercent+'%</span>' +
+								'</div></div></article></section>'
+							);
+						})
+					} else {
+						location.href = "../Error/Error.jsp"
+					}
 				},
 				error: function(err) {
 					console.log(err)
@@ -165,36 +169,40 @@
 			page += 1
 			$.ajax({
 				type: 'get',
-				url: '../pageAsk.do',
+				url: '../getDonationPage.do',
 				data: {
 					'pagenum': page,
 				},
 				success: function(res) {
-					Donation = res.Donation
-					console.log(Donation)
-					$.each(Donation, function(index, item) {
-						donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
-						backgroundColor = checkBackgroundColor(donationPercent)
-						$('.donation-list').append(
-							'<section class="cards col-4 mb-5">' +
-								'<article class="card card--1" id='+item.donationId+'>' +
-								'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
-								'<a href="#" class="card_link">' +
-									'<div class="card__img--hover" style=background-image:url('+item.imageUri+')></div>' +
-								'</a>' +
-								'<div class="card__info">' +
-									'<h3 class="card__title">'+item.title+'</h3>' +
-									'<span class="card__by">' +
-										'<a href="#" class="card__author" title="author">'+item.organization+'</a>' +
-									'</span>' +
-									'<div class="container-fluid">' +
-										'<div class="Loading">' +
-											'<div class="Loading-after" style=width:'+donationPercent+'%;background-color:'+backgroundColor+';></div>' +
-										'</div>' +
-										'<span class="progress-span">'+donationPercent+'%</span>' +
-							'</div></div></article></section>'
-						);
-					})
+					if (res.message=='yes') {
+						Donation = res.Donation
+						console.log(Donation)
+						$.each(Donation, function(index, item) {
+							donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
+							backgroundColor = checkBackgroundColor(donationPercent)
+							$('.donation-list').append(
+								'<section class="cards col-4 mb-5">' +
+									'<article class="card card--1" id='+item.donationId+'>' +
+									'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
+									'<a href="#" class="card_link">' +
+										'<div class="card__img--hover" style=background-image:url('+item.imageUri+')></div>' +
+									'</a>' +
+									'<div class="card__info">' +
+										'<h3 class="card__title">'+item.title+'</h3>' +
+										'<span class="card__by">' +
+											'<a href="#" class="card__author" title="author">'+item.organization+'</a>' +
+										'</span>' +
+										'<div class="container-fluid">' +
+											'<div class="Loading">' +
+												'<div class="Loading-after" style=width:'+donationPercent+'%;background-color:'+backgroundColor+';></div>' +
+											'</div>' +
+											'<span class="progress-span">'+donationPercent+'%</span>' +
+								'</div></div></article></section>'
+							);
+						})
+					} else {
+						location.href = "../Error/Error.jsp"
+					}
 				},
 				error: function(err) {
 					console.log(err)
@@ -205,36 +213,40 @@
 		function getDonationCategory(categoryId) {
 			$.ajax({
 				type: 'get',
-				url: '../category.do',
+				url: '../getCategoryPage.do',
 				data: {
 					'categoryId': categoryId,
 				},
 				success: function(res) {
-					Donation = res.Donation
-					$('.donation-list').empty();
-					$.each(Donation, function(index, item) {
-						donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
-						backgroundColor = checkBackgroundColor(donationPercent)
-						$('.donation-list').append(
-							'<section class="cards col-4 mb-5">' +
-								'<article class="card card--1" id='+item.donationId+'>' +
-								'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
-								'<a href="#" class="card_link">' +
-									'<div class="card__img--hover" style=background-image:url('+item.imageUri+')></div>' +
-								'</a>' +
-								'<div class="card__info">' +
-									'<h3 class="card__title">'+item.title+'</h3>' +
-									'<span class="card__by">' +
-										'<a href="#" class="card__author" title="author">'+item.organization+'</a>' +
-									'</span>' +
-									'<div class="container-fluid">' +
-										'<div class="Loading">' +
-											'<div class="Loading-after" style=width:'+donationPercent+'%;background-color:'+backgroundColor+';></div>' +
-										'</div>' +
-										'<span class="progress-span">'+donationPercent+'%</span>' +
-							'</div></div></article></section>'
-						);
-					})
+					if (res.message=='yes') {
+						Donation = res.Donation
+						$('.donation-list').empty();
+						$.each(Donation, function(index, item) {
+							donationPercent = Math.round((item.donationAmount/item.donationLimit)*100)
+							backgroundColor = checkBackgroundColor(donationPercent)
+							$('.donation-list').append(
+								'<section class="cards col-4 mb-5">' +
+									'<article class="card card--1" id='+item.donationId+'>' +
+									'<div class="card__img" style=background-image:url('+item.imageUri+')></div>' +
+									'<a href="#" class="card_link">' +
+										'<div class="card__img--hover" style=background-image:url('+item.imageUri+')></div>' +
+									'</a>' +
+									'<div class="card__info">' +
+										'<h3 class="card__title">'+item.title+'</h3>' +
+										'<span class="card__by">' +
+											'<a href="#" class="card__author" title="author">'+item.organization+'</a>' +
+										'</span>' +
+										'<div class="container-fluid">' +
+											'<div class="Loading">' +
+												'<div class="Loading-after" style=width:'+donationPercent+'%;background-color:'+backgroundColor+';></div>' +
+											'</div>' +
+											'<span class="progress-span">'+donationPercent+'%</span>' +
+								'</div></div></article></section>'
+							);
+						})
+					} else {
+						location.href = '../Error/Error.jsp'
+					}
 				},
 				error: function(err) {
 					console.log(err)
