@@ -1,97 +1,49 @@
 package com.service.gnt.model.service;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.service.gnt.domain.account.Account;
 import com.service.gnt.domain.donation.Donation;
 import com.service.gnt.model.dao.DonationDAO;
-
 @Service
 public class DonationServiceImpl implements DonationService{
-
 	@Autowired
 	private DonationDAO donationDAO;
-	
-	
-	@Override
-	public List<Donation> select1() {
-		
-		return donationDAO.select1();
+	public int modifyDonationAmount(Donation donation) {
+		return donationDAO.modifyDonationAmount(donation);
 	}
-
-
-	@Override
-	public List<Donation> select2(int categoryId) {
-		
-		return donationDAO.select2(categoryId);
+	public int modifyMileage(Account account) {
+		return donationDAO.modifyMileage(account);
 	}
-	
-	@Override
-	public List<Donation> select2_1(int k) {
-		return donationDAO.select2_1(k);
-	}
-
-	@Override
-	public Donation select3(String donationId) {
-		
-		return donationDAO.select3(donationId);
-	}
-
-
-	@Override
-	public int update1(Donation donation) {
-		
-		return donationDAO.update1(donation);
-	}
-
-
-	@Override
-	public int update2(Account account) {
-		return donationDAO.update2(account);
-	}
-
-
-	@Override
 	public Account getAccountByUserId(int userId) {
-		
 		return donationDAO.getAccountByUserId(userId);
 	}
-
-
-	@Override
 	public String getAccIdByUserId(int userId) {
-
 		return donationDAO.getAccIdByUserId(userId);
 	}
-
-
-	@Override
 	public Account getAccount(String accId) {
-
 		return donationDAO.getAccount(accId);
 	}
-
-
-	@Override
-	public Account setAccountToUpdate(int userId, int donationAmount) {
-		return donationDAO.setAccountToUpdate(userId, donationAmount);
+	public Account modifyMileage(int userId, int donationAmount) {
+		return donationDAO.modifyMileage(userId, donationAmount);
 	}
-
-
-	@Override
-	public int addMilege(int donationAmount, int userId) {
+	public int addMileageThruDonation(int donationAmount, int userId) {
+		return donationDAO.addMileageThruDonation(donationAmount, userId);
+	}
+	public int addDonationHistory(String donationId, int donationAmount, int userId) {
+		return donationDAO.addDonationHistory(donationId,donationAmount,userId);
+	}
+	public List<Donation> getDonationAsk() {
+		return donationDAO.getDonationAsk();
+	}
+	public List<Donation> getCategoryPage(int categoryId) {
+		return donationDAO.getCategoryPage(categoryId);
+	}
+	public List<Donation> getDonationPage(int k) {
+		return donationDAO.getDonationPage(k);
+	}
+	public Donation getDoantionDetail(String donationId) {
+		return donationDAO.getDoantionDetail(donationId);
+	}
 	
-		return donationDAO.addMilege(donationAmount, userId);
-	}
-
-
-	@Override
-	public int addDonaHistory(String donationId, int donationAmount, int userId) {
-		return donationDAO.addDonaHistory(donationId,donationAmount,userId);
-	}
-	
-
 }

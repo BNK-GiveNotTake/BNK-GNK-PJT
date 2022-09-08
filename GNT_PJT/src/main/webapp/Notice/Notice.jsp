@@ -24,6 +24,8 @@
 		var presentNoticeId = "";
 		
 		$(function() {
+			$('body').css('height', '100%').css('background-color', '#e5e5e542')
+			
 			getNotices()
 			
 			$('.table-body').on('click', '.table-row', function() {
@@ -35,13 +37,17 @@
 					presentNoticeId = "table-list"+$(this).children().eq(0).text()
 					noticeId = $(this).children().eq(0).text()
 					$.ajax({
-						type: 'get',
-						url: '../addNoticeCNT.do',
+						type: 'put',
+						url: '../addNoticeCount.do',
 						data: {
 							'noticeId': noticeId
 						},
 						success: function(res) {
-							getNoticesOpenContent(noticeId)
+							if (res.message =='yes') {								
+								getNoticesOpenContent(noticeId)
+							} else {
+								location.href = "../Error/Error.jsp"
+							}
 						},
 						error: function(err) {
 							console.log(err)
@@ -58,15 +64,20 @@
 				url: '../getNoticeList.do',
 				data: {},
 				success: function(res) {
-					notices = res.notice
-					$('.table-body').empty();
-					$.each(notices, function(index, item) {
-						$('.table-body').append("<li class=table-row id=table-list"+item.noticeId+"><div class=col-2 data-label=noticeId>"+
-												item.noticeId+"</div><div class=col-6 data-label=noticeTitle>"+
-												item.noticeTitle+"</div><div class=col-2 data-label=createTime>"+
-												item.createTime.slice(0,10)+"</div><div class=col-2 data-label=viewCnt>"+item.viewCnt+"</div></li>"
-						);
-					})
+					if (res.message=="yes") {
+						notices = res.notice
+						$('.table-body').empty();
+						$.each(notices, function(index, item) {
+							$('.table-body').append('<li class=table-row id=table-list'+item.noticeId+'><div class=col-2 data-label=noticeId align=center>'+
+													item.noticeId+'</div><div class="col-6" data-label=noticeTitle>'+
+													item.noticeTitle+'</div><div class=col-2 data-label=createTime align=center>'+
+													item.createTime.slice(0,10)+'</div><div class=col-2 data-label=viewCnt align=center>'+item.viewCnt+'</div></li>'
+							);
+						})	
+					} else {
+						location.href = "../Error/Error.jsp"
+					}
+					
 				},
 				error: function(err) {
 					console.log(err)
@@ -80,18 +91,21 @@
 				url: '../getNoticeList.do',
 				data: {},
 				success: function(res) {
-					notices = res.notice
-					$('.table-body').empty();
-					$.each(notices, function(index, item) {
-						$('.table-body').append("<li class=table-row id=table-list"+item.noticeId+"><div class=col-2 data-label=noticeId>"+
-												item.noticeId+"</div><div class=col-6 data-label=noticeTitle>"+
-												item.noticeTitle+"</div><div class=col-2 data-label=createTime>"+
-												item.createTime.slice(0,10)+"</div><div class=col-2 data-label=viewCnt>"+item.viewCnt+"</div></li>"
-						);
-					})
-					$('#notice-content').remove();
-					$("#table-list"+noticeId).after('<div class=col-12 id=notice-content>'+notices[noticeId].noticeContent+'</div>')
-					
+					if (res.message=="yes") {
+						notices = res.notice
+						$('.table-body').empty();
+						$.each(notices, function(index, item) {
+							$('.table-body').append('<li class=table-row id=table-list'+item.noticeId+'><div class=col-2 data-label=noticeId align=center>'+
+													item.noticeId+'</div><div class="col-6" data-label=noticeTitle>'+
+													item.noticeTitle+'</div><div class=col-2 data-label=createTime align=center>'+
+													item.createTime.slice(0,10)+'</div><div class=col-2 data-label=viewCnt align=center>'+item.viewCnt+'</div></li>'
+							);
+						})
+						$('#notice-content').remove();
+						$("#table-list"+noticeId).after('<div class=col-12 id=notice-content style=white-space:pre>'+notices[noticeId].noticeContent+'</div>')
+					} else {
+						location.href = "../Error/Error.jsp"
+					}
 				},
 				error: function(err) {
 					console.log(err)
@@ -115,10 +129,10 @@
 		    		<h2 class="title">공지사항</h2>
 		    		<ul class="responsive-table" style="margin-bottom: 5rem;">
 					    <li class="table-header">
-					      <div class="col col-2">공지 번호</div>
-					      <div class="col col-6">공지 제목</div>
-					      <div class="col col-2" align="end">생성 날짜</div>
-					      <div class="col col-2" align="end">조회수</div>
+					      <div class="col col-2" align="center">공지 번호</div>
+					      <div class="col col-6" align="center">공지 제목</div>
+					      <div class="col col-2" align=center>생성 날짜</div>
+					      <div class="col col-2" align="center">조회수</div>
 					    </li>
 					    <div class="table-body">
 						</div>

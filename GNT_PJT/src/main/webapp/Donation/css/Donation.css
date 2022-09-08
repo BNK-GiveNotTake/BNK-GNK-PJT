@@ -1,13 +1,32 @@
 @charset "utf-8";
 
 @font-face {
+    font-family: 'BMJUA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Katuri';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Happiness-Sans-Title';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
 
+#donation {
+	background-color: #fff2c61c;
+}
+
 .donation-category {
+	font-family: 'Katuri';
     width: 100%;
     margin-top: 1rem;
     margin-bottom: 1.5rem;
@@ -23,33 +42,31 @@
 .donation-category span {
 	font-size: 1.75rem;
 	margin-right: 2rem;
-	font-family: 'Happiness-Sans-Title';
-	font-weight: bold;
 }
 
 .donation-btn {
 	padding: 0.3rem 1rem;
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
-	font-weight: bold;
-	color: #47ebeb;
-	border: 1px solid #47ebeb;
-	border-radius: 20px;
-	background-color: white;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    color: #c4c4c4;
+    /* border: 2px solid #c4c4c4; */
+    border: none;
+    border-radius: 20px;
+    background-color: white;
 }
 
 .donation-btn:hover{
-	font-weight: bold;
 	color: white;
-	border: 1px solid #47ebeb;
-	background-color: #47ebeb;
+	/* border: 2px solid #ffcf63; */
+	border: none;
+	background-color: #ffcf63;
 }
 
 .donation-btn.selected{
-	font-weight: bold;
-	color: white;
-	border: 1px solid #47ebeb;
-	background-color: #47ebeb;
+    color: #ffffff;
+    /* border: 2px solid #ffcf63; */
+    border: none;
+    background-color: #ffcf63;
 }
 
 .cards {
@@ -121,7 +138,7 @@
 	position: relative;
 	border-radius: 15px !important;
 	overflow: hidden;
-	box-shadow: 0px 13px 10px -7px rgba(0, 0, 0,0.1);
+	box-shadow: 15px 15px 7px -5px rgb(0 0 0 / 10%);
 }
 .card:hover {
 	box-shadow: 0px 30px 18px -8px rgba(0, 0, 0,0.1);
@@ -148,22 +165,17 @@
 .card__title {
     margin-top: 5px;
     margin-bottom: 10px;
-    font-family: 'Happiness-Sans-Title';
+    font-family: 'BMJUA';
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .card__by {
     font-size: 12px;
-    font-family: 'Happiness-Sans-Title';
+    font-family: 'Katuri';
     font-weight: 500;
     display: flex;
     align-items: center;
-}
-
-.card__logo {
-	width: 10%;
-	margin-right: 0.5rem;
 }
 
 .card__author {
@@ -188,7 +200,7 @@
 
 .progress-span {
 	margin-left: 1rem;
-	font-family: 'Happiness-Sans-Title';
+	font-family: 'Katuri';
 }
 
 .container-fluid {
@@ -226,13 +238,25 @@
 
 /* side */
 .recent {
-	border: 3px solid #47ebeb;
+	border: none;
     padding: 1rem;
     border-radius: 30px;
-    margin-left: 2rem;
+    margin-left: 1.5rem;
     width: 15vw;
 	position: sticky;
-	top: 13%;
+	top: 5%;
+}
+
+.recent-title {
+	font-family: 'Katuri';
+	text-align: center;
+	font-size: x-large;
+}
+
+.recent-title img {
+	width: 90%;
+    margin-left: 10px;
+    margin-bottom: 10px
 }
 
 .recent h4 {
@@ -240,39 +264,37 @@
 	font-weight: bold;
 }
 
+.recent-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	cursor: pointer;
+}
+
 .recent-item img {
-    width: 100%;
-    height: 110px;
+    width: 90px;
+    height: 90px;
     margin: 1rem 0;
-    border-radius: 15px;
+    border-radius: 100%;
 }
 
-.top-btn {
-	width: 100%;
-	font-family: 'Happiness-Sans-Title';
-	padding: 1rem;
-    margin-top: 1.5rem;
-    font-weight: bold;
-	color: #47ebeb;
-	border: 1px solid #47ebeb;
-	border-radius: 30px;
-	background-color: white;
+.recent-item span {
+	font-family: 'Katuri';
 }
 
-.top-btn:hover {
-	font-weight: bold;
-	color: white;
-	border: 3px solid #47ebeb;
-	background-color: #47ebeb;
+.top-img {
+	width: 60%;
+	cursor: pointer;
 }
 
 .next-page {
+	font-family: 'Katuri';
 	position: relative;
-	background-color: #47ebeb;
+	background-color: #ffcf63;
 	border-radius: 4em;
 	border: none;
 	font-size: 20px;
-	font-weight: bold;
+	font-weight: 100;
 	color: white;
 	padding: 0.8em 1.8em;
 	cursor:pointer;
@@ -285,10 +307,10 @@
 
 .next-page:hover {
   transition-duration: 0.1s;
-  background-color: #a4ebeb;
+  background-color: #ffcf63;
 }
 
-.next-page:after {
+.next-page:before {
   content: "";
   display: block;
   position: absolute;
@@ -299,11 +321,11 @@
   height: 100%;
   opacity: 0;
   transition: all 0.5s;
-  box-shadow: 0 0 10px 40px #47ebeb;
+  box-shadow: 0 0 10px 40px #ffcf63;
 }
 
-.next-page:active:after {
-  box-shadow: 0 0 0 0 #47ebeb;
+.next-page:hover:before {
+  box-shadow: 0 0 0 0 #ffcf63;
   position: absolute;
   border-radius: 4em;
   left: 0;
@@ -312,7 +334,7 @@
   transition: 0s;
 }
 
-.next-page:active {
+.next-page:hover {
   top: 1px;
 }
 

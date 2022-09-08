@@ -1,5 +1,26 @@
 @charset "utf-8";
 
+body {
+	height: 100vh;
+}
+
+@media (min-width: 1200px)
+.container {
+    max-width: 1240px;
+}
+
+body>#main {
+	background-color: #ffdbdb26;
+	padding: 0px !important;
+}
+
+@font-face {
+    font-family: 'Katuri';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 @font-face {
     font-family: 'Happiness-Sans-Title';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2') format('woff2');
@@ -8,34 +29,41 @@
 }
 
 .small-text {
-  color: #5b5b5b;
-  font-size: large;
-  font-weight: bold;
-  padding: 8px 16px;
-  border-radius: 50px;
-  letter-spacing: 0.2px;
+	font-family: 'Katuri';
+	color: #5b5b5b;
+	font-size: large;
+	font-weight: bold;
+	padding: 8px 16px 8px 0px;
+	border-radius: 50px;
+	letter-spacing: 0.2px;
 }
 
+.main_btn_list {
+	font-family: 'Katuri';
+	font-weight: 100;
+	display: flex;
+}
 
 .animated {
-  position: relative;
+	font-family: 'Katuri';
+	position: relative;
 }
 
 .animated-info {
-  display: inline-block;
-  vertical-align: top;
-  margin-top: 5px;
-  min-width: 260px;
-  position: relative;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 5px;
+	min-width: 260px;
+	position: relative;
 }
 
 .animated-item {
-  color: #ffc200;
-  width: 200%;
+	color: #f33e4f;
+	width: 200%;
 }
 
 .animated-item {
-	font-family: 'Happiness-Sans-Title';
+	font-family: 'Katuri';
 	font-size: 2rem;
 	line-height: inherit;
 	display: block;
@@ -83,6 +111,10 @@
   }
 }
 
+.account-amount, .mileage-amount {
+	font-size: 2rem;	
+}
+
 button {
 	position: relative;
 	margin: 0;
@@ -97,7 +129,7 @@ button {
 	cursor: pointer;
 	text-transform: uppercase;
 	background-color: #ffffff;
-	border: 3px solid rgb(255 194 13);
+	border: 3px solid #ffd1d1;
 	color: #5b5b5b;
 	font-weight: bold;
 	font-size: 22px;
@@ -159,27 +191,6 @@ button:hover span {
 	border-radius: 30px;
 }
 
-.btn-slide-line.center:after {
-  left: 50%;
-}
-.btn-slide-line:after {
-  position: absolute;
-  right: 0;
-  left: auto;
-  transition: 0.3s;
-  content: "";
-  width: 0;
-  bottom: -15%;
-  height: 3px;
-  background: rgb(255 194 13);
-}
-.btn-slide-line:hover {
-  cursor: pointer;
-}
-.btn-slide-line:hover:after {
-  width: 100%;
-  left: 0;
-}
 
 @media (max-width: 991px) {
   .about-image {
@@ -187,6 +198,10 @@ button:hover span {
   }
 }
 
+.img-fluid {
+	max-width: 90%;
+	margin-left: 4rem;
+}
 
 @media (max-width: 320px) {
   .animated-text {
@@ -245,7 +260,7 @@ button:hover span {
   padding: 10px;
 }
 
-.column#main {
+.column#main-modal {
 	flex: 55%;
     padding: 32px;
     margin-left: 30px;
@@ -253,19 +268,21 @@ button:hover span {
 }
 
 .pass-box {
-	width: 50px;
-    height: 50px;
+	border-radius: 5px;
+    width: 55px;
+    height: 55px;
+    margin-top: 10px;
     background-color: white;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
     font-size: x-large;
-    line-height: 2;
+    line-height: 2.3;
 }
 
 .pass-num {
     height: 50px;
-    background: #f9e31d;
-    border: 2px solid white;
+    background: #ffffff;
+    border: 2px solid #ff9191;
     line-height: 2.8;
     cursor: pointer;
     margin: 5px;
@@ -273,42 +290,35 @@ button:hover span {
 }
 
 .pass-num:hover {
-	background-color: #f9eb72;	
+	background-color: #ff9191;	
 }
 
 #secondary {
-  background-color: #ffee56;
+  background-color: #ffcaca;
   border-radius: 0 4rem 4rem 0;
   text-align: center;
 }
 
-#main .form-control {
+#main-modal .form-control {
   font-size: 1.2em;
-}
-
-.btn {
-  text-transform: uppercase;
-  width: 200px;
-  padding: .150rem .75rem;
-  margin: 30px auto 0px;
-  font-family: 'Happiness-Sans-Title';
-  letter-spacing: 2px;
 }
 
 .btn:hover {
 	background-color: #fff6a8;
 }
 
-/* .btn-primary {
-	background: #f1da36; Old browsers
-	background: -moz-linear-gradient(left, #f1da36 0%, #fca86c 99%); FF3.6-15
-	background: -webkit-linear-gradient(left, #f1da36 0%,#fca86c 99%); Chrome10-25,Safari5.1-6
-	background: linear-gradient(to right, #f1da36 0%,#fca86c 99%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1da36', endColorstr='#fca86c',GradientType=1 ); IE6-9
-	Color format:     Comments
-} */
+.create-account {
+    font-size: large;
+    text-transform: uppercase;
+    width: 60%;
+    background-color: #ffcaca;
+    border: 3px solid #ffcaca;
+    color: white;
+    border-radius: 30px;
+    margin: 2rem auto 0px;
+}
 
-#main .btn-primary {
+#main-modal .btn-primary {
   width: 100%;
 }
 #secondary .btn-primary {
@@ -325,7 +335,7 @@ button:hover span {
 }
 
 .sec-content {
-  margin-top: 20%;
+  margin-top: 12%;
 }
 
 #exampleInputPhone::-webkit-outer-spin-button,
@@ -338,6 +348,9 @@ button:hover span {
 
 .mileage-shop {
 	font-family: 'Happiness-Sans-Title';
+	margin-top: 5rem;
+    border: 5px solid #ffd1d1;
+    border-radius: 20px;
 }
 
 .mileage-h3 {
@@ -350,6 +363,88 @@ button:hover span {
     margin-bottom: 1.5rem;
     font-size: large;
 }
+
+
+.mileage-history {
+	margin-top: 5rem;
+    border: 5px solid #ffd1d1;
+    border-radius: 20px;
+}
+
+/* 히스토리 테이블 */
+.fl-table {
+	font-family: 'Katuri';
+    display: block;
+    width: 100%;
+}
+.table-wrapper:before{
+    content: "Scroll horizontally >";
+    display: block;
+    text-align: right;
+    font-size: 11px;
+    color: white;
+    padding: 0 0 10px;
+}
+.fl-table thead, .fl-table tbody, .fl-table thead th {
+    display: block;
+}
+.fl-table thead th:last-child{
+    border-bottom: none;
+}
+.fl-table thead {
+    float: left;
+}
+.fl-table tbody {
+    width: auto;
+    position: relative;
+    overflow-x: auto;
+    line-height: 3;
+}
+.fl-table td, .fl-table th {
+    padding: 20px .625em .625em .625em;
+    height: 80px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 120px;
+    font-size: 13px;
+    text-overflow: ellipsis;
+}
+.fl-table thead th {
+    text-align: center;
+    font-size: large;
+    border-bottom: 1px solid #f7f7f9;
+	line-height: 2.3;
+}
+.fl-table thead th:nth-child(odd) {
+    background: #ff8181;
+}
+.fl-table thead th:nth-child(even) {
+    background: #e45656;
+}
+.fl-table tbody tr {
+    display: table-cell;
+}
+.fl-table tbody tr:nth-child(odd) {
+    background: none;
+}
+.fl-table tr:nth-child(even) {
+    background: transparent;
+}
+.fl-table tr td:nth-child(odd) {
+    background: #FFFAFA;
+    border-right: 1px solid #E6E4E4;
+}
+.fl-table tr td:nth-child(even) {
+	background: #ffffff;
+    border-right: 1px solid #E6E4E4;
+}
+.fl-table tbody td {
+    display: block;
+    text-align: center;
+}
+
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400);
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
@@ -415,6 +510,57 @@ figure.snip1390 blockquote:before {
   left: 20px;
 }
 
+
+/* 마일리지 구매 2 */
+.items {
+  display: flex;
+  justify-content: center;
+  padding-left: 0px;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(131.83deg, #FFFAFA 0%,     #FFF7F7 99.21%);
+  width: 200px;
+  text-align: center;
+  height: 200px;
+  border-radius: 16px;
+  position: relative;
+}
+
+.item:not(:last-child) {
+  margin-right: 90px;
+}
+.item::before {
+  content: "";
+  top: -2px;
+  bottom: -2px;
+  left: -2px;
+  right: -2px;
+  background-image: linear-gradient(312.25deg, #FFC4BC 0%,     rgba(255, 255, 255, 0) 66.19%);
+  z-index: -1;
+  border-radius: 18px;
+}
+
+.inner {
+	font-family: 'Katuri';
+	background-color: #fff;
+	width: 170px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 170px;
+	box-shadow: 5px 5px 10px #fbe4e0;
+	border-radius: 14px;
+	cursor: pointer;
+}
+
+.name {
+  font-size: x-large;
+  margin: 0;
+}
 
 
 /* loading 화면 */

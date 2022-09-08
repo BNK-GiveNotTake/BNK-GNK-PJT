@@ -21,7 +21,7 @@ public class CommonMyBatisTest {
 		
 		Users user = new Users("aa@naver.com", "AAA", "12355");
 		System.out.println(user.toString());
-		int returnInsert = session.insert(um+"newUser", user);
+		int returnInsert = session.insert(um+"insertUser", user);
 		session.commit();
 		System.out.println(returnInsert);
 	}

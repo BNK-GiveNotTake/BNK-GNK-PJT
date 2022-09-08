@@ -21,7 +21,7 @@ public class DonationMyBatisTest2 {
 		SqlSession session = factory.openSession();
 
 
-		List<Donation> list = session.selectList("ns.sql.DonationMapper.DonationAsk");
+		List<Donation> list = session.selectList("ns.sql.DonationMapper.selectDonationAsk");
 		System.out.println(list);
 		
 	}
