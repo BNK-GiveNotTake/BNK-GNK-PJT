@@ -22,6 +22,8 @@
 			$('#donation-detail').addClass('loaded');
 		});
 		
+		const categoryList = ['아동·청소년', '어르신', '장애인', '다문화', '지구촌', '가족·여성', '동물', '환경'];
+		
 		$(function() {
 			getDonationDetail()
 			
@@ -124,7 +126,7 @@
 			return !isNaN(val)
 		}
 		
-		const categoryList = ['아동·청소년', '어르신', '장애인', '다문화', '지구촌', '가족·여성', '동물', '환경'];
+		
 		
 		function getDonationDetail() {
 			donationId = localStorage.getItem('DonationDetailId')
