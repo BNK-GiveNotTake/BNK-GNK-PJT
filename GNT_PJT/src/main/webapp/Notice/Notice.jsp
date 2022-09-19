@@ -93,6 +93,7 @@
 				success: function(res) {
 					if (res.message=="yes") {
 						notices = res.notice
+						var tempNoId = "";
 						$('.table-body').empty();
 						$.each(notices, function(index, item) {
 							$('.table-body').append('<li class=table-row id=table-list'+item.noticeId+'><div class=col-2 data-label=noticeId align=center>'+
@@ -100,9 +101,10 @@
 													item.noticeTitle+'</div><div class=col-2 data-label=createTime align=center>'+
 													item.createTime.slice(0,10)+'</div><div class=col-2 data-label=viewCnt align=center>'+item.viewCnt+'</div></li>'
 							);
+							if (item.noticeId == noticeId) tempNoId = index;
 						})
 						$('#notice-content').remove();
-						$("#table-list"+noticeId).after('<div class=col-12 id=notice-content style=white-space:pre>'+notices[noticeId].noticeContent+'</div>')
+						$("#table-list"+noticeId).after('<div class=col-12 id=notice-content style=white-space:pre>'+notices[tempNoId].noticeContent+'</div>')
 					} else {
 						location.href = "../Error/Error.jsp"
 					}
