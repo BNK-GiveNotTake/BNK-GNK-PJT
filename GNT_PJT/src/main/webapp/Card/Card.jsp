@@ -20,12 +20,11 @@
 	</style>
 
 	<script>
-		$(function() {
-			$('#draggable3').click(function() {
-				console.log($("containment-wrapper"))
-			})
-		})
-				
+
+		$(window).on('load', function() {
+			$('#card').addClass('loaded');
+		});
+		
 		$(function() {
 		    $("#draggable3").draggable({ containment: "#containment-wrapper", scroll: false }, { stop: function () {
 		        const left_position = $(this).offsetLeft;
@@ -34,12 +33,58 @@
 			});
 		});
 		
+		const gradients = [ 
+			'ffffff', '000000',
+			'bcbcbc','999999',
+			'6a6a6a',
+		    'ffaaaa', 'c7004c',
+		    'fa4659', 'ff0592',
+		    'e1248f', 'f9fd50', 
+		    'fc8a15', 'fff6a2',
+		    'f9d00f', 'd39e00',
+		    '26baee', '9fe8fa',
+		    '303481', '226b80',
+		    '3d6cb9', '00bd56',
+		    '55968f', '8acbbb',
+		    '22805b', '26af13',
+		    '651893', '4d3664',
+		    '8f71ff', 'bab5f6',
+		    'a116ab'
+		];
+		
+		const fonts = [
+			'덕온공주체:국립한글박물관:DeogonPrincess',
+			'한컴 울주 반구대 암각화체:울주문화재단:HancomUljuBangudae',
+			'다이어리체:얼리폰트:EarlyFontDiary',
+			'혀니고딕:얼리폰트:EF_hyunygothic',
+			'쿠키런:데브시스터즈(주):CookieRun-Regular',
+			'정신차렷체:얼리폰트:EF_WAKEUP',
+			'MICE고딕:한국MICE협회X문화체육관광부:MICEGothic Bold',
+			'조선100년체:조선일보:ChosunCentennial',
+			'밀양영남루체:밀양시:MYYeongnamnu',
+			'읏찬체:OK홀딩스대부(주):OKCHAN',
+			'평창평화체:평창군:PyeongChangPeace-Bold',
+			'울산중구전용서체:울산광역시중구:ulsanjunggu',
+			'HBIOS-SYS:이민서:HBIOS-SYS',
+			'마비옛체:㈜넥슨코리아:MabinogiClassicR',
+			'길벗체 Rainbow:비온뒤무지개재단:GilbeotRainbow',
+			'교보손글씨 2020 박도연:교보문고:KyoboHandwriting2020A',
+			'상주경천섬체:상주시청X투게더그룹:SANGJUGyeongcheonIsland',
+			'KITA:한국무역협회:-KITA-Regular',
+			'레페리포인트 Oblique:레페리X윤디자인:LeferiPoint-WhiteObliqueA',
+			'HS산토끼체:토끼네활자공장:HS-Regular',
+			'강원교육튼튼체:강원도교육청X헤움디자인:GangwonEduPowerExtraBoldA',
+			'강원교육모두체:강원도교육청X헤움디자인:GangwonEdu_OTFBoldA',
+			'수트:SUNN YOUN:SUIT-Medium',
+			'충북대직지체:충북대학교:CBNUJIKJI'
+		]
 		
 		$(function() {
 			$('body').css('height', '100%').css('background-color', '#bee7df29')
 			
 			var userInfo = JSON.parse(localStorage.getItem('user'));
 			var accountInfo = JSON.parse(localStorage.getItem('account'));
+			var Card = JSON.parse(localStorage.getItem('Card'))
 			
 			if (userInfo==null) {
 				swal({
@@ -61,85 +106,6 @@
 				})
 			}
 			
-			/* 카드 조회 */
-			$.ajax({
-				type: 'get',
-				url: '../getCard.do',
-				data: {
-					'userId': userInfo.userId
-				},
-				success: function(res) {
-					console.log(res)
-					if(res.message=='no') {
-						swal({
-							title: "발급 완료!",
-							text: "이미 발급한 이력이 존재합니다. 자세한 사항은 고객센터에 문의하십시오.",
-							icon: "info",
-							buttons: true,
-						})
-						.then((val) => {
-							location.href = "../Main/Main.jsp"
-						})
-					} else {
-						if (res.card!=null) {
-							Card = res.card
-							localStorage.setItem('Card', JSON.stringify(Card))
-							var today = new Date();
-							console.log(Card)
-							$('.card--front').css('background-color', '#'+Card.bgFront);
-							$('.card--back').css('background-color', '#'+Card.bgBack);
-							$('.card__content').text(Card.cardContent);
-							
-							if (Card.emoId!=0) {
-								$('#draggable3').empty();
-								$('#draggable3').append('<img src=img/'+Card.emoId+'.png class=emo style="width: 150px; height: 157px;">');
-								$('#draggable3').css('left', Card.emoInfoLeft).css('top', Card.emoInfoTop);
-							}
-							$('.emo').css('background-color', '#'+Card.bgFront);
-							$('.card__number').text(Card.cardId.substr(0, 4)+' '+Card.cardId.substr(4, 4)+' '+Card.cardId.substr(8, 4)+' '+Card.cardId.substr(12, 4));
-							$('.card__ccv').text(Card.cvc);
-							if (String(today.getMonth()).length==1) {
-								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/0"+today.getMonth());
-							} else {
-								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/"+today.getMonth());								
-							}
-							$('.front .card__content').css("font-family", Card.fontFront).css('color', Card.fontColorFront);
-							$('.back .card__ccv').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
-							$('.back .card__owner').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
-							$('.back .card__expiry-date').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
-							$('.back .card__number').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
-						} else {
-							var today = new Date();
-							if (String(today.getMonth()).length==1) {
-								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/0"+today.getMonth());
-							} else {
-								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/"+today.getMonth());								
-							}
-							$('.card__ccv').text("000").css('color', 'white');
-							$('.card__number').text("0000 0000 0000 0000");
-							data = {}
-							data.cardId = 'null';
-							localStorage.setItem('Card', JSON.stringify(data))
-						}
-						
-						$('.card__owner').text(userInfo.userEngName)
-						
-					}
-				},
-				error: function(err) {
-					console.log(err)
-				}
-			})
-		})
-		
-		$(window).on('load', function() {
-			$('#card').addClass('loaded');
-		});
-		
-		
-		$(function() {
-			Card = JSON.parse(localStorage.getItem('Card'))
-			console.log(Card)
 			if (Card==null) {
 				var isFront = true;
 				var frontFontColor = '#ffffff';
@@ -162,89 +128,22 @@
 				var card_content = Card.cardContent;	
 			}
 			
+			checkCard(userInfo)
+			
 			$('.front-card').click(function() {
-				$('#front').removeClass('card--front_small');
-				$('#front').addClass('card--front');
-				$('#back').removeClass('card--back_big');
-				$('#back').addClass('card--back');
-				$('.card-change-margin').css('margin-top', '0px');
-				$('#change-front').removeClass('front-card').removeClass('back-card')
-				$('#change-front').addClass('front-card')
-				$('#change-back').removeClass('front-card').removeClass('back-card')
-				$('#change-back').addClass('back-card')
-				$('.card__number').css('font-size', '25px')
-				console.log($('#draggable3').css('top'))			
-				if (isFront == false) {
-					$('.emo').css('width', '150px').css('height', '185px')
-					left_position = parseInt($('#draggable3').css('left')) * 1.18
-					top_position = parseInt($('#draggable3').css('top')) * 1.21
-					$('#draggable3').css('left', left_position + 'px').css('top', top_position + 'px');	
-				}
-				isFront = true;
-				if(frontFontColor=='black') {
-					$('.font__color-white').removeClass('font__color-selected')
-					$('.font__color-black').addClass('font__color-selected')
-				} else {
-					$('.font__color-black').removeClass('font__color-selected')
-					$('.font__color-white').addClass('font__color-selected')
-				}
+				changeFrontCard()
 			})
 			
 			$('.back-card').click(function() {
-				$('#front').removeClass('card--front');
-				$('#front').addClass('card--front_small');
-				$('#back').removeClass('card--back');
-				$('#back').addClass('card--back_big');
-				$('.card-change-margin').css('margin-top', '1.2rem');
-				$('#change-front').removeClass('front-card').removeClass('back-card')
-				$('#change-front').addClass('back-card')
-				$('#change-back').removeClass('front-card').removeClass('back-card')
-				$('#change-back').addClass('front-card')
-				$('.card__number').css('font-size', '30px')
-				if (isFront == true) {
-					$('.emo').css('width', '130px').css('height', '157px')
-					left_position = parseInt($('#draggable3').css('left')) * 0.82
-					top_position = parseInt($('#draggable3').css('top')) * 0.68
-					$('#draggable3').css('left', left_position + 'px').css('top', top_position + 'px');	
-				}
-				isFront = false;
-				if(backFontColor=='black') {
-					$('.font__color-white').removeClass('font__color-selected')
-					$('.font__color-black').addClass('font__color-selected')
-				} else {
-					$('.font__color-black').removeClass('font__color-selected')
-					$('.font__color-white').addClass('font__color-selected')
-				}
+				changeBackCard()
 			})
 			
 			$('.font__color-black').click(function() {
-				if (isFront == true) {
-					$('.front .card__content').css("color", "black");
-					frontFontColor = 'black'
-				} else {
-					$('.back .card__ccv').css("color", "black");
-					$('.back .card__owner').css("color", "black");
-					$('.back .card__expiry-date').css("color", "black");
-					$('.back .card__number').css("color", "black");
-					backFontColor = 'black'
-				}
-				$('.font__color-white').removeClass('font__color-selected')
-				$('.font__color-black').addClass('font__color-selected')
+				changeFontColorBlack()
 			});
 			
 			$('.font__color-white').click(function() {
-				if (isFront == true) {
-					$('.front .card__content').css("color", "white");
-					frontFontColor = 'white'
-				} else {
-					$('.back .card__ccv').css("color", "white");
-					$('.back .card__owner').css("color", "white");
-					$('.back .card__expiry-date').css("color", "white");
-					$('.back .card__number').css("color", "white");
-					backFontColor = 'white'
-				}
-				$('.font__color-black').removeClass('font__color-selected')
-				$('.font__color-white').addClass('font__color-selected')
+				changeFontColorWhite()
 			});
 			
 			$('#tab3').click(function() {
@@ -327,216 +226,23 @@
 			})
 			
 			$('.card_save_btn').click(function() {
-				var userInfo = JSON.parse(localStorage.getItem('user'));
-				var emoInfoTop = ""
-				var emoInfoLeft = ""
-				if (isFront == true) {
-					emoInfoTop = Math.round(parseInt($('#draggable3').css('top'))*100 / 100)
-					emoInfoLeft = Math.round(parseInt($('#draggable3').css('left'))*100 / 100)
-				} else {
-					emoInfoTop = Math.round((parseInt($('#draggable3').css('top')) * 0.68)*100 / 100)
-					emoInfoLeft = Math.round((parseInt($('#draggable3').css('left')) * 0.82)*100 / 100)
-				}
-				console.log({
-					'userId': userInfo.userId,
-					'bgFront': frontBackgroundColor,
-					'bgBack': backBackgroundColor,
-					'emoId': emo,
-					'emoInfoTop': emoInfoTop,
-					'emoInfoLeft': emoInfoLeft,
-					'fontFront': frontFont,
-					'fontBack': backFont,
-					'fontColorFront': frontFontColor,
-					'fontColorBack': backFontColor,
-					'cardContent': card_content,
-				})
-				$.ajax({
-					type: 'post',
-					url: '../saveCard.do',
-					data: {
-						'userId': userInfo.userId,
-						'bgFront': frontBackgroundColor,
-						'bgBack': backBackgroundColor,
-						'emoId': emo,
-						'emoInfoTop': emoInfoTop,
-						'emoInfoLeft': emoInfoLeft,
-						'fontFront': frontFont,
-						'fontBack': backFont,
-						'fontColorFront': frontFontColor,
-						'fontColorBack': backFontColor,
-						'cardContent': card_content
-					},
-					success: function(res) {
-						if (res.message=='yes') {
-							swal({
-								title: "Good job!",
-								text: "성공적으로 카드를 저장했습니다.",
-								icon: "success",
-								button: "확인!",
-							})							
-						} else {
-							location.href = "../Error/Error.jsp"
-						}
-					},
-					error: function(err) {
-						console.log(err)
-					}
-				
-				})
+				saveCard(userInfo)
 			})
 			
 			$('.card_issue_btn').click(function() {
-				var userInfo = JSON.parse(localStorage.getItem('user'));
-				var emoInfoTop = ""
-				var emoInfoLeft = ""
-				if (isFront == true) {
-					emoInfoTop = Math.round(parseInt($('#draggable3').css('top'))*100 / 100)
-					emoInfoLeft = Math.round(parseInt($('#draggable3').css('left'))*100 / 100)
-				} else {
-					emoInfoTop = Math.round((parseInt($('#draggable3').css('top')) * 0.68)*100 / 100)
-					emoInfoLeft = Math.round((parseInt($('#draggable3').css('left')) * 0.82)*100 / 100)
-				}
-				console.log({
-					'userId': userInfo.userId,
-					'bgFront': frontBackgroundColor,
-					'bgBack': backBackgroundColor,
-					'emoId': emo,
-					'emoInfoTop': emoInfoTop,
-					'emoInfoLeft': emoInfoLeft,
-					'fontFront': frontFont,
-					'fontBack': backFont,
-					'fontColorFront': frontFontColor,
-					'fontColorBack': backFontColor,
-					'cardContent': card_content,
-				})
-				$.ajax({
-					type: 'post',
-					url: '../saveCard.do',
-					data: {
-						'userId': userInfo.userId,
-						'bgFront': frontBackgroundColor,
-						'bgBack': backBackgroundColor,
-						'emoId': emo,
-						'emoInfoTop': emoInfoTop,
-						'emoInfoLeft': emoInfoLeft,
-						'fontFront': frontFont,
-						'fontBack': backFont,
-						'fontColorFront': frontFontColor,
-						'fontColorBack': backFontColor,
-						'cardContent': card_content,
-					},
-					success: function(res) {
-						console.log(res)
-						$.ajax({
-							type: 'put',
-							url: '../issueCard.do',
-							data: {
-								'userId': userInfo.userId,
-							},
-							success: function(res) {
-								if (res.message=='yes') {
-									swal({
-										title: "카드 발급 성공!",
-										text: "2주 안에 자택으로 카드 배송이 완료될 것입니다.",
-										icon: "success",
-										button: "확인!",
-									})									
-								} else {
-									location.href = "../Error/Error.jsp"
-								}
-							},
-							error: function(err) {
-								console.log(err)
-							}
-						})
-					},
-					error: function(err) {
-						console.log(err)
-					}
-				
-				})
+				issueCard(userInfo)
 			})
 			
 			$('.card_reset_btn').click(function() {
-				var today = new Date();
-				if (String(today.getMonth()).length==1) {
-					$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/0"+today.getMonth());
-				} else {
-					$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/"+today.getMonth());								
-				}
-				$('.card__ccv').text("000").css('color', 'white');
-				data = {}
-				data.cardId = 'null';
-				localStorage.setItem('Card', JSON.stringify(data))
-				$('.card--front').css('background-color', '#ffffff');
-				$('.card--back').css('background-color', '#ffffff');
-				$('.front .card__content').text("");
-				$('.front .card__content').css("font-family", "none").css('color', '#ffffff');
-				
-				$('#draggable3').empty();
-				$('.card__number').text("0000 0000 0000 0000");
-				$('.card__ccv').text("000");
-				$('.back .card__ccv').css("font-family", "none").css('color', Card.fontColorBack);
-				$('.back .card__owner').css("font-family", "none").css('color', Card.fontColorBack);
-				$('.back .card__expiry-date').css("font-family", "none").css('color', Card.fontColorBack);
-				$('.back .card__number').css("font-family", "none").css('color', Card.fontColorBack);
+				resetCard()
 			})
 			
-		});
-		
-		const gradients = [ 
-			'ffffff', '000000',
-			'bcbcbc','999999',
-			'6a6a6a',
-		    'ffaaaa', 'c7004c',
-		    'fa4659', 'ff0592',
-		    'e1248f', 'f9fd50', 
-		    'fc8a15', 'fff6a2',
-		    'f9d00f', 'd39e00',
-		    '26baee', '9fe8fa',
-		    '303481', '226b80',
-		    '3d6cb9', '00bd56',
-		    '55968f', '8acbbb',
-		    '22805b', '26af13',
-		    '651893', '4d3664',
-		    '8f71ff', 'bab5f6',
-		    'a116ab'
-		];
-		
-		const fonts = [
-			'덕온공주체:국립한글박물관:DeogonPrincess',
-			'한컴 울주 반구대 암각화체:울주문화재단:HancomUljuBangudae',
-			'다이어리체:얼리폰트:EarlyFontDiary',
-			'혀니고딕:얼리폰트:EF_hyunygothic',
-			'쿠키런:데브시스터즈(주):CookieRun-Regular',
-			'정신차렷체:얼리폰트:EF_WAKEUP',
-			'MICE고딕:한국MICE협회X문화체육관광부:MICEGothic Bold',
-			'조선100년체:조선일보:ChosunCentennial',
-			'밀양영남루체:밀양시:MYYeongnamnu',
-			'읏찬체:OK홀딩스대부(주):OKCHAN',
-			'평창평화체:평창군:PyeongChangPeace-Bold',
-			'울산중구전용서체:울산광역시중구:ulsanjunggu',
-			'HBIOS-SYS:이민서:HBIOS-SYS',
-			'마비옛체:㈜넥슨코리아:MabinogiClassicR',
-			'길벗체 Rainbow:비온뒤무지개재단:GilbeotRainbow',
-			'교보손글씨 2020 박도연:교보문고:KyoboHandwriting2020A',
-			'상주경천섬체:상주시청X투게더그룹:SANGJUGyeongcheonIsland',
-			'KITA:한국무역협회:-KITA-Regular',
-			'레페리포인트 Oblique:레페리X윤디자인:LeferiPoint-WhiteObliqueA',
-			'HS산토끼체:토끼네활자공장:HS-Regular',
-			'강원교육튼튼체:강원도교육청X헤움디자인:GangwonEduPowerExtraBoldA',
-			'강원교육모두체:강원도교육청X헤움디자인:GangwonEdu_OTFBoldA',
-			'수트:SUNN YOUN:SUIT-Medium',
-			'충북대직지체:충북대학교:CBNUJIKJI'
-		]
-		
-		$(function() {
+			
 			var idx = 0;
 			var fontIdx = 0;
-			var cardInfo = JSON.parse(localStorage.getItem('Card'));
+			var Card = JSON.parse(localStorage.getItem('Card'));
 			var userInfo = JSON.parse(localStorage.getItem('user'));
 			
-			console.log(userInfo)
 			
 			if (userInfo.totalDonation >= 1000000) {
 				new_gradients = gradients
@@ -554,21 +260,18 @@
 				new_gradients = gradients.slice(0, 10)
 				new_fonts = fonts.slice(0, 8)
 			}
-			if (cardInfo.cardId!=null) {
-				if (cardInfo.isUniqueColor=="1") {
+			if (Card.cardId!=null) {
+				if (Card.isUniqueColor=="1") {
 					new_gradients.push('ff0000', '524e4e', '8bffff', '4ef037', 'a100ff')
 				}
 				
-				if (cardInfo.isUniqueFont=="1") {
+				if (Card.isUniqueFont=="1") {
 					new_fonts.push('한림고딕체:한림대학교의료원:HallymGothic-Regular',
 							'추사 사랑체:예산군:ChusaLove',
 							'카페24 써라운드:카페24:Cafe24Ssurround',
 							'원스토어 모바일POP체:(주)원스토어:ONE-Mobile-POP')
 				}				
 			}
-			
-			console.log(new_gradients)
-			console.log(new_fonts)
 			
 			idx = showBackgroundAfter(idx);
 			
@@ -625,6 +328,293 @@
 				changeFonts(fontIdx)
 			})
 		})
+		
+		function checkCard(userInfo) {
+			/* 카드 조회 */
+			$.ajax({
+				type: 'get',
+				url: '../getCard.do',
+				data: {
+					'userId': userInfo.userId
+				},
+				success: function(res) {
+					console.log(res)
+					if(res.message=='no') {
+						swal({
+							title: "발급 완료!",
+							text: "이미 발급한 이력이 존재합니다. 자세한 사항은 고객센터에 문의하십시오.",
+							icon: "info",
+							buttons: true,
+						})
+						.then((val) => {
+							location.href = "../Main/Main.jsp"
+						})
+					} else {
+						if (res.card!=null) {
+							Card = res.card
+							localStorage.setItem('Card', JSON.stringify(Card))
+							var today = new Date();
+							console.log(Card)
+							$('.card--front').css('background-color', '#'+Card.bgFront);
+							$('.card--back').css('background-color', '#'+Card.bgBack);
+							$('.card__content').text(Card.cardContent);
+							
+							if (Card.emoId!=0) {
+								$('#draggable3').empty();
+								$('#draggable3').append('<img src=img/'+Card.emoId+'.png class=emo style="width: 150px; height: 157px;">');
+								$('#draggable3').css('left', Card.emoInfoLeft).css('top', Card.emoInfoTop);
+							}
+							$('.emo').css('background-color', '#'+Card.bgFront);
+							$('.card__number').text(Card.cardId.substr(0, 4)+' '+Card.cardId.substr(4, 4)+' '+Card.cardId.substr(8, 4)+' '+Card.cardId.substr(12, 4));
+							$('.card__ccv').text(Card.cvc);
+							if (String(today.getMonth()).length==1) {
+								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/0"+today.getMonth());
+							} else {
+								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/"+today.getMonth());								
+							}
+							$('.front .card__content').css("font-family", Card.fontFront).css('color', Card.fontColorFront);
+							$('.back .card__ccv').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
+							$('.back .card__owner').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
+							$('.back .card__expiry-date').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
+							$('.back .card__number').css("font-family", Card.fontBack).css('color', Card.fontColorBack);
+						} else {
+							var today = new Date();
+							if (String(today.getMonth()).length==1) {
+								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/0"+today.getMonth());
+							} else {
+								$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/"+today.getMonth());								
+							}
+							$('.card__ccv').text("000").css('color', 'white');
+							$('.card__number').text("0000 0000 0000 0000");
+							data = {}
+							data.cardId = 'null';
+							localStorage.setItem('Card', JSON.stringify(data))
+						}
+						
+						$('.card__owner').text(userInfo.userEngName)
+						
+					}
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		}
+		
+		
+		function changeFrontCard() {
+			$('#front').removeClass('card--front_small');
+			$('#front').addClass('card--front');
+			$('#back').removeClass('card--back_big');
+			$('#back').addClass('card--back');
+			$('.card-change-margin').css('margin-top', '0px');
+			$('#change-front').removeClass('front-card').removeClass('back-card')
+			$('#change-front').addClass('front-card')
+			$('#change-back').removeClass('front-card').removeClass('back-card')
+			$('#change-back').addClass('back-card')
+			$('.card__number').css('font-size', '25px')
+			console.log($('#draggable3').css('top'))			
+			if (isFront == false) {
+				$('.emo').css('width', '150px').css('height', '185px')
+				left_position = parseInt($('#draggable3').css('left')) * 1.18
+				top_position = parseInt($('#draggable3').css('top')) * 1.21
+				$('#draggable3').css('left', left_position + 'px').css('top', top_position + 'px');	
+			}
+			isFront = true;
+			if(frontFontColor=='black') {
+				$('.font__color-white').removeClass('font__color-selected')
+				$('.font__color-black').addClass('font__color-selected')
+			} else {
+				$('.font__color-black').removeClass('font__color-selected')
+				$('.font__color-white').addClass('font__color-selected')
+			}
+		}
+		
+		function changeBackCard() {
+			$('#front').removeClass('card--front');
+			$('#front').addClass('card--front_small');
+			$('#back').removeClass('card--back');
+			$('#back').addClass('card--back_big');
+			$('.card-change-margin').css('margin-top', '1.2rem');
+			$('#change-front').removeClass('front-card').removeClass('back-card')
+			$('#change-front').addClass('back-card')
+			$('#change-back').removeClass('front-card').removeClass('back-card')
+			$('#change-back').addClass('front-card')
+			$('.card__number').css('font-size', '30px')
+			if (isFront == true) {
+				$('.emo').css('width', '130px').css('height', '157px')
+				left_position = parseInt($('#draggable3').css('left')) * 0.82
+				top_position = parseInt($('#draggable3').css('top')) * 0.68
+				$('#draggable3').css('left', left_position + 'px').css('top', top_position + 'px');	
+			}
+			isFront = false;
+			if(backFontColor=='black') {
+				$('.font__color-white').removeClass('font__color-selected')
+				$('.font__color-black').addClass('font__color-selected')
+			} else {
+				$('.font__color-black').removeClass('font__color-selected')
+				$('.font__color-white').addClass('font__color-selected')
+			}
+		}
+		
+		function changeFontColorBlack() {
+			if (isFront == true) {
+				$('.front .card__content').css("color", "black");
+				frontFontColor = 'black'
+			} else {
+				$('.back .card__ccv').css("color", "black");
+				$('.back .card__owner').css("color", "black");
+				$('.back .card__expiry-date').css("color", "black");
+				$('.back .card__number').css("color", "black");
+				backFontColor = 'black'
+			}
+			$('.font__color-white').removeClass('font__color-selected')
+			$('.font__color-black').addClass('font__color-selected')
+		}
+		
+		function changeFontColorWhite() {
+			if (isFront == true) {
+				$('.front .card__content').css("color", "white");
+				frontFontColor = 'white'
+			} else {
+				$('.back .card__ccv').css("color", "white");
+				$('.back .card__owner').css("color", "white");
+				$('.back .card__expiry-date').css("color", "white");
+				$('.back .card__number').css("color", "white");
+				backFontColor = 'white'
+			}
+			$('.font__color-black').removeClass('font__color-selected')
+			$('.font__color-white').addClass('font__color-selected')
+		}
+		
+		
+		function saveCard(userInfo) {
+			var emoInfoTop = ""
+				var emoInfoLeft = ""
+				if (isFront == true) {
+					emoInfoTop = Math.round(parseInt($('#draggable3').css('top'))*100 / 100)
+					emoInfoLeft = Math.round(parseInt($('#draggable3').css('left'))*100 / 100)
+				} else {
+					emoInfoTop = Math.round((parseInt($('#draggable3').css('top')) * 0.68)*100 / 100)
+					emoInfoLeft = Math.round((parseInt($('#draggable3').css('left')) * 0.82)*100 / 100)
+				}
+				$.ajax({
+					type: 'post',
+					url: '../saveCard.do',
+					data: {
+						'userId': userInfo.userId,
+						'bgFront': frontBackgroundColor,
+						'bgBack': backBackgroundColor,
+						'emoId': emo,
+						'emoInfoTop': emoInfoTop,
+						'emoInfoLeft': emoInfoLeft,
+						'fontFront': frontFont,
+						'fontBack': backFont,
+						'fontColorFront': frontFontColor,
+						'fontColorBack': backFontColor,
+						'cardContent': card_content
+					},
+					success: function(res) {
+						if (res.message=='yes') {
+							swal({
+								title: "Good job!",
+								text: "성공적으로 카드를 저장했습니다.",
+								icon: "success",
+								button: "확인!",
+							})							
+						} else {
+							location.href = "../Error/Error.jsp"
+						}
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				
+				})
+		}
+		
+		function issueCard(userInfo) {
+			var emoInfoTop = ""
+				var emoInfoLeft = ""
+				if (isFront == true) {
+					emoInfoTop = Math.round(parseInt($('#draggable3').css('top'))*100 / 100)
+					emoInfoLeft = Math.round(parseInt($('#draggable3').css('left'))*100 / 100)
+				} else {
+					emoInfoTop = Math.round((parseInt($('#draggable3').css('top')) * 0.68)*100 / 100)
+					emoInfoLeft = Math.round((parseInt($('#draggable3').css('left')) * 0.82)*100 / 100)
+				}
+				$.ajax({
+					type: 'post',
+					url: '../saveCard.do',
+					data: {
+						'userId': userInfo.userId,
+						'bgFront': frontBackgroundColor,
+						'bgBack': backBackgroundColor,
+						'emoId': emo,
+						'emoInfoTop': emoInfoTop,
+						'emoInfoLeft': emoInfoLeft,
+						'fontFront': frontFont,
+						'fontBack': backFont,
+						'fontColorFront': frontFontColor,
+						'fontColorBack': backFontColor,
+						'cardContent': card_content,
+					},
+					success: function(res) {
+						console.log(res)
+						$.ajax({
+							type: 'put',
+							url: '../issueCard.do',
+							data: {
+								'userId': userInfo.userId,
+							},
+							success: function(res) {
+								if (res.message=='yes') {
+									swal({
+										title: "카드 발급 성공!",
+										text: "2주 안에 자택으로 카드 배송이 완료될 것입니다.",
+										icon: "success",
+										button: "확인!",
+									})									
+								} else {
+									location.href = "../Error/Error.jsp"
+								}
+							},
+							error: function(err) {
+								console.log(err)
+							}
+						})
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				
+				})
+		}
+		
+		function resetCard() {
+			var today = new Date();
+			if (String(today.getMonth()).length==1) {
+				$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/0"+today.getMonth());
+			} else {
+				$('.card__expiry-date').text(String(today.getFullYear()+2).substr(2,2)+"/"+today.getMonth());								
+			}
+			$('.card__ccv').text("000").css('color', 'white');
+			data = {}
+			data.cardId = 'null';
+			localStorage.setItem('Card', JSON.stringify(data))
+			$('.card--front').css('background-color', '#ffffff');
+			$('.card--back').css('background-color', '#ffffff');
+			$('.front .card__content').text("");
+			$('.front .card__content').css("font-family", "none").css('color', '#ffffff');
+			
+			$('#draggable3').empty();
+			$('.card__number').text("0000 0000 0000 0000");
+			$('.card__ccv').text("000");
+			$('.back .card__ccv').css("font-family", "none").css('color', Card.fontColorBack);
+			$('.back .card__owner').css("font-family", "none").css('color', Card.fontColorBack);
+			$('.back .card__expiry-date').css("font-family", "none").css('color', Card.fontColorBack);
+		}
+		
 		
 		const showBackgroundBefore = function(idx) {
 			$('#backGroundColorList').empty()

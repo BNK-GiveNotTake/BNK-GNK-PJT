@@ -29,6 +29,10 @@
 			$('.goToSignup').click(function() {
 				location.href="../Main/SignUp.jsp"
 			})
+			
+			$('#logIn').click(function() {
+				Login()
+			})
 
 		})
 		
@@ -44,61 +48,55 @@
 			$('body').css("overflow", "initial");
 		};
 		
-		$(function() {
-			$('#logIn').click(function() {
-				console.log({
+		function Login() {
+			$.ajax({
+				type: 'post',
+				url: '../login.do',
+				data: {
 					'userEmail': $('#logIn_email').val(),
 					'userPassword': $('#logIn_password').val()
-				})
-				$.ajax({
-					type: 'post',
-					url: '../login.do',
-					data: {
-						'userEmail': $('#logIn_email').val(),
-						'userPassword': $('#logIn_password').val()
-					},
-					// 응답 부분
-					success: function(res) {
-						console.log(res)
-						if(res.message== 'yes') {
-							var userInfo = new Object();
-							$.each(res.userinfo, function(index, item) {
-								if (item===null) {
-									
-								} else {
-									userInfo[index] = item;
-								}
-							})
-							localStorage.setItem('user', JSON.stringify(userInfo));
-							swal({
-								title: "로그인 성공!",
-								text: "로그인에 성공하셨습니다.!",
-								icon: "success",
-								button: "확인!",
-							})
-							.then((value) => {
-								location.href = "Main.jsp";	
-							})
-							
-						} else if (res.message=="no") {
-							swal({
-								title: "로그인 실패!",
-								text: "로그인에 실패하셨습니다.!",
-								icon: "warning",
-								button: "확인!",
-							});
-						} else {
-							location.href="../Error/Error.jsp"
-						}
+				},
+				// 응답 부분
+				success: function(res) {
+					console.log(res)
+					if(res.message== 'yes') {
+						var userInfo = new Object();
+						$.each(res.userinfo, function(index, item) {
+							if (item===null) {
+								
+							} else {
+								userInfo[index] = item;
+							}
+						})
+						localStorage.setItem('user', JSON.stringify(userInfo));
+						swal({
+							title: "로그인 성공!",
+							text: "로그인에 성공하셨습니다.!",
+							icon: "success",
+							button: "확인!",
+						})
+						.then((value) => {
+							location.href = "Main.jsp";	
+						})
 						
-					},
-					error: function(err) {
-						console.log(err)
+					} else if (res.message=="no") {
+						swal({
+							title: "로그인 실패!",
+							text: "로그인에 실패하셨습니다.!",
+							icon: "warning",
+							button: "확인!",
+						});
+					} else {
+						location.href="../Error/Error.jsp"
 					}
-				})
+					
+				},
+				error: function(err) {
+					console.log(err)
+				}
 			})
-			
-		})
+		}
+		
 	</script>
 	</head>
 	<body>

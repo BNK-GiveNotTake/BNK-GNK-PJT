@@ -66,23 +66,6 @@
 				
 			})
 			
-			/* 
-			linear-gradient(45deg, #dc2070, #df75a5, #d7b5c4)
-			box-shadow: inset 0 0 10px rgb(204 0 0 / 50%)
-			
-			linear-gradient(45deg, #ffc200, #ffe07d, #ece7c6);
-			box-shadow: inset 0 0 10px rgb(204 152 0 / 50%);
-			
-			linear-gradient(45deg, #8cdf6b, #b3e59f, #deefd8)
-			box-shadow: inset 0 0 10px rgb(60 204 0 / 50%);
-			
-			linear-gradient(45deg, #52beef, #90d8f9, #c9e4f1)
-			box-shadow: inset 0 0 10px rgb(43 106 212 / 50%);
-			
-			linear-gradient(45deg, #6c6c6c, #c1c1c1, #ececec)
-			box-shadow: inset 0 0 10px rgb(65 71 80 / 50%);
-			*/
-			
 			function moveIcon() {
 				gameInfo = JSON.parse(localStorage.getItem('gameInfo'))
 				userInfo = JSON.parse(localStorage.getItem('user'))

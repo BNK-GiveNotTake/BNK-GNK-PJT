@@ -65,10 +65,6 @@
 							button: true,
 						})
 					} else {
-						console.log({
-							'userId': userInfo.userId,
-							'userAnswer': result,
-						})
 						$.ajax({
 							type: 'get',
 							url: '../submitAnswer.do',

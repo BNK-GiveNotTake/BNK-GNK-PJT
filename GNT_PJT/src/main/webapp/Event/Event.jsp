@@ -25,100 +25,110 @@
 				$('.event-card').click(function() {
 					var userInfo = JSON.parse(localStorage.getItem('user'));
 					if ($(this).attr('value') == '1') {
-						$.ajax({
-							type: 'get',
-							url: '../checkQuizPlayed.do',
-							data: {
-								'userId': userInfo.userId,
-							},
-							success: function(res) {
-								if(res.message=='yes') {
-									location.href = 'Quiz.jsp'
-								} else {
-									swal({
-										title: "퀴즈 불가!",
-										text: "내일 다시 만나요!",
-										icon: "info",
-										button: true,
-									})
-								}
-							},
-							error: function(err) {
-								console.log(err)
-							}
-						})
-						
+						checkQuiz(userInfo)
 					} else if ($(this).attr('value') == '2') {
-						$.ajax({
-							type: 'get',
-							url: '../checkRoulettePlayed.do',
-							data: {
-								'userId': userInfo.userId,
-							},
-							success: function(res) {
-								if(res.message=='yes') {
-									location.href = 'Roulette.jsp'
-								} else {
-									swal({
-										title: "추첨 불가!",
-										text: "내일 다시 만나요!",
-										icon: "info",
-										button: true,
-									})
-								}
-							},
-							error: function(err) {
-								console.log(err)
-							}
-						})
-						
+						checkRoulette(userInfo)
 					} else {
-						$.ajax({
-							type: 'post',
-							url: '../checkGamePlayed.do',
-							data: {
-								'userId': userInfo.userId,
-							},
-							success: function(res) {
-								var cardInfo = JSON.parse(localStorage.getItem('Card'));
-								if (cardInfo==null) {
-									swal({
-										title: "카드 준비!",
-										text: "게임을 시작하기 전에 카드 저장을 먼저 해주세요!",
-										icon: "info",
-										button: true,
-									})
-								} else {
-									if (res.message=='yes') {
-										console.log(res)
-										localStorage.setItem('gameInfo', JSON.stringify(res.game))
-										location.href = 'Game.jsp'
-									} else if (res.message=='no') {
-										swal({
-											title: "게임 불가!",
-											text: "내일 다시 만나요!",
-											icon: "info",
-											button: true,
-										})
-									} else if (res.message=='end') {
-										swal({
-											title: "게임 정복!",
-											text: "게임의 결말을 보고온자 돌아가라!",
-											icon: "info",
-											button: true,
-										})
-									}
-								}
-								
-							},
-							error: function(err) {
-								console.log(err)
-							}
-						})
+						checkGame(userInfo)
 					}
 				})
 				
 			})
+			
+			function checkQuiz(userInfo) {
+				$.ajax({
+					type: 'get',
+					url: '../checkQuizPlayed.do',
+					data: {
+						'userId': userInfo.userId,
+					},
+					success: function(res) {
+						if(res.message=='yes') {
+							location.href = 'Quiz.jsp'
+						} else {
+							swal({
+								title: "퀴즈 불가!",
+								text: "내일 다시 만나요!",
+								icon: "info",
+								button: true,
+							})
+						}
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				})
+			}
+			
+			function checkRoulette(userInfo) {
+				$.ajax({
+					type: 'get',
+					url: '../checkRoulettePlayed.do',
+					data: {
+						'userId': userInfo.userId,
+					},
+					success: function(res) {
+						if(res.message=='yes') {
+							location.href = 'Roulette.jsp'
+						} else {
+							swal({
+								title: "추첨 불가!",
+								text: "내일 다시 만나요!",
+								icon: "info",
+								button: true,
+							})
+						}
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				})
+			}
+			
+			function checkGame(userInfo) {
+				$.ajax({
+					type: 'post',
+					url: '../checkGamePlayed.do',
+					data: {
+						'userId': userInfo.userId,
+					},
+					success: function(res) {
+						var cardInfo = JSON.parse(localStorage.getItem('Card'));
+						if (cardInfo==null) {
+							swal({
+								title: "카드 준비!",
+								text: "게임을 시작하기 전에 카드 저장을 먼저 해주세요!",
+								icon: "info",
+								button: true,
+							})
+						} else {
+							if (res.message=='yes') {
+								console.log(res)
+								localStorage.setItem('gameInfo', JSON.stringify(res.game))
+								location.href = 'Game.jsp'
+							} else if (res.message=='no') {
+								swal({
+									title: "게임 불가!",
+									text: "내일 다시 만나요!",
+									icon: "info",
+									button: true,
+								})
+							} else if (res.message=='end') {
+								swal({
+									title: "게임 정복!",
+									text: "게임의 결말을 보고온자 돌아가라!",
+									icon: "info",
+									button: true,
+								})
+							}
+						}
+						
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				})
+			}
 		</script>
 	</head>
 	
