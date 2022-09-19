@@ -25,51 +25,7 @@
 				
 				$('.start-roulette').click(function() {
 					var userInfo = JSON.parse(localStorage.getItem('user'));
-					$.ajax({
-						type: 'get',
-						url: '../getRouletteWinner.do',
-						data: {
-							'userId': userInfo.userId,
-						},
-						success: function(res) {
-							var randomNo = Math.random() * 4
-							randomNo = Math.round(randomNo)
-							if (res.message=='yes') {
-								evenList = [0, 2, 4, 6, 8]
-								$('#roulette').removeAttr('class').addClass("number-"+evenList[randomNo])
-								setTimeout(() => {
-									swal({
-										title: "당첨!!",
-										text: "당첨입니다! 이벤트 상품은 뭘까요?",
-										icon: "success",
-										button: true,
-									})
-									.then((val) => {
-										location.href="../Event/Event.jsp"
-									})	
-								}, 2500);
-								
-							} else {
-								oddList = [1, 3, 5, 7, 9]
-								$('#roulette').removeAttr('class').addClass("number-"+oddList[randomNo])
-								setTimeout(() => {
-									swal({
-										title: "아쉬워요!",
-										text: "아쉽게도 선택받지 못했습니다. 내일 다시 도전해주세요!",
-										icon: "error",
-										button: true,
-									})
-									.then((val) => {
-										location.href="../Event/Event.jsp"
-									})	
-								}, 2500);
-								
-							}
-						},
-						error: function(err) {
-							console.log(err)	
-						}
-					})
+					startRoulette(userInfo)
 				})
 				
 				$('.num').click(function() {
@@ -83,6 +39,54 @@
 			})
 			
 			
+			
+			function startRoulette(userInfo) {
+				$.ajax({
+					type: 'get',
+					url: '../getRouletteWinner.do',
+					data: {
+						'userId': userInfo.userId,
+					},
+					success: function(res) {
+						var randomNo = Math.random() * 4
+						randomNo = Math.round(randomNo)
+						if (res.message=='yes') {
+							evenList = [0, 2, 4, 6, 8]
+							$('#roulette').removeAttr('class').addClass("number-"+evenList[randomNo])
+							setTimeout(() => {
+								swal({
+									title: "당첨!!",
+									text: "당첨입니다! 이벤트 상품은 뭘까요?",
+									icon: "success",
+									button: true,
+								})
+								.then((val) => {
+									location.href="../Event/Event.jsp"
+								})	
+							}, 2500);
+							
+						} else {
+							oddList = [1, 3, 5, 7, 9]
+							$('#roulette').removeAttr('class').addClass("number-"+oddList[randomNo])
+							setTimeout(() => {
+								swal({
+									title: "아쉬워요!",
+									text: "아쉽게도 선택받지 못했습니다. 내일 다시 도전해주세요!",
+									icon: "error",
+									button: true,
+								})
+								.then((val) => {
+									location.href="../Event/Event.jsp"
+								})	
+							}, 2500);
+							
+						}
+					},
+					error: function(err) {
+						console.log(err)	
+					}
+				})
+			}
 
 		</script>
 	</head>

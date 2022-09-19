@@ -29,6 +29,21 @@
 			$('.goToLogin').click(function() {
 				location.href="../Main/LogIn.jsp"
 			})
+			
+			var email_valid = false;
+			var name_valid = false;
+			var password_valid = false;
+			var passwordConfirm_valid = false;
+			var is_duplicate = false;
+			
+			$('.checkDuplicateEmail').click(function() {
+				checkDuplicateEmail()
+			})
+			
+			/* 회원가입 */
+			$('#signUp').click(function() {
+				SignUp()
+			})
 		})
 		
 		function openModalout() {
@@ -43,15 +58,132 @@
 			$('body').css("overflow", "initial");
 		};
 		
+		function checkDuplicateEmail() {
+			var userEmail = $('#signUp_email').val() 
+			$.ajax({
+				type: 'get',
+				url: '../validateEmail.do',
+				data: {
+					'userEmail': userEmail
+				},
+				success: function(res) {
+					if (email_valid==true) {
+						if(res.message=='no') {
+							swal({
+								title: "아이디 중복",
+								text: "이미 존재하는 아이디입니다.",
+								icon: "warning",
+								button: "확인",
+							})
+						} else {
+							swal({
+								title: "아이디 사용 가능",
+								text: "사용 가능한 아이디입니다.!!",
+								icon: "success",
+								button: "확인",
+							})
+							is_duplicate = true;
+							$('.checkDuplicateEmail').css("display", "none");
+						}
+					} else {
+						alert('이메일 양식을 올바르게 기입하시오.')
+					}
+					
+				},
+				error: function(err) {
+					console.log(err)
+				}
+			})
+		}
+		
+		function SignUp() {
+			if(!email_valid) {
+				console.log('이메일이 올바르지 않습니다.')
+			} else if (!name_valid) {
+				console.log('이름이 올바르지 않습니다.')
+			} else if (!password_valid) {
+				console.log('비밀번호가 올바르지 않습니다.')
+			} else if (!passwordConfirm_valid) {
+				console.log('비밀번호가 일치하지 않습니다.')
+			} else if (!is_duplicate) {
+				console.log('중복검사가 완료되지 않았습니다.')
+			} else {
+				$.ajax({
+					type: 'post',
+					url: '../registerUser.do',
+					data: {
+						'userEmail': $('#signUp_email').val(),
+						'userName': $('#signUp_nickname').val(),
+						'userPassword': $('#signUp_password').val()
+					},
+					// 응답 부분
+					success: function(res) {
+						console.log(res)
+						if(res.message== 'yes') {
+							$.ajax({
+								type: 'post',
+								url: '../login.do',
+								data: {
+									'userEmail': $('#signUp_email').val(),
+									'userPassword': $('#signUp_password').val()
+								},
+								success: function(res) {
+									console.log(res)
+									if(res.message== 'yes') {
+										var userInfo = new Object();
+										$.each(res.userinfo, function(index, item) {
+											if (item===null) {
+												
+											} else {
+												userInfo[index] = item;
+											}
+										})
+										localStorage.setItem('user', JSON.stringify(userInfo));
+										swal({
+											title: "회원가입 성공!",
+											text: "회원가입에 성공하셨습니다.!",
+											icon: "success",
+											button: "확인!",
+										})
+										.then((value) => {
+											location.href = "Main.jsp";	
+										})
+									} else if (res.message=='no') {
+										swal({
+											title: "회원가입 실패!",
+											text: "회원가입에 실패하셨습니다.!",
+											icon: "warning",
+											button: "확인!",
+										});
+									} else {
+										location.href = "../Error/Error.jsp"
+									}
+								},
+								error: function(err) {
+									console.log(err)
+								}
+							})
+						
+						} else if (res.message=="no") {
+							swal({
+								title: "회원가입 실패!",
+								text: "회원가입에 실패하셨습니다.!",
+								icon: "warning",
+								button: "확인!",
+							});
+						} else {
+							location.href = "../Error/Error.jsp"
+						}
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				})
+			}
+		}
+		
+		/* 키업 관련 함수들 모음 */
 		$(function() {
-			
-			var email_valid = false;
-			var name_valid = false;
-			var password_valid = false;
-			var passwordConfirm_valid = false;
-			var is_duplicate = false;
-			
-			
 			$('#signUp_email').keyup(function() {
 				var emailValid = $(this).val()
 				var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -113,131 +245,7 @@
 				}
 			})
 			
-			$('.checkDuplicateEmail').click(function() {
-				var userEmail = $('#signUp_email').val() 
-				$.ajax({
-					type: 'get',
-					url: '../validateEmail.do',
-					data: {
-						'userEmail': userEmail
-					},
-					success: function(res) {
-						if (email_valid==true) {
-							if(res.message=='no') {
-								swal({
-									title: "아이디 중복",
-									text: "이미 존재하는 아이디입니다.",
-									icon: "warning",
-									button: "확인",
-								})
-							} else {
-								swal({
-									title: "아이디 사용 가능",
-									text: "사용 가능한 아이디입니다.!!",
-									icon: "success",
-									button: "확인",
-								})
-								is_duplicate = true;
-								$('.checkDuplicateEmail').css("display", "none");
-							}
-						} else {
-							alert('이메일 양식을 올바르게 기입하시오.')
-						}
-						
-					},
-					error: function(err) {
-						console.log(err)
-					}
-				})
-			})
 			
-			/* 회원가입 */
-			$('#signUp').click(function() {
-				if(!email_valid) {
-					console.log('이메일이 올바르지 않습니다.')
-				} else if (!name_valid) {
-					console.log('이름이 올바르지 않습니다.')
-				} else if (!password_valid) {
-					console.log('비밀번호가 올바르지 않습니다.')
-				} else if (!passwordConfirm_valid) {
-					console.log('비밀번호가 일치하지 않습니다.')
-				} else if (!is_duplicate) {
-					console.log('중복검사가 완료되지 않았습니다.')
-				} else {
-					$.ajax({
-						type: 'post',
-						url: '../registerUser.do',
-						data: {
-							'userEmail': $('#signUp_email').val(),
-							'userName': $('#signUp_nickname').val(),
-							'userPassword': $('#signUp_password').val()
-						},
-						// 응답 부분
-						success: function(res) {
-							console.log(res)
-							if(res.message== 'yes') {
-								$.ajax({
-									type: 'post',
-									url: '../login.do',
-									data: {
-										'userEmail': $('#signUp_email').val(),
-										'userPassword': $('#signUp_password').val()
-									},
-									success: function(res) {
-										console.log(res)
-										if(res.message== 'yes') {
-											var userInfo = new Object();
-											$.each(res.userinfo, function(index, item) {
-												if (item===null) {
-													
-												} else {
-													userInfo[index] = item;
-												}
-											})
-											localStorage.setItem('user', JSON.stringify(userInfo));
-											swal({
-												title: "회원가입 성공!",
-												text: "회원가입에 성공하셨습니다.!",
-												icon: "success",
-												button: "확인!",
-											})
-											.then((value) => {
-												location.href = "Main.jsp";	
-											})
-										} else if (res.message=='no') {
-											swal({
-												title: "회원가입 실패!",
-												text: "회원가입에 실패하셨습니다.!",
-												icon: "warning",
-												button: "확인!",
-											});
-										} else {
-											location.href = "../Error/Error.jsp"
-										}
-									},
-									error: function(err) {
-										console.log(err)
-									}
-								})
-							
-							} else if (res.message=="no") {
-								swal({
-									title: "회원가입 실패!",
-									text: "회원가입에 실패하셨습니다.!",
-									icon: "warning",
-									button: "확인!",
-								});
-							} else {
-								location.href = "../Error/Error.jsp"
-							}
-						},
-						error: function(err) {
-							console.log(err)
-						}
-					})
-				}
-				
-			})
 		})
 	</script>
 	</head>

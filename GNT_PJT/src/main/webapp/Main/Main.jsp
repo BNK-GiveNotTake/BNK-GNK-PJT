@@ -20,9 +20,70 @@
 			$('#main').addClass('loaded');
 		});
 		
+		var passNum = "";
+		var passIdx = 0;
+		
 		$(function() {
 			var account = JSON.parse(localStorage.getItem('account'));
 			var userInfo = JSON.parse(localStorage.getItem('user'));
+			
+			
+			if (localStorage.getItem('user')) {
+				var userInfo = JSON.parse(localStorage.getItem('user'));
+				checkAccount(userInfo.userId);
+			}
+			
+			
+			if (JSON.parse(localStorage.getItem('account'))==null) {
+				$('#account-btn').attr("data-toggle", "modal").attr("data-target", "#exampleModal")
+			} else {
+				$('#account-btn').text('계좌 관리')
+				$('#main-modal>h1').text('계좌 관리')
+				$('.create-account').text('계좌 수정하기')
+				$('#account-btn').click(function() {
+					checkAccPass()
+				})
+			}
+			
+			
+			changeMainUserInfo(userInfo)
+			changeMainAccInfo(account)
+			
+			
+			$('.item .inner').click(function() {
+				var amount = $(this).attr('value');
+				buyMileage(amount)
+			})
+			
+			
+			$(document).keydown(function(event) {
+			    if ( event.keyCode == 27 || event.which == 27 ) {
+			    	$('.modal').removeClass('show')
+			    	$('.modal').css('display', 'none')
+			    	$('body').removeClass('modal-open')
+			    };
+			});
+			
+			
+			$('.x-mark').click(function() {
+				$('.modal').removeClass('show')
+		    	$('.modal').css('display', 'none')
+		    	$('.modal-backdrop').remove()
+		    	$('body').removeClass('modal-open')
+			})
+			
+			
+			$('#mileage-btn').click(function() {
+				createMileage()
+			})
+			
+			
+			$('.create-account').click(function() {
+				createAcc()
+			})
+		})
+		
+		function changeMainUserInfo(userInfo) {
 			if (userInfo==null) {
 				$('.small-text').text('환영합니다.')
 				$('.animated-text span').text('로그인 부탁드립니다.')
@@ -35,6 +96,9 @@
 				$('#exampleInputKoreaName').val(userInfo.userName);
 				$('.small-text-name').text(userInfo.userName);
 			}
+		}
+		
+		function changeMainAccInfo(account) {
 			if (account) {
 				console.log(account)
 				if (account.isMileage=='1') {
@@ -44,17 +108,16 @@
 				$('.mileage-shop').css('display', 'none')
 				$('.mileage-history').css('display', 'none')
 			}
-			
-			
-			$('.item .inner').click(function() {
-				var amount = $(this).attr('value');
-				swal({
-					title: "정말로 구매하시겠습니까?",
-					text: "한 번 구매하시면, 청약철회 불가능합니다.",
-					icon: "info",
-					buttons: true,
-				})
-				.then((value) => {
+		}
+		
+		function buyMileage(amount) {
+			swal({
+				title: "정말로 구매하시겠습니까?",
+				text: "한 번 구매하시면, 청약철회 불가능합니다.",
+				icon: "info",
+				buttons: true,
+			})
+			.then((value) => {
 					if (value==true) {
 						var userInfo = JSON.parse(localStorage.getItem('user'));
 						var account = JSON.parse(localStorage.getItem('account'));
@@ -75,7 +138,6 @@
 								},
 								success: function(res) {
 									if(res.message=='yes') {
-										console.log(res);
 										var accountInfo = new Object();
 										$.each(res.account, function(index, item) {
 											if (item===null) {
@@ -115,177 +177,142 @@
 						
 					}
 				})
-			})
-			
-			
-		})
+		}
 		
-		$(function() {
-			if (localStorage.getItem('user')) {
-				var userInfo = JSON.parse(localStorage.getItem('user'));
-				checkAccount(userInfo.userId);
-			}
-			
-			if (JSON.parse(localStorage.getItem('account'))==null) {
-				$('#account-btn').attr("data-toggle", "modal").attr("data-target", "#exampleModal")
-			} else {
-				$('#account-btn').text('계좌 관리')
-				$('#main-modal>h1').text('계좌 관리')
-				$('.create-account').text('계좌 수정하기')
-				$('#account-btn').click(function() {
+		function checkAccPass() {
+			swal({
+				title: "계좌 비밀번호",
+				content: "input",
+				icon: "info",
+				buttons: ["취소", "확인"]
+			})
+			.then((val) => {
+				if (val==null) {
+					console.log("취소")
+				} else if (val=="") {
 					swal({
 						title: "계좌 비밀번호",
-						content: "input",
-						icon: "info",
-						buttons: ["취소", "확인"]
-					})
-					.then((val) => {
-						if (val==null) {
-							console.log("취소")
-						} else if (val=="") {
-							swal({
-								title: "계좌 비밀번호",
-								text: "비밀번호를 입력하시길 바랍니다.",
-								icon: "warning",
-								button: "확인"
-							})
-						} else {
-							$.ajax({
-								type: 'post',
-								url: '../checkUserAccPassword.do',
-								data: {
-									'userId': userInfo.userId,
-									'accPassword': val
-								},
-								success: function(res) {
-									if (res.message=='yes') {
-										console.log("user_id / acc_pass를 보내줘서 확인하는 결과값 받은 걸로 체크")
-										$('.modal').addClass('show');
-										$('.modal').css('display', 'block');
-										$('body').append('<div class="modal-backdrop fade show"></div>');
-									} else {
-										swal({
-											title: "계좌 비밀번호",
-											text: "비밀번호가 틀렸습니다.",
-											icon: "warning",
-											button: "확인"
-										})
-									}
-								},
-								error: function(err) {
-									console.log(err)
-								}
-							})
-							
-						}
-					})
-				})
-			}
-			
-			
-			
-			$(document).keydown(function(event) {
-			    if ( event.keyCode == 27 || event.which == 27 ) {
-			    	$('.modal').removeClass('show')
-			    	$('.modal').css('display', 'none')
-			    	$('body').removeClass('modal-open')
-			    };
-			});
-			
-			$('.x-mark').click(function() {
-				$('.modal').removeClass('show')
-		    	$('.modal').css('display', 'none')
-		    	$('.modal-backdrop').remove()
-		    	$('body').removeClass('modal-open')
-			})
-			
-			$('#mileage-btn').click(function() {
-				swal({
-					title: "마일리지 생성",
-					text: "마일리지를 정말로 생성하시겠습니까?",
-					buttons: ["취소", "생성"],
-				})
-				.then((value) => {
-					var userInfo = JSON.parse(localStorage.getItem('user'))
-					if (value==true) {
-						$.ajax({
-							type: 'post',
-							url: '../createMileage.do',
-							data: {
-								'userId': userInfo.userId
-							},
-							success: function(res) {
-								if(res.message=='yes') {
-									swal({
-									  title: "Good job!",
-									  text: "성공적으로 마일리지를 생성했습니다.",
-									  icon: "success",
-									  button: "확인!",
-									})
-									.then((value) => {
-										location.href="../Main/Main.jsp";
-									})
-								} else {
-									location.href = "../Error/Error.jsp"
-								}
-							},
-							error: function(err) {
-								console.log(err);
-							}
-						})
-					}
-				})
-			})
-			
-			$('.create-account').click(function() {
-				var userInfo = JSON.parse(localStorage.getItem('user'))
-				var phone = $('#exampleInputPhone').val().slice(0,3) + $('#exampleInputPhone').val().slice(4,8) + $('#exampleInputPhone').val().slice(9, 13)
-				accData = {
-					'userId': userInfo.userId,
-					'accPassword': passNum,
-					'userNameEng': $('#exampleInputEnglishName').val(),
-					'address': $('#exampleInputAddress').val(),
-					'phone': phone
-				};
-				if (userInfo.userId=="" || passNum=="" || $('#exampleInputEnglishName').val()=="" || $('#exampleInputAddress').val()=="" || phone=="") {
-					swal({
-						title: "계좌 생성 실패",
-						text: "모든 항목을 기입한 이후 계좌 생성 버튼을 눌러주세요",
-						icons: "warning",
-						buttons: "확인",
+						text: "비밀번호를 입력하시길 바랍니다.",
+						icon: "warning",
+						button: "확인"
 					})
 				} else {
 					$.ajax({
 						type: 'post',
-						url: '../createAccount.do',
-						data: accData,
+						url: '../checkUserAccPassword.do',
+						data: {
+							'userId': userInfo.userId,
+							'accPassword': val
+						},
 						success: function(res) {
-							if(res.message=="yes") {
-								swal({
-									title: "계좌 생성",
-									text: "계좌를 성공적으로 생성했습니다.",
-									icons: "success",
-									buttons: "확인",
-								})
-								.then((value) => {
-									if(value==true) {
-										location.reload();
-									}
-									
-								})
+							if (res.message=='yes') {
+								console.log("user_id / acc_pass를 보내줘서 확인하는 결과값 받은 걸로 체크")
+								$('.modal').addClass('show');
+								$('.modal').css('display', 'block');
+								$('body').append('<div class="modal-backdrop fade show"></div>');
 							} else {
-								location.href = "../Error/Error.jsp"
+								swal({
+									title: "계좌 비밀번호",
+									text: "비밀번호가 틀렸습니다.",
+									icon: "warning",
+									button: "확인"
+								})
 							}
 						},
 						error: function(err) {
 							console.log(err)
 						}
 					})
+					
 				}
-				
 			})
-			
-		})
+		}
+		
+		function createMileage() {
+			swal({
+				title: "마일리지 생성",
+				text: "마일리지를 정말로 생성하시겠습니까?",
+				buttons: ["취소", "생성"],
+			})
+			.then((value) => {
+				var userInfo = JSON.parse(localStorage.getItem('user'))
+				if (value==true) {
+					$.ajax({
+						type: 'post',
+						url: '../createMileage.do',
+						data: {
+							'userId': userInfo.userId
+						},
+						success: function(res) {
+							if(res.message=='yes') {
+								swal({
+								  title: "Good job!",
+								  text: "성공적으로 마일리지를 생성했습니다.",
+								  icon: "success",
+								  button: "확인!",
+								})
+								.then((value) => {
+									location.href="../Main/Main.jsp";
+								})
+							} else {
+								location.href = "../Error/Error.jsp"
+							}
+						},
+						error: function(err) {
+							console.log(err);
+						}
+					})
+				}
+			})
+		}
+		
+		function createAcc() {
+			var userInfo = JSON.parse(localStorage.getItem('user'))
+			var phone = $('#exampleInputPhone').val().slice(0,3) + $('#exampleInputPhone').val().slice(4,8) + $('#exampleInputPhone').val().slice(9, 13)
+			accData = {
+				'userId': userInfo.userId,
+				'accPassword': passNum,
+				'userNameEng': $('#exampleInputEnglishName').val(),
+				'address': $('#exampleInputAddress').val(),
+				'phone': phone
+			};
+			if (userInfo.userId=="" || passNum=="" || $('#exampleInputEnglishName').val()=="" || $('#exampleInputAddress').val()=="" || phone=="") {
+				swal({
+					title: "계좌 생성 실패",
+					text: "모든 항목을 기입한 이후 계좌 생성 버튼을 눌러주세요",
+					icons: "warning",
+					buttons: "확인",
+				})
+			} else {
+				$.ajax({
+					type: 'post',
+					url: '../createAccount.do',
+					data: accData,
+					success: function(res) {
+						if(res.message=="yes") {
+							swal({
+								title: "계좌 생성",
+								text: "계좌를 성공적으로 생성했습니다.",
+								icons: "success",
+								buttons: "확인",
+							})
+							.then((value) => {
+								if(value==true) {
+									location.reload();
+								}
+								
+							})
+						} else {
+							location.href = "../Error/Error.jsp"
+						}
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				})
+			}
+		}
+		
 		
 		function checkAccount(userId) {
 			$.ajax({
@@ -430,8 +457,7 @@
 			})
 		}
 		
-		var passNum = "";
-		var passIdx = 0;
+		
 		
 		$(function() {
 			$('.pass-num').click(function() {
